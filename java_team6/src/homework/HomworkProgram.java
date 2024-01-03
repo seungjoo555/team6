@@ -137,7 +137,6 @@ public class HomworkProgram implements Program {
 
 		list.get(index).deleteMean(mean);
 		System.out.println("뜻 삭제 완료");
-		
 	}
 
 	private void insertMean() {

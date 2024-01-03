@@ -3,9 +3,9 @@ package homework;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
 @Data
 @AllArgsConstructor
 public class Word implements Serializable {
