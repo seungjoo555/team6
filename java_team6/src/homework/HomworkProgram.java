@@ -30,7 +30,7 @@ public class HomworkProgram implements Program {
 			try {
 				//메뉴 선택
 				menu = scan.nextInt();
-				//메뉼 실행
+				//메뉴 실행
 				runMenu(menu);
 			}catch(InputMismatchException e) {
 				System.out.println("잘못된 메뉴입니다.");
@@ -98,14 +98,7 @@ public class HomworkProgram implements Program {
 			break;
 		case 2:
 			//뜻수정
-			System.out.println("뜻수정");
-			System.out.println("뜻수정");
-			System.out.println("뜻수정");
-			System.out.println("뜻수정");
-			System.out.println("뜻수정");
-			System.out.println("뜻수정");
-			System.out.println("뜻수정");
-			System.out.println("뜻수정");
+			
 			break;
 		case 3:
 			//뜻삭제
@@ -139,6 +132,14 @@ public class HomworkProgram implements Program {
 		switch(menu) {
 		case 1:
 			//단어추가
+			System.out.println("단어 추가 : ");
+			String word1 = scan.next();
+			Word word = new Word(word1, null);
+			if(wm.insertStudent(word)) {
+				System.out.println("단어를 추가했습니다.");
+			}else {
+				System.out.println("이미 있는 단어입니다.");
+			}
 			break;
 		case 2:
 			//단어 수정
