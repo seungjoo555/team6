@@ -98,6 +98,14 @@ public class HomworkProgram implements Program {
 			break;
 		case 2:
 			//뜻수정
+			System.out.println("뜻수정");
+			System.out.println("뜻수정");
+			System.out.println("뜻수정");
+			System.out.println("뜻수정");
+			System.out.println("뜻수정");
+			System.out.println("뜻수정");
+			System.out.println("뜻수정");
+			System.out.println("뜻수정");
 			break;
 		case 3:
 			//뜻삭제
