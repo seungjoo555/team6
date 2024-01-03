@@ -13,6 +13,7 @@ import program.Program;
 
 public class HomworkProgram implements Program {
 
+	
 	private ArrayList<Word> list = new ArrayList<Word>();
 	private Scanner scan = new Scanner(System.in);
 	private final int EXIT = 4;
@@ -108,7 +109,7 @@ public class HomworkProgram implements Program {
 			break;
 		case 2:
 			//뜻수정
-			
+			System.out.println("뜻수정");
 			break;
 		case 3:
 			//뜻삭제
@@ -168,13 +169,15 @@ public class HomworkProgram implements Program {
 
 	private void wordMenu(int menu) {
 		switch(menu) {
+		
 		case 1:
 			//단어추가
 			insertWord();
-
 			break;
 		case 2:
 			//단어 수정
+			System.out.println("단어수정 ");
+			changeWord();
 			break;
 		case 3:
 			//단어 삭제
@@ -184,8 +187,23 @@ public class HomworkProgram implements Program {
 			break;
 		default:
 		}
+	
 	}
 
+	private void changeWord() {
+		System.out.print("수정할 단어 : ");
+		String word = scan.next();
+		list.contains(list);
+		System.out.println("단어 수정 : ");
+		String newWord = scan.next();
+		Word nw = new Word(newWord, null);
+		if(list.contains(word)) {
+			list.add(nw);
+			System.out.println("단어 수정");
+		}
+		System.out.println("없는단어");
+	
+	}
 	private void insertWord() {
 		System.out.print("단어 추가 : ");
 		String word = scan.next();
