@@ -9,13 +9,14 @@ public class WordManager {
 
 	private ArrayList<Word> list = new ArrayList<Word>();
 	
-	public boolean insertStudent(Word word) {
+	public boolean insertWord(Word word) {
 		if(list.contains(word)) {
 			return false;
 		}
 		list.add(word);
 		return true;
 	}
+	
 	
 	//학생 정보 출력
 	public void printAll() {

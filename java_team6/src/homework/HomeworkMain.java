@@ -20,8 +20,8 @@ public class HomeworkMain {
 	 * - 많이 조회한 단어를 확인하는 기능
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		HomworkProgram hp = new HomworkProgram();
+		hp.run();
 	}
 
 }
