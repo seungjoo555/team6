@@ -38,6 +38,10 @@ public class Word implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[" + word + " - " + ", 뜻=" + mean + "]";
+		return "[" + word + " - " + "뜻 = " + mean + "]";
+	}
+
+	public void setMean(String mean2) {
+		this.mean.add(mean2);
 	}
 }

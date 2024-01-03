@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -14,7 +13,7 @@ import program.Program;
 
 public class HomworkProgram implements Program {
 
-	private WordManager wm = new WordManager();
+	private ArrayList<Word> list = new ArrayList<Word>();
 	private Scanner scan = new Scanner(System.in);
 	private final int EXIT = 4;
 	
@@ -64,7 +63,7 @@ public class HomworkProgram implements Program {
 			break;
 		case 3:
 			//단어 조회
-			System.out.println("구현중");
+			System.out.println(list);
 			break;
 		case 4:
 			break;
@@ -78,7 +77,7 @@ public class HomworkProgram implements Program {
 		//반복
 		do {
 			//메뉴 출력
-			printMenu();
+			printMeanMenu();
 			try {
 				//메뉴 선택
 				menu = scan.nextInt();
@@ -91,10 +90,21 @@ public class HomworkProgram implements Program {
 		}while(menu != EXIT);
 	}
 
+	private void printMeanMenu() {
+		System.out.println("-------- 메뉴 --------");
+		System.out.println("1. 뜻 추가");
+		System.out.println("2. 뜻 수정");
+		System.out.println("3. 뜻 삭제");
+		System.out.println("4. 뒤로가기");
+		System.out.println("---------------------");
+		System.out.print("메뉴 선택 : ");
+	}
+
 	private void meanMenu(int menu) {
 		switch(menu) {
 		case 1:
 			//뜻추가
+			insertMean();
 			break;
 		case 2:
 			//뜻수정
@@ -110,12 +120,30 @@ public class HomworkProgram implements Program {
 		}
 	}
 
+	private void insertMean() {
+		System.out.print("뜻을 추가할 단어 : ");
+		String word = scan.next();
+		
+		Word wd = new Word(word, new ArrayList<String>());
+		//있는지 확인
+		int index = list.indexOf(wd);
+		if(index == -1) {
+			System.out.println("없는 단어 입니다.");
+			return;
+		}
+		System.out.print("추가할 뜻 : ");
+		String mean = scan.next();
+		//있으면 뜻추가
+		list.get(index).setMean(mean);
+		System.out.println("뜻 추가 완료");
+	}
+
 	private void wordM() {
 		int menu = 0;
 		//반복
 		do {
 			//메뉴 출력
-			printMenu();
+			printWordMenu();
 			try {
 				//메뉴 선택
 				menu = scan.nextInt();
@@ -128,18 +156,22 @@ public class HomworkProgram implements Program {
 		}while(menu != EXIT);
 	}
 
+	private void printWordMenu() {
+		System.out.println("-------- 메뉴 --------");
+		System.out.println("1. 단어 추가");
+		System.out.println("2. 단어 수정");
+		System.out.println("3. 단어 삭제");
+		System.out.println("4. 뒤로가기");
+		System.out.println("---------------------");
+		System.out.print("메뉴 선택 : ");
+	}
+
 	private void wordMenu(int menu) {
 		switch(menu) {
 		case 1:
 			//단어추가
-			System.out.println("단어 추가 : ");
-			String word1 = scan.next();
-			Word word = new Word(word1, null);
-			if(wm.insertStudent(word)) {
-				System.out.println("단어를 추가했습니다.");
-			}else {
-				System.out.println("이미 있는 단어입니다.");
-			}
+			insertWord();
+
 			break;
 		case 2:
 			//단어 수정
@@ -154,11 +186,25 @@ public class HomworkProgram implements Program {
 		}
 	}
 
+	private void insertWord() {
+		System.out.print("단어 추가 : ");
+		String word = scan.next();
+		//단어 객체 생성
+		Word wd = new Word(word, new ArrayList<String>());
+		//추가를 해서 성공하면 알림, 실패하면 실패 알림
+		if(!list.contains(wd)) {
+			list.add(wd);
+			System.out.println("단어를 추가 했습니다.");
+			return;
+		}
+		System.out.println("이미 등록된 단어입니다.");
+	}
+
 	@Override
 	public void save(String fileName) {
 		try (FileOutputStream fos = new FileOutputStream(fileName);
 				ObjectOutputStream oos = new ObjectOutputStream(fos)){
-				oos.writeObject(wm.getList());
+				oos.writeObject(list);
 				System.out.println("단어장 저장 완료");
 			} catch (IOException e) {
 				System.out.println("저장에 실패했습니다.");
@@ -169,7 +215,7 @@ public class HomworkProgram implements Program {
 	public void load(String fileName) {
 		try(FileInputStream fis = new FileInputStream(fileName);
 				ObjectInputStream ois = new ObjectInputStream(fis)) {
-			wm.setList((ArrayList<Word>)ois.readObject());
+			list = ((ArrayList<Word>)ois.readObject());
 			System.out.println("단어장을 불러왔습니다.");
 		} catch (Exception e) {
 			System.out.println("불러오기에 실패 했습니다.");
