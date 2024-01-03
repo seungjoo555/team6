@@ -44,4 +44,8 @@ public class Word implements Serializable {
 	public void setMean(String mean2) {
 		this.mean.add(mean2);
 	}
+	
+	public void deleteMean(String mean2) {
+		this.mean.remove(mean2);
+	}
 }

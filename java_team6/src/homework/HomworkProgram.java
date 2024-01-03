@@ -111,12 +111,33 @@ public class HomworkProgram implements Program {
 			break;
 		case 3:
 			//뜻삭제
+			deleteMean();
 			break;
 		case 4:
 			System.out.println("뒤로가기");
 			break;
 		default:
 		}
+	}
+
+	private void deleteMean() {
+		System.out.println("삭제할 단어 입력 : ");
+		String word = scan.next();
+		
+		Word wd = new Word(word, new ArrayList<String>());
+		
+		int index = list.indexOf(wd);
+		if(index == -1) {
+			System.out.println("없는 단어 입니다.");
+			return;
+		}
+		
+		System.out.println("삭제할 뜻 입력 : ");
+		String mean = scan.next();
+
+		list.get(index).deleteMean(mean);
+		System.out.println("뜻 삭제 완료");
+		
 	}
 
 	private void insertMean() {
