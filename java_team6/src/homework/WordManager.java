@@ -1,7 +1,6 @@
 package homework;
 
 import java.util.ArrayList;
-
 import lombok.Data;
 
 @Data
@@ -29,4 +28,5 @@ public class WordManager {
 		}
 		this.list = list;
 	}
+	
 }

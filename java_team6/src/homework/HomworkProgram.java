@@ -135,7 +135,6 @@ public class HomworkProgram implements Program {
 			return;
 		}
 		
-		
 		System.out.print("수정할 뜻 입력 : ");
 		String mean = scan.next();
 		list.get(index).deleteMean(mean);
@@ -144,13 +143,11 @@ public class HomworkProgram implements Program {
 		String newMean = scan.next();
 		list.get(index).setMean(newMean);
 		
-		System.out.println("단어를 수정 했습니다.");
-		
-		
-		
+		System.out.println("단어를 수정했습니다.");
 		
 	}
-
+	
+	
 	private void deleteMean() {
 		System.out.println("삭제할 단어 입력 : ");
 		String word = scan.next();
@@ -165,7 +162,7 @@ public class HomworkProgram implements Program {
 		
 		System.out.println("삭제할 뜻 입력 : ");
 		String mean = scan.next();
-
+		
 		list.get(index).deleteMean(mean);
 		System.out.println("뜻 삭제 완료");
 	}
@@ -225,7 +222,6 @@ public class HomworkProgram implements Program {
 			break;
 		case 2:
 			//단어 수정
-			System.out.println("단어수정 ");
 			changeWord();
 			break;
 		case 3:
@@ -243,16 +239,15 @@ public class HomworkProgram implements Program {
 	private void deleteWord() {
 		System.out.print("삭제할 단어 : ");
 		String word = scan.next();
-		//비교할 객체 생성
-		Word wd = new Word(word, new ArrayList<String>());
-		//위치 확인
+		
+		Word wd = new Word(word);
 		int index = list.indexOf(wd);
-		//없으면 종료
+		
 		if(index == -1) {
-			System.out.println("없는 단어 입니다.");
+			System.out.println("없는단어");
 			return;
 		}
-		//있으면 삭제
+
 		list.remove(index);
 	}
 
@@ -273,7 +268,6 @@ public class HomworkProgram implements Program {
 		System.out.println("단어를 수정 했습니다.");
 	}
 	
-
 	private void insertWord() {
 		System.out.print("단어 추가 : ");
 		String word = scan.next();
