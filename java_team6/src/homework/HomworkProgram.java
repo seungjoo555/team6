@@ -229,6 +229,7 @@ public class HomworkProgram implements Program {
 			break;
 		case 3:
 			//단어 삭제
+			deleteWord();
 			break;
 		case 4:
 			System.out.println("뒤로가기");
@@ -236,6 +237,22 @@ public class HomworkProgram implements Program {
 		default:
 		}
 	
+	}
+
+	private void deleteWord() {
+		System.out.println("삭제할 단어 : ");
+		String word = scan.next();
+		//비교할 객체 생성
+		Word wd = new Word(word, new ArrayList<String>());
+		//위치 확인
+		int index = list.indexOf(wd);
+		//없으면 종료
+		if(index == -1) {
+			System.out.println("없는 단어 입니다.");
+			return;
+		}
+		//있으면 삭제
+		list.remove(index);
 	}
 
 	private void changeWord() {
