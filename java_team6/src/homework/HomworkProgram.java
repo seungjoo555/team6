@@ -240,7 +240,7 @@ public class HomworkProgram implements Program {
 	}
 
 	private void deleteWord() {
-		System.out.println("삭제할 단어 : ");
+		System.out.print("삭제할 단어 : ");
 		String word = scan.next();
 		//비교할 객체 생성
 		Word wd = new Word(word, new ArrayList<String>());
