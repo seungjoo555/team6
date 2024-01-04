@@ -109,7 +109,7 @@ public class HomworkProgram implements Program {
 			break;
 		case 2:
 			//뜻수정
-			System.out.println("뜻수정");
+			changeMean();
 			break;
 		case 3:
 			//뜻삭제
@@ -120,6 +120,34 @@ public class HomworkProgram implements Program {
 			break;
 		default:
 		}
+	}
+
+	private void changeMean() {
+		System.out.print("단어 입력 : ");
+		String word = scan.next();
+		
+		Word wd = new Word(word, new ArrayList<String>());
+		
+		int index = list.indexOf(wd);
+		if(index == -1) {
+			System.out.println("없는 단어 입니다.");
+			return;
+		}
+		
+		
+		System.out.print("수정할 뜻 입력 : ");
+		String mean = scan.next();
+		list.get(index).deleteMean(mean);
+		
+		System.out.print(mean + "  수정할 뜻 : ");
+		String newMean = scan.next();
+		list.get(index).setMean(newMean);
+		
+		System.out.println("단어를 수정 했습니다.");
+		
+		
+		
+		
 	}
 
 	private void deleteMean() {
