@@ -162,10 +162,6 @@ public class HomworkProgram implements Program {
 		System.out.println("삭제할 뜻 입력 : ");
 		String mean = scan.next();
 		
-		if(!list.get(index).equals(mean)) {
-			System.out.println("삭제할 단어가 없습니다.");
-			return;
-		}
 		list.get(index).deleteMean(mean);
 		System.out.println("뜻 삭제 완료");
 	}
