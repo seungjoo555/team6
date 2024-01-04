@@ -18,6 +18,7 @@ public class HomworkProgram implements Program {
 	private Scanner scan = new Scanner(System.in);
 	private final int EXIT = 4;
 	
+	
 	@Override
 	public void run() {
 		String fileName = "src/homework/wordInfo.txt";
@@ -257,18 +258,22 @@ public class HomworkProgram implements Program {
 
 	private void changeWord() {
 		System.out.print("수정할 단어 : ");
+		scan.nextLine();
 		String word = scan.next();
-		list.contains(list);
-		System.out.println("단어 수정 : ");
-		String newWord = scan.next();
-		Word nw = new Word(newWord, null);
-		if(list.contains(word)) {
-			list.add(nw);
-			System.out.println("단어 수정");
+		Word wd = new Word(word,new ArrayList<String>());
+		int index = list.indexOf(wd);
+		if(index == -1) {
+			System.out.println("없는 단어 입니다.");
+			return;
 		}
-		System.out.println("없는단어");
-	
+		System.out.print("단어 수정 : ");
+		word = scan.next(); 
+		list.remove(index);
+		list.add(wd);
+		System.out.println("단어를 수정 했습니다.");
 	}
+	
+
 	private void insertWord() {
 		System.out.print("단어 추가 : ");
 		String word = scan.next();
@@ -282,7 +287,6 @@ public class HomworkProgram implements Program {
 		}
 		System.out.println("이미 등록된 단어입니다.");
 	}
-
 	@Override
 	public void save(String fileName) {
 		try (FileOutputStream fos = new FileOutputStream(fileName);
