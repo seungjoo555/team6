@@ -1,6 +1,7 @@
 package homework;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -47,5 +48,13 @@ public class Word implements Serializable {
 	
 	public void deleteMean(String mean2) {
 		this.mean.remove(mean2);
+	}
+
+	public void deleteWord(String changeWord) {
+
+		
+	}
+	public void setWord(String changeWord) {
+	
 	}
 }
