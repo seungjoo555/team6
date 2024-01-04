@@ -134,7 +134,6 @@ public class HomworkProgram implements Program {
 			return;
 		}
 		
-		
 		System.out.print("수정할 뜻 입력 : ");
 		String mean = scan.next();
 		list.get(index).deleteMean(mean);
@@ -143,13 +142,11 @@ public class HomworkProgram implements Program {
 		String newMean = scan.next();
 		list.get(index).setMean(newMean);
 		
-		System.out.println("단어를 수정 했습니다.");
-		
-		
-		
+		System.out.println("단어를 수정했습니다.");
 		
 	}
-
+	
+	
 	private void deleteMean() {
 		System.out.println("삭제할 단어 입력 : ");
 		String word = scan.next();
@@ -164,7 +161,11 @@ public class HomworkProgram implements Program {
 		
 		System.out.println("삭제할 뜻 입력 : ");
 		String mean = scan.next();
-
+		
+		if(!list.get(index).equals(mean)) {
+			System.out.println("삭제할 단어가 없습니다.");
+			return;
+		}
 		list.get(index).deleteMean(mean);
 		System.out.println("뜻 삭제 완료");
 	}
@@ -224,11 +225,11 @@ public class HomworkProgram implements Program {
 			break;
 		case 2:
 			//단어 수정
-			System.out.println("단어수정 ");
 			changeWord();
 			break;
 		case 3:
 			//단어 삭제
+			deleteWord();
 			break;
 		case 4:
 			System.out.println("뒤로가기");
@@ -238,20 +239,41 @@ public class HomworkProgram implements Program {
 	
 	}
 
+	private void deleteWord() {
+		System.out.print("삭제할 단어 : ");
+		String word = scan.next();
+		
+		Word wd = new Word(word);
+		int index = list.indexOf(wd);
+		
+		if(index == -1) {
+			System.out.println("없는단어");
+			return;
+		}
+
+		list.remove(index);
+	}
+
 	private void changeWord() {
 		System.out.print("수정할 단어 : ");
 		String word = scan.next();
-		list.contains(list);
+		
+		Word wd = new Word(word);
+		int index = list.indexOf(wd);
+		
+		if(index == -1) {
+			System.out.println("없는단어");
+			return;
+		}
+		
 		System.out.println("단어 수정 : ");
 		String newWord = scan.next();
-		Word nw = new Word(newWord, null);
-		if(list.contains(word)) {
-			list.add(nw);
-			System.out.println("단어 수정");
-		}
-		System.out.println("없는단어");
-	
+		
+		list.get(index).setWord(newWord);
+		System.out.println("단어 수정");
 	}
+	
+	
 	private void insertWord() {
 		System.out.print("단어 추가 : ");
 		String word = scan.next();

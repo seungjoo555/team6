@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Word implements Serializable {
 	
 	/**
@@ -15,8 +18,8 @@ public class Word implements Serializable {
 	 */
 	private static final long serialVersionUID = 832656411971539925L;
 	//단어 - word, 뜻 - mean;
+	@NonNull
 	private String word;
-	
 	private ArrayList<String> mean = new ArrayList<String>();
 	
 	@Override
@@ -41,6 +44,10 @@ public class Word implements Serializable {
 		return "[" + word + " - " + "뜻 = " + mean + "]";
 	}
 
+	public void setWord(String word) {
+		this.word = word;
+	}
+	
 	public void setMean(String mean2) {
 		this.mean.add(mean2);
 	}
