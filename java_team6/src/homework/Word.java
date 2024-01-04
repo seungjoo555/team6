@@ -61,7 +61,5 @@ public class Word implements Serializable {
 
 		
 	}
-	public void setWord(String changeWord) {
 	
-	}
 }
