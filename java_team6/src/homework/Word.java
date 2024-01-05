@@ -15,9 +15,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Word implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 832656411971539925L;
 	//단어 - word, 뜻 - mean;
 	@NonNull
