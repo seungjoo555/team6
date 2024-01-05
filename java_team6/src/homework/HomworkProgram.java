@@ -8,7 +8,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Set;
 
 import program.Program;
 
@@ -158,8 +157,13 @@ public class HomworkProgram implements Program {
 		System.out.println("삭제할 뜻 입력 : ");
 		String mean = scan.next();
 		
-		list.get(index).deleteMean(mean);
-		System.out.println("뜻 삭제 완료");
+		if(!list.get(index).getMean().contains(mean)) {
+			System.out.println("해당 뜻이 없습니다.");
+			return;
+		}else {
+			list.get(index).deleteMean(mean);
+			System.out.println("뜻 삭제 완료");
+		}
 	}
 	private void insertMean() {
 		System.out.print("뜻을 추가할 단어 : ");
@@ -239,24 +243,26 @@ public class HomworkProgram implements Program {
 		list.remove(index);
 	}
 	private void changeWord() {
-		 System.out.print("수정할 단어 : ");
-	        scan.nextLine();
-	        String wordToFind = scan.next();
-	        Word wordToModify = new Word(wordToFind);
-	        int index = list.indexOf(wordToModify);
-	        if (index == -1) {
-	            System.out.println("없는 단어 입니다.");
-	            return;
-	        }
-	        System.out.print("단어 수정 : ");
-	        String newWord = scan.next();
-	        Word newWord1 = new Word(newWord);
-	        if (list.contains(newWord1)) {
-	            System.out.println("이미 존재하는 단어입니다.");
-	            return;
-	        }
-	        list.get(index).setWord(newWord);
-	        System.out.println("단어를 수정 했습니다.");
+
+		System.out.print("수정할 단어 : ");
+		scan.nextLine();
+		String wordToFind = scan.next();
+		Word wordToModify = new Word(wordToFind);
+		int index = list.indexOf(wordToModify);
+		if (index == -1) {
+		    System.out.println("없는 단어 입니다.");
+		    return;
+		}
+		System.out.print("단어 수정 : ");
+		String newWord = scan.next();
+		Word newWord1 = new Word(newWord);
+		if (list.contains(newWord1)) {
+		    System.out.println("이미 존재하는 단어입니다.");
+		    return;
+		}
+		list.get(index).setWord(newWord);
+		System.out.println("단어를 수정 했습니다.");
+
 	}
 	private void insertWord() {
 		System.out.print("단어 추가 : ");
