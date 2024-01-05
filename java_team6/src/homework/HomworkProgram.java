@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Set;
 
 import program.Program;
 
@@ -268,7 +269,7 @@ public class HomworkProgram implements Program {
 	            System.out.println("이미 존재하는 단어입니다.");
 	            return;
 	        }
-	        list.set(index, newWord1);
+	        list.get(index).setWord(newWord);
 	        System.out.println("단어를 수정 했습니다.");
 	    }
 
@@ -312,6 +313,6 @@ public class HomworkProgram implements Program {
 		System.out.println("-----------------------");
 		System.out.println("프로그램을 종료합니다.");
 		System.out.println("-----------------------");
-	}
+	}// 단어 수정을 할 때 뜻이 유지되게 자바로 코딩해줘 
 
 }
