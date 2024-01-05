@@ -134,16 +134,20 @@ public class HomworkProgram implements Program {
 			System.out.println("없는 단어 입니다.");
 			return;
 		}
-		
 		System.out.print("수정할 뜻 입력 : ");
 		String mean = scan.next();
-		list.get(index).deleteMean(mean);
 		
-		System.out.print(mean + "  수정할 뜻 : ");
-		String newMean = scan.next();
-		list.get(index).setMean(newMean);
-		
-		System.out.println("단어를 수정했습니다.");
+		if(!list.get(index).getMean().contains(mean)) {
+			System.out.println("없는 뜻입니다.");
+		}else {
+			list.get(index).deleteMean(mean);
+			
+			System.out.print(mean + "  수정할 뜻 : ");
+			String newMean = scan.next();
+			list.get(index).setMean(newMean);
+			
+			System.out.println("단어를 수정했습니다.");
+		}
 		
 	}
 	
