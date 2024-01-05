@@ -14,9 +14,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Word implements Serializable {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 832656411971539925L;
 	//단어 - word, 뜻 - mean;
 	@NonNull
@@ -42,7 +39,7 @@ public class Word implements Serializable {
 
 	@Override
 	public String toString() {
-		return " 단어 : " + word + " " + " 뜻 : " + mean + "";
+		return " 단어 : " + word + " " + " 뜻 : " + mean ;
 	}
 
 	public void setWord(String word) {
