@@ -275,7 +275,9 @@ public class HomworkProgram implements Program {
 	        }
 	        list.get(index).setWord(newWord);
 	        System.out.println("단어를 수정 했습니다.");
-	    }
+	
+	}
+	
 
 	
 	
