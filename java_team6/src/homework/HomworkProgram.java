@@ -41,7 +41,6 @@ public class HomworkProgram implements Program {
 		}while(menu != EXIT);
 		save(fileName);
 	}
-
 	@Override
 	public void printMenu() {
 		System.out.println("-------- 메뉴 --------");
@@ -52,7 +51,6 @@ public class HomworkProgram implements Program {
 		System.out.println("---------------------");
 		System.out.print("메뉴 선택 : ");
 	}
-
 	@Override
 	public void runMenu(int menu) {
 		switch(menu) {
@@ -74,7 +72,6 @@ public class HomworkProgram implements Program {
 			throw new InputMismatchException();
 		}
 	}
-
 	private void meanM() {
 		int menu = 0;
 		//반복
@@ -92,7 +89,6 @@ public class HomworkProgram implements Program {
 			}
 		}while(menu != EXIT);
 	}
-
 	private void printMeanMenu() {
 		System.out.println("-------- 메뉴 --------");
 		System.out.println("1. 뜻 추가");
@@ -102,7 +98,6 @@ public class HomworkProgram implements Program {
 		System.out.println("---------------------");
 		System.out.print("메뉴 선택 : ");
 	}
-
 	private void meanMenu(int menu) {
 		switch(menu) {
 		case 1:
@@ -123,7 +118,6 @@ public class HomworkProgram implements Program {
 		default:
 		}
 	}
-
 	private void changeMean() {
 		System.out.print("단어 입력 : ");
 		String word = scan.next();
@@ -149,10 +143,7 @@ public class HomworkProgram implements Program {
 			
 			System.out.println("단어를 수정했습니다.");
 		}
-		
 	}
-	
-	
 	private void deleteMean() {
 		System.out.println("삭제할 단어 입력 : ");
 		String word = scan.next();
@@ -164,14 +155,12 @@ public class HomworkProgram implements Program {
 			System.out.println("없는 단어 입니다.");
 			return;
 		}
-		
 		System.out.println("삭제할 뜻 입력 : ");
 		String mean = scan.next();
 		
 		list.get(index).deleteMean(mean);
 		System.out.println("뜻 삭제 완료");
 	}
-
 	private void insertMean() {
 		System.out.print("뜻을 추가할 단어 : ");
 		String word = scan.next();
@@ -189,7 +178,6 @@ public class HomworkProgram implements Program {
 		list.get(index).setMean(mean);
 		System.out.println("뜻 추가 완료");
 	}
-
 	private void wordM() {
 		int menu = 0;
 		//반복
@@ -207,7 +195,6 @@ public class HomworkProgram implements Program {
 			}
 		}while(menu != EXIT);
 	}
-
 	private void printWordMenu() {
 		System.out.println("-------- 메뉴 --------");
 		System.out.println("1. 단어 추가");
@@ -217,7 +204,6 @@ public class HomworkProgram implements Program {
 		System.out.println("---------------------");
 		System.out.print("메뉴 선택 : ");
 	}
-
 	private void wordMenu(int menu) {
 		switch(menu) {
 		
@@ -238,9 +224,7 @@ public class HomworkProgram implements Program {
 			break;
 		default:
 		}
-	
 	}
-
 	private void deleteWord() {
 		System.out.print("삭제할 단어 : ");
 		String word = scan.next();
@@ -252,10 +236,8 @@ public class HomworkProgram implements Program {
 			System.out.println("없는단어");
 			return;
 		}
-
 		list.remove(index);
 	}
-
 	private void changeWord() {
 		 System.out.print("수정할 단어 : ");
 	        scan.nextLine();
@@ -275,14 +257,7 @@ public class HomworkProgram implements Program {
 	        }
 	        list.get(index).setWord(newWord);
 	        System.out.println("단어를 수정 했습니다.");
-	
 	}
-	
-	
-	
-
-	
-	
 	private void insertWord() {
 		System.out.print("단어 추가 : ");
 		String word = scan.next();
@@ -304,7 +279,6 @@ public class HomworkProgram implements Program {
 				System.out.println("저장에 실패했습니다.");
 			}
 	}
-
 	@Override
 	public void load(String fileName) {
 		try(FileInputStream fis = new FileInputStream(fileName);
@@ -315,12 +289,11 @@ public class HomworkProgram implements Program {
 			System.out.println("불러오기에 실패 했습니다.");
 		}
 	}
-
 	@Override
 	public void printExit() {
 		System.out.println("-----------------------");
 		System.out.println("프로그램을 종료합니다.");
 		System.out.println("-----------------------");
-	}// 단어 수정을 할 때 뜻이 유지되게 자바로 코딩해줘 
+	}
 
 }

@@ -42,7 +42,7 @@ public class Word implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[" + word + " - " + "뜻 = " + mean + "]";
+		return " 단어 : " + word + " " + " 뜻 : " + mean + "";
 	}
 
 	public void setWord(String word) {
