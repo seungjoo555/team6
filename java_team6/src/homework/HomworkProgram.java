@@ -8,7 +8,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Set;
 
 import program.Program;
 
@@ -168,8 +167,13 @@ public class HomworkProgram implements Program {
 		System.out.println("삭제할 뜻 입력 : ");
 		String mean = scan.next();
 		
-		list.get(index).deleteMean(mean);
-		System.out.println("뜻 삭제 완료");
+		if(!list.get(index).getMean().contains(mean)) {
+			System.out.println("해당 뜻이 없습니다.");
+			return;
+		}else {
+			list.get(index).deleteMean(mean);
+			System.out.println("뜻 삭제 완료");
+		}
 	}
 
 	private void insertMean() {
