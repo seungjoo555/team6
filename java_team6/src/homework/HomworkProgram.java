@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Set;
 
 import program.Program;
 
@@ -256,28 +257,36 @@ public class HomworkProgram implements Program {
 	}
 
 	private void changeWord() {
-		System.out.print("수정할 단어 : ");
-		scan.nextLine();
-		String word = scan.next();
-		Word wd = new Word(word,new ArrayList<String>());
-		int index = list.indexOf(wd);
-		if(index == -1) {
-			System.out.println("없는 단어 입니다.");
-			return;
-		}
-		System.out.print("단어 수정 : ");
-		word = scan.next(); 
-		list.remove(index);
-		list.add(wd);
-		System.out.println("단어를 수정 했습니다.");
+		 System.out.print("수정할 단어 : ");
+	        scan.nextLine();
+	        String wordToFind = scan.next();
+	        Word wordToModify = new Word(wordToFind);
+	        int index = list.indexOf(wordToModify);
+	        if (index == -1) {
+	            System.out.println("없는 단어 입니다.");
+	            return;
+	        }
+	        System.out.print("단어 수정 : ");
+	        String newWord = scan.next();
+	        Word newWord1 = new Word(newWord);
+	        if (list.contains(newWord1)) {
+	            System.out.println("이미 존재하는 단어입니다.");
+	            return;
+	        }
+	        list.get(index).setWord(newWord);
+	        System.out.println("단어를 수정 했습니다.");
+	
 	}
+	
+	
+	
+
+	
 	
 	private void insertWord() {
 		System.out.print("단어 추가 : ");
 		String word = scan.next();
-		//단어 객체 생성
 		Word wd = new Word(word, new ArrayList<String>());
-		//추가를 해서 성공하면 알림, 실패하면 실패 알림
 		if(!list.contains(wd)) {
 			list.add(wd);
 			System.out.println("단어를 추가 했습니다.");
@@ -312,6 +321,6 @@ public class HomworkProgram implements Program {
 		System.out.println("-----------------------");
 		System.out.println("프로그램을 종료합니다.");
 		System.out.println("-----------------------");
-	}
+	}// 단어 수정을 할 때 뜻이 유지되게 자바로 코딩해줘 
 
 }
