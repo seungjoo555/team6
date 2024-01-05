@@ -252,6 +252,7 @@ public class HomworkProgram implements Program {
 	}
 
 	private void changeWord() {
+<<<<<<< Updated upstream
 		 System.out.print("수정할 단어 : ");
 	        scan.nextLine();
 	        String wordToFind = scan.next();
@@ -271,6 +272,20 @@ public class HomworkProgram implements Program {
 	        list.set(index, newWord1);
 	        System.out.println("단어를 수정 했습니다.");
 	    }
+=======
+		System.out.print("수정할 단어 : ");
+		scan.nextLine();
+		String word = scan.next();
+		Word wd = new Word(word,new ArrayList<String>());
+		int index = list.indexOf(wd);
+		if(index == -1) {
+			System.out.println("없는 단어 입니다.");
+			return;
+		}
+	
+	}
+	
+>>>>>>> Stashed changes
 
 	private void insertWord() {
 		System.out.print("단어 추가 : ");
