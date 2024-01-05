@@ -63,7 +63,7 @@ public class HomworkProgram implements Program {
 			break;
 		case 3:
 			//단어 조회
-			System.out.println(list);
+			list.stream().forEach(s->System.out.println(s));
 			break;
 		case 4:
 			break;
