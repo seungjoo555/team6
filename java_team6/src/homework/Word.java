@@ -3,6 +3,7 @@ package homework;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,7 +43,13 @@ public class Word implements Serializable {
 
 	@Override
 	public String toString() {
-		return "[" + word + " - " + "뜻 = " + mean + "]";
+		Iterator<String> it = mean.iterator();
+		String outmean = "";
+		while(it.hasNext()) {
+			String tmp = it.next();
+			outmean += tmp + " ";
+		}
+		return "단어 : " + word + "	뜻 : " + outmean;
 	}
 
 	public void setWord(String word) {
@@ -57,9 +64,6 @@ public class Word implements Serializable {
 		this.mean.remove(mean2);
 	}
 
-	public void deleteWord(String changeWord) {
-
-		
-	}
+	
 	
 }
