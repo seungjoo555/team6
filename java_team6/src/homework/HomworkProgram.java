@@ -261,25 +261,24 @@ public class HomworkProgram implements Program {
 	}
 
 	private void changeWord() {
-		 System.out.print("수정할 단어 : ");
-	        scan.nextLine();
-	        String wordToFind = scan.next();
-	        Word wordToModify = new Word(wordToFind);
-	        int index = list.indexOf(wordToModify);
-	        if (index == -1) {
-	            System.out.println("없는 단어 입니다.");
-	            return;
-	        }
-	        System.out.print("단어 수정 : ");
-	        String newWord = scan.next();
-	        Word newWord1 = new Word(newWord);
-	        if (list.contains(newWord1)) {
-	            System.out.println("이미 존재하는 단어입니다.");
-	            return;
-	        }
-	        list.get(index).setWord(newWord);
-	        System.out.println("단어를 수정 했습니다.");
-	
+		System.out.print("수정할 단어 : ");
+		scan.nextLine();
+		String wordToFind = scan.next();
+		Word wordToModify = new Word(wordToFind);
+		int index = list.indexOf(wordToModify);
+		if (index == -1) {
+		    System.out.println("없는 단어 입니다.");
+		    return;
+		}
+		System.out.print("단어 수정 : ");
+		String newWord = scan.next();
+		Word newWord1 = new Word(newWord);
+		if (list.contains(newWord1)) {
+		    System.out.println("이미 존재하는 단어입니다.");
+		    return;
+		}
+		list.get(index).setWord(newWord);
+		System.out.println("단어를 수정 했습니다.");
 	}
 	
 	
