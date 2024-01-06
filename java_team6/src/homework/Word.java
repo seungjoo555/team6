@@ -57,10 +57,20 @@ public class Word implements Serializable {
 		this.mean.add(mean2);
 	}
 	
+	/* 피드백
+	 * - 해당 단어가 없을 때 삭제가 안되기 때문에 return을 boolean으로 해서 실패 여부를 알려주는게 좋음.
+	 * */
 	public void deleteMean(String mean2) {
 		this.mean.remove(mean2);
 	}
 
+	/* 피드백
+	 * - Word 클래스에 메서드를 추가
+	 *   - 뜻을 주어지면 뜻 리스트에 해당 뜻이 몇번지에 있는지 알려주는 메서드
+	 *   - 번지와 뜻이 주어지면 해당 번지에 뜻을 수정하는 메서드  
+	 * - 위 메서드를 이용하면 뜻 수정 및 삭제할 때 활용할 수 있음
+	 * 
+	 * */
 	
 	
 }
