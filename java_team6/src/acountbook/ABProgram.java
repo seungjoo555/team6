@@ -1,16 +1,14 @@
 package acountbook;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 import acountbook.service.ABService;
 import acountbook.service.ABServiceImp;
-import acountbook.service.FileService;
-import acountbook.service.FileServiceImp;
 import acountbook.service.PrintService;
 import acountbook.service.PrintServiceImp;
 import program.AB_Program;
+
 
 public class ABProgram implements AB_Program{
 
@@ -21,11 +19,9 @@ public class ABProgram implements AB_Program{
 	
 	private Scanner scan = new Scanner(System.in);
 	
-	//가계부 목록
-	List<Item> list;
 	
 	private PrintService printService= new PrintServiceImp();
-	//private ABService acountBookService = new ABServiceImp();
+	private ABService acountBookService = new ABServiceImp();
 	//private FileService fileService = new FileServiceImp();
 	
 	
@@ -142,14 +138,15 @@ public class ABProgram implements AB_Program{
 			//메뉴선택
 			menu = scan.nextInt();
 			//실행
-			runIncomMenu(menu);
+			runIncomeMenu(menu);
 		}while(menu != INCOME_EXIT);
 	}
 
-	private void runIncomMenu(int menu) {
+	private void runIncomeMenu(int menu) {
 		switch(menu) {
 		case 1:
 			//수입 추가
+			acountBookService.addIncome();
 			break;
 		case 2:
 			//수입 수정
