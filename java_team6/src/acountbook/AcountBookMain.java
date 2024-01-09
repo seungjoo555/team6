@@ -1,10 +1,10 @@
-package seungjoo;
+package acountbook;
 
 public class AcountBookMain {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		ABProgram abp = new ABProgram();
+		abp.run();
 	}
 
 }
