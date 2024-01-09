@@ -2,26 +2,25 @@ package acountbook;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import acountbook.service.ABService;
 import acountbook.service.ABServiceImp;
 import acountbook.service.PrintService;
 import acountbook.service.PrintServiceImp;
 import program.AB_Program;
 
-
+// 수입 수정,삭제
 public class ABProgram implements AB_Program{
 
 	private final int EXIT = 4;
-	private final int INCOME_EXIT = 3;
-	private final int SPENDING_EXIT = 3;
-	private final int PRINT_EXIT = 3;
+	private final int INCOME_EXIT = 4;
+	private final int SPENDING_EXIT = 4;
+	private final int PRINT_EXIT = 4;
 	
 	private Scanner scan = new Scanner(System.in);
 	private AcountBook ab = new AcountBook(null);
 	
 	private PrintService printService= new PrintServiceImp();
-	//private ABService acountBookService = new ABServiceImp();
+	private ABService acountBookService = new ABServiceImp();
 	//private FileService fileService = new FileServiceImp();
 	
 	
@@ -119,15 +118,24 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//지출 추가
+			ab.addIncome();
 			break;
 		case 2:
 			//지출 수정
+			updateSpending();
 			break;
 		case 3:
 			//지출 삭제
 			break;
 		default:
 			throw new InputMismatchException();
+		}
+	}
+
+	private void updateSpending() {
+		
+		if(acountBookService.updateSpending() == true) {
+			System.out.println("수정 완료");
 		}
 	}
 
