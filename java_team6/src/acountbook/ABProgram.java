@@ -18,10 +18,10 @@ public class ABProgram implements AB_Program{
 	private final int PRINT_EXIT = 3;
 	
 	private Scanner scan = new Scanner(System.in);
-	
+	private AcountBook ab = new AcountBook(null);
 	
 	private PrintService printService= new PrintServiceImp();
-	private ABService acountBookService = new ABServiceImp();
+	//private ABService acountBookService = new ABServiceImp();
 	//private FileService fileService = new FileServiceImp();
 	
 	
@@ -90,6 +90,7 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//전체 조회
+			ab.printAll();
 			break;
 		case 2:
 			//연도별 조회
@@ -146,7 +147,7 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//수입 추가
-			acountBookService.addIncome();
+			ab.addIncome();
 			break;
 		case 2:
 			//수입 수정

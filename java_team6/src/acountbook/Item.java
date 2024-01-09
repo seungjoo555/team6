@@ -39,6 +39,12 @@ public class Item {
 	public void spendingMoney(int money) {
 		this.money -= money;
 	}
+
+	@Override
+	public String toString() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		return format.format(regDate) + "\t" + title + "\t" + money;
+	}
 	
 	
 	
