@@ -13,9 +13,9 @@ import program.AB_Program;
 public class ABProgram implements AB_Program{
 
 	private final int EXIT = 4;
-	private final int INCOME_EXIT = 3;
-	private final int SPENDING_EXIT = 3;
-	private final int PRINT_EXIT = 3;
+	private final int INCOME_EXIT = 4;
+	private final int SPENDING_EXIT = 4;
+	private final int PRINT_EXIT = 4;
 	
 	private Scanner scan = new Scanner(System.in);
 	private AcountBook ab = new AcountBook(null);
