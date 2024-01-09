@@ -21,6 +21,7 @@ public class ABProgram implements AB_Program{
 	
 	private Scanner scan = new Scanner(System.in);
 	
+	//가계부 목록
 	List<Item> list;
 	
 	private PrintService printService= new PrintServiceImp();
