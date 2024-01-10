@@ -3,8 +3,6 @@ package acountbook;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -40,56 +38,31 @@ public class AcountBook {
 		}
 	}
 	
-	
-	
-	
-	
+
 	//전체 조회 : 이승주
 	public void printAll() {
 		System.out.println("날짜\t\t품목\t수입/지출");
 		list.stream().forEach(s->System.out.println(s));
 	}
 
-	public boolean updateSpending(String regDate, String title, int money) {
-			
+	// 수입 수정 : 임병훈
+	public boolean updateIncome(String regDate, String title, int index, int money) {
+		
 		Item item = new Item(regDate, title);
-		AcountBook ab = new AcountBook();
 		
-		if(!list.contains(item)) {
-			return false;
-		}
-		
-		// 내역 위치 찾기
-		int index = ab.getList().indexOf(item);
-		System.out.println(index);
-		Date date = list.get(index).getRegDate();
-		list.get(index).setRegDate(date);
+		Date date = item.getRegDate();
+		list.get(index).setRegDate(date);	  // 일자 변경
 		list.get(index).setTitle(title);	  // 품목 변경
-		list.get(index).spendingMoney(money); // 지출 값 변경
+		list.get(index).setMoney(money); 	  // 가격 변경
 		return true;
 	}
-	
-	
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+
+	// 수입 삭제 : 임병훈
+	public boolean deleteIncome(int index) {
+
+		if(list.remove(index) == null) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AcountBook other = (AcountBook) obj;
-		return Objects.equals(list, other.list);
+		}
+		return true;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(list);
-	}
-	
-
-	
-
-	
 }
