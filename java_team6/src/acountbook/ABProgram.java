@@ -134,9 +134,23 @@ public class ABProgram implements AB_Program{
 
 	private void updateSpending() {
 		
-		if(acountBookService.updateSpending() == true) {
-			System.out.println("수정 완료");
+		System.out.print("수정할 일자 : ");
+		String regDate = scan.next();
+		System.out.print("수정할 품목 : ");
+		String title = scan.next();
+		System.out.print("수정할 가격 : ");
+		int money = scan.nextInt();
+		
+		if(ab.getList() == null) {
+			System.out.println("내역이 없습니다.");
+			return;
 		}
+		
+		if(!ab.updateSpending(regDate, title, money)) {
+			System.out.println("에러");
+			return;
+		}
+		ab.updateSpending(regDate, title, money);
 	}
 
 	private void incomeManager() {

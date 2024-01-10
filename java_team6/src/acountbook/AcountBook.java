@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Objects;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 //가계부 목록
 @Data
 @ToString
+@NoArgsConstructor
 public class AcountBook {
 
 	private List<Item> list = new ArrayList<Item>();
@@ -24,6 +26,7 @@ public class AcountBook {
 		this.list = list;
 	}
 	
+
 	//수입 추가
 	public void addIncome() {
 		list.add(new Item("2024-01-01", "아침"));
@@ -33,7 +36,7 @@ public class AcountBook {
 		list.add(new Item("2024-02-01", "점심"));
 		list.add(new Item("2024-02-01", "저녁"));
 		for(int i = 0; i < list.size(); i++) {
-			list.get(i).spendingMoney(1000 * i);
+			list.get(i).incomeMoney(1000 * i);
 		}
 	}
 	
@@ -47,6 +50,27 @@ public class AcountBook {
 		list.stream().forEach(s->System.out.println(s));
 	}
 
+	public boolean updateSpending(String regDate, String title, int money) {
+			
+		Item item = new Item(regDate, title);
+		AcountBook ab = new AcountBook();
+		
+		if(!list.contains(item)) {
+			return false;
+		}
+		
+		// 내역 위치 찾기
+		int index = ab.getList().indexOf(item);
+		System.out.println(index);
+		Date date = list.get(index).getRegDate();
+		list.get(index).setRegDate(date);
+		list.get(index).setTitle(title);	  // 품목 변경
+		list.get(index).spendingMoney(money); // 지출 값 변경
+		return true;
+	}
+	
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
