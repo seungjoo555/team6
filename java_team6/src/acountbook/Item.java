@@ -1,5 +1,6 @@
 package acountbook;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -9,7 +10,10 @@ import lombok.Data;
 
 // 날짜, 품목, 수입, 지출, 계정항목(보류)
 @Data
-public class Item {
+public class Item implements Serializable{
+	
+	private static final long serialVersionUID = 5038627973846020548L;
+	
 	private int year, month, day;	//작성일
 	private String title;			//품목
 	private int money;				//수입,지출

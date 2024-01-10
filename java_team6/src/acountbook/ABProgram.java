@@ -1,10 +1,13 @@
 package acountbook;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import acountbook.service.ABService;
 import acountbook.service.ABServiceImp;
+import acountbook.service.FileService;
+import acountbook.service.FileServiceImp;
 import acountbook.service.PrintService;
 import acountbook.service.PrintServiceImp;
 import program.AB_Program;
@@ -13,23 +16,25 @@ import program.AB_Program;
 public class ABProgram implements AB_Program{
 
 	private final int EXIT = 4;
-	private final int INCOME_EXIT = 3;
-	private final int SPENDING_EXIT = 3;
-	private final int PRINT_EXIT = 3;
+	private final int INCOME_EXIT = 4;
+	private final int SPENDING_EXIT = 4;
+	private final int PRINT_EXIT = 4;
 	
 	private Scanner scan = new Scanner(System.in);
 	private AcountBook ab = new AcountBook(null);
 	
 	private PrintService printService= new PrintServiceImp();
-	//private ABService acountBookService = new ABServiceImp();
-	//private FileService fileService = new FileServiceImp();
+	private ABService acountBookService = new ABServiceImp();
+	private FileService fileService = new FileServiceImp();
 	
 	
 	@Override
 	public void run() {
 		int menu = 0;
-		String fileName = "src/seungjoo/ABList.txt";
+		String fileName = "src/acountbook/ABList.txt";
 		//불러오기
+		List<Item> list = fileService.load(fileName);
+		ab = new AcountBook(list);
 		do {
 			try {
 				printMenu();
@@ -44,6 +49,11 @@ public class ABProgram implements AB_Program{
 			}
 		}while(menu != EXIT);
 		//저장하기
+		if(fileService.save(fileName, ab.getList())) {
+			System.out.println("저장이 완료됐습니다.");
+		}else {
+			System.out.println("저장에 실패했습니다.");
+		}
 	}
 
 	@Override
@@ -90,13 +100,18 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//전체 조회
-			ab.printAll();
+			acountBookService.printAll(ab.getList());
 			break;
 		case 2:
-			//연도별 조회
+			//월별 조회
+			acountBookService.printMonth(ab.getList());
 			break;
 		case 3:
-			//월별 조회
+			//날짜별 조회
+			acountBookService.printDay(ab.getList());
+			break;
+		case 4:
+			//이전으로
 			break;
 		default:
 			throw new InputMismatchException();
@@ -126,6 +141,9 @@ public class ABProgram implements AB_Program{
 		case 3:
 			//지출 삭제
 			break;
+		case 4:
+			//이전으로
+			break;
 		default:
 			throw new InputMismatchException();
 		}
@@ -154,6 +172,9 @@ public class ABProgram implements AB_Program{
 			break;
 		case 3:
 			//수입 삭제
+			break;
+		case 4:
+			//이전으로
 			break;
 		default:
 			throw new InputMismatchException();
