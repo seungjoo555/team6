@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 public class AcountBook {
 
-	private List<Item> list = new ArrayList<Item>();
+	private List<Item> list;
 	
 	
 	

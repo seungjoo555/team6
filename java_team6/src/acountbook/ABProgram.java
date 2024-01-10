@@ -1,6 +1,8 @@
 package acountbook;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import acountbook.service.PrintService;
@@ -121,6 +123,7 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//지출 수정
+			updateSpending();
 			break;
 		case 3:
 			//지출 삭제
@@ -130,6 +133,12 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
+	//지출수정 메서드 //이철범
+	private void updateSpending() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	//지출삭제 메서드 //정경호
 	private void removeSpending() {
 		
@@ -138,7 +147,7 @@ public class ABProgram implements AB_Program{
 	private void addSpending() {
 		 System.out.println("날짜 입력 : " );
 	       int year,
-	       intmonth,
+	       month,
 	       day=scan.nextInt();
 
 	        System.out.println("지출 입력 : ");
@@ -167,7 +176,7 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//수입 추가
-			ab.addIncome();
+			addIncome();
 			break;
 		case 2:
 			//수입 수정
@@ -178,6 +187,23 @@ public class ABProgram implements AB_Program{
 		default:
 			throw new InputMismatchException();
 		}
+	}
+	//수입추가 메서드 : 이철범
+	private void addIncome() {
+		List<Item> list = new ArrayList<Item>();
+		System.out.println("년 : ");
+		int year = scan.nextInt();
+		System.out.println("월 : ");
+		int month = scan.nextInt();
+		System.out.println("일 : ");
+		int day = scan.nextInt();
+		System.out.println("품목 : ");
+		scan.nextLine();
+		String title = scan.nextLine();
+		System.out.println("수입 : ");
+		int money = scan.nextInt();
+		
+		list.add(year, month,day ,title, money);
 	}
 
 }

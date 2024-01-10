@@ -1,15 +1,21 @@
 package acountbook;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 // 날짜, 품목, 수입, 지출, 계정항목(보류)
 @Data
-public class Item {
+@AllArgsConstructor
+public class Item implements Serializable{
+	
+	private static final long serialVersionUID = -7504275902981826903L;
+	
 	private int year, month, day;	//작성일
 	private String title;			//품목
 	private int money;				//수입,지출
@@ -44,6 +50,10 @@ public class Item {
 	public String toString() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(regDate) + "\t" + title + "\t" + money;
+	}
+
+	public Item(int year, int month, int day, String title, int money) {
+		// TODO Auto-generated constructor stub
 	}
 	
 	
