@@ -138,6 +138,13 @@ public class ABProgram implements AB_Program{
 	}
 	//지출수정 메서드 : 이철범
 	private void updateSpending() {
+		
+		
+		for (int i = 0; i < list.size(); i++) {
+	        Item item = list.get(i);
+	        System.out.println(item.toString(i));
+	    }
+		
 		int index=-1;
 		//수정할 항목 받아오기
 		try {
