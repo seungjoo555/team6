@@ -203,7 +203,8 @@ public class ABProgram implements AB_Program{
 		System.out.println("수입 : ");
 		int money = scan.nextInt();
 		
-		list.add(year, month,day ,title, money);
+		list.add(new Item(year, month, day, title, money, null));
+		System.out.println(list);
 	}
 
 }
