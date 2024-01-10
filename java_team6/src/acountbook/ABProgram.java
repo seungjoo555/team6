@@ -3,8 +3,6 @@ package acountbook;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import acountbook.service.ABService;
-import acountbook.service.ABServiceImp;
 import acountbook.service.PrintService;
 import acountbook.service.PrintServiceImp;
 import program.AB_Program;
@@ -119,16 +117,38 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//지출 추가
+			addSpending();
 			break;
 		case 2:
 			//지출 수정
 			break;
 		case 3:
 			//지출 삭제
+			removeSpending();
 			break;
 		default:
 			throw new InputMismatchException();
 		}
+	}
+	//지출삭제 메서드 //정경호
+	private void removeSpending() {
+		
+	}
+	//지출추가 메서드 //정경호
+	private void addSpending() {
+		 System.out.println("날짜 입력 : " );
+	       int year,
+	       intmonth,
+	       day=scan.nextInt();
+
+	        System.out.println("지출 입력 : ");
+	        int money = scan.nextInt();
+
+	        System.out.println("품목 : ");
+	        scan.nextLine();// 엔터
+	        String title = scan.nextLine();
+		ab.addIncome();
+		System.out.println(money);
 	}
 
 	private void incomeManager() {
