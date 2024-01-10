@@ -9,7 +9,7 @@ import acountbook.Item;
 public class ABServiceImp implements ABService{
 
 	private Scanner scan = new Scanner(System.in);
-
+	private List<Item> list;
 	@Override
 	public boolean addIncome() {
 		// TODO Auto-generated method stub
@@ -19,16 +19,16 @@ public class ABServiceImp implements ABService{
 	//수입 품목을 추가하는 메서드 : 이철범
 	@Override
 	public boolean insertIncome(List<Item> list) {
-		System.out.print("년 : ");
+		System.out.print("년(yyyy) : ");
 		int year = scan.nextInt();
-		System.out.print("월 : ");
+		System.out.print("월(mm) : ");
 		int month = scan.nextInt();
-		System.out.print("일 : ");
+		System.out.print("일(dd) : ");
 		int day = scan.nextInt();
 		if(check(year, month, day)) {
 			return false;
 		}
-		System.out.print("수입 : ");
+		System.out.print("금액(원) : ");
 		int money = scan.nextInt();
 		System.out.print("품목 : ");
 		scan.nextLine();
@@ -66,6 +66,13 @@ public class ABServiceImp implements ABService{
 			}
 		}
 		System.out.println("정상적인 날짜 입력입니다.");
+		return false;
+	}
+
+	@Override
+	public boolean updateSpend(int index, int year, int month, int day, int money, String title) {
+		list.set(index, new Item(year, month, day, money, title));
+
 		return false;
 	}
 	
