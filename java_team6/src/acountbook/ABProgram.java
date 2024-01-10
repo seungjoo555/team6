@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import acountbook.service.ABService;
+import acountbook.service.ABServiceImp;
 import acountbook.service.PrintService;
 import acountbook.service.PrintServiceImp;
 import program.AB_Program;
@@ -19,9 +21,10 @@ public class ABProgram implements AB_Program{
 	
 	private Scanner scan = new Scanner(System.in);
 	private AcountBook ab = new AcountBook(null);
+	private List<Item> list = new ArrayList<Item>(); 
 	
 	private PrintService printService= new PrintServiceImp();
-	//private ABService acountBookService = new ABServiceImp();
+	private ABService acountBookService = new ABServiceImp();
 	//private FileService fileService = new FileServiceImp();
 	
 	
@@ -119,7 +122,6 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//지출 추가
-			addSpending();
 			break;
 		case 2:
 			//지출 수정
@@ -127,7 +129,6 @@ public class ABProgram implements AB_Program{
 			break;
 		case 3:
 			//지출 삭제
-			removeSpending();
 			break;
 		default:
 			throw new InputMismatchException();
@@ -139,26 +140,6 @@ public class ABProgram implements AB_Program{
 		
 	}
 
-	//지출삭제 메서드 //정경호
-	private void removeSpending() {
-		
-	}
-	//지출추가 메서드 //정경호
-	private void addSpending() {
-		 System.out.println("날짜 입력 : " );
-	       int year,
-	       month,
-	       day=scan.nextInt();
-
-	        System.out.println("지출 입력 : ");
-	        int money = scan.nextInt();
-
-	        System.out.println("품목 : ");
-	        scan.nextLine();// 엔터
-	        String title = scan.nextLine();
-		ab.addIncome();
-		System.out.println(money);
-	}
 
 	private void incomeManager() {
 		int menu = 0;
@@ -190,21 +171,11 @@ public class ABProgram implements AB_Program{
 	}
 	//수입추가 메서드 : 이철범
 	private void addIncome() {
-		List<Item> list = new ArrayList<Item>();
-		System.out.println("년 : ");
-		int year = scan.nextInt();
-		System.out.println("월 : ");
-		int month = scan.nextInt();
-		System.out.println("일 : ");
-		int day = scan.nextInt();
-		System.out.println("품목 : ");
-		scan.nextLine();
-		String title = scan.nextLine();
-		System.out.println("수입 : ");
-		int money = scan.nextInt();
-		
-		list.add(new Item(year, month, day, title, money, null));
-		System.out.println(list);
+		if(acountBookService.insertIncome(list)) {
+			System.out.println("등록했습니다.");
+		}
 	}
-
+		
 }
+
+
