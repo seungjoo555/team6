@@ -56,6 +56,36 @@ public class ABServiceImp implements ABService{
 		ab.getList().get(index).setTitle(title);	  // 품목 변경
 		return true;
 	}
+
+	@Override
+	public boolean addSpending() {
+		
+		
+		
+		return true;
+	}
+
+	@Override
+	public boolean removeSpending() {
+		return true;
+	}
+
+	@Override
+	public boolean addSpending(List<Item> list) {
+		System.out.println("년 입력 :");
+		int year = sc.nextInt();
+		System.out.println("월 입력 :");
+		int month = sc.nextInt();
+		System.out.println("일 입력 :");
+		int day = sc.nextInt();
+		System.out.println("금액 입력 :");
+		int money = sc.nextInt();
+		System.out.println("품목 입력 :");
+		sc.nextLine();
+		String title = sc.nextLine();
+		list.add(year,month,day,money,title);
+			return true;
+	}
 	
 
 }
