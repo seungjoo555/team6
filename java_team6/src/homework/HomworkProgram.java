@@ -13,7 +13,11 @@ import program.Program;
 
 public class HomworkProgram implements Program {
 
-	
+
+	/* 피드백
+	 * - WordManager를 이용하지 않아 HomeworkProgram에서 작업할 내용이 많아짐
+	 *   객체 지향 방식이 아님.
+	 * */
 	private ArrayList<Word> list = new ArrayList<Word>();
 	private Scanner scan = new Scanner(System.in);
 	private final int EXIT = 4;

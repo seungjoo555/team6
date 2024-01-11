@@ -1,7 +1,9 @@
 package acountbook;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class AcountBook {
 
-	private List<Item> list = new ArrayList<Item>();
+	private List<Item> list;
 	
 	
 	public AcountBook(List<Item> list) {
@@ -23,25 +25,25 @@ public class AcountBook {
 		this.list = list;
 	}
 	
-	//수입 추가
-	public void addIncome() {
-		list.add(new Item("2024-01-05", "아침"));
-		list.add(new Item("2024-01-07", "점심"));
-		list.add(new Item("2024-01-01", "저녁"));
-		list.add(new Item("2024-01-08", "아침"));
-		list.add(new Item("2024-01-09", "점심"));
-		list.add(new Item("2024-01-06", "저녁"));
-		list.add(new Item("2024-02-01", "아침"));
-		list.add(new Item("2024-02-08", "아침"));
-		list.add(new Item("2024-02-02", "아침"));
-		for(int i = 0; i < list.size(); i++) {
-			list.get(i).spendingMoney(1000 * i);
-		}
+	//수입 추가 : 이철범
+	public void insertIncome(Item income) {
+		list.add(income);
 	}
-	
-	
-	
-	
-	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AcountBook other = (AcountBook) obj;
+		return Objects.equals(list, other.list);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(list);
+	}
 }
