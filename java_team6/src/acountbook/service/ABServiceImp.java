@@ -83,8 +83,20 @@ public class ABServiceImp implements ABService{
 		System.out.println("품목 입력 :");
 		sc.nextLine();
 		String title = sc.nextLine();
-		list.add(year,month,day,money,title);
+		list.add(null)
 			return true;
+	}
+
+	@Override
+	public boolean insertIncome(List<Item> list) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateSpend(int index, int year, int month, int day, int money, String title) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 

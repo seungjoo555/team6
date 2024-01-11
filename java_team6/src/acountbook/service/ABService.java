@@ -12,4 +12,6 @@ public interface ABService {
 	boolean addSpending(List<Item> list);
 	boolean removeSpending();
 	boolean addSpending();
+	boolean insertIncome(List<Item> list);
+	boolean updateSpend(int index, int year, int month, int day, int money, String title);
 }
