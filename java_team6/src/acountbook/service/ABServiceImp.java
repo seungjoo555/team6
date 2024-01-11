@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 import acountbook.AcountBook;
 import acountbook.Item;
 
-public class ABServiceImp implements ABService{
+public  class ABServiceImp implements ABService{
 
 	private AcountBook ab = new AcountBook(null);
 	
@@ -174,14 +174,10 @@ public class ABServiceImp implements ABService{
 
 	@Override
 	public boolean removeSpending() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public boolean addSpending() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
+	
 
 }
