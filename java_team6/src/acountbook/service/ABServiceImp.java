@@ -67,12 +67,13 @@ public class ABServiceImp implements ABService{
 		return true;
 	}
 
-	@Override
+	@Override //정경호 지출삭제
 	public boolean removeSpending() {
+		
 		return true;
 	}
 
-	@Override
+	@Override //정경호 지출삭제
 	public boolean addSpending(List<Item> list) {
 		System.out.print("년 입력 :");
 		int year = scan.nextInt();
@@ -92,7 +93,7 @@ public class ABServiceImp implements ABService{
 	}
 
 	
-	ㄴ
+	
 	//수입 품목을 추가하는 메서드 : 이철범
 	@Override
 	public boolean insertIncome(List<Item> list) {
