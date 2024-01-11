@@ -2,7 +2,6 @@ package acountbook.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -13,6 +12,7 @@ import acountbook.Item;
 public class ABServiceImp implements ABService{
 	
 	private Scanner sc = new Scanner(System.in);
+	private AcountBook ab= new AcountBook();
 	
 	@Override
 	public void printAll(List<Item> list) {
@@ -46,6 +46,7 @@ public class ABServiceImp implements ABService{
 			}
 			return t1.getDay() - t2.getDay();
 		});
+	}
 
 	public boolean addIncome() {
 		System.out.print("날짜 (ex.2023-12-23) : ");
