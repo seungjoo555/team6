@@ -50,17 +50,17 @@ public class Item implements Serializable{
 	@Override
 	public String toString() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		return format.format(regDate) + "\t" + title + "\t" + money;
+		return "날짜 : " + year + "-"  + month + "-" + day + " 수입 : " + money + " 품목 : " +  title;
 	}
-	public void addSpending(int year,int month,int day,int money,String title) {
-		
-	}
+	
+	
 	
 	
 	public String toString(int num) {
 		num += 1;
 			return num + "날짜 : " + year + "-"  + month + "-" + day + " 수입 : " + money + " 품목 : " +  title;
 		}
+
 
 
 	public Item(int year, int month, int day, int money, String title) {

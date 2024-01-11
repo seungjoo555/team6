@@ -12,7 +12,7 @@ import acountbook.Item;
 public class ABServiceImp implements ABService{
 	
 	private Scanner sc = new Scanner(System.in);
-	private AcountBook ab= new AcountBook();
+	private Scanner scan = new Scanner(System.in);
 	
 	@Override
 	public void printAll(List<Item> list) {
@@ -20,8 +20,6 @@ public class ABServiceImp implements ABService{
 		printItem(list, (t)->true);
 	}
 
-	private Scanner scan = new Scanner(System.in);
-	private List<Item> list;
 	@Override
 
 	public void printMonth(List<Item> list) {
@@ -62,8 +60,8 @@ public class ABServiceImp implements ABService{
 	}
 
 	@Override
-	public boolean updateSpending() {
-		if(ab.getList() == null) {
+	 public boolean updateSpending(List<Item> list) {
+		if(list == null) {
 			System.out.println("내역이 없습니다.");
 			return false;
 		}
@@ -76,7 +74,7 @@ public class ABServiceImp implements ABService{
 		int money = scan.nextInt();
 		
 		Item item = new Item(regDate, title);
-		List<Item> list = new ArrayList<Item>();
+		list = new ArrayList<Item>();
 		list.add(item);
 		
 		if(list.contains(item) == false) {
@@ -84,10 +82,10 @@ public class ABServiceImp implements ABService{
 			return false;
 		}
 		// 내역 위치 찾기
-		int index = ab.getList().indexOf(item);
-		Date date = ab.getList().get(index).getRegDate();
-		ab.getList().get(index).setRegDate(date); 	  // 일자 변경
-		ab.getList().get(index).setTitle(title);	  // 품목 변경
+		int index = list.indexOf(item);
+		Date date = list.get(index).getRegDate();
+		list.get(index).setRegDate(date); 	  // 일자 변경
+		list.get(index).setTitle(title);	  // 품목 변경
 		return true;
 	}
 
@@ -179,7 +177,7 @@ public class ABServiceImp implements ABService{
 	}
 
 	@Override
-	public boolean updateSpend(int index, int year, int month, int day, int money, String title) {
+	public boolean updateSpend(List<Item> list, int index, int year, int month, int day, int money, String title) {
 		list.set(index, new Item(year, month, day, money, title));
 
 		return false;
