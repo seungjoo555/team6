@@ -5,16 +5,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 //가계부 목록
-@Data
+@Getter
 @ToString
+@NoArgsConstructor
 public class AcountBook {
 
 	private List<Item> list;
-	
 	
 	
 	public AcountBook(List<Item> list) {
@@ -24,18 +25,9 @@ public class AcountBook {
 		this.list = list;
 	}
 	
-	
 	//수입 추가 : 이철범
 	public void insertIncome(Item income) {
 		list.add(income);
-	}
-	
-	
-	
-	//전체 조회 : 이승주
-	public void printAll() {
-		System.out.println("날짜\t\t품목\t수입/지출");
-		list.stream().forEach(s->System.out.println(s));
 	}
 
 	@Override
@@ -54,9 +46,4 @@ public class AcountBook {
 	public int hashCode() {
 		return Objects.hash(list);
 	}
-	
-
-	
-
-	
 }
