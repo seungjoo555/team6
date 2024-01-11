@@ -2,17 +2,14 @@ package acountbook.service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
+
 import acountbook.AcountBook;
 import acountbook.Item;
 
-
-public  class ABServiceImp implements ABService{
-
-	private AcountBook ab = new AcountBook(null);
+public class ABServiceImp implements ABService{
 	
 	private Scanner sc = new Scanner(System.in);
 	private AcountBook ab= new AcountBook();
@@ -25,8 +22,8 @@ public  class ABServiceImp implements ABService{
 
 	private Scanner scan = new Scanner(System.in);
 	private List<Item> list;
-
 	@Override
+
 	public void printMonth(List<Item> list) {
 		System.out.print("조회할 월 : ");
 		int month = sc.nextInt();
@@ -94,6 +91,12 @@ public  class ABServiceImp implements ABService{
 		return true;
 	}
 
+
+	@Override //정경호 지출삭제
+	public boolean removeSpending() {
+		
+		return true;
+	}
 
 	@Override //정경호 지출삭제
 	public boolean addSpending(List<Item> list) {
@@ -174,22 +177,6 @@ public  class ABServiceImp implements ABService{
 
 		return false;
 	}
-	public void printMonth(List<Item> list) {
-		System.out.print("조회할 월 : ");
-		int month = sc.nextInt();
-		printItem(list, it->it.getMonth() == month);
-	}
-
-	@Override
-	public void printDay(List<Item> list) {
-		System.out.print("조회할 월 : ");
-		int month = sc.nextInt();
-		System.out.print("조회할 날짜 : ");
-		int day = sc.nextInt();
-		printItem(list, it->it.getMonth() == month && it.getDay() == day);
-	}
-
-
 	
 	private void printItem(List<Item> list, Predicate<Item> p) {
 		List<Item> tmp = new ArrayList<Item>();
@@ -203,12 +190,9 @@ public  class ABServiceImp implements ABService{
 	}
 
 	@Override
-	public boolean removeSpending() {
+	public boolean addSpending() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
-	
-	
-
 }
-

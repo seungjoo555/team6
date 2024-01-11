@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
 import acountbook.service.ABService;
 import acountbook.service.ABServiceImp;
 import acountbook.service.FileService;
@@ -19,18 +20,13 @@ public class ABProgram implements AB_Program{
 	private final int INCOME_EXIT = 4;
 	private final int SPENDING_EXIT = 4;
 	private final int PRINT_EXIT = 4;
-	
 	private final int UPDATE_EXIT = 6;
+	//=========================================================================
 	private Scanner scan = new Scanner(System.in);
 	private AcountBook ab = new AcountBook();
-	private List<Item> list = new ArrayList<Item>();
-	
 	private PrintService printService= new PrintServiceImp();
 	private ABService acountBookService = new ABServiceImp();
-
-
 	private FileService fileService = new FileServiceImp();
-
 	
 	
 	@Override
@@ -38,7 +34,7 @@ public class ABProgram implements AB_Program{
 		int menu = 0;
 		String fileName = "src/acountbook/ABList.txt";
 		//불러오기
-		//List<Item> list = fileService.load(fileName);
+		List<Item> list = fileService.load(fileName);
 		ab = new AcountBook(list);
 		do {
 			try {
@@ -54,11 +50,11 @@ public class ABProgram implements AB_Program{
 			}
 		}while(menu != EXIT);
 		//저장하기
-//		if(fileService.save(fileName, ab.getList())) {
-//			System.out.println("저장이 완료됐습니다.");
-//		}else {
-//			System.out.println("저장에 실패했습니다.");
-//		}
+		if(fileService.save(fileName, ab.getList())) {
+			System.out.println("저장이 완료됐습니다.");
+		}else {
+			System.out.println("저장에 실패했습니다.");
+		}
 	}
 
 	@Override
@@ -140,7 +136,6 @@ public class ABProgram implements AB_Program{
 		case 1:
 			//지출 추가
 			addSpending();
-		//	ab.addIncome();
 			break;
 		case 2:
 			//지출 수정
@@ -156,6 +151,10 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
+	private void addSpending() {
+		
+	}
+
 	//지출수정 메서드 : 이철범
 	private void updateSpending1() {
 		
@@ -317,11 +316,9 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//수입 수정
-			updateIncome();
 			break;
 		case 3:
 			//수입 삭제
-			deleteIncome();
 			break;
 		case 4:
 			//이전으로
@@ -330,86 +327,13 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
-
-
 	//수입추가 메서드 : 이철범
 	private void addIncome() {
 		if(acountBookService.insertIncome(list)) {
 			System.out.println("등록했습니다.");
 		}
 	}
-	private void addSpending() {
-		acountBookService.addSpending(list);
-			System.out.println("지출등록");
 		
-		
-	}
 	
-	private void deleteIncome() {
 		
-		// 내역이 없을 경우
-		if(ab.getList().size() == 0) {
-			System.out.println("내역이 없습니다.");
-			return;
-		}
-
-		// 수입 내역 출력
-		System.out.println("날짜\t\t품목\t수입");
-		ab.getList().stream().forEach(s->System.out.println(s));
-		
-		int index = -1;
-		
-		//수정 전 항목 받아오기
-		try {
-			System.out.print("어떤 항목을 수정하시겠습니까? : "); 
-			index = scan.nextInt() - 1;
-		}catch (InputMismatchException e){
-			System.out.println("잘못된 메뉴입니다.");
-			scan.nextLine();
-		}
-
-		if(ab.deleteIncome(index) == true) {
-			System.out.println("삭제 성공");
-			return;
-		}
-		System.out.println("삭제 실패");
-	}
-
-	private void updateIncome() {
-		
-		// 내역이 없을 경우
-		if(ab.getList().size() == 0) {
-			System.out.println("내역이 없습니다.");
-			return;
-		}
-		
-		// 수입 내역 출력
-		System.out.println("날짜\t\t품목\t수입");
-		ab.getList().stream().forEach(s->System.out.println(s));
-		
-		int index = -1;
-		
-		//수정 전 항목 받아오기
-		try {
-			System.out.print("어떤 항목을 수정하시겠습니까? : "); 
-			index = scan.nextInt() - 1;
-		}catch (InputMismatchException e){
-			System.out.println("잘못된 메뉴입니다.");
-			scan.nextLine();
-		}
-		
-		// 수정 후 내역 정보 입력
-		System.out.print("수정 후 일자 : ");
-		String regDate = scan.next();
-		System.out.print("수정 후 품목 : ");
-		String title = scan.next();
-		System.out.print("수정 후 금액 : ");
-		int money = scan.nextInt();
-		
-		ab.updateIncome(regDate, title, index, money);
-	}
 }
-
-}
-
-
