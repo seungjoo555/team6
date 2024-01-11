@@ -1,14 +1,15 @@
 package acountbook.service;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
-import acountbook.AcountBook;
 import acountbook.Item;
 
 public class ABServiceImp implements ABService{
 	
 	private Scanner sc = new Scanner(System.in);
-	private AcountBook ab= new AcountBook();
 	
 	@Override
 	public void printAll(List<Item> list) {
@@ -58,40 +59,9 @@ public class ABServiceImp implements ABService{
 	}
 
 	@Override
-	public boolean updateSpending() {
-		if(ab.getList() == null) {
-			System.out.println("내역이 없습니다.");
-			return false;
-		}
-		
-		System.out.print("수정할 일자 : ");
-		String regDate = scan.next();
-		System.out.print("수정할 품목 : ");
-		String title = scan.next();
-		System.out.print("수정할 가격 : ");
-		int money = scan.nextInt();
-		
-		Item item = new Item(regDate, title);
-		List<Item> list = new ArrayList<Item>();
-		list.add(item);
-		
-		if(list.contains(item) == false) {
-			System.out.println("동일한 내역이 없습니다.");
-			return false;
-		}
-		// 내역 위치 찾기
-		int index = ab.getList().indexOf(item);
-		Date date = ab.getList().get(index).getRegDate();
-		ab.getList().get(index).setRegDate(date); 	  // 일자 변경
-		ab.getList().get(index).setTitle(title);	  // 품목 변경
-		return true;
-	}
-
-	@Override
 	public boolean addSpending() {
 		
-		
-		
+
 		return true;
 	}
 
@@ -191,4 +161,62 @@ public class ABServiceImp implements ABService{
 			}
 		}
 	}
+
+	// 수입 수정 : 임병훈
+	@Override
+	public List<Item> updateIncome(List<Item> list, int index) {
+		if(index == -1) {
+			System.out.println("해당 내역이 없습니다.");
+			return null;
+		}
+		
+		System.out.println("수정 후 일자");
+		String str = scan.next();
+		System.out.println("수정 후 일자");
+		String title = scan.next();
+		System.out.println("수정 후 일자");
+		int money = scan.nextInt();
+		
+		Item item = new Item(str, title);
+		
+		list.get(index).setRegDate(item.getRegDate());
+		list.get(index).setTitle(item.getTitle());
+		list.get(index).setMoney(money);
+		return list;
+	}
+	
+	// 수입 삭제 : 임병훈
+	@Override
+	public List<Item> deleteIncome(List<Item> list, int index) {
+		if(list.remove(index) == null) {
+			System.out.println("삭제 에러");
+			return list;
+		}
+		return list;
+	}
+	
+	// 원하는 내역 index값 찾기 : 임병훈
+	@Override
+	public int incomeLocation(List<Item> list) {
+		int index = 0;
+		if(list.size() == 0) {
+			index = -1;
+			return index;
+		}
+		
+		// 수입 내역 출력
+		printAll(list);
+		
+		//수정 전 항목 받아오기
+		try {
+			System.out.print("어떤 항목을 수정하시겠습니까? : "); 
+			index = scan.nextInt() - 1;
+		}catch (InputMismatchException e){
+			System.out.println("잘못된 메뉴입니다.");
+			scan.nextLine();
+		}
+		return index;
+	}
+
+	
 }
