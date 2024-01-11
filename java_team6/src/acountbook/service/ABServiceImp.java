@@ -98,7 +98,7 @@ public class ABServiceImp implements ABService{
 		return true;
 	}
 
-	@Override //정경호 지출삭제
+	@Override //정경호 지출추가
 	public boolean addSpending(List<Item> list) {
 		System.out.print("년 입력 :");
 		int year = scan.nextInt();
@@ -111,7 +111,8 @@ public class ABServiceImp implements ABService{
 		System.out.print("품목 입력 :");
 		scan.nextLine();
 		String title = scan.nextLine();
-		list.add(new Item(year, month, day, money, title));
+		ab.addSpending(year, month, day, money, title);
+		//list.add(new Item(year, month, day, money, title));
 		System.out.println("날짜 :" +year+"-" + month + "-" + day +
 				"\n금액 : "+money+"원" + "\n품목 : " + title );
 		return true;
@@ -188,11 +189,4 @@ public class ABServiceImp implements ABService{
 			}
 		}
 	}
-
-	@Override
-	public boolean addSpending() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
