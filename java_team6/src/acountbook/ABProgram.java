@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
 import acountbook.service.ABService;
 import acountbook.service.ABServiceImp;
 import acountbook.service.FileService;
@@ -318,9 +317,11 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//수입 수정
+			updateIncome();
 			break;
 		case 3:
 			//수입 삭제
+			deleteIncome();
 			break;
 		case 4:
 			//이전으로
@@ -329,6 +330,8 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
+
+
 	//수입추가 메서드 : 이철범
 	private void addIncome() {
 		if(acountBookService.insertIncome(list)) {
@@ -341,7 +344,72 @@ public class ABProgram implements AB_Program{
 		
 		
 	}
+	
+	private void deleteIncome() {
 		
+		// 내역이 없을 경우
+		if(ab.getList().size() == 0) {
+			System.out.println("내역이 없습니다.");
+			return;
+		}
+
+		// 수입 내역 출력
+		System.out.println("날짜\t\t품목\t수입");
+		ab.getList().stream().forEach(s->System.out.println(s));
+		
+		int index = -1;
+		
+		//수정 전 항목 받아오기
+		try {
+			System.out.print("어떤 항목을 수정하시겠습니까? : "); 
+			index = scan.nextInt() - 1;
+		}catch (InputMismatchException e){
+			System.out.println("잘못된 메뉴입니다.");
+			scan.nextLine();
+		}
+
+		if(ab.deleteIncome(index) == true) {
+			System.out.println("삭제 성공");
+			return;
+		}
+		System.out.println("삭제 실패");
+	}
+
+	private void updateIncome() {
+		
+		// 내역이 없을 경우
+		if(ab.getList().size() == 0) {
+			System.out.println("내역이 없습니다.");
+			return;
+		}
+		
+		// 수입 내역 출력
+		System.out.println("날짜\t\t품목\t수입");
+		ab.getList().stream().forEach(s->System.out.println(s));
+		
+		int index = -1;
+		
+		//수정 전 항목 받아오기
+		try {
+			System.out.print("어떤 항목을 수정하시겠습니까? : "); 
+			index = scan.nextInt() - 1;
+		}catch (InputMismatchException e){
+			System.out.println("잘못된 메뉴입니다.");
+			scan.nextLine();
+		}
+		
+		// 수정 후 내역 정보 입력
+		System.out.print("수정 후 일자 : ");
+		String regDate = scan.next();
+		System.out.print("수정 후 품목 : ");
+		String title = scan.next();
+		System.out.print("수정 후 금액 : ");
+		int money = scan.nextInt();
+		
+		ab.updateIncome(regDate, title, index, money);
+	}
+}
+
 }
 
 
