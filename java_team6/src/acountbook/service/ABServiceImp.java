@@ -13,6 +13,8 @@ public class ABServiceImp implements ABService{
 	
 	private Scanner sc = new Scanner(System.in);
 	private AcountBook ab= new AcountBook();
+	private Scanner scan = new Scanner(System.in);
+	private List<Item> list;
 	
 	@Override
 	public void printAll(List<Item> list) {
@@ -20,8 +22,6 @@ public class ABServiceImp implements ABService{
 		printItem(list, (t)->true);
 	}
 
-	private Scanner scan = new Scanner(System.in);
-	private List<Item> list;
 	@Override
 
 	public void printMonth(List<Item> list) {
