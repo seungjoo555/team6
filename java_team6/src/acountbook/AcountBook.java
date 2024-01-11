@@ -5,16 +5,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.ToString;
 
 //가계부 목록
-@Data
+@Getter
 @ToString
 public class AcountBook {
 
 	private List<Item> list;
-	
 	
 	
 	public AcountBook(List<Item> list) {
@@ -58,5 +57,7 @@ public class AcountBook {
 
 	
 
+	
+	
 	
 }

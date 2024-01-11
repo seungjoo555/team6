@@ -17,8 +17,8 @@ public class PrintServiceImp implements PrintService {
 	public void printPrintMenu() {
 		System.out.println("------가계부 조회------");
 		System.out.println("1. 전체 조회");
-		System.out.println("2. 연도별 조회");
-		System.out.println("3. 월별 조회");
+		System.out.println("2. 월별 조회");
+		System.out.println("3. 날짜별 조회");
 		System.out.println("4. 이전으로");
 		System.out.println("-------------------");
 		System.out.print("메뉴 선택 : ");

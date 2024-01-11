@@ -5,6 +5,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
 import acountbook.AcountBook;
 import acountbook.Item;
@@ -12,6 +13,14 @@ import acountbook.Item;
 public class ABServiceImp implements ABService{
 
 	private AcountBook ab = new AcountBook(null);
+	
+	private Scanner sc = new Scanner(System.in);
+	
+	@Override
+	public void printAll(List<Item> list) {
+		System.out.println("날짜\t\t품목\t수입/지출");
+		list.stream().forEach(s->System.out.println(s));
+	}
 
 	private Scanner scan = new Scanner(System.in);
 	private List<Item> list;
@@ -59,19 +68,6 @@ public class ABServiceImp implements ABService{
 		return true;
 	}
 
-	@Override
-	public boolean addSpending() {
-		
-		
-		
-		return true;
-	}
-
-	@Override //정경호 지출삭제
-	public boolean removeSpending() {
-		
-		return true;
-	}
 
 	@Override //정경호 지출삭제
 	public boolean addSpending(List<Item> list) {
@@ -152,6 +148,40 @@ public class ABServiceImp implements ABService{
 
 		return false;
 	}
+	public void printMonth(List<Item> list) {
+		System.out.print("조회할 월 : ");
+		int month = sc.nextInt();
+		printItem(list, it->it.getMonth() == month);
+	}
+
+	@Override
+	public void printDay(List<Item> list) {
+		System.out.print("조회할 월 : ");
+		int month = sc.nextInt();
+		System.out.print("조회할 날짜 : ");
+		int day = sc.nextInt();
+		printItem(list, it->it.getMonth() == month && it.getDay() == day);
+	}
+
 	
+	private void printItem(List<Item> list, Predicate<Item> p) {
+		for(Item item : list) {
+			if(p.test(item)) {
+				System.out.println(item);
+			}
+		}
+	}
+
+	@Override
+	public boolean removeSpending() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addSpending() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
