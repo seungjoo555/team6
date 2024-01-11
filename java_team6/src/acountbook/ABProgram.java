@@ -125,11 +125,10 @@ public class ABProgram implements AB_Program{
 			//지출 추가
 			addSpending();
 		//	ab.addIncome();
->>>>>>> Chul99
 			break;
 		case 2:
 			//지출 수정
-			updateSpending();
+			updateSpending1();
 			break;
 		case 3:
 			//지출 삭제
@@ -139,7 +138,7 @@ public class ABProgram implements AB_Program{
 		}
 	}
 	//지출수정 메서드 : 이철범
-	private void updateSpending() {
+	private void updateSpending1() {
 		
 		
 		for (int i = 0; i < list.size(); i++) {

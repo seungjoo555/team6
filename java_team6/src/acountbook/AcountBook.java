@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class AcountBook {
 
-	private List<Item> list = new ArrayList<Item>();
+	private List<Item> list;
 	
 	
 	
@@ -24,20 +24,11 @@ public class AcountBook {
 		this.list = list;
 	}
 	
-	//수입 추가
-	public void addIncome() {
-		list.add(new Item("2024-01-01", "아침"));
-		list.add(new Item("2024-01-01", "점심"));
-		list.add(new Item("2024-01-01", "저녁"));
-		list.add(new Item("2024-02-01", "아침"));
-		list.add(new Item("2024-02-01", "점심"));
-		list.add(new Item("2024-02-01", "저녁"));
-		for(int i = 0; i < list.size(); i++) {
-			list.get(i).spendingMoney(1000 * i);
-		}
+	
+	//수입 추가 : 이철범
+	public void insertIncome(Item income) {
+		list.add(income);
 	}
-	
-	
 	
 	
 	
