@@ -1,7 +1,28 @@
 package acountbook.service;
 
-public interface ABService {
+import java.util.List;
 
-	//가계부 수입 추가 : 이승주
+import acountbook.Item;
+
+public interface ABService {
+  
+	//전체 조회 : 이승주
+	void printAll(List<Item> list);
+
+	//월별 조회 : 이승주
+	void printMonth(List<Item> list);
+
+	//날짜별 조회 : 이승주
+	void printDay(List<Item> list);
+
 	boolean addIncome();
+	boolean updateSpending();
+	boolean addSpending(List<Item> list);
+	boolean removeSpending();
+	boolean addSpending();
+	//수입 품목을 추가하는 메서드 : 이철범
+	boolean insertIncome(List<Item> list);
+	
+	//지출 품목을 수정하는 메서드 : 이철범
+	boolean updateSpend(int index, int year, int month, int day, int money, String title);
 }
