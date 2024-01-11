@@ -152,9 +152,21 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
+	//지출삭제 정경호
+	private void removeSpending() {
+	    if (acountBookService.removeSpending()) {
+	        System.out.println("지출 내역이 삭제되었습니다.");
+	    } else {
+	        System.out.println("삭제할 지출 내역이 없거나 실패했습니다.");
+	    }
+	}
+	//지출추가 정경호
 	private void addSpending() {
-		acountBookService.addSpending(ab.getList());
-		
+	    if (acountBookService.addSpending(ab.getList())) {
+	        System.out.println("지출 내역이 추가되었습니다.");
+	    } else {
+	        System.out.println("지출 내역 추가에 실패했습니다.");
+	    }
 	}
 
 

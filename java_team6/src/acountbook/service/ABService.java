@@ -24,4 +24,5 @@ public interface ABService {
 	
 	//지출 품목을 수정하는 메서드 : 이철범
 	boolean updateSpend(int index, int year, int month, int day, int money, String title);
+
 }

@@ -87,20 +87,15 @@ public class ABServiceImp implements ABService{
 		int index = ab.getList().indexOf(item);
 		Date date = ab.getList().get(index).getRegDate();
 		ab.getList().get(index).setRegDate(date); 	  // 일자 변경
-		ab.getList().get(index).setTitle(title);	  // 품목 변경
+		ab.getList().get(index).setTitle(title);	 // 품목 변경
 		return true;
 	}
 
 
-	@Override //정경호 지출삭제
-	public boolean removeSpending() {
-		
-		return true;
-	}
-
+	
 	@Override //정경호 지출추가
 	public boolean addSpending(List<Item> list) {
-		System.out.print("년 입력 :");
+		System.out.print("연도 입력 :");
 		int year = scan.nextInt();
 		System.out.print("월 입력 :");
 		int month = scan.nextInt();
@@ -112,7 +107,6 @@ public class ABServiceImp implements ABService{
 		scan.nextLine();
 		String title = scan.nextLine();
 		ab.addSpending(year, month, day, money, title);
-		//list.add(new Item(year, month, day, money, title));
 		System.out.println("날짜 :" +year+"-" + month + "-" + day +
 				"\n금액 : "+money+"원" + "\n품목 : " + title );
 		return true;
@@ -188,5 +182,32 @@ public class ABServiceImp implements ABService{
 				System.out.println(item);
 			}
 		}
+	}
+	//지출 삭제 :정경호
+	@Override
+	public boolean removeSpending() {
+		System.out.print("삭제할 연도 입력 :");
+		int year = scan.nextInt();
+		System.out.print("삭제할 월 입력 :");
+		int month = scan.nextInt();
+		System.out.print("삭제할 일 입력 :");
+		int day = scan.nextInt();
+		System.out.print("삭제할 금액 입력 :");
+		int money = scan.nextInt();
+		System.out.print("삭제할 품목 입력 :");
+		scan.nextLine();
+		String title = scan.nextLine();
+		
+		Item item = new Item(year, month, day, money, title);
+		
+		if(ab.getList() != null && ab.getList().contains(item)){
+			ab.getList().remove(item);
+			System.out.println("지출 내역이 삭제 되었습니다.");
+			return true;
+		}else {
+			System.out.println("일치하는 내역이 없습니다.");
+			return false;
+		}
+		
 	}
 }
