@@ -92,7 +92,7 @@ public class ABServiceImp implements ABService{
 	}
 
 	
-	
+	ㄴ
 	//수입 품목을 추가하는 메서드 : 이철범
 	@Override
 	public boolean insertIncome(List<Item> list) {
