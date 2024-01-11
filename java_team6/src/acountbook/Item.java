@@ -19,7 +19,6 @@ public class Item implements Serializable{
 	private int year, month, day;	//작성일
 	private String title;			//품목
 	private int money;				//수입,지출
-	@NonNull
 	private Date regDate;
 	
 	
@@ -70,9 +69,7 @@ public class Item implements Serializable{
 		this.money = money;
 		this.title = title;
 	}
-	
-	
-	
+
 	
 	
 }

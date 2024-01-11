@@ -1,5 +1,6 @@
 package acountbook;
 
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -187,8 +188,8 @@ public class ABProgram implements AB_Program{
 
 	private void runUpdateMenu(int menu, int index) {
 		switch(menu) {
-		case 1 :	//년
-			runUpateInYear(index);
+		case 1 :	//날짜 수정
+			runUpdateRegDate(index);
 			break;
 		case 2 :	//월수정
 			runUpateInMonth(index);
@@ -212,7 +213,20 @@ public class ABProgram implements AB_Program{
 		
 	}
 
-	
+	//날짜 수정
+	private void runUpdateRegDate(int index) {
+		
+		try {
+			System.out.println("수정할 날짜(yyyy-mm-dd) : ");
+			String date = scan.next();
+		}catch(InputMismatchException e) {
+			System.out.println("잘못된 입력입니다.");
+			scan.nextLine();
+		}
+		Date date = null;
+		ab.getList().get(index).setRegDate(date);
+	}
+
 	//년 수정
 	private void runUpateInYear(int index) {
 		int year =0;
@@ -315,7 +329,7 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//수입 수정
-			updateSpending1();
+			updateSpending();
 			break;
 		case 3:
 			//수입 삭제
