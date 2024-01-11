@@ -2,12 +2,9 @@ package acountbook;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-<<<<<<< HEAD
 
-=======
 import acountbook.service.ABService;
 import acountbook.service.ABServiceImp;
->>>>>>> origin/byeonghun
 import acountbook.service.PrintService;
 import acountbook.service.PrintServiceImp;
 import program.AB_Program;
@@ -122,11 +119,8 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//지출 추가
-<<<<<<< HEAD
 			addSpending();
-=======
-			ab.addIncome();
->>>>>>> origin/byeonghun
+		//	ab.addIncome();
 			break;
 		case 2:
 			//지출 수정

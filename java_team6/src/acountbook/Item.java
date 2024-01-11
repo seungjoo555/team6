@@ -46,7 +46,9 @@ public class Item {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(regDate) + "\t" + title + "\t" + money;
 	}
-
+	public void addSpending() {
+		
+	}
 	
 	
 	
