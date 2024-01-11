@@ -2,7 +2,9 @@ package acountbook.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 import java.text.SimpleDateFormat;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -10,21 +12,48 @@ import java.util.function.Predicate;
 import acountbook.AcountBook;
 import acountbook.Item;
 
+
 public  class ABServiceImp implements ABService{
 
 	private AcountBook ab = new AcountBook(null);
 	
 	private Scanner sc = new Scanner(System.in);
+	private AcountBook ab= new AcountBook();
 	
 	@Override
 	public void printAll(List<Item> list) {
 		System.out.println("날짜\t\t품목\t수입/지출");
-		list.stream().forEach(s->System.out.println(s));
+		printItem(list, (t)->true);
 	}
 
 	private Scanner scan = new Scanner(System.in);
 	private List<Item> list;
+
 	@Override
+	public void printMonth(List<Item> list) {
+		System.out.print("조회할 월 : ");
+		int month = sc.nextInt();
+		printItem(list, it->it.getMonth() == month);
+	}
+
+	@Override
+	public void printDay(List<Item> list) {
+		System.out.print("조회할 월 : ");
+		int month = sc.nextInt();
+		System.out.print("조회할 날짜 : ");
+		int day = sc.nextInt();
+		printItem(list, it->it.getMonth() == month && it.getDay() == day);
+	}
+
+	private void sort(List<Item> list) {
+		list.sort((t1, t2)-> {
+			if(t1.getMonth() != t2.getMonth()) {
+				return t1.getMonth() - t2.getMonth();
+			}
+			return t1.getDay() - t2.getDay();
+		});
+	}
+
 	public boolean addIncome() {
 		System.out.print("날짜 (ex.2023-12-23) : ");
 		String date = scan.next();
@@ -163,9 +192,13 @@ public  class ABServiceImp implements ABService{
 		printItem(list, it->it.getMonth() == month && it.getDay() == day);
 	}
 
+
 	
 	private void printItem(List<Item> list, Predicate<Item> p) {
-		for(Item item : list) {
+		List<Item> tmp = new ArrayList<Item>();
+		tmp.addAll(list);
+		sort(tmp);
+		for(Item item : tmp) {
 			if(p.test(item)) {
 				System.out.println(item);
 			}

@@ -17,7 +17,6 @@ public class Item implements Serializable{
 	
 	private static final long serialVersionUID = -7504275902981826903L;
 
-	
 	private int year, month, day;	//작성일
 	private String title;			//품목
 	private int money;				//수입,지출

@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Objects;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 //가계부 목록
 @Getter
 @ToString
+@NoArgsConstructor
 public class AcountBook {
 
 	private List<Item> list;
@@ -23,11 +25,11 @@ public class AcountBook {
 		this.list = list;
 	}
 	
-	
 	//수입 추가 : 이철범
 	public void insertIncome(Item income) {
 		list.add(income);
 	}
+
 	
 	
 	
@@ -36,6 +38,7 @@ public class AcountBook {
 		System.out.println("날짜\t\t품목\t수입/지출");
 		list.stream().forEach(s->System.out.println(s));
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -53,11 +56,5 @@ public class AcountBook {
 	public int hashCode() {
 		return Objects.hash(list);
 	}
-	
 
-	
-
-	
-	
-	
 }

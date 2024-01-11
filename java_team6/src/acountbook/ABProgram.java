@@ -23,13 +23,15 @@ public class ABProgram implements AB_Program{
 	
 	private final int UPDATE_EXIT = 6;
 	private Scanner scan = new Scanner(System.in);
-	private AcountBook ab = new AcountBook(null);
-	private List<Item> list = new ArrayList<Item>(); 
+	private AcountBook ab = new AcountBook();
+	private List<Item> list = new ArrayList<Item>();
 	
 	private PrintService printService= new PrintServiceImp();
 	private ABService acountBookService = new ABServiceImp();
-	//private FileService fileService = new FileServiceImp();
-	//private FileService fileService = new FileServiceImp();
+
+
+	private FileService fileService = new FileServiceImp();
+
 	
 	
 	@Override
