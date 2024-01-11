@@ -37,7 +37,7 @@ public class ABServiceImp implements ABService{
 		list.add(new Item(year, month, day, money, title));
 		
 		System.out.println("날짜 : " + year + "-"  + month + "-" + day + " 수입 : " + money + " 품목 : " +  title);
-		System.out.println("등록이 완료되었습니다.");
+		System.out.println("수입 품목 등록이 완료되었습니다.");
 		
 		return true;
 	}
@@ -65,7 +65,6 @@ public class ABServiceImp implements ABService{
 				return true;
 			}
 		}
-		System.out.println("정상적인 날짜 입력입니다.");
 		return false;
 	}
 

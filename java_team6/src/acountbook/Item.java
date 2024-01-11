@@ -53,9 +53,6 @@ public class Item implements Serializable{
 		return format.format(regDate) + "\t" + title + "\t" + money;
 	}
 
-	public Item(int year, int month, int date, int money, String title) {
-		// TODO Auto-generated constructor stub
-	}
 	
 	
 	
@@ -64,13 +61,13 @@ public class Item implements Serializable{
 			return num + "날짜 : " + year + "-"  + month + "-" + day + " 수입 : " + money + " 품목 : " +  title;
 		}
 
-	public Item(int year, int month, String title, int money, @NonNull Date regDate) {
-		super();
+
+	public Item(int year, int month, int day, int money, String title) {
 		this.year = year;
 		this.month = month;
-		this.title = title;
+		this.day = day;
 		this.money = money;
-		this.regDate = regDate;
+		this.title = title;
 	}
 	
 	

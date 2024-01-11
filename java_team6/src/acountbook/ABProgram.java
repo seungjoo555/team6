@@ -123,7 +123,6 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//지출 추가
-			addIncome();
 			break;
 		case 2:
 			//지출 수정
