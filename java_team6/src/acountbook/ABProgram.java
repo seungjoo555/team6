@@ -21,7 +21,7 @@ public class ABProgram implements AB_Program{
 	private final int PRINT_EXIT = 4;
 	
 	private Scanner scan = new Scanner(System.in);
-	private AcountBook ab = new AcountBook(null);
+	private AcountBook ab = new AcountBook();
 	
 	private PrintService printService= new PrintServiceImp();
 	private ABService acountBookService = new ABServiceImp();

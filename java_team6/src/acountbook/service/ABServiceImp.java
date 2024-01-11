@@ -1,5 +1,6 @@
 package acountbook.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -13,7 +14,7 @@ public class ABServiceImp implements ABService{
 	@Override
 	public void printAll(List<Item> list) {
 		System.out.println("날짜\t\t품목\t수입/지출");
-		list.stream().forEach(s->System.out.println(s));
+		printItem(list, (t)->true);
 	}
 
 	@Override
@@ -32,9 +33,20 @@ public class ABServiceImp implements ABService{
 		printItem(list, it->it.getMonth() == month && it.getDay() == day);
 	}
 
+	private void sort(List<Item> list) {
+		list.sort((t1, t2)-> {
+			if(t1.getMonth() != t2.getMonth()) {
+				return t1.getMonth() - t2.getMonth();
+			}
+			return t1.getDay() - t2.getDay();
+		});
+	}
 	
 	private void printItem(List<Item> list, Predicate<Item> p) {
-		for(Item item : list) {
+		List<Item> tmp = new ArrayList<Item>();
+		tmp.addAll(list);
+		sort(tmp);
+		for(Item item : tmp) {
 			if(p.test(item)) {
 				System.out.println(item);
 			}
