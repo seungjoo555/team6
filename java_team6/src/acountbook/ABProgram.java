@@ -1,10 +1,8 @@
 package acountbook;
 
-import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
 import acountbook.service.ABService;
 import acountbook.service.ABServiceImp;
 import acountbook.service.FileService;
@@ -20,15 +18,15 @@ public class ABProgram implements AB_Program{
 	private final int INCOME_EXIT = 4;
 	private final int SPENDING_EXIT = 4;
 	private final int PRINT_EXIT = 4;
-	
 	private final int UPDATE_EXIT = 6;
+
 	private Scanner scan = new Scanner(System.in);
 	private AcountBook ab = new AcountBook();
-	
 	
 	private PrintService printService= new PrintServiceImp();
 	private ABService acountBookService = new ABServiceImp();
 	private FileService fileService = new FileServiceImp();
+
 	
 	
 	@Override
@@ -188,20 +186,20 @@ public class ABProgram implements AB_Program{
 
 	private void runUpdateMenu(int menu, int index) {
 		switch(menu) {
-		case 1 :	//날짜 수정
-			runUpdateInYear(index);
+		case 1 :	//년
+			runUpateInYear(index);
 			break;
 		case 2 :	//월수정
-			runUpdateInMonth(index);
+			runUpateInMonth(index);
 			break;
 		case 3 :	//일수정
-			runUpdateInDay(index);
+			runUpateInDay(index);
 			break;
 		case 4 :	//금액 수정
-			runUpdateInMoney(index);
+			runUpateInMoney(index);
 			break;
 		case 5 :	//품목수정				
-			runUpdateInTitle(index);
+			runUpateInTitle(index);
 			break;
 		case 6 : //뒤로가기
 			System.out.println("뒤로가기");
@@ -213,11 +211,12 @@ public class ABProgram implements AB_Program{
 		
 	}
 
+	
 	//년 수정
-	private void runUpdateInYear(int index) {
+	private void runUpateInYear(int index) {
 		int year =0;
 		try {		
-			System.out.print("수정할 년(yyyy) : ");
+			System.out.print("년(yyyy) : ");
 			year = scan.nextInt();
 		}catch(InputMismatchException e) {
 			System.out.println("잘못된 입력입니다.");
@@ -228,10 +227,10 @@ public class ABProgram implements AB_Program{
 	}
 	
 	//월 수정
-	private void runUpdateInMonth(int index) {
+	private void runUpateInMonth(int index) {
 		int month =0;
 		try {		
-			System.out.print("수정할 월(mm) : ");
+			System.out.print("월(mm) : ");
 			month = scan.nextInt();
 		}catch(InputMismatchException e) {
 			System.out.println("잘못된 입력입니다.");
@@ -242,25 +241,24 @@ public class ABProgram implements AB_Program{
 	}
 	
 	//일 수정
-	private void runUpdateInDay(int index) {
+	private void runUpateInDay(int index) {
 		int day =0;
 		try {		
-			System.out.print("수정할 일(dd) : ");
+			System.out.print("일(dd) : ");
 			day = scan.nextInt();
 		}catch(InputMismatchException e) {
 			System.out.println("잘못된 입력입니다.");
 			scan.nextLine();
 		}		
-		
 		ab.getList().get(index).setDay(day);
 		
 	}
 	
 	//금액 수정
-	private void runUpdateInMoney(int index) {
+	private void runUpateInMoney(int index) {
 		int money =0;
 		try {		
-			System.out.print("수정할 금액(원) : ");
+			System.out.print("금액(원) : ");
 			money = scan.nextInt();
 		}catch(InputMismatchException e) {
 			System.out.println("잘못된 입력입니다.");
@@ -270,10 +268,10 @@ public class ABProgram implements AB_Program{
 	}
 	
 	//품목 수정
-	private void runUpdateInTitle(int index) {
+	private void runUpateInTitle(int index) {
 		String title = null;
 		try {		
-			System.out.print("수정할 품목 : ");
+			System.out.print("품목 : ");
 			scan.nextLine();
 			title = scan.nextLine();
 		}catch(InputMismatchException e) {
@@ -284,12 +282,6 @@ public class ABProgram implements AB_Program{
 		
 	}
 
-	private void updateSpending() {
-		
-		if(acountBookService.updateSpending(ab.getList())) {
-			System.out.println("수정 완료");
-		}
-	}
 
 	private void printUpdateMenu() {
 		printService.printUpdateMenu();
@@ -315,10 +307,11 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//수입 수정
-			updateSpending();
+			updateIncome();
 			break;
 		case 3:
 			//수입 삭제
+			deleteincome();
 			break;
 		case 4:
 			//이전으로
@@ -327,24 +320,26 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
+
+
+	private void deleteincome() {
+		int index = acountBookService.incomeLocation(ab.getList());
+		acountBookService.deleteIncome(ab.getList(), index);
+	}
+
 	private void updateIncome() {
-		acountBookService.updateSpending(ab.getList());
-		
+		int index = acountBookService.incomeLocation(ab.getList());
+		acountBookService.updateIncome(ab.getList(), index);
 	}
 
 	//수입추가 메서드 : 이철범
 	private void addIncome() {
-		if(acountBookService.insertIncome(ab.getList())) {
-			System.out.println("등록했습니다.");
-		}
+		acountBookService.add(ab.getList());
 	}
+	
+	
 	private void addSpending() {
 		acountBookService.addSpending(ab.getList());
 			System.out.println("지출등록");
-		
-		
 	}
-		
 }
-
-
