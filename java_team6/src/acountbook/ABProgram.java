@@ -329,8 +329,7 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//수입 수정
-			acountBookService.updateSpend(ab.getList());
-			//updateSpending();
+			updateSpending();
 			break;
 		case 3:
 			//수입 삭제
