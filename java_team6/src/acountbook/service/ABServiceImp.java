@@ -128,14 +128,14 @@ public class ABServiceImp implements ABService{
 	@Override
 	public boolean insertIncome(List<Item> list) {
 		System.out.println("날짜(yyyy-mm-dd) : ");
-		String str = scan.next();
+		String regDate = scan.next();
 		System.out.print("품목 : ");
 		scan.nextLine();
 		String title = scan.nextLine();
 		System.out.print("금액(원) : ");
 		int money = scan.nextInt();
 		
-		Item tmp = new Item(str, title);
+		Item tmp = new Item(regDate, title);
 		tmp.incomeMoney(money);
 		list.add(tmp);
 		System.out.println("수입 품목 등록이 완료되었습니다.");
@@ -143,31 +143,6 @@ public class ABServiceImp implements ABService{
 		return true;
 	}
 
-	@Override
-	public boolean updateSpend(List<Item> list) {
-		if(list == null) {
-			System.out.println("내역이 없습니다.");
-			return false;
-		}
-		
-		System.out.print("수정할 일자 : ");
-		String str = scan.next();
-		System.out.print("수정할 품목 : ");
-		String title = scan.next();
-		System.out.print("수정할 가격 : ");
-		int money = scan.nextInt();
-		
-		Item item = new Item(str, title);
-		int index = list.indexOf(item);
-		if(index != -1) {
-			item.incomeMoney(money);
-			list.add(item);
-			System.out.println("수정이 완료됐습니다.");
-		}
-		
-		return false;
-	}
-	
 	private void printItem(List<Item> list, Predicate<Item> p) {
 		List<Item> tmp = new ArrayList<Item>();
 		tmp.addAll(list);
@@ -177,6 +152,12 @@ public class ABServiceImp implements ABService{
 				System.out.println(item);
 			}
 		}
+	}
+
+	@Override
+	public boolean updateSpend(List<Item> list, int index, int year, int month, int day, int money, String title) {
+		list.set(index, new Item(year, month, day, money, title));
+		return false;
 	}
 
 }

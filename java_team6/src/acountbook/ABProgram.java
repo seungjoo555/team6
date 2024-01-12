@@ -142,7 +142,7 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//지출 수정
-			acountBookService.updateSpend(ab.getList());
+			updateSpending1();
 			break;
 		case 3:
 			//지출 삭제
@@ -189,19 +189,19 @@ public class ABProgram implements AB_Program{
 	private void runUpdateMenu(int menu, int index) {
 		switch(menu) {
 		case 1 :	//날짜 수정
-			runUpdateRegDate(index);
+			runUpdateInYear(index);
 			break;
 		case 2 :	//월수정
-			runUpateInMonth(index);
+			runUpdateInMonth(index);
 			break;
 		case 3 :	//일수정
-			runUpateInDay(index);
+			runUpdateInDay(index);
 			break;
 		case 4 :	//금액 수정
-			runUpateInMoney(index);
+			runUpdateInMoney(index);
 			break;
 		case 5 :	//품목수정				
-			runUpateInTitle(index);
+			runUpdateInTitle(index);
 			break;
 		case 6 : //뒤로가기
 			System.out.println("뒤로가기");
@@ -213,22 +213,8 @@ public class ABProgram implements AB_Program{
 		
 	}
 
-	//날짜 수정
-	private void runUpdateRegDate(int index) {
-		
-		try {
-			System.out.println("수정할 날짜(yyyy-mm-dd) : ");
-			String date = scan.next();
-		}catch(InputMismatchException e) {
-			System.out.println("잘못된 입력입니다.");
-			scan.nextLine();
-		}
-		Date date = null;
-		ab.getList().get(index).setRegDate(date);
-	}
-
 	//년 수정
-	private void runUpateInYear(int index) {
+	private void runUpdateInYear(int index) {
 		int year =0;
 		try {		
 			System.out.print("수정할 년(yyyy) : ");
@@ -242,7 +228,7 @@ public class ABProgram implements AB_Program{
 	}
 	
 	//월 수정
-	private void runUpateInMonth(int index) {
+	private void runUpdateInMonth(int index) {
 		int month =0;
 		try {		
 			System.out.print("수정할 월(mm) : ");
@@ -256,7 +242,7 @@ public class ABProgram implements AB_Program{
 	}
 	
 	//일 수정
-	private void runUpateInDay(int index) {
+	private void runUpdateInDay(int index) {
 		int day =0;
 		try {		
 			System.out.print("수정할 일(dd) : ");
@@ -271,7 +257,7 @@ public class ABProgram implements AB_Program{
 	}
 	
 	//금액 수정
-	private void runUpateInMoney(int index) {
+	private void runUpdateInMoney(int index) {
 		int money =0;
 		try {		
 			System.out.print("수정할 금액(원) : ");
@@ -284,7 +270,7 @@ public class ABProgram implements AB_Program{
 	}
 	
 	//품목 수정
-	private void runUpateInTitle(int index) {
+	private void runUpdateInTitle(int index) {
 		String title = null;
 		try {		
 			System.out.print("수정할 품목 : ");
