@@ -25,11 +25,10 @@ public class AcountBook {
 		this.list = list;
 	}
 	
+	
 	//수입 추가 : 이철범
 	public void insertIncome(Item income) {
 		list.add(income);
-	}
-	public void addSpending(int year, int month, int day, int money, String title) {
 	}
 	
 	
@@ -48,5 +47,9 @@ public class AcountBook {
 	@Override
 	public int hashCode() {
 		return Objects.hash(list);
+	}
+
+
+	public void addSpending(int date, int money, String title) {
 	}
 }
