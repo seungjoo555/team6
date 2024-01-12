@@ -136,11 +136,10 @@ public class ABProgram implements AB_Program{
 		case 1:
 			//지출 추가
 			addSpending();
-		//	ab.addIncome();
 			break;
 		case 2:
 			//지출 수정
-			updateSpending1();
+			updateSpending();
 			break;
 		case 3:
 			//지출 삭제
@@ -152,8 +151,9 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
+	
 	//지출수정 메서드 : 이철범
-	private void updateSpending1() {
+	private void updateSpending() {
 		
 		
 		for (int i = 0; i < ab.getList().size(); i++) {
@@ -321,12 +321,13 @@ public class ABProgram implements AB_Program{
 		}
 	}
 
-
+	// 수입 삭제 메서드 : 임병훈
 	private void deleteincome() {
 		int index = acountBookService.incomeLocation(ab.getList());
 		acountBookService.deleteIncome(ab.getList(), index);
 	}
-
+	
+	// 수입 수정 메서드 : 임병훈
 	private void updateIncome() {
 		int index = acountBookService.incomeLocation(ab.getList());
 		acountBookService.updateIncome(ab.getList(), index);
@@ -338,7 +339,7 @@ public class ABProgram implements AB_Program{
 	}
 	
 	private void addSpending() {
-		acountBookService.addSpending(ab.getList());
-			System.out.println("지출등록");
+		acountBookService.addSpend(ab.getList());
+		System.out.println("지출등록");
 	}
 }

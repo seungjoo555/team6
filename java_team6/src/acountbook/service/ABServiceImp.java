@@ -19,8 +19,8 @@ public class ABServiceImp implements ABService{
 
 	private Scanner scan = new Scanner(System.in);
 	private List<Item> list;
+	
 	@Override
-
 	public void printMonth(List<Item> list) {
 		System.out.print("조회할 월 : ");
 		int month = sc.nextInt();
@@ -45,32 +45,6 @@ public class ABServiceImp implements ABService{
 		});
 	}
 
-	public boolean addIncome() {
-		System.out.print("날짜 (ex.2023-12-23) : ");
-		String date = scan.next();
-		System.out.print("품목 : ");
-		String title = scan.nextLine();
-		System.out.print("수입 : ");
-		int money = scan.nextInt();
-		Item tmp = new Item(date, title);
-		tmp.incomeMoney(money);
-		
-		return true;
-	}
-
-	@Override
-	public boolean addSpending() {
-		
-
-		return true;
-	}
-
-	@Override //정경호 지출삭제
-	public boolean removeSpending() {
-		
-		return true;
-	}
-
 	@Override //정경호 지출삭제
 	public boolean addSpending(List<Item> list) {
 		System.out.print("년 입력 :");
@@ -89,8 +63,6 @@ public class ABServiceImp implements ABService{
 				"\n금액 : "+money+"원" + "\n품목 : " + title );
 		return true;
 	}
-
-	
 	
 	//수입 품목을 추가하는 메서드 : 이철범
 	@Override
@@ -242,6 +214,29 @@ public class ABServiceImp implements ABService{
 		
 		Item tem = new Item(str, title);
 		tem.incomeMoney(don);
+		
+		list.add(tem);
+		
+		return list;
+	}
+	
+	
+	@Override
+	public List<Item> addSpend(List<Item> list) {
+		if(list == null) {
+			list = new ArrayList<Item>();
+		}
+		
+		System.out.println("날짜(ex.2024-01-01) : ");
+		String str = scan.next();
+		System.out.println("품목 : ");
+		scan.nextLine();
+		String title = scan.nextLine();
+		System.out.println("수입금액 : ");
+		int don = scan.nextInt();
+		
+		Item tem = new Item(str, title);
+		tem.incomeMoney(-don);
 		
 		list.add(tem);
 		
