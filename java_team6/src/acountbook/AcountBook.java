@@ -1,16 +1,15 @@
 package acountbook;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 //가계부 목록
-@Getter
+@Data
 @ToString
 @NoArgsConstructor
 public class AcountBook {

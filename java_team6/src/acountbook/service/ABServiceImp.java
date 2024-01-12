@@ -1,20 +1,16 @@
 package acountbook.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-import acountbook.AcountBook;
 import acountbook.Item;
 
 public class ABServiceImp implements ABService{
 	
 	private Scanner sc = new Scanner(System.in);
-	private AcountBook ab= new AcountBook();
 	private Scanner scan = new Scanner(System.in);
-	private List<Item> list;
 	
 	@Override
 	public void printAll(List<Item> list) {
@@ -63,31 +59,31 @@ public class ABServiceImp implements ABService{
 
 	@Override
 	public boolean updateSpending() {
-		if(ab.getList() == null) {
-			System.out.println("내역이 없습니다.");
-			return false;
-		}
-		
-		System.out.print("수정할 일자 : ");
-		String regDate = scan.next();
-		System.out.print("수정할 품목 : ");
-		String title = scan.next();
-		System.out.print("수정할 가격 : ");
-		int money = scan.nextInt();
-		
-		Item item = new Item(regDate, title);
-		List<Item> list = new ArrayList<Item>();
-		list.add(item);
-		
-		if(list.contains(item) == false) {
-			System.out.println("동일한 내역이 없습니다.");
-			return false;
-		}
-		// 내역 위치 찾기
-		int index = ab.getList().indexOf(item);
-		Date date = ab.getList().get(index).getRegDate();
-		ab.getList().get(index).setRegDate(date); 	  // 일자 변경
-		ab.getList().get(index).setTitle(title);	  // 품목 변경
+//		if(ab.getList() == null) {
+//			System.out.println("내역이 없습니다.");
+//			return false;
+//		}
+//		
+//		System.out.print("수정할 일자 : ");
+//		String regDate = scan.next();
+//		System.out.print("수정할 품목 : ");
+//		String title = scan.next();
+//		System.out.print("수정할 가격 : ");
+//		int money = scan.nextInt();
+//		
+//		Item item = new Item(regDate, title);
+//		List<Item> list = new ArrayList<Item>();
+//		list.add(item);
+//		
+//		if(list.contains(item) == false) {
+//			System.out.println("동일한 내역이 없습니다.");
+//			return false;
+//		}
+//		// 내역 위치 찾기
+//		int index = ab.getList().indexOf(item);
+//		Date date = ab.getList().get(index).getRegDate();
+//		ab.getList().get(index).setRegDate(date); 	  // 일자 변경
+//		ab.getList().get(index).setTitle(title);	  // 품목 변경
 		return true;
 	}
 
@@ -180,7 +176,7 @@ public class ABServiceImp implements ABService{
 
 	@Override
 	public boolean updateSpend(int index, int year, int month, int day, int money, String title) {
-		list.set(index, new Item(year, month, day, money, title));
+		//list.set(index, new Item(year, month, day, money, title));
 
 		return false;
 	}
@@ -194,6 +190,28 @@ public class ABServiceImp implements ABService{
 				System.out.println(item);
 			}
 		}
+	}
+
+	@Override
+	public List<Item> add(List<Item> list) {
+		if(list == null) {
+			list = new ArrayList<Item>();
+		}
+		
+		System.out.println("날짜(ex.2024-01-01) : ");
+		String str = scan.next();
+		System.out.println("품목 : ");
+		scan.nextLine();
+		String title = scan.nextLine();
+		System.out.println("수입금액 : ");
+		int don = scan.nextInt();
+		
+		Item tem = new Item(str, title);
+		tem.incomeMoney(don);
+		
+		list.add(tem);
+		
+		return list;
 	}
 	
 }
