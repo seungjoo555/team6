@@ -2,12 +2,14 @@ package acountbook;
 
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
+import java.util.Objects;
+
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 //가계부 목록
-@Getter
+@Data
 @ToString
 @NoArgsConstructor
 public class AcountBook {
@@ -26,6 +28,21 @@ public class AcountBook {
 	public void insertIncome(Item income) {
 		list.add(income);
 	}
-	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AcountBook other = (AcountBook) obj;
+		return Objects.equals(list, other.list);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(list);
+	}
 }
