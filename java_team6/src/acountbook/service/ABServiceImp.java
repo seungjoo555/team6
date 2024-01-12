@@ -168,33 +168,31 @@ public class ABServiceImp implements ABService{
 	@Override //정경호 지출추가
 	public boolean addSpending(List<Item> list) {
 		System.out.print("날짜입력 입력(yyyy-mm-dd) :");
-		int date = scan.nextInt();
-		System.out.print("금액 입력 :");
-		int money = scan.nextInt();
-		System.out.print("품목 입력 :");
+		String str = scan.next();
+		System.out.print("품목 : ");
 		scan.nextLine();
 		String title = scan.nextLine();
-		ab.addSpending(date,money,title);
+		System.out.print("지출금액 : ");
+		int money = scan.nextInt();
+		
+		Item item = new Item(str, title);
+		item.spendingMoney(money);
+		list.add(item);
 		return true;
 	}
 
 	//지출 삭제 :정경호
 	@Override
 	public boolean removeSpending() {
-		System.out.print("삭제할 연도 입력 :");
-		int year = scan.nextInt();
-		System.out.print("삭제할 월 입력 :");
-		int month = scan.nextInt();
-		System.out.print("삭제할 일 입력 :");
-		int day = scan.nextInt();
-		System.out.print("삭제할 금액 입력 :");
-		int money = scan.nextInt();
-		System.out.print("삭제할 품목 입력 :");
+		System.out.print("삭제할 날짜입력(yyyy-mm-dd) :");
+		String str = scan.next();
+		System.out.print("품목 : ");
 		scan.nextLine();
 		String title = scan.nextLine();
+		System.out.print("금액 : ");
+		int money = scan.nextInt();
 		
-		Item item = new Item(year, month, day, money, title);
-		
+		Item item = new Item(str,title);
 		if(ab.getList() != null && ab.getList().contains(item)){
 			ab.getList().remove(item);
 			System.out.println("지출 내역이 삭제 되었습니다.");
