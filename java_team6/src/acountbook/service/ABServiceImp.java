@@ -144,9 +144,27 @@ public class ABServiceImp implements ABService{
 	}
 
 	@Override
-	public boolean updateSpend(List<Item> list, int index, int money, String title) {
-		list.set(index, new Item(regData, title));
-
+	public boolean updateSpend(List<Item> list) {
+		if(list == null) {
+			System.out.println("내역이 없습니다.");
+			return false;
+		}
+		
+		System.out.print("수정할 일자 : ");
+		String regDate = scan.next();
+		System.out.print("수정할 품목 : ");
+		String title = scan.next();
+		System.out.print("수정할 가격 : ");
+		int money = scan.nextInt();
+		
+		Item item = new Item(regDate, title);
+		int index = list.indexOf(item);
+		if(index != -1) {
+			item.incomeMoney(money);
+			list.add(item);
+			System.out.println("수정이 완료됐습니다.");
+		}
+		
 		return false;
 	}
 	

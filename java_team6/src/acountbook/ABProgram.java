@@ -142,7 +142,7 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//지출 수정
-			updateSpending1();
+			acountBookService.updateSpend(ab.getList());
 			break;
 		case 3:
 			//지출 삭제
@@ -300,7 +300,7 @@ public class ABProgram implements AB_Program{
 
 	private void updateSpending() {
 		
-		if(acountBookService.updateSpending(ab.getList()) == true) {
+		if(acountBookService.updateSpending(ab.getList())) {
 			System.out.println("수정 완료");
 		}
 	}
@@ -329,7 +329,8 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//수입 수정
-			updateSpending();
+			acountBookService.updateSpend(ab.getList());
+			//updateSpending();
 			break;
 		case 3:
 			//수입 삭제
