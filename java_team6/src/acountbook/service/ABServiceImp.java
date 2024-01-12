@@ -138,8 +138,6 @@ public class ABServiceImp implements ABService{
 		Item tmp = new Item(regDate, title);
 		tmp.incomeMoney(money);
 		list.add(tmp);
-		System.out.println("수입 품목 등록이 완료되었습니다.");
-		
 		return true;
 	}
 

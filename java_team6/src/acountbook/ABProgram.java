@@ -311,7 +311,7 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//수입 추가
-			acountBookService.insertIncome(ab.getList());
+			addIncome();
 			break;
 		case 2:
 			//수입 수정
