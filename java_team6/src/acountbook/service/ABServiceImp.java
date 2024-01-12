@@ -167,19 +167,14 @@ public class ABServiceImp implements ABService{
 	}
 	@Override //정경호 지출추가
 	public boolean addSpending(List<Item> list) {
-		System.out.print("연도 입력 :");
-		int year = scan.nextInt();
-		System.out.print("월 입력 :");
-		int month = scan.nextInt();
-		System.out.print("일 입력 :");
-		int day = scan.nextInt();
+		System.out.print("날짜입력 입력(yyyy-mm-dd) :");
+		int date = scan.nextInt();
 		System.out.print("금액 입력 :");
 		int money = scan.nextInt();
 		System.out.print("품목 입력 :");
 		scan.nextLine();
 		String title = scan.nextLine();
-		Item item = new Item(year, month, day, money, title);
-		item.addSpending(year, month, day, money, title);
+		ab.addSpending(date,money,title);
 		return true;
 	}
 

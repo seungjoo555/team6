@@ -140,7 +140,6 @@ public class ABProgram implements AB_Program{
 			break;
 		case 2:
 			//지출 수정
-			//updateSpending1();
 			break;
 		case 3:
 			//지출 삭제
@@ -160,11 +159,8 @@ public class ABProgram implements AB_Program{
 	}
 	//지출추가 정경호
 	private void addSpending() {
-	    if (acountBookService.addSpending(ab.getList())) {
-	        System.out.println("지출 내역이 추가되었습니다.");
-	    } else {
-	        System.out.println("지출 내역 추가에 실패했습니다.");
-	    }
+	    acountBookService.addSpending(ab.getList());
+	 
 	}
 
 
