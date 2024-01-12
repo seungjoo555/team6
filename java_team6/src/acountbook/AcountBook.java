@@ -29,7 +29,8 @@ public class AcountBook {
 	public void insertIncome(Item income) {
 		list.add(income);
 	}
-	public void addSpending(int year, int month, int day, int money, String title) {
+	public boolean addSpending(int year, int month, int day, int money, String title) {
+		return true;
 	}
 	
 	

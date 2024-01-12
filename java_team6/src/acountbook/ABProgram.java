@@ -144,6 +144,7 @@ public class ABProgram implements AB_Program{
 			break;
 		case 3:
 			//지출 삭제
+			removeSpending();
 			break;
 		case 4:
 			//이전으로
@@ -154,11 +155,8 @@ public class ABProgram implements AB_Program{
 	}
 	//지출삭제 정경호
 	private void removeSpending() {
-	    if (acountBookService.removeSpending()) {
-	        System.out.println("지출 내역이 삭제되었습니다.");
-	    } else {
-	        System.out.println("삭제할 지출 내역이 없거나 실패했습니다.");
-	    }
+	    acountBookService.removeSpending();
+	   
 	}
 	//지출추가 정경호
 	private void addSpending() {

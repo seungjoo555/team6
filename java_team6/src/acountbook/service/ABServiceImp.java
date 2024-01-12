@@ -93,24 +93,6 @@ public class ABServiceImp implements ABService{
 
 
 	
-	@Override //정경호 지출추가
-	public boolean addSpending(List<Item> list) {
-		System.out.print("연도 입력 :");
-		int year = scan.nextInt();
-		System.out.print("월 입력 :");
-		int month = scan.nextInt();
-		System.out.print("일 입력 :");
-		int day = scan.nextInt();
-		System.out.print("금액 입력 :");
-		int money = scan.nextInt();
-		System.out.print("품목 입력 :");
-		scan.nextLine();
-		String title = scan.nextLine();
-		ab.addSpending(year, month, day, money, title);
-		System.out.println("날짜 :" +year+"-" + month + "-" + day +
-				"\n금액 : "+money+"원" + "\n품목 : " + title );
-		return true;
-	}
 
 	
 	
@@ -183,6 +165,24 @@ public class ABServiceImp implements ABService{
 			}
 		}
 	}
+	@Override //정경호 지출추가
+	public boolean addSpending(List<Item> list) {
+		System.out.print("연도 입력 :");
+		int year = scan.nextInt();
+		System.out.print("월 입력 :");
+		int month = scan.nextInt();
+		System.out.print("일 입력 :");
+		int day = scan.nextInt();
+		System.out.print("금액 입력 :");
+		int money = scan.nextInt();
+		System.out.print("품목 입력 :");
+		scan.nextLine();
+		String title = scan.nextLine();
+		Item item = new Item(year, month, day, money, title);
+		item.addSpending(year, month, day, money, title);
+		return true;
+	}
+
 	//지출 삭제 :정경호
 	@Override
 	public boolean removeSpending() {
