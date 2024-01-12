@@ -18,14 +18,8 @@ public class ABProgram implements AB_Program{
 	private final int INCOME_EXIT = 4;
 	private final int SPENDING_EXIT = 4;
 	private final int PRINT_EXIT = 4;
-	private final int UPDATE_EXIT = 6;
 
 
-	private Scanner scan = new Scanner(System.in);
-	private AcountBook ab = new AcountBook();
-	
-
-//=========================================================================
 	private Scanner scan = new Scanner(System.in);
 	private AcountBook ab = new AcountBook();
 
@@ -142,10 +136,11 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//지출 추가
-			addSpending();
+			addSpending1();
 			break;
 		case 2:
 			//지출 수정
+			updateS();
 			break;
 		case 3:
 			//지출 삭제
@@ -160,21 +155,19 @@ public class ABProgram implements AB_Program{
 	}
 
 	//지출수정 메서드 : 이철범
-	private void updateSpending1() {
-		
-		
-		for (int i = 0; i < ab.getList().size(); i++) {
-	        Item item = ab.getList().get(i);
-	        System.out.println(item.toString(i));
-		}
+	private void updateS() {
+		int index = acountBookService.location(ab.getList());
+		acountBookService.updateSpending(ab.getList(), index);
 	}
+		
+	
 	//지출삭제 정경호
 	private void removeSpending() {
 	    acountBookService.removeSpending();
 	   
 	}
 	//지출추가 정경호
-	private void addSpending() {
+	private void addSpending1() {
 
 	    if (acountBookService.addSpending(ab.getList())) {
 	        System.out.println("지출 내역이 추가되었습니다.");
@@ -182,117 +175,8 @@ public class ABProgram implements AB_Program{
 	        System.out.println("지출 내역 추가에 실패했습니다.");
 
 	    }
-
-	    acountBookService.addSpending(ab.getList());
-	 
-
 	}
 	
-
-
-	private void runUpdateMenu(int menu, int index) {
-		switch(menu) {
-		case 1 :	//년
-			//runUpateInYear(index);
-			break;
-		case 2 :	//월수정
-			//runUpateInMonth(index);
-			break;
-		case 3 :	//일수정
-			//runUpateInDay(index);
-			break;
-		case 4 :	//금액 수정
-			//runUpateInMoney(index);
-			break;
-		case 5 :	//품목수정				
-			//runUpateInTitle(index);
-			break;
-		case 6 : //뒤로가기
-			System.out.println("뒤로가기");
-			break;
-		default : 
-			throw new InputMismatchException();
-	}
-	System.out.println("수정을 완료했습니다.");
-		
-
-	}
-
-	
-	//년 수정
-	private void runUpateInYear(int index) {
-		int year =0;
-		try {		
-			System.out.print("년(yyyy) : ");
-			year = scan.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("잘못된 입력입니다.");
-			scan.nextLine();
-		}		
-		ab.getList().get(index).setYear(year);
-		
-	}
-	
-	//월 수정
-	private void runUpateInMonth(int index) {
-		int month =0;
-		try {		
-			System.out.print("월(mm) : ");
-			month = scan.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("잘못된 입력입니다.");
-			scan.nextLine();
-		}		
-		ab.getList().get(index).setMonth(month);
-		
-	}
-	
-	//일 수정
-	private void runUpateInDay(int index) {
-		int day =0;
-		try {		
-			System.out.print("일(dd) : ");
-			day = scan.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("잘못된 입력입니다.");
-			scan.nextLine();
-		}		
-		ab.getList().get(index).setDay(day);
-		
-	}
-	
-	//금액 수정
-	private void runUpateInMoney(int index) {
-		int money =0;
-		try {		
-			System.out.print("금액(원) : ");
-			money = scan.nextInt();
-		}catch(InputMismatchException e) {
-			System.out.println("잘못된 입력입니다.");
-			scan.nextLine();
-		}		
-		ab.getList().get(index).setMoney(money);
-	}
-	
-	//품목 수정
-	private void runUpateInTitle(int index) {
-		String title = null;
-		try {		
-			System.out.print("품목 : ");
-			scan.nextLine();
-			title = scan.nextLine();
-		}catch(InputMismatchException e) {
-			System.out.println("잘못된 입력입니다.");
-			scan.nextLine();
-		}		
-		ab.getList().get(index).setTitle(title);
-		
-	}
-
-
-	}	
-
-
 	private void printUpdateMenu() {
 		printService.printUpdateMenu();
 	}
@@ -313,7 +197,7 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//수입 추가
-			//addIncome();
+			addIncome();
 			break;
 		case 2:
 			//수입 수정
@@ -334,13 +218,13 @@ public class ABProgram implements AB_Program{
 
 
 	private void deleteincome() {
-		int index = acountBookService.incomeLocation(ab.getList());
-		acountBookService.deleteIncome(ab.getList(), index);
+		int index = acountBookService.location(ab.getList());
+		acountBookService.delete(ab.getList(), index);
 	}
 
 	private void updateIncome() {
-		int index = acountBookService.incomeLocation(ab.getList());
-		acountBookService.updateIncome(ab.getList(), index);
+		int index = acountBookService.location(ab.getList());
+		acountBookService.update(ab.getList(), index);
 	}
 
 	//수입추가 메서드 : 이철범
@@ -348,15 +232,4 @@ public class ABProgram implements AB_Program{
 		acountBookService.add(ab.getList());
 	}
 	
-
-	private void addSpending() {
-		acountBookService.addSpending(ab.getList());
-			System.out.println("지출등록");
-	}
 }
-
-	
-		
-	
-		
-

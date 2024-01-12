@@ -2,6 +2,8 @@ package acountbook;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -28,10 +30,6 @@ public class AcountBook {
 		list.add(income);
 	}
 
-
-	
-	
-}
 
 	public void addSpending(int year, int month, int day, int money, String title) {
 	}
@@ -62,6 +60,8 @@ public class AcountBook {
 
 
 	public void addSpending(int date, int money, String title) {
+		
 	}
-
+	
+}
 
