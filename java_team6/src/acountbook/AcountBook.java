@@ -3,7 +3,6 @@ package acountbook;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -24,11 +23,13 @@ public class AcountBook {
 		this.list = list;
 	}
 	
+	
 	//수입 추가 : 이철범
 	public void insertIncome(Item income) {
 		list.add(income);
 	}
-
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -44,5 +45,9 @@ public class AcountBook {
 	@Override
 	public int hashCode() {
 		return Objects.hash(list);
+	}
+
+
+	public void addSpending(int date, int money, String title) {
 	}
 }
