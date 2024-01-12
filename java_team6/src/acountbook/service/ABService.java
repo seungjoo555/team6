@@ -15,16 +15,9 @@ public interface ABService {
 	//날짜별 조회 : 이승주
 	void printDay(List<Item> list);
 
-	boolean addIncome();
-	boolean updateSpending();
-	boolean addSpending(List<Item> list);
-	boolean removeSpending();
-	boolean addSpending();
-	//수입 품목을 추가하는 메서드 : 이철범
-	boolean insertIncome(List<Item> list);
 	
-	//지출 품목을 수정하는 메서드 : 이철범
-	boolean updateSpend(int index, int year, int month, int day, int money, String title);
 
 	List<Item> add(List<Item> list);
+
+	List<Item> remove(List<Item> list);
 }
