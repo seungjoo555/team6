@@ -211,13 +211,15 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//수입 추가
-			//addIncome();
+			addIncome();
 			break;
 		case 2:
 			//수입 수정
+			updateIncome();
 			break;
 		case 3:
 			//수입 삭제
+			deleteincome();
 			break;
 		case 4:
 			//이전으로
@@ -226,8 +228,19 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
-	
-		
+	private void deleteincome() {
+		int index = acountBookService.location(ab.getList());
+		acountBookService.delete(ab.getList(), index);
+	}
+
+	private void updateIncome() {
+		int index = acountBookService.location(ab.getList());
+		acountBookService.update(ab.getList(), index);
+	}
+	//수입추가 메서드 : 이철범
+	private void addIncome() {
+		acountBookService.add(ab.getList());
+	}
 	
 		
 }

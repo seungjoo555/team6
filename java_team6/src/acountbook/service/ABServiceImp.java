@@ -1,7 +1,10 @@
 package acountbook.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -203,4 +206,90 @@ public class ABServiceImp implements ABService{
 		}
 		
 	}
+	
+	// 수입 수정 : 임병훈
+		@Override
+		public List<Item> update(List<Item> list, int index) {
+			
+			if(index == -1) {
+				System.out.println("해당 내역이 없습니다.");
+				return list;
+			}
+			
+			System.out.print("수정 후 일자 : ");
+			String str = scan.next();
+			System.out.print("수정 후 품목 : ");
+			String title = scan.next();
+			System.out.print("수정 후 가격 : ");
+			int money = scan.nextInt();
+			
+			Item item = new Item(str, title);
+			
+			list.get(index).setRegDate(item.getRegDate());
+			list.get(index).setTitle(item.getTitle());
+			list.get(index).setMoney(money);
+			return list;
+		}
+		
+		// 수입 삭제 : 임병훈
+		@Override
+		public List<Item> delete(List<Item> list, int index) {
+			if(index == -1) {
+				System.out.println("해당 내역이 없습니다.");
+				return list;
+			}
+			list.remove(index);
+			return list;
+		}
+		
+		// 원하는 내역 index값 찾기 : 임병훈
+		@Override
+		public int location(List<Item> list) {
+			int index = 0;
+			
+			if(list.size() == 0) {
+				index = -1;
+				return index;
+			}
+			
+			// 수입 내역 출력
+			printAll(list);
+			
+			//수정 전 항목 받아오기
+			try {
+				System.out.print("작업할 항목을 선택하세요 : "); 
+				index = scan.nextInt() - 1;
+			}catch (InputMismatchException e){
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
+
+			if(index >= list.size()) {
+				index = -1;
+			}
+			
+			return index;
+		}
+		
+		@Override
+		public List<Item> add(List<Item> list) {
+			if(list == null) {
+				list = new ArrayList<Item>();
+			}
+			
+			System.out.println("날짜(ex.2024-01-01) : ");
+			String str = scan.next();
+			System.out.println("품목 : ");
+			scan.nextLine();
+			String title = scan.nextLine();
+			System.out.println("수입금액 : ");
+			int don = scan.nextInt();
+			
+			Item tem = new Item(str, title);
+			tem.incomeMoney(don);
+			
+			list.add(tem);
+			
+			return list;
+		}
 }
