@@ -128,14 +128,14 @@ public class ABServiceImp implements ABService{
 	@Override
 	public boolean insertIncome(List<Item> list) {
 		System.out.println("날짜(yyyy-mm-dd) : ");
-		String regDate = scan.next();
+		String str = scan.next();
 		System.out.print("품목 : ");
 		scan.nextLine();
 		String title = scan.nextLine();
 		System.out.print("금액(원) : ");
 		int money = scan.nextInt();
 		
-		Item tmp = new Item(regDate, title);
+		Item tmp = new Item(str, title);
 		tmp.incomeMoney(money);
 		list.add(tmp);
 		System.out.println("수입 품목 등록이 완료되었습니다.");
@@ -151,13 +151,13 @@ public class ABServiceImp implements ABService{
 		}
 		
 		System.out.print("수정할 일자 : ");
-		String regDate = scan.next();
+		String str = scan.next();
 		System.out.print("수정할 품목 : ");
 		String title = scan.next();
 		System.out.print("수정할 가격 : ");
 		int money = scan.nextInt();
 		
-		Item item = new Item(regDate, title);
+		Item item = new Item(str, title);
 		int index = list.indexOf(item);
 		if(index != -1) {
 			item.incomeMoney(money);
