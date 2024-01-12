@@ -1,10 +1,8 @@
 package acountbook;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
 import acountbook.service.ABService;
 import acountbook.service.ABServiceImp;
 import acountbook.service.FileService;
@@ -20,13 +18,15 @@ public class ABProgram implements AB_Program{
 	private final int INCOME_EXIT = 4;
 	private final int SPENDING_EXIT = 4;
 	private final int PRINT_EXIT = 4;
-	private final int UPDATE_EXIT = 6;
-//=========================================================================
+
+
 	private Scanner scan = new Scanner(System.in);
 	private AcountBook ab = new AcountBook();
+
 	private PrintService printService= new PrintServiceImp();
 	private ABService acountBookService = new ABServiceImp();
 	private FileService fileService = new FileServiceImp();
+
 	
 	
 	@Override
@@ -136,10 +136,11 @@ public class ABProgram implements AB_Program{
 		switch(menu) {
 		case 1:
 			//지출 추가
-			addSpending();
+			addSpending1();
 			break;
 		case 2:
 			//지출 수정
+			updateS();
 			break;
 		case 3:
 			//지출 삭제
@@ -152,45 +153,30 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
+
+	//지출수정 메서드 : 이철범
+	private void updateS() {
+		int index = acountBookService.location(ab.getList());
+		acountBookService.updateSpending(ab.getList(), index);
+	}
+		
+	
 	//지출삭제 정경호
 	private void removeSpending() {
 	    acountBookService.removeSpending();
 	   
 	}
 	//지출추가 정경호
-	private void addSpending() {
-	    acountBookService.addSpending(ab.getList());
-	 
+	private void addSpending1() {
+
+	    if (acountBookService.addSpending(ab.getList())) {
+	        System.out.println("지출 내역이 추가되었습니다.");
+	    } else {
+	        System.out.println("지출 내역 추가에 실패했습니다.");
+
+	    }
 	}
-
-
-	private void runUpdateMenu(int menu, int index) {
-		switch(menu) {
-		case 1 :	//년
-			//runUpateInYear(index);
-			break;
-		case 2 :	//월수정
-			//runUpateInMonth(index);
-			break;
-		case 3 :	//일수정
-			//runUpateInDay(index);
-			break;
-		case 4 :	//금액 수정
-			//runUpateInMoney(index);
-			break;
-		case 5 :	//품목수정				
-			//runUpateInTitle(index);
-			break;
-		case 6 : //뒤로가기
-			System.out.println("뒤로가기");
-			break;
-		default : 
-			throw new InputMismatchException();
-	}
-	System.out.println("수정을 완료했습니다.");
-		
-	}	
-
+	
 	private void printUpdateMenu() {
 		printService.printUpdateMenu();
 	}
@@ -228,6 +214,9 @@ public class ABProgram implements AB_Program{
 			throw new InputMismatchException();
 		}
 	}
+
+
+
 	private void deleteincome() {
 		int index = acountBookService.location(ab.getList());
 		acountBookService.delete(ab.getList(), index);
@@ -237,10 +226,10 @@ public class ABProgram implements AB_Program{
 		int index = acountBookService.location(ab.getList());
 		acountBookService.update(ab.getList(), index);
 	}
+
 	//수입추가 메서드 : 이철범
 	private void addIncome() {
 		acountBookService.add(ab.getList());
 	}
 	
-		
 }
