@@ -17,7 +17,7 @@ public interface ABService {
 
 	boolean addSpending();
 	//수입 품목을 추가하는 메서드 : 이철범
-	boolean insertIncome(List<Item> list);
+	List<Item> insertIncome(List<Item> list);
 	
 	//지출 품목을 수정하는 메서드 : 이철범
 	boolean updateSpend(int index, int year, int month, int day, int money, String title);
@@ -34,4 +34,6 @@ public interface ABService {
 
 	// 원하는 내역 index값 찾기 : 임병훈
 	int incomeLocation(List<Item> list);
+	
+	List<Item> add(List<Item> list);
 }

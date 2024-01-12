@@ -94,7 +94,7 @@ public class ABServiceImp implements ABService{
 	
 	//수입 품목을 추가하는 메서드 : 이철범
 	@Override
-	public boolean insertIncome(List<Item> list) {
+	public List<Item> insertIncome(List<Item> list) {
 		System.out.print("년(yyyy) : ");
 		int year = scan.nextInt();
 		System.out.print("월(mm) : ");
@@ -102,7 +102,7 @@ public class ABServiceImp implements ABService{
 		System.out.print("일(dd) : ");
 		int day = scan.nextInt();
 		if(check(year, month, day)) {
-			return false;
+			return list;
 		}
 		System.out.print("금액(원) : ");
 		int money = scan.nextInt();
@@ -115,7 +115,7 @@ public class ABServiceImp implements ABService{
 		System.out.println("날짜 : " + year + "-"  + month + "-" + day + " 수입 : " + money + " 품목 : " +  title);
 		System.out.println("수입 품목 등록이 완료되었습니다.");
 		
-		return true;
+		return list;
 	}
 
 	private boolean check(int year, int month, int day) {
@@ -165,16 +165,17 @@ public class ABServiceImp implements ABService{
 	// 수입 수정 : 임병훈
 	@Override
 	public List<Item> updateIncome(List<Item> list, int index) {
+		
 		if(index == -1) {
 			System.out.println("해당 내역이 없습니다.");
-			return null;
+			return list;
 		}
 		
-		System.out.println("수정 후 일자");
+		System.out.print("수정 후 일자 : ");
 		String str = scan.next();
-		System.out.println("수정 후 일자");
+		System.out.print("수정 후 품목 : ");
 		String title = scan.next();
-		System.out.println("수정 후 일자");
+		System.out.print("수정 후 가격 : ");
 		int money = scan.nextInt();
 		
 		Item item = new Item(str, title);
@@ -188,10 +189,11 @@ public class ABServiceImp implements ABService{
 	// 수입 삭제 : 임병훈
 	@Override
 	public List<Item> deleteIncome(List<Item> list, int index) {
-		if(list.remove(index) == null) {
-			System.out.println("삭제 에러");
+		if(index == -1) {
+			System.out.println("해당 내역이 없습니다.");
 			return list;
 		}
+		list.remove(index);
 		return list;
 	}
 	
@@ -199,6 +201,7 @@ public class ABServiceImp implements ABService{
 	@Override
 	public int incomeLocation(List<Item> list) {
 		int index = 0;
+		
 		if(list.size() == 0) {
 			index = -1;
 			return index;
@@ -209,14 +212,40 @@ public class ABServiceImp implements ABService{
 		
 		//수정 전 항목 받아오기
 		try {
-			System.out.print("어떤 항목을 수정하시겠습니까? : "); 
+			System.out.print("작업할 항목을 선택하세요 : "); 
 			index = scan.nextInt() - 1;
 		}catch (InputMismatchException e){
 			System.out.println("잘못된 메뉴입니다.");
 			scan.nextLine();
 		}
+
+		if(index >= list.size()) {
+			index = -1;
+		}
+		
 		return index;
 	}
-
+	
+	@Override
+	public List<Item> add(List<Item> list) {
+		if(list == null) {
+			list = new ArrayList<Item>();
+		}
+		
+		System.out.println("날짜(ex.2024-01-01) : ");
+		String str = scan.next();
+		System.out.println("품목 : ");
+		scan.nextLine();
+		String title = scan.nextLine();
+		System.out.println("수입금액 : ");
+		int don = scan.nextInt();
+		
+		Item tem = new Item(str, title);
+		tem.incomeMoney(don);
+		
+		list.add(tem);
+		
+		return list;
+	}
 	
 }

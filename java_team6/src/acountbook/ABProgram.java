@@ -334,10 +334,9 @@ public class ABProgram implements AB_Program{
 
 	//수입추가 메서드 : 이철범
 	private void addIncome() {
-		if(acountBookService.insertIncome(ab.getList())) {
-			System.out.println("등록했습니다.");
-		}
+		acountBookService.add(ab.getList());
 	}
+	
 	private void addSpending() {
 		acountBookService.addSpending(ab.getList());
 			System.out.println("지출등록");
