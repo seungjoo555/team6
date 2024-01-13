@@ -186,7 +186,7 @@ public class ABProgram implements AB_Program{
 		case 2 :	//월수정
 			runUpateInMonth(index);
 			break;
-		case 3 :	//일수정
+		case 3 :	//일수정ㅇ
 			runUpateInDay(index);
 			break;
 		case 4 :	//금액 수정
