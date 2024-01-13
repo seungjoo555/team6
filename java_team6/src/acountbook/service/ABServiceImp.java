@@ -42,6 +42,70 @@ public class ABServiceImp implements ABService{
 			return t1.getDay() - t2.getDay();
 		});
 	}
+<<<<<<< Updated upstream
+=======
+
+	public boolean addIncome() {
+		System.out.print("날짜 (ex.2023-12-23) : ");
+		String date = scan.next();
+		System.out.print("품목 : ");
+		String title = scan.nextLine();
+		System.out.print("수입 : ");
+		int money = scan.nextInt();
+		Item tmp = new Item(date, title);
+		tmp.incomeMoney(money);
+		
+		return true;
+	}
+
+	@Override
+	public boolean updateSpending() {
+		if(ab.getList() == null) {
+			System.out.println("내역이 없습니다.");
+			return false;
+		}
+		
+		System.out.print("수정할 일자 : ");
+		String regDate = scan.next();
+		System.out.print("수정할 품목 : ");
+		String title = scan.next();
+		System.out.print("수정할 가격 : ");
+		int money = scan.nextInt();
+		
+		Item item = new Item(regDate, title);
+		List<Item> list = new ArrayList<Item>();
+		list.add(item);
+		
+		if(list.contains(item) == false) {
+			System.out.println("동일한 내역이 없습니다.");
+			return false;
+		}
+		// 내역 위치 찾기
+		int index = ab.getList().indexOf(item);
+		Date date = ab.getList().get(index).getRegDate();
+		ab.getList().get(index).setRegDate(date); 	  // 일자 변경
+		ab.getList().get(index).setTitle(title);	 // 품목 변경
+		return true;
+	}
+
+
+	
+	@Override //정경호 지출추가
+	public boolean addSpending(List<Item> list) {
+		System.out.print("날짜 (yyyy-mm-dd) : ");
+		String date = scan.next();
+		System.out.print("품목 : ");
+		scan.nextLine();
+		String title = scan.nextLine();
+		System.out.print("지출  : ");
+		int money = scan.nextInt();
+		Item item = new Item(date, title);
+		item.spendingMoney(money);
+		
+		return true;
+	}
+
+>>>>>>> Stashed changes
 	
 	
 	
