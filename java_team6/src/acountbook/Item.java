@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
@@ -53,15 +52,6 @@ public class Item implements Serializable{
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(regDate) + "\t" + title + "\t" + money;
 	}
-<<<<<<< Updated upstream
-	
-	public void addSpending(int year,int month,int day,int money,String title) {
-=======
-	public void addSpending(int year) {
->>>>>>> Stashed changes
-		
-	}
-	
 
 	public Item(int year, int month, int day, int money, String title) {
 		this.year = year;
@@ -70,12 +60,4 @@ public class Item implements Serializable{
 		this.money = money;
 		this.title = title;
 	}
-	
-
-
-	
-	
-
 }
-	
-

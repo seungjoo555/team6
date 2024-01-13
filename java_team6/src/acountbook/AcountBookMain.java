@@ -6,5 +6,4 @@ public class AcountBookMain {
 		ABProgram abp = new ABProgram();
 		abp.run();
 	}
-
 }
