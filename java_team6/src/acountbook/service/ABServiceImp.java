@@ -168,39 +168,45 @@ public class ABServiceImp implements ABService{
 	@Override //정경호 지출추가
 	public boolean addSpending(List<Item> list) {
 		System.out.print("날짜입력 입력(yyyy-mm-dd) :");
-		String str = scan.next();
+		String date = scan.next();
 		System.out.print("품목 : ");
 		scan.nextLine();
 		String title = scan.nextLine();
 		System.out.print("지출금액 : ");
 		int money = scan.nextInt();
 		
-		Item item = new Item(str, title);
+		Item item = new Item(date, title);
 		item.spendingMoney(money);
 		list.add(item);
 		return true;
 	}
 
-	//지출 삭제 :정경호
-	@Override
-	public boolean removeSpending() {
+
+	@Override // 지출삭제 : 정경호
+	public boolean removeSpending(List<Item> list) {
+		 if (list == null || list.isEmpty()) {
+	            System.out.println("내역 없음.");
+	            return false;
+	        }
 		System.out.print("삭제할 날짜입력(yyyy-mm-dd) :");
-		String str = scan.next();
+		String date = scan.next();
 		System.out.print("품목 : ");
 		scan.nextLine();
 		String title = scan.nextLine();
 		System.out.print("금액 : ");
 		int money = scan.nextInt();
 		
-		Item item = new Item(str,title);
-		if(ab.getList() != null && ab.getList().contains(item)){
-			ab.getList().remove(item);
-			System.out.println("지출 내역이 삭제 되었습니다.");
-			return true;
-		}else {
-			System.out.println("일치하는 내역이 없습니다.");
-			return false;
-		}
+		Item item = new Item(date, title);
+		item.spendingMoney(money);
+	
+		if (list.contains(item)) {
+			list.remove(item);
+            System.out.println("지출 내역이 성공적으로 삭제되었습니다.");
+            return true;
+        } else {
+            System.out.println("삭제할 지출 내역이 없습니다.");
+            return false;
+        }
 		
-	}
+	}	
 }
