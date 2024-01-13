@@ -53,16 +53,11 @@ public class Item implements Serializable{
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(regDate) + "\t" + title + "\t" + money;
 	}
+	
 	public void addSpending(int year,int month,int day,int money,String title) {
 		
 	}
 	
-	
-	public String toString(int num) {
-		num += 1;
-			return num + "날짜 : " + year + "-"  + month + "-" + day + " 수입 : " + money + " 품목 : " +  title;
-		}
-
 
 	public Item(int year, int month, int day, int money, String title) {
 		this.year = year;
@@ -72,8 +67,11 @@ public class Item implements Serializable{
 		this.title = title;
 	}
 	
+
+
 	
 	
+
 }
 	
 

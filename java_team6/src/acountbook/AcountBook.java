@@ -1,7 +1,6 @@
 package acountbook;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +29,12 @@ public class AcountBook {
 	public void insertIncome(Item income) {
 		list.add(income);
 	}
+
+
+	public void addSpending(int year, int month, int day, int money, String title) {
+	}
+
+
 	
 	
 	@Override
@@ -50,6 +55,13 @@ public class AcountBook {
 	}
 
 
+
+
+
+
 	public void addSpending(int date, int money, String title) {
+		
 	}
+	
 }
+

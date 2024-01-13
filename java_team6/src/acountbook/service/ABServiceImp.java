@@ -2,13 +2,13 @@ package acountbook.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
 import acountbook.AcountBook;
 import acountbook.Item;
-
 public class ABServiceImp implements ABService{
 	
 	private Scanner sc = new Scanner(System.in);
@@ -19,17 +19,13 @@ public class ABServiceImp implements ABService{
 		System.out.println("날짜\t\t품목\t수입/지출");
 		printItem(list, (t)->true);
 	}
-
-	private Scanner scan = new Scanner(System.in);
 	private List<Item> list;
 	@Override
-
 	public void printMonth(List<Item> list) {
 		System.out.print("조회할 월 : ");
 		int month = sc.nextInt();
 		printItem(list, it->it.getMonth() == month);
 	}
-
 	@Override
 	public void printDay(List<Item> list) {
 		System.out.print("조회할 월 : ");
@@ -38,7 +34,6 @@ public class ABServiceImp implements ABService{
 		int day = sc.nextInt();
 		printItem(list, it->it.getMonth() == month && it.getDay() == day);
 	}
-
 	private void sort(List<Item> list) {
 		list.sort((t1, t2)-> {
 			if(t1.getMonth() != t2.getMonth()) {
@@ -47,113 +42,8 @@ public class ABServiceImp implements ABService{
 			return t1.getDay() - t2.getDay();
 		});
 	}
-
-	public boolean addIncome() {
-		System.out.print("날짜 (ex.2023-12-23) : ");
-		String date = scan.next();
-		System.out.print("품목 : ");
-		String title = scan.nextLine();
-		System.out.print("수입 : ");
-		int money = scan.nextInt();
-		Item tmp = new Item(date, title);
-		tmp.incomeMoney(money);
-		
-		return true;
-	}
-
-	@Override
-	public boolean updateSpending() {
-		if(ab.getList() == null) {
-			System.out.println("내역이 없습니다.");
-			return false;
-		}
-		
-		System.out.print("수정할 일자 : ");
-		String regDate = scan.next();
-		System.out.print("수정할 품목 : ");
-		String title = scan.next();
-		System.out.print("수정할 가격 : ");
-		int money = scan.nextInt();
-		
-		Item item = new Item(regDate, title);
-		List<Item> list = new ArrayList<Item>();
-		list.add(item);
-		
-		if(list.contains(item) == false) {
-			System.out.println("동일한 내역이 없습니다.");
-			return false;
-		}
-		// 내역 위치 찾기
-		int index = ab.getList().indexOf(item);
-		Date date = ab.getList().get(index).getRegDate();
-		ab.getList().get(index).setRegDate(date); 	  // 일자 변경
-		ab.getList().get(index).setTitle(title);	 // 품목 변경
-		return true;
-	}
-
-
-	
-
 	
 	
-	//수입 품목을 추가하는 메서드 : 이철범
-	@Override
-	public boolean insertIncome(List<Item> list) {
-		System.out.print("년(yyyy) : ");
-		int year = scan.nextInt();
-		System.out.print("월(mm) : ");
-		int month = scan.nextInt();
-		System.out.print("일(dd) : ");
-		int day = scan.nextInt();
-		if(check(year, month, day)) {
-			return false;
-		}
-		System.out.print("금액(원) : ");
-		int money = scan.nextInt();
-		System.out.print("품목 : ");
-		scan.nextLine();
-		String title = scan.nextLine();
-		
-		list.add(new Item(year, month, day, money, title));
-		
-		System.out.println("날짜 : " + year + "-"  + month + "-" + day + " 수입 : " + money + " 품목 : " +  title);
-		System.out.println("수입 품목 등록이 완료되었습니다.");
-		
-		return true;
-	}
-
-	private boolean check(int year, int month, int day) {
-		if(month>12||month<=0) {
-			System.out.println("잘못된 월 입력입니다.");
-			return true;
-		}
-		if(month==1||month==3||month==5||month==7||month==8||month==10||month==12) {
-			if(day<=0||day>31) {
-				System.out.println("잘못된 일 입력입니다.");
-				return true;
-			}
-		}
-		if(month==4||month==6||month==9||month==11) {
-			if(day<=0||day>30) {
-				System.out.println("잘못된 일 입력입니다.");
-				return true;
-			}
-		}
-		if(month == 2) {
-			if(day<=0||day>28) {
-				System.out.println("잘못된 일 입력입니다.");
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@Override
-	public boolean updateSpend(int index, int year, int month, int day, int money, String title) {
-		list.set(index, new Item(year, month, day, money, title));
-
-		return false;
-	}
 	
 	private void printItem(List<Item> list, Predicate<Item> p) {
 		List<Item> tmp = new ArrayList<Item>();
@@ -168,18 +58,20 @@ public class ABServiceImp implements ABService{
 	@Override //정경호 지출추가
 	public boolean addSpending(List<Item> list) {
 		System.out.print("날짜입력 입력(yyyy-mm-dd) :");
-		String date = scan.next();
+		String date = sc.next();
 		System.out.print("품목 : ");
-		scan.nextLine();
-		String title = scan.nextLine();
+		sc.nextLine();
+		String title = sc.nextLine();
 		System.out.print("지출금액 : ");
-		int money = scan.nextInt();
+		int money = sc.nextInt();
 		
 		Item item = new Item(date, title);
 		item.spendingMoney(money);
 		list.add(item);
+		System.out.println("추가했습니다.");
 		return true;
 	}
+
 
 
 	@Override // 지출삭제 : 정경호
@@ -189,12 +81,12 @@ public class ABServiceImp implements ABService{
 	            return false;
 	        }
 		System.out.print("삭제할 날짜입력(yyyy-mm-dd) :");
-		String date = scan.next();
+		String date = sc.next();
 		System.out.print("품목 : ");
-		scan.nextLine();
-		String title = scan.nextLine();
+		sc.nextLine();
+		String title = sc.nextLine();
 		System.out.print("금액 : ");
-		int money = scan.nextInt();
+		int money = sc.nextInt();
 		
 		Item item = new Item(date, title);
 		item.spendingMoney(money);
@@ -209,4 +101,121 @@ public class ABServiceImp implements ABService{
         }
 		
 	}	
+		
+
+	// 수입 수정 : 임병훈
+		@Override
+		public List<Item> update(List<Item> list, int index) {
+
+			if(index == -1) {
+				System.out.println("해당 내역이 없습니다.");
+				return list;
+			}
+
+			System.out.print("수정 후 일자 : ");
+			String str = sc.next();
+			System.out.print("수정 후 품목 : ");
+			String title = sc.next();
+			System.out.print("수정 후 가격 : ");
+			int money = sc.nextInt();
+
+			Item item = new Item(str, title);
+
+			list.get(index).setRegDate(item.getRegDate());
+			list.get(index).setTitle(item.getTitle());
+			list.get(index).setMoney(money);
+			System.out.println("수정했습니다.");
+			return list;
+		}
+
+		// 수입 삭제 : 임병훈
+		@Override
+		public List<Item> delete(List<Item> list, int index) {
+			if(index == -1) {
+				System.out.println("해당 내역이 없습니다.");
+				return list;
+			}
+			list.remove(index);
+			System.out.println("삭제했습니다.");
+			return list;
+		}
+
+		// 원하는 내역 index값 찾기 : 임병훈
+		@Override
+		public int location(List<Item> list) {
+			int index = 0;
+
+			if(list.size() == 0) {
+				index = -1;
+				return index;
+			}
+
+			// 수입 내역 출력
+			printAll(list);
+
+			//수정 전 항목 받아오기
+			try {
+				System.out.print("작업할 항목을 선택하세요 : "); 
+				index = sc.nextInt() - 1;
+			}catch (InputMismatchException e){
+				System.out.println("잘못된 메뉴입니다.");
+				sc.nextLine();
+			}
+
+			if(index >= list.size()) {
+				index = -1;
+			}
+
+			return index;
+		}
+
+		//수입 품목을 추가하는 메서드 : 이철범
+		@Override
+		public List<Item> add(List<Item> list) {
+			if(list == null) {
+				list = new ArrayList<Item>();
+			}
+
+			System.out.print("날짜(ex.2024-01-01) : ");
+			String str = sc.next();
+			System.out.print("품목 : ");
+			sc.nextLine();
+			String title = sc.nextLine();
+			System.out.print("수입금액 : ");
+			int don = sc.nextInt();
+
+			Item tem = new Item(str, title);
+			tem.incomeMoney(don);
+
+			list.add(tem);
+			
+			System.out.println("추가했습니다.");
+			return list;
+		}
+		
+		//지출 수정하는 메서드 : 이철범
+		@Override
+		public List<Item> updateSpending(List<Item> list, int index) {
+				if(index == -1) {
+					System.out.println("해당 내역이 없습니다.");
+					return list;
+				}
+	
+				System.out.print("수정 후 일자 : ");
+				String str = sc.next();
+				System.out.print("수정 후 품목 : ");
+				String title = sc.next();
+				System.out.print("수정 후 가격 : ");
+				int money = sc.nextInt();
+	
+				Item item = new Item(str, title);
+	
+				list.get(index).setRegDate(item.getRegDate());
+				list.get(index).setTitle(item.getTitle());
+				list.get(index).setMoney(money);
+				System.out.println("수정했습니다.");
+				return list;
+			}
+		
+
 }
