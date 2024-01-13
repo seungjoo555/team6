@@ -145,6 +145,7 @@ public class ABProgram implements AB_Program{
 		case 3:
 			//지출 삭제
 			removeSpending();
+			
 			break;
 		case 4:
 			//이전으로
@@ -163,8 +164,7 @@ public class ABProgram implements AB_Program{
 	
 	//지출삭제 정경호
 	private void removeSpending() {
-	    acountBookService.removeSpending();
-	   
+		acountBookService.removeSpending(ab.getList());
 	}
 	//지출추가 정경호
 	private void addSpending1() {
@@ -176,7 +176,36 @@ public class ABProgram implements AB_Program{
 
 	    }
 	}
-	
+
+
+	private void runUpdateMenu(int menu, int index) {
+		switch(menu) {
+		case 1 :	//년
+			runUpateInYear(index);
+			break;
+		case 2 :	//월수정
+			runUpateInMonth(index);
+			break;
+		case 3 :	//일수정
+			runUpateInDay(index);
+			break;
+		case 4 :	//금액 수정
+			runUpateInMoney(index);
+			break;
+		case 5 :	//품목수정				
+			runUpateInTitle(index);
+			break;
+		case 6 : //뒤로가기
+			System.out.println("뒤로가기");
+			break;
+		default : 
+			throw new InputMismatchException();
+	}
+	System.out.println("수정을 완료했습니다.");
+		
+	}	
+
+
 	private void printUpdateMenu() {
 		printService.printUpdateMenu();
 	}

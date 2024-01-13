@@ -53,8 +53,12 @@ public class Item implements Serializable{
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(regDate) + "\t" + title + "\t" + money;
 	}
+<<<<<<< Updated upstream
 	
 	public void addSpending(int year,int month,int day,int money,String title) {
+=======
+	public void addSpending(int year) {
+>>>>>>> Stashed changes
 		
 	}
 	

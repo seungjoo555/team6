@@ -17,7 +17,11 @@ public interface ABService {
 
 
 	boolean addSpending(List<Item> list);
-	boolean removeSpending();
+
+	boolean removeSpending(List<Item> list);
+
+	
+
 
 	//수입 품목을 추가하는 메서드 : 이철범
 	List<Item> add(List<Item> list);
@@ -39,5 +43,7 @@ public interface ABService {
 
 
 
+
+	List<Item> removeSpending(List<Item> list, int index);
 
 }
