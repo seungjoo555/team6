@@ -11,6 +11,8 @@ import acountbook.Item;
 public class ABServiceImp implements ABService{
 	
 	private Scanner sc = new Scanner(System.in);
+	/* 강사 피드백 
+	 * - 필요 없는 멤버*/
 	private AcountBook ab= new AcountBook();
 	
 	@Override
@@ -18,7 +20,8 @@ public class ABServiceImp implements ABService{
 		System.out.println("날짜\t\t품목\t수입/지출");
 		printItem(list, (t)->true);
 	}
-	
+	/* 강사 피드백 
+	 * - 필요 없는 멤버*/
 	private List<Item> list;
 	
 	@Override
@@ -44,6 +47,10 @@ public class ABServiceImp implements ABService{
 		});
 	}
 
+	/* 강사 피드백
+	 * - 추가에 실패하는 경우는 없는가? 
+	 * - 아이템을 만들고 리스트에 추가 안함.
+	 * - 이러면 아이템 리스트에는 새 항목이 추가가 안됨*/
 	public boolean addIncome() {
 		System.out.print("날짜 (ex.2023-12-23) : ");
 		String date = sc.next();
@@ -51,6 +58,8 @@ public class ABServiceImp implements ABService{
 		String title = sc.nextLine();
 		System.out.print("수입 : ");
 		int money = sc.nextInt();
+		/* 강사 피드백
+		 * - 날짜, 품목, 금액을 추가하는 생성자를 만들어서, 금액이 +이면 수입, -이면 지출로 처리*/
 		Item tmp = new Item(date, title);
 		tmp.incomeMoney(money);
 		
@@ -100,7 +109,8 @@ public class ABServiceImp implements ABService{
 		String title = sc.nextLine();
 		System.out.print("금액 : ");
 		int money = sc.nextInt();
-		
+		/* 강사 피드백
+		 * - 날짜, 품목, 금액을 추가하는 생성자를 만들어서, 금액이 +이면 수입, -이면 지출로 처리*/
 		Item item = new Item(date, title);
 		item.spendingMoney(money);
 	
@@ -134,6 +144,9 @@ public class ABServiceImp implements ABService{
 
 		Item item = new Item(str, title);
 
+		/* 강사 피드백
+		 * - 아이템 클래스에 업데이트 메서드를 만들었다면 쉽게 수정할 수 있음
+		 * - 위에 있는 객체를 만들 필요가 없음*/
 		list.get(index).setRegDate(item.getRegDate());
 		list.get(index).setTitle(item.getTitle());
 		list.get(index).setMoney(money);
@@ -142,6 +155,9 @@ public class ABServiceImp implements ABService{
 	}
 
 	// 수입 삭제 : 임병훈
+	/* 강사 피드백
+	 * - 수입을 삭제하는 지 확인하는 작업이 없음
+	 * - 수입/지출 삭제 기능처럼 보임. 주석으로는 수입 삭제라고 되어 있음.*/
 	@Override
 	public List<Item> delete(List<Item> list, int index) {
 		if(index == -1) {
@@ -154,6 +170,11 @@ public class ABServiceImp implements ABService{
 	}
 
 	// 원하는 내역 index값 찾기 : 임병훈
+	/* 강사 피드백
+	 * - 이 메서드는 입력한 index가 유효한지 확인하는 메서드인데
+	 *   입력은 밖에서 받고, list와 index를 매개변수로 넘겨서
+	 *   유효하면 index, 아니면 -1를 리턴하는 것이 좋아 보임.
+	 * - 해당 메서드를 다른 곳에서 활용할 수 있음.*/
 	@Override
 	public int location(List<Item> list) {
 		int index = 0;
@@ -183,6 +204,8 @@ public class ABServiceImp implements ABService{
 	}
 
 	//수입 품목을 추가하는 메서드 : 이철범
+	/* 강사 피드백
+	 * - 수입 추가와 지출 추가가 차이가 없음.*/
 	@Override
 	public List<Item> add(List<Item> list) {
 		if(list == null) {
@@ -207,6 +230,8 @@ public class ABServiceImp implements ABService{
 	}
 	
 	//지출 수정하는 메서드 : 이철범
+	/* 강사 피드백
+	 * - 수입 수정과 지출 수정과 차이가 없음.*/
 	@Override
 	public List<Item> updateSpending(List<Item> list, int index) {
 		if(index == -1) {

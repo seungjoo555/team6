@@ -21,6 +21,9 @@ public class ABProgram implements AB_Program{
 
 
 	private Scanner scan = new Scanner(System.in);
+	/* 강사 피드백
+	 * - 서비스에게 가계부에 있는 리스트만 계속 넘기기 때문에 가계부를 만들 필요가 없음.
+	 * - ab.getList() 대신 ab를 넘기거나 가계부 대신 아이템 리스트를 관리하는게 나아 보임.*/
 	private AcountBook ab = new AcountBook();
 
 	private PrintService printService= new PrintServiceImp();

@@ -38,7 +38,8 @@ public class Item implements Serializable{
 			System.out.println("에러");
 		}
 	}
-	
+	/* 강사 피드백
+	 * - money가 음수일 때 처리 안함 아래도 마찬가지*/
 	public void incomeMoney(int money) {
 		this.money += money;
 	}
