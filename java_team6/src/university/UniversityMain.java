@@ -5,7 +5,7 @@ public class UniversityMain {
 
 	public static void main(String[] args) {
 		UniProgram up = new UniProgram();
-		//up.run();
+		up.run();
 		
 	}
 
