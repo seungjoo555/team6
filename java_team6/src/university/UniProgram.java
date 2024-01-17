@@ -11,9 +11,12 @@ import university.service.UniServiceimp;
 
 // 실행 메서드
 public class UniProgram implements AB_Program{
-	Scanner scan = new Scanner(System.in);
+	private Scanner scan = new Scanner(System.in);
+	
 	private PrintService printService= new PrintServiceImp();
 	private UniService uniService = new UniServiceimp();
+	
+	private School sc = new School();
 	private final int EXIT = 7;
 	private final int PRO_EXIT = 4;
 	public void run() {
@@ -54,6 +57,7 @@ public class UniProgram implements AB_Program{
 			break;
 		case 2:
 			//교수 수정
+			updateProfessor();
 			break;
 		case 3:
 			//교수 삭제
@@ -68,8 +72,13 @@ public class UniProgram implements AB_Program{
 		
 	}
 
+	private void updateProfessor() {
+		uniService.updatePro(sc.getProList());
+		
+	}
+
 	private void addProfessor() {
-		uniService.addPro();
+		uniService.addPro(sc.getProList());
 	}
 
 	private void printProfessorMenu() {

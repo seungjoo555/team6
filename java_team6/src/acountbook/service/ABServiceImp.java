@@ -19,8 +19,6 @@ public class ABServiceImp implements ABService{
 		printItem(list, (t)->true);
 	}
 	
-	private List<Item> list;
-	
 	@Override
 	public void printMonth(List<Item> list) {
 		System.out.print("조회할 월 : ");
