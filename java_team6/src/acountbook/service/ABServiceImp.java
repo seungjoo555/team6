@@ -20,11 +20,7 @@ public class ABServiceImp implements ABService{
 		System.out.println("날짜\t\t품목\t수입/지출");
 		printItem(list, (t)->true);
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> main
 	@Override
 
 	public void printMonth(List<Item> list) {
