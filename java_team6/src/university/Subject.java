@@ -1,6 +1,7 @@
 package university;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 // 강의 리스트
@@ -17,7 +18,8 @@ public class Subject implements Serializable {
 - 학생정보로 등록
 - 정원이 가득차면 신청 불가 (선택)
 */
- private String subName; //강의 이름
+ List<String> subject;
+ private String subName; //강의 이름 - 중복 X
  private String pName; //강의 교수명 - 중복 X
  private String sNum; // 학생 학번 - 중복 X
  
@@ -46,6 +48,13 @@ public Subject(String subNam, String pName, String sNum) {
 @Override
 public String toString() {
 	return "강의명 :" + subName + "\n교수명 :" + pName + "\n학생명 :" + sNum ;
+}
+public void removeSubject(String sub) {
+	subject.remove(sub);
+	
+}
+public void addSubject(String sub, String pName) {
+	subject.add(sub);
 }
 
 }
