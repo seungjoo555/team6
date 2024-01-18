@@ -10,6 +10,4 @@ public interface PrintService {
 
 	void printIncomeMenu();
 
-	void printUpdateMenu();
-
 }
