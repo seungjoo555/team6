@@ -36,6 +36,7 @@ public class Professor {
 	
 	
 	//추가용 생성자
+	//교수 이름, 전공, 학력, 임용날짜 (학과는 과 생성후 변경)
 	public Professor (String name, String major, String education, String date) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
