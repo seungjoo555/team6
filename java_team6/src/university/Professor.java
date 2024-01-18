@@ -8,12 +8,12 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 // 교수 리스트
-@Data
 @Getter
 @Setter
-@AllArgsConstructor
+@ToString
 public class Professor implements Serializable{
 	
 	private static final long serialVersionUID = 3660695893715988058L;
@@ -34,10 +34,13 @@ public class Professor implements Serializable{
 	public int hashCode() {
 		return Objects.hash(name, proNum);
 	}
-	@Override
-	public String toString() {
-		return "이름 : " + name;
+	
+	public Professor(String name, int proNum) {
+		super();
+		this.name = name;
+		this.proNum = proNum;
 	}
+
 	
 	
 }

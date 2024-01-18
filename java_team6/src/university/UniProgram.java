@@ -78,7 +78,7 @@ public class UniProgram implements AB_Program{
 	}
 
 	private void addProfessor() {
-		uniService.addPro(sc.getProList());
+
 	}
 
 	private void printProfessorMenu() {
