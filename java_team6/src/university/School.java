@@ -3,10 +3,15 @@ package university;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 // 리스트 총괄 관리
+@Data
+@AllArgsConstructor
 public class School implements Serializable {
 	private static final long serialVersionUID = -3631361192718600576L;
+	List<Student> list;
 
 	private List<Professor> prf;// 교수 리스트
 	private List<Student> std; // 학생 리스트

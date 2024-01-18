@@ -17,9 +17,10 @@ public class Department implements Serializable {
 	private List<Professor> prf; // 학과교수 리스트
 	private List<Student> std; // 학생 리스트
 	
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(dName, prf, std);
+		return Objects.hash(dName);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -42,5 +43,4 @@ public class Department implements Serializable {
 	public String toString() {
 		return "학과명 :" + dName + "\n교수명 :" + prf + "\n학생명 :" + std ;
 	}
-	
 }

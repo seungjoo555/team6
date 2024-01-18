@@ -14,7 +14,6 @@ import program.Program;
 
 // 실행 메서드
 public class UniProgram implements Program {
-	School sh = new School();
 	private Scanner sc = new Scanner(System.in);
 	private final int EXIT = 99999;
 	@Override
