@@ -3,7 +3,10 @@ package university;
 import java.io.Serializable;
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+
 // 교수 리스트
+@AllArgsConstructor
 public class Professor implements Serializable{
 	private static final long serialVersionUID = 8377957422955045309L;
 	private String pName; // 교수 이름
@@ -28,15 +31,7 @@ public class Professor implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "교수이름=" + pName + "\n학과=" +pDep  + "\n강의명=" + pSubject + "/n번호=" + pNum;
+		return "교수이름=" + pName + "\n학과=" +pDep  + "\n강의명=" + pSubject + "\n번호=" + pNum;
 	}
 	
-	public Professor(String pName, String pSubject, String pDep, String pNum) {
-		super();
-		this.pName = pName;
-		this.pSubject = pSubject;
-		this.pDep = pDep;
-		this.pNum = pNum;
-	}
 }
-

@@ -102,13 +102,15 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//교수 등록
-			school = us.addProfessor(school);
+			us.addProfessor(school.getPrf());
 			break;
 		case 2:
 			//교수 수정
+			us.updateProfessor(school.getPrf());
 			break;
 		case 3:
 			//교수 삭제
+			us.deleteProfessor(school.getPrf());
 			break;
 		case 4:
 			//이전으로
