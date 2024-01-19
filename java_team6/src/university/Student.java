@@ -3,6 +3,8 @@ package university;
 import java.io.Serializable;
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+
 // 학생 리스트
 public class Student implements Serializable {
 	private static final long serialVersionUID = -7837347182174632918L;
