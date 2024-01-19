@@ -11,11 +11,13 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import program.Program;
+import university.service.PrintServiceImp;
 
 // 실행 메서드
 public class UniProgram implements Program {
 	private Scanner sc = new Scanner(System.in);
-	private final int EXIT = 99999;
+	private final int EXIT = 6;
+	final PrintServiceImp psi = new PrintServiceImp();
 	@Override
 	public void run() {
 		int menu = 0;
@@ -42,11 +44,17 @@ public class UniProgram implements Program {
 
 	@Override
 	public void printMenu() {
-		
+		psi.printMainMenu();
 	}
 
 	@Override
 	public void runMenu(int menu) {
+		switch (menu) {
+		case 1: 
+			
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + menu);
+		}
 		
 	}
 
