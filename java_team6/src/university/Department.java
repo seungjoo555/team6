@@ -1,25 +1,31 @@
 package university;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.Data;
+
 // 학과 리스트
-public class Department implements Serializable {
-	private static final long serialVersionUID = 3597327171139648919L;
+@Data
+public class Department {
 /*과 클래스 // Department
-- 과 이름 (중복x)
+- 과 이름 (중복 x)
 - 정원 제한 (선택사항)
 - 학과 교수 (리스트)
 - 학생 (리스트)
+과를 만든후에 교수, 학생 추가
+교수 정원제한 학생 정원 제한을 입력받고 추가할때 사용
  */
-	private String dName; //학과명 -중복 X
-	private List<Professor> prf; // 학과교수 리스트
-	private List<Student> std; // 학생 리스트
+	private String name; //학과명 -중복 X
+	private List<Professor> professorList; // 학과교수 리스트
+	private List<Student> studentList; // 학생 리스트
+	private int maxProfessor;	//교수 정원 제한
+	private int maxStudent;		//학생 정원 제한
 	
+	//수정, 삭제시 사용
 	@Override
 	public int hashCode() {
-		return Objects.hash(dName, prf, std);
+		return Objects.hash(name);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -30,17 +36,13 @@ public class Department implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Department other = (Department) obj;
-		return Objects.equals(dName, other.dName) && Objects.equals(prf, other.prf) && Objects.equals(std, other.std);
+		return Objects.equals(name, other.name);
 	}
-	public Department(String dName, List<Professor> prf, List<Student> std) {
-		super();
-		this.dName = dName;
-		this.prf = prf;
-		this.std = std;
-	}
-	@Override
-	public String toString() {
-		return "학과명 :" + dName + "\n교수명 :" + prf + "\n학생명 :" + std ;
+	
+	public Department(String name, int maxProfessor, int maxStudent) {
+		this.name = name;
+		this.maxProfessor = maxProfessor;
+		this.maxStudent = maxStudent;
 	}
 	
 }
