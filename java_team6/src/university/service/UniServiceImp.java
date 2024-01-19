@@ -20,7 +20,7 @@ public class UniServiceImp implements UniService {
 	}
 	//학생 추가 메서드
 	@Override
-	public boolean addStudent(School school) {
+	public List<Student> addStudent(List<Student> list) {
 		System.out.println("이름 : ");
 		String sName = scan.next();
 		System.out.println("학년 : ");
@@ -31,17 +31,21 @@ public class UniServiceImp implements UniService {
 		String sNum = scan.next();
 		
 		Student std = new Student(sName, sGrade, sDep, sNum);
-		if(school.addStudnet(std)) {
-			System.out.println("학생을 추가했습니다.");
-		}else {
+		if(list.contains(sNum) == true) {
 			System.out.println("중복된 학번입니다.");
+			return list;
+		}else {
+			
+		list.add(std);
+		System.out.println("학생을 추가했습니다.");
 		}
-		return true;
+		return list;
+		
 		
 	}
 	//학생 수정 메서드
 	@Override
-	public boolean updateStudent(School school) {
+	public List<Student> updateStudent(List<Student> list) {
 		System.out.println("학번 : ");
 		String sNum = scan.next();
 		
@@ -54,8 +58,7 @@ public class UniServiceImp implements UniService {
 		
 		Student std = new Student(sName, sGrade, sDep, sNum);
 		
-		return false;
-			
+		return null;
 	}
 	
 }

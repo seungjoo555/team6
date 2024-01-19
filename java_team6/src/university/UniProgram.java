@@ -139,7 +139,7 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학생 등록
-			us.addStudent(school);
+			//us.addStudent(school);
 			break;
 		case 2:
 			//학생 수정

@@ -25,22 +25,9 @@ public class School implements Serializable {
 		this.prf.add(prf);
   }
 	
-	//학생추가 메서드
-	public boolean addStudnet(Student std) {
-		if(this.std.contains(std)) {
-			return false;
-		}
+	//교수추가 메서드
+	public void addStudent(Student std) {
 		this.std.add(std);
-		return true;
   }
-	
-	public boolean updateStudent(Student std) {
-		int index = this.std.indexOf(std);
-		if(index < 0) {
-			return false;
-		}
-		this.std.get(index);
-		return true;
-	}
 	
 }
