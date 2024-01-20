@@ -102,7 +102,6 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//교수 등록
-			school = us.addProfessor(school);
 			break;
 		case 2:
 			//교수 수정
@@ -139,15 +138,15 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학생 등록
-			//us.addStudent(school);
+			us.addStudent(school.getStd());
 			break;
 		case 2:
 			//학생 수정
-			us.addProfessor(school);
+			us.updateStudent(school.getStd());
 			break;
 		case 3:
 			//학생 삭제
-			//deleteStudent
+			us.deleteStudent(school.getStd());
 			break;
 		case 4:
 			//이전으로

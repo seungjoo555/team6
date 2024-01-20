@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
 // 리스트 총괄 관리
+@Getter
+@Setter
 public class School implements Serializable {
 	private static final long serialVersionUID = -3631361192718600576L;
   
@@ -23,11 +28,6 @@ public class School implements Serializable {
 	//교수추가 메서드
 	public void addProfessor(Professor prf) {
 		this.prf.add(prf);
-  }
-	
-	//교수추가 메서드
-	public void addStudent(Student std) {
-		this.std.add(std);
   }
 	
 }
