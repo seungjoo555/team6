@@ -22,9 +22,4 @@ public class School implements Serializable {
 		this.dep = new ArrayList<Department>();
 	}
 	
-	//교수추가 메서드
-	public void addProfessor(Professor prf) {
-		this.prf.add(prf);
-  }
-	
 }
