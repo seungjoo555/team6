@@ -67,6 +67,7 @@ public class UniServiceImp implements UniService {
 		
 		// index 자리에 pf로 변경
 		list.set(index, pf);
+		System.out.println("수정 전" + list);
 		System.out.println("수정 완료");
 		
 		return list;
@@ -76,7 +77,7 @@ public class UniServiceImp implements UniService {
 	// 리스트에 등록된 교수 정보 삭제하는 메서드 : 임병훈
 	public List<Professor> deleteProfessor(List<Professor> list) {
 		
-		System.out.println(list);
+		System.out.println("삭제 전" + list);
 		System.out.print("수정할 교수 번호 : ");
 		String pNum = scan.next();
 
@@ -89,6 +90,7 @@ public class UniServiceImp implements UniService {
 		}
 		
 		list.remove(index);
+		System.out.println("삭제 전" + list);
 		System.out.println("삭제 완료");
 		
 		return list;
