@@ -13,91 +13,96 @@ public class UniServiceImp implements UniService {
 	
 	//학생 추가 메서드 : 이철범
 	@Override
-	public boolean addStudent(List<Student> list) {
-		System.out.println("이름 : ");
+	public List<Student> addStudent(List<Student> list) {
+		System.out.print("이름 : ");
 		String sName = scan.next();
-		System.out.println("학년 : ");
+		System.out.print("학년 : ");
 		int sGrade = scan.nextInt();
-		System.out.println("학과 : ");
+		System.out.print("학과 : ");
 		String sDep = scan.next();
-		System.out.println("학번 : ");
+		System.out.print("학번 : ");
 		String sNum = scan.next();
 		
 		Student std = new Student(sName, sGrade, sDep, sNum);
 		
-		if(list.contains(std) == true) {
-			list.add(std);
-			System.out.println("학생을 추가 했습니다.");
-			return true;
-		}else {
+		int index = list.indexOf(std);
+		
+		
+		if(index != -1) {
 			System.out.println("등록된 학생입니다.");
-			return false;
+			return list;
+		}else {
+			list.add(std);
+			System.out.println("학생을 등록했습니다.");
 		}
+		
+		return list;
 		
 	}
 	//학생 수정 메서드 : 이철범
 	@Override
-	public boolean updateStudent(List<Student> list) {
+	public List<Student> updateStudent(List<Student> list) {
 		if(list == null) {
 			System.out.println("등록된 학생이 없습니다.");
-			return false;
+			return list;
 		}
-		
-		System.out.println("이름 : ");
-		String sName = scan.next();
-		System.out.println("학년 : ");
-		int sGrade = scan.nextInt();
-		System.out.println("학과 : ");
-		String sDep = scan.next();
-		System.out.println("학번 : ");
+		System.out.println(list);
+		System.out.print("수정할 학번 : ");
 		String sNum = scan.next();
 		
-		Student std = new Student(sName, sGrade, sDep, sNum);
-		int index = list.indexOf(std);
+		int index = location(list, sNum);
 		
 		if(index != -1) {
-			System.out.println("수정할 이름 : ");
-			sName = scan.next();
-			System.out.println("수정할 학년 : ");
-			sGrade = scan.nextInt();
-			System.out.println("수정할 학과 : ");
-			sDep = scan.next();
-			Student newStd = new Student(sName, sGrade, sDep, sNum);
+			System.out.print("수정할 이름 : ");
+			String sName = scan.next();
+			System.out.print("수정할 학년 : ");
+			int sGrade = scan.nextInt();
+			System.out.print("수정할 학과 : ");
+			String sDep = scan.next();
+			Student std = new Student(sName, sGrade, sDep, sNum);
+			
 			list.remove(index);
-			list.add(newStd);
+			
+			list.add(std);
 			System.out.println("학생을 수정했습니다.");
-			return true;
 		}else {
 			System.out.println("수정할 학생이 없습니다.");
-			return false;
 		}
+		return list;
+	}
+	private int location(List<Student> list, String sNum) {
+		int index = -1;
 		
+		Student std = new Student(sNum);
+		index = list.indexOf(std);
+		System.out.println(index);
+		
+		if(index == -1) {
+			System.out.println("해당 교수번호가 없습니다.");
+			return index;
+		}
+		return index;
 	}
 	//학생 삭제 메서드 : 이철범
 	@Override
-	public boolean deleteStudent(List<Student> list) {
+	public List<Student> deleteStudent(List<Student> list) {
 		if(list == null) {
 			System.out.println("등록된 학생이 없습니다.");
-			return false;
+			return list;
 		}
-		System.out.println("삭제할 이름 : ");
-		String sName = scan.next();
-		System.out.println("삭제할 학년 : ");
-		int sGrade = scan.nextInt();
-		System.out.println("삭제할 학과 : ");
-		String sDep = scan.next();
-		System.out.println("삭제할 학번 : ");
+		System.out.println(list);
+		System.out.print("삭제할 학번 : ");
 		String sNum = scan.next();
 		
-		Student std = new Student(sName, sGrade, sDep, sNum);
+		int index = location(list, sNum);
 		
-		if(list.contains(std)) {
-			list.remove(std);
-			System.out.println("학생을 삭제 되었습니다.");
-			return true;
+		if(index != -1) {
+			list.remove(index);
+			System.out.println("학생을 삭제했습니다.");
+			return list;
 		} else {
 			System.out.println("삭제할 학생이 없습니다.");
-			return false;
+			return list;
 		}
 	}
 	

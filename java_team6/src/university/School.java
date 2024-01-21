@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 // 리스트 총괄 관리
-@Getter
-@Setter
+@Data
 public class School implements Serializable {
 	private static final long serialVersionUID = -3631361192718600576L;
   

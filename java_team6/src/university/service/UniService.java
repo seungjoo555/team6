@@ -10,9 +10,9 @@ import university.Student;
 public interface UniService {
 
 	//학생 등록
-	boolean addStudent(List<Student> list);
+	List<Student> addStudent(List<Student> list);
 	//학생 수정
-	boolean updateStudent(List<Student> list);
+	List<Student> updateStudent(List<Student> list);
 	//학생 삭제
-	boolean deleteStudent(List<Student> list);
+	List<Student> deleteStudent(List<Student> list);
 }
