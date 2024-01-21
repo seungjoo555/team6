@@ -1,10 +1,10 @@
 package university.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 import acountbook.Item;
-import university.School;
 import university.Subject;
 
 // 서비스 구현클래스
@@ -22,28 +22,26 @@ public class UniServiceimp implements UniService {
 
 	@Override
 	public boolean removeDepartment(List<Item> list) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean updateDepartment(List<Item> list) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override //강의 추가 메서드 : 정경호
-	public boolean addSubject(List<Subject> list) {
+	public boolean addSubject(List<Subject> addlist) {
 		System.out.println("=====강의 추가=====");
 		System.out.print("추가할 강의명 :" );
-		sc.nextLine();
 		String sub = sc.nextLine();
-		System.out.println("강의할 교수명 :");
+		System.out.print("강의할 교수명 :");
 		String pName = sc.nextLine();
 		Subject sj = new Subject(sub, pName, null);
 		sj.addSubject(sub,pName);
-		if(list.contains(sj)) {
-			list.add(sj);
+	
+		if(sj!=null) {
+			addlist.add(sj);
 			System.out.println("강의가 추가 되었습니다.");
 			return true;
 		}else {
@@ -52,20 +50,26 @@ public class UniServiceimp implements UniService {
 		}
 	}
 	@Override //강의 삭제 메서드 : 정경호
-	public boolean removeSubject(List<Subject> list) {
+	public boolean removeSubject(List<Subject> removelist) {
 		System.out.println("=====강의 삭제=====");
-		if(list == null || list.isEmpty()) {
+		try {	
+		if(removelist == null || removelist.isEmpty()) {
 			System.out.println("삭제할 강의가 없습니다.");
 			return false;
 		}
-		System.out.print("삭제할 강의 입력 : ");
-		sc.nextLine();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.print("삭제할 강의명: ");
 		String sub =sc.nextLine();
-		Subject sj = new Subject(sub, null, null);
-		sj.removeSubject(sub);
+		System.out.print("삭제할 교수명 :");
+		String pName = sc.next();
+		Subject sj = new Subject(sub, pName,null);
+		sj.removeSubject();
 		
-		if(list.contains(sj)) {
-			list.remove(sj);
+		if(removelist.contains(sj)) {
+			removelist.remove(sj);
+			sj.toString();
 			System.out.println("강의가 삭제 되었습니다.");
 			return true;
 		} else {
@@ -78,29 +82,28 @@ public class UniServiceimp implements UniService {
 	
 	
 	@Override //강의 수정 메서드 : 정경호
-	public boolean updateSubject(List<Subject> list) {
+	public boolean updateSubject(List<Subject> uplist) {
 		System.out.println("=====강의 수정=====");
-		if(list == null || list.isEmpty()) {
+		if(uplist == null || uplist.isEmpty()) {
 			System.out.println("수정할 강의가 없습니다.");
 			return false;
 		}
 		System.out.print("수정할 강의명 :" );
-		sc.nextLine();
 		String oldSub = sc.nextLine();
-		System.out.println("수정할 교수명 :");
+		System.out.print("수정할 교수명 :");
 		String oldPName = sc.nextLine();
 		Subject oldSj = new Subject(oldSub, oldPName, null);
-		int index = list.indexOf(oldSj);
+		int index = uplist.indexOf(oldSj);
 		
 		if(index != -1) {
-			System.out.println("새로운 강의명 :");
-			sc.nextLine();
+			System.out.print("새로운 강의명 :");
 			String newSub = sc.nextLine();
-			System.out.println("새로운 교수명 :");
+			System.out.print("새로운 교수명 :");
 			String newPName = sc.nextLine();
 			Subject newSj = new Subject(newSub, newPName,null);
-			list.remove(index);
-			list.add(newSj);
+			uplist.remove(index);
+			uplist.add(newSj);
+			newSj.toString();
 			System.out.println("수정이 완료 되었습니다.");
 			return true;
 		}else {

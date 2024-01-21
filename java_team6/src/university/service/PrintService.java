@@ -4,4 +4,6 @@ package university.service;
 public interface PrintService {
 	void printMainMenu(); // 메인 메뉴 출력
 	void printPrintMenu();
+	void subjectPrintMenu();// 강의 메뉴 출력
+	void printManager();
 }

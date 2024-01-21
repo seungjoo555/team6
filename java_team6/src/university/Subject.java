@@ -18,7 +18,7 @@ public class Subject implements Serializable {
 - 학생정보로 등록
 - 정원이 가득차면 신청 불가 (선택)
 */
- List<String> subject;
+ List<Subject> sub;
  private String subName; //강의 이름 - 중복 X
  private String pName; //강의 교수명 - 중복 X
  private String sNum; // 학생 학번 - 중복 X
@@ -40,21 +40,20 @@ public boolean equals(Object obj) {
 			&& Objects.equals(subName, other.subName);
 }
 public Subject(String subNam, String pName, String sNum) {
-	super();
 	this.subName = subNam;
 	this.pName = pName;
 	this.sNum = sNum;
 }
 @Override
 public String toString() {
-	return "강의명 :" + subName + "\n교수명 :" + pName + "\n학생명 :" + sNum ;
+	return "-------"+"\n강의명 :" + subName + "\n교수명 :" + pName ;
 }
-public void removeSubject(String sub) {
-	subject.remove(sub);
+public void removeSubject() {
+	
 	
 }
 public void addSubject(String sub, String pName) {
-	subject.add(sub);
+	//sub.add(sub);
 }
 
 }
