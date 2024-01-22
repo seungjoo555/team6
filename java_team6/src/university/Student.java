@@ -35,7 +35,7 @@ public class Student implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "학생명 :" + sName + "\n학년 :" + sGrade + "\n학과 :" + sDep + "\n학번" + sNum;
+		return "학생명 : " + sName + "\n학년 : " + sGrade + "\n학과 : " + sDep + "\n학번 : " + sNum;
 	}
 	public Student(String sName, int sGrade, String sDep, String sNum) {
 		super();

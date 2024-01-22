@@ -34,14 +34,13 @@ public class UniServiceImp implements UniService {
 			list.add(std);
 			System.out.println("학생을 등록했습니다.");
 		}
-		
 		return list;
 		
 	}
 	//학생 수정 메서드 : 이철범
 	@Override
 	public List<Student> updateStudent(List<Student> list) {
-		if(list == null) {
+		if(list.size() <= 0) {
 			System.out.println("등록된 학생이 없습니다.");
 			return list;
 		}
@@ -74,18 +73,13 @@ public class UniServiceImp implements UniService {
 		
 		Student std = new Student(sNum);
 		index = list.indexOf(std);
-		System.out.println(index);
 		
-		if(index == -1) {
-			System.out.println("해당 학번이 없습니다.");
-			return index;
-		}
 		return index;
 	}
 	//학생 삭제 메서드 : 이철범
 	@Override
 	public List<Student> deleteStudent(List<Student> list) {
-		if(list == null) {
+		if(list.size() <= 0) {
 			System.out.println("등록된 학생이 없습니다.");
 			return list;
 		}
