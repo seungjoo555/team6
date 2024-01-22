@@ -19,17 +19,11 @@ public class UniProgram implements UniversityProgram {
 	private Scanner sc = new Scanner(System.in);
 	private final int EXIT = 7;
 	private final int PFMEXIT = 4;
-<<<<<<< HEAD
-	private final int STDMEXIT = 4;
-	private final int DPMEXIT = 5;
-	private final int SUBDPMEXIT = 5;
-	private final int SJMEXIT = 4;
-=======
 	private final int STDMEXIT = 7;
-	private final int DPMEXIT = 7;
+	private final int DPMEXIT = 5;
+	private final int SUBDPMEXIT = 7;
 	private final int SJMEXIT = 7;
 	private final int SEARCHEXIT = 6;
->>>>>>> main
 	
 	@Override
 	public void run() {
@@ -228,11 +222,9 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 2:
 			//학과 수정
-			school = us.updateDepartment(school);
 			break;
 		case 3:
 			//학과 삭제
-			school = us.deleteDepartment(school);
 			break;
 		case 4:
 			//학과 교수/학생 관리

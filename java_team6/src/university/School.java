@@ -1,27 +1,20 @@
 package university;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
 
 import lombok.Data;
 
 // 리스트 총괄 관리
 @Data
-<<<<<<< HEAD
-public class School {
-
-	List<Professor> professorList = new ArrayList<Professor>();
-	
-}
-=======
 public class School implements Serializable {
 	private static final long serialVersionUID = -3631361192718600576L;
   
 	private List<Professor> prf;// 교수 리스트
 	private List<Student> std; // 학생 리스트
 	private List<Subject> sub; // 강의 리스트
-	private List<Department>dep; // 학과 리스트
+	private List<Department> dep; // 학과 리스트
 	
 	public School() {
 		this.prf = new ArrayList<Professor>();
@@ -31,4 +24,3 @@ public class School implements Serializable {
 	}
 	
 }
->>>>>>> main

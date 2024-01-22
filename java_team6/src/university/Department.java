@@ -6,7 +6,6 @@ import java.util.Objects;
 import lombok.Data;
 
 // 학과 리스트
-<<<<<<< HEAD
 @Data
 public class Department {
 /*과 클래스 // Department
@@ -20,21 +19,8 @@ public class Department {
 	private String name; //학과명 -중복 X
 	private List<Professor> professorList; // 학과교수 리스트
 	private List<Student> studentList; // 학생 리스트
-	private int maxProfessor;	//교수 정원 제한
-	private int maxStudent;		//학생 정원 제한
-=======
-public class Department implements Serializable {
-	private static final long serialVersionUID = 3597327171139648919L;
-	/*과 클래스 // Department
-	- 과 이름 (중복x)
-	- 정원 제한 (선택사항)
-	- 학과 교수 (리스트)
-	- 학생 (리스트)
-	 */
-	private String dName; //학과명 -중복 X
-	private List<Professor> prf; // 학과교수 리스트
-	private List<Student> std; // 학생 리스트
->>>>>>> main
+	private int maxProfessor;	//교수 정원 제한(5 고정)
+	private int maxStudent;		//학생 정원 제한(10 고정)
 	
 	//수정, 삭제시 사용
 	@Override
@@ -53,10 +39,12 @@ public class Department implements Serializable {
 		return Objects.equals(name, other.name);
 	}
 	
-	public Department(String name, int maxProfessor, int maxStudent) {
+	
+	//학과 등록 생성자 : 학과 이름		*교수 정원(5 고정), 학생 정원(10 고정)
+	public Department(String name) {
 		this.name = name;
-		this.maxProfessor = maxProfessor;
-		this.maxStudent = maxStudent;
+		this.maxStudent = 10;
+		this.maxProfessor = 5;
 	}
 	
 }

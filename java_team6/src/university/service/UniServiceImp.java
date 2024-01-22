@@ -1,52 +1,20 @@
 package university.service;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import university.Department;
 import university.Professor;
 import university.School;
-=======
-import java.util.List;
-import java.util.Scanner;
-import university.Professor;
->>>>>>> main
-
 // 서비스 구현클래스
 public class UniServiceImp implements UniService {
 
-<<<<<<< HEAD
-	private Scanner sc = new Scanner(System.in);
-	
-	/**
-	 * @param school 리스트를 관리하는 학교 클래스
-	 * @return school 교수 등록후 변경된 학교 클래스
-	 */
-	@Override
-	public School addProfessor(School school) {
-		List<Professor> list = school.getProfessorList();
-		if(list == null) {
-			list = new ArrayList<Professor>();
-		}
-		
-		System.out.print("교수 이름 : ");
-		String name = sc.next();
-		System.out.print("교수 전공 : ");
-		String major = sc.next();
-		System.out.print("교수 학력 : ");
-		String education = sc.next();
-		System.out.print("임용 날짜(형식:yyyy-MM-dd) : ");
-		String date = sc.next();
-		
-		Professor pf = new Professor(name, major, education, date);
-=======
 	private Scanner scan = new Scanner(System.in);
 	
 	@Override
 	// 교수 정보 추가하는 메서드 : 임병훈
 	public List<Professor> addProfessor(List<Professor> list) {
->>>>>>> main
 		
 		System.out.print("교수 번호 : ");
 		String pNum = scan.next();
@@ -57,17 +25,6 @@ public class UniServiceImp implements UniService {
 		System.out.print("교수 이름 : ");
 		String pName = scan.next();
 		
-<<<<<<< HEAD
-		if(list.size() > 1) {
-			int index = list.size();
-			list.get(index).setNum(list.get(index - 1).getNum() + 1);
-		}else {
-			list.get(0).setNum(1);
-		}
-		
-		school.setProfessorList(list);
-		return school;
-=======
 		// 입력된 정보로 객체 생성
 		Professor pf = new Professor(pName, pSub, pDep, pNum);
 		
@@ -83,7 +40,6 @@ public class UniServiceImp implements UniService {
 		list.add(pf);
 		
 		return list;
->>>>>>> main
 	}
 
 	@Override
@@ -163,5 +119,24 @@ public class UniServiceImp implements UniService {
 		}
 		
 		return index;
+	}
+
+	@Override
+	public School addDepartment(School school) {
+		List<Department> list = school.getDep();
+		if(list == null) {
+			list = new ArrayList<Department>();
+		}
+		System.out.print("등록할 학과명 : ");
+		String name = scan.nextLine();
+		Department tmp = new Department(name);
+		if(!list.contains(tmp)) {
+			list.add(tmp);
+			System.out.println("학과를 등록했습니다.");
+		}else {
+			System.out.println("이미 등록된 학과입니다.");
+		}
+		school.setDep(list);
+		return school;
 	}
 }
