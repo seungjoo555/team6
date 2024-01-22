@@ -1,10 +1,8 @@
 package university.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import university.School;
 import university.Student;
 
 // 서비스 구현클래스
