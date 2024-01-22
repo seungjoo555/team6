@@ -46,7 +46,9 @@ public class UniServiceImp implements UniService {
 		System.out.print("학번 : ");
 		String sNum = scan.next();
 		
-		int index = location(list, sNum);
+		Student std = new Student(sNum);
+		int index = list.indexOf(std);
+		
 		
 		if(index != -1) {
 			System.out.print("수정할 이름 : ");
@@ -56,25 +58,18 @@ public class UniServiceImp implements UniService {
 			System.out.print("수정할 학과 : ");
 			String sDep = scan.next();
 			
-			Student std = new Student(sName, sGrade, sDep, sNum);
+			Student newStd = new Student(sName, sGrade, sDep, sNum);
 			
 			list.remove(index);
 			
-			list.add(std);
+			list.add(newStd);
 			System.out.println("학생을 수정했습니다.");
 		}else {
 			System.out.println("수정할 학생이 없습니다.");
 		}
 		return list;
 	}
-	private int location(List<Student> list, String sNum) {
-		int index = -1;
-		
-		Student std = new Student(sNum);
-		index = list.indexOf(std);
-		
-		return index;
-	}
+	
 	//학생 삭제 메서드 : 이철범
 	@Override
 	public List<Student> deleteStudent(List<Student> list) {
@@ -86,7 +81,8 @@ public class UniServiceImp implements UniService {
 		System.out.print("삭제할 학번 : ");
 		String sNum = scan.next();
 		
-		int index = location(list, sNum);
+		Student std = new Student(sNum);
+		int index = list.indexOf(std);
 		
 		if(index != -1) {
 			list.remove(index);
