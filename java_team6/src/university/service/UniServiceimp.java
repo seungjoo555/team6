@@ -1,10 +1,8 @@
 package university.service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import acountbook.Item;
 import university.Subject;
 
 // 서비스 구현클래스
@@ -13,41 +11,27 @@ public class UniServiceimp implements UniService {
 
 
 
-
-	@Override
-	public boolean Department(List<Item> list) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeDepartment(List<Item> list) {
-		return false;
-	}
-
-	@Override
-	public boolean updateDepartment(List<Item> list) {
-		return false;
-	}
-
+	
 	@Override //강의 추가 메서드 : 정경호
-	public boolean addSubject(List<Subject> addlist) {
+	public boolean addSubject(List<Subject> addList) {
 		System.out.println("=====강의 추가=====");
 		System.out.print("추가할 강의명 :" );
 		String sub = sc.nextLine();
 		System.out.print("강의할 교수명 :");
 		String pName = sc.nextLine();
-		Subject sj = new Subject(sub, pName, null);
-		sj.addSubject(sub,pName);
-	
-		if(sj!=null) {
-			addlist.add(sj);
+		Subject sj = new Subject(sub, pName);
+		int index = addList.indexOf(sj);
+		if(index == -1) {
+			addList.add(sj);
 			System.out.println("강의가 추가 되었습니다.");
 			return true;
 		}else {
-			System.out.println("이미 등록된 강의 입니다.");
-			return false;
+			System.out.println("중복된 강의 입니다.");
+		return false;
 		}
+		
+		 
+		
 	}
 	@Override //강의 삭제 메서드 : 정경호
 	public boolean removeSubject(List<Subject> removelist) {
@@ -64,7 +48,7 @@ public class UniServiceimp implements UniService {
 		String sub =sc.nextLine();
 		System.out.print("삭제할 교수명 :");
 		String pName = sc.next();
-		Subject sj = new Subject(sub, pName,null);
+		Subject sj = new Subject(sub, pName);
 		sj.removeSubject();
 		
 		if(removelist.contains(sj)) {
@@ -74,12 +58,8 @@ public class UniServiceimp implements UniService {
 		} else {
 			System.out.println("삭제할 강의가 없습니다.");
 			return false;
-		}
-			
+		}		
 	}
-		
-	
-	
 	@Override //강의 수정 메서드 : 정경호
 	public boolean updateSubject(List<Subject> uplist) {
 		System.out.println("=====강의 수정=====");
@@ -91,7 +71,7 @@ public class UniServiceimp implements UniService {
 		String oldSub = sc.nextLine();
 		System.out.print("수정할 교수명 :");
 		String oldPName = sc.nextLine();
-		Subject oldSj = new Subject(oldSub, oldPName, null);
+		Subject oldSj = new Subject(oldSub, oldPName);
 		int index = uplist.indexOf(oldSj);
 		
 		if(index != -1) {
@@ -100,7 +80,7 @@ public class UniServiceimp implements UniService {
 			System.out.print("새로운 교수명 :");
 			String newPName = sc.nextLine();
 			
-			Subject newSj = new Subject(newSub, newPName,null);
+			Subject newSj = new Subject(newSub, newPName);
 			uplist.remove(index);
 			uplist.add(newSj);
 			newSj.toString();

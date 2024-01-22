@@ -45,6 +45,7 @@ public class PrintServiceImp implements PrintService {
 		System.out.println("3.학생조회");
 		System.out.println("4.수강조회");
 		System.out.println("5.전체조회");
+		System.out.println("6.뒤로가기");
 		System.out.println("============");
 		System.out.print("메뉴입력 : ");
 

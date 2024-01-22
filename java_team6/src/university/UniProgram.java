@@ -95,10 +95,13 @@ public class UniProgram implements Program {
 	private void checkManager(int menu) {
 		
 		do {
+			
 			psi.printManager();
 			menu = sc.nextInt();
 			checkSubject();
+			
 		} while (menu !=6);
+		
 		
 
 		
@@ -107,7 +110,7 @@ public class UniProgram implements Program {
 
 	private boolean checkSubject() {
 		if(sb == null || sb.isEmpty()) {
-			System.out.println("없습니다.");
+			System.out.println("잘못 입력하셨습니다.");
 		return false;
 		}
 		for(int i=0;i<sb.size();i++) {

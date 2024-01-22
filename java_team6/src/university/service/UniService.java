@@ -15,12 +15,4 @@ public interface UniService {
 		// 강의 수정 : 정경호
 		boolean updateSubject(List<Subject> list);//=
 		
-		// 학과 추가 : 정경호
-		boolean Department(List<Item> list);
-		// 학과 삭제 : 정경호
-		boolean removeDepartment(List<Item> list);
-		// 학과 수정 : 정경호
-		boolean updateDepartment(List<Item> list);//=
-		
-
 }
