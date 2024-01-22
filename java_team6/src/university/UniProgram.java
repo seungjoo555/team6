@@ -119,10 +119,7 @@ public class UniProgram implements Program {
 			
 		}
 		return true;
-		
 	}
-
-
 	//강의 정보 메서드 //정경호
 	private void subjectManager(int menu) {
 			do {
@@ -172,36 +169,14 @@ public class UniProgram implements Program {
 		usi.addSubject(sb);
 	}
 	@Override
-	public void printExit() {
-		
+	public void printExit() {	
 	}
-
 	@Override
-	public void save(String fileName) {
-//		try(FileOutputStream fos = new FileOutputStream(fileName);
-//				ObjectOutputStream oos = new ObjectOutputStream(fos)){
-//				oos.writeObject(sh.getList());
-//				System.out.println("저장하기를 성공 했습니다.");
-//			} catch (FileNotFoundException e) {
-//				//폴더 경로가 잘 못된 경우
-//				System.out.println("지정된 위치에 파일을 찾을 수 없습니다.");
-//			} catch (IOException e) {
-//				System.out.println("저장에 실패 했습니다.");
-//			}
-			
+	public void save(String fileName) {		
 		}
 	@Override
 	public void load(String fileName) {
-//		try(FileInputStream fis = new FileInputStream(fileName);
-//				ObjectInputStream ois = new ObjectInputStream(fis)){
-//				sh.setList((ArrayList<Student>)ois.readObject());
-//				System.out.println("불러오기를 성공 했습니다.");
-//			} catch (FileNotFoundException e) {
-//				//폴더 경로가 잘 못된 경우
-//				System.out.println("지정된 위치에 파일을 찾을 수 없습니다.");
-//			} catch (Exception e) {
-//				System.out.println("불러오기에 실패 했습니다.");
-//			}
+
 		}
 
 	
