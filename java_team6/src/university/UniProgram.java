@@ -2,7 +2,6 @@ package university;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import program.UniversityProgram;
 import university.service.PrintService;
 import university.service.PrintServiceImp;
@@ -20,10 +19,17 @@ public class UniProgram implements UniversityProgram {
 	private Scanner sc = new Scanner(System.in);
 	private final int EXIT = 7;
 	private final int PFMEXIT = 4;
+<<<<<<< HEAD
 	private final int STDMEXIT = 4;
 	private final int DPMEXIT = 5;
 	private final int SUBDPMEXIT = 5;
 	private final int SJMEXIT = 4;
+=======
+	private final int STDMEXIT = 7;
+	private final int DPMEXIT = 7;
+	private final int SJMEXIT = 7;
+	private final int SEARCHEXIT = 6;
+>>>>>>> main
 	
 	@Override
 	public void run() {
@@ -73,7 +79,7 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 6:
 			//조회
-			System.out.println("조회 예정");
+			searchManager();
 			break;
 		case 7:
 			//프로그램 종료
@@ -83,6 +89,46 @@ public class UniProgram implements UniversityProgram {
 			throw new InputMismatchException();
 		}
 	}
+
+	private void searchManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printMenu();
+			// 메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			runSearch(menu);
+		}while(menu != SEARCHEXIT);
+	}
+
+
+	private void runSearch(int menu) {
+		switch(menu) {
+		case 1:
+			// 교수 조회
+			System.out.println(school.getPrf());
+			break;
+		case 2:
+			// 학생 조회
+			break;
+		case 3:
+			// 과 조회
+			break;
+		case 4:
+			// 강의 조회
+			break;
+		case 5:
+			// 수강 조회
+			break;
+		case 6:
+			// 이전으로
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
 
 	/**
 	 * 교수 등록/수정/삭제
@@ -103,13 +149,15 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//교수 등록
-			school = us.addProfessor(school);
+			us.addProfessor(school.getPrf());
 			break;
 		case 2:
 			//교수 수정
+			us.updateProfessor(school.getPrf());
 			break;
 		case 3:
 			//교수 삭제
+			us.deleteProfessor(school.getPrf());
 			break;
 		case 4:
 			//이전으로
