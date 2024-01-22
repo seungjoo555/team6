@@ -57,6 +57,7 @@ public class UniServiceImp implements UniService {
 			int sGrade = scan.nextInt();
 			System.out.print("수정할 학과 : ");
 			String sDep = scan.next();
+			
 			Student std = new Student(sName, sGrade, sDep, sNum);
 			
 			list.remove(index);
