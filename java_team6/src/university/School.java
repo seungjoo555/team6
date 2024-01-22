@@ -3,8 +3,10 @@ package university;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Data;
 
 // 리스트 총괄 관리
+@Data
 public class School implements Serializable {
 	private static final long serialVersionUID = -3631361192718600576L;
   
@@ -19,10 +21,5 @@ public class School implements Serializable {
 		this.sub = new ArrayList<Subject>();
 		this.dep = new ArrayList<Department>();
 	}
-	
-	//교수추가 메서드
-	public void addProfessor(Professor prf) {
-		this.prf.add(prf);
-  }
 	
 }

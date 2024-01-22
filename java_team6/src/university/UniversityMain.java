@@ -7,5 +7,4 @@ public class UniversityMain {
 		UniProgram up = new UniProgram();
 		up.run();
 	}
-
 }
