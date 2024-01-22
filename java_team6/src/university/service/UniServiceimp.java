@@ -69,7 +69,6 @@ public class UniServiceimp implements UniService {
 		
 		if(removelist.contains(sj)) {
 			removelist.remove(sj);
-			sj.toString();
 			System.out.println("강의가 삭제 되었습니다.");
 			return true;
 		} else {
@@ -100,6 +99,7 @@ public class UniServiceimp implements UniService {
 			String newSub = sc.nextLine();
 			System.out.print("새로운 교수명 :");
 			String newPName = sc.nextLine();
+			
 			Subject newSj = new Subject(newSub, newPName,null);
 			uplist.remove(index);
 			uplist.add(newSj);

@@ -1,5 +1,8 @@
 package university;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -19,6 +22,7 @@ public class UniProgram implements Program {
 	final PrintServiceImp psi = new PrintServiceImp();
 	final UniServiceimp usi = new UniServiceimp();
 	final List<Subject>sb = new ArrayList<Subject>();
+	final List<School> sh = new ArrayList<School>();
 	@Override
 	public void run() {
 		int menu = 0;
