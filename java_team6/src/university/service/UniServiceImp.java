@@ -38,7 +38,7 @@ public class UniServiceImp implements UniService {
 	//학생 수정 메서드 : 이철범
 	@Override
 	public List<Student> updateStudent(List<Student> list) {
-		if(list.size() <= 0) {
+		if(list.size() == 0) {
 			System.out.println("등록된 학생이 없습니다.");
 			return list;
 		}
@@ -78,7 +78,7 @@ public class UniServiceImp implements UniService {
 	//학생 삭제 메서드 : 이철범
 	@Override
 	public List<Student> deleteStudent(List<Student> list) {
-		if(list.size() <= 0) {
+		if(list.size() == 0) {
 			System.out.println("등록된 학생이 없습니다.");
 			return list;
 		}
