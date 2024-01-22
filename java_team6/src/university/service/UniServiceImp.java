@@ -67,7 +67,6 @@ public class UniServiceImp implements UniService {
 		
 		// index 자리에 pf로 변경
 		list.set(index, pf);
-		System.out.println("수정 전" + list);
 		System.out.println("수정 완료");
 		
 		return list;
@@ -90,7 +89,6 @@ public class UniServiceImp implements UniService {
 		}
 		
 		list.remove(index);
-		System.out.println("삭제 전" + list);
 		System.out.println("삭제 완료");
 		
 		return list;
