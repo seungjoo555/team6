@@ -27,7 +27,6 @@ public class UniServiceImp implements UniService {
 		
 		int index = list.indexOf(std);
 		
-		
 		if(index != -1) {
 			System.out.println("등록된 학생입니다.");
 			return list;
@@ -78,7 +77,7 @@ public class UniServiceImp implements UniService {
 		System.out.println(index);
 		
 		if(index == -1) {
-			System.out.println("해당 교수번호가 없습니다.");
+			System.out.println("해당 학번이 없습니다.");
 			return index;
 		}
 		return index;
