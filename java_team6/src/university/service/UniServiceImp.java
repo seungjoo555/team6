@@ -45,7 +45,7 @@ public class UniServiceImp implements UniService {
 			return list;
 		}
 		System.out.println(list);
-		System.out.print("수정할 학번 : ");
+		System.out.print("학번 : ");
 		String sNum = scan.next();
 		
 		int index = location(list, sNum);
