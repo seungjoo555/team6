@@ -48,7 +48,7 @@ public class UniServiceimp implements UniService {
 		String sub =sc.nextLine();
 		System.out.print("삭제할 교수명 :");
 		String pName = sc.next();
-		Subject sj = new Subject(sub, pName);
+		Subject sj = new Subject(sub,pName);
 		sj.removeSubject();
 		
 		if(removelist.contains(sj)) {
