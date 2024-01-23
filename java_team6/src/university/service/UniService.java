@@ -11,11 +11,11 @@ import university.Professor;
 // 서비스 인터페이스
 public interface UniService {
 
-	//학생 등록
+	//학생 등록 : 이철범
 	List<Student> addStudent(List<Student> list);
-	//학생 수정
+	//학생 수정 : 이철범
 	List<Student> updateStudent(List<Student> list);
-	//학생 삭제
+	//학생 삭제 : 이철범
 	List<Student> deleteStudent(List<Student> list);
 	
 	// 교수 등록 : 임병훈

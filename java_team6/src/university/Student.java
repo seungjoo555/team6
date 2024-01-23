@@ -44,7 +44,7 @@ public class Student implements Serializable {
 		this.sDep = sDep;
 		this.sNum = sNum;
 	}
-	//수정,삭제하기 위해 만든 메서드 
+	//수정,삭제하기 위해 만든 메서드
 	public Student(String sNum) {
 		this.sNum = sNum;
 	}
