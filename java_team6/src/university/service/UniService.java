@@ -29,5 +29,8 @@ public interface UniService {
 
 	// 교수 위치 찾기 : 임병훈
 	int location(List<Professor> list, String num);
+	
+	//학과 등록 : 이승주
+	School addDepartment(School school);
 }
 
