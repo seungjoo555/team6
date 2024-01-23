@@ -23,8 +23,8 @@ public class UniProgram implements UniversityProgram {
 	private Scanner sc = new Scanner(System.in);
 	private final int EXIT = 7;
 	private final int PFMEXIT = 4;
-	private final int STDMEXIT = 7;
-	private final int DPMEXIT = 7;
+	private final int STDMEXIT = 4;
+	private final int DPMEXIT = 4;
 	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
 	
@@ -191,12 +191,15 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학생 등록
+			us.addStudent(school.getStd());
 			break;
 		case 2:
 			//학생 수정
+			us.updateStudent(school.getStd());
 			break;
 		case 3:
 			//학생 삭제
+			us.deleteStudent(school.getStd());
 			break;
 		case 4:
 			//이전으로
