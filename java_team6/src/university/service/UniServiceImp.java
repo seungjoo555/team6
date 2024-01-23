@@ -1,12 +1,11 @@
 package university.service;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import university.Student;
 import university.Professor;
+import university.Student;
 
 // 서비스 구현클래스
 public class UniServiceImp implements UniService {
