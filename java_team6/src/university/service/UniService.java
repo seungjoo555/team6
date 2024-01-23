@@ -26,4 +26,6 @@ public interface UniService {
 	boolean removeSubject(List<Subject> list);
 	// 강의 수정 : 정경호
 	boolean updateSubject(List<Subject> list);//=
+	
+	boolean checkSub(List<Subject> sb);
 }

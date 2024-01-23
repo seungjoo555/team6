@@ -25,7 +25,7 @@ public class UniProgram implements UniversityProgram {
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 7;
 	private final int DPMEXIT = 7;
-	private final int SJMEXIT = 7;
+	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
 	
 	@Override
@@ -128,17 +128,8 @@ public class UniProgram implements UniversityProgram {
 	}
 
 
-	private boolean checkSubject() {
-		if(sb == null || sb.isEmpty()) {
-			System.out.println("잘못 입력하셨습니다.");
-		return false;
-		}
-		for(int i=0;i<sb.size();i++) {
-			sb.get(i);
-			System.out.println(sb.get(i).toString());
-			
-		}
-		return true;		
+	private void checkSubject() {
+		us.checkSub(sb);
 	}
 
 

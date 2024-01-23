@@ -18,13 +18,19 @@ public class Subject implements Serializable {
 - 학생정보로 등록
 - 정원이 가득차면 신청 불가 (선택)
 */
- 
+ private String pNum;
  private String subName; //강의 이름 - 중복 X
  private String pName; //강의 교수명 - 중복 X
  
+
+public Subject(String subNam, String pName,String pNum) {
+	this.pNum = pNum;
+	this.subName = subNam;
+	this.pName = pName;
+}
 @Override
 public int hashCode() {
-	return Objects.hash(subName);
+	return Objects.hash(pName, pNum, subName);
 }
 @Override
 public boolean equals(Object obj) {
@@ -35,15 +41,12 @@ public boolean equals(Object obj) {
 	if (getClass() != obj.getClass())
 		return false;
 	Subject other = (Subject) obj;
-	return Objects.equals(subName, other.subName);
-}
-public Subject(String subNam, String pName) {
-	this.subName = subNam;
-	this.pName = pName;
+	return Objects.equals(pName, other.pName) && Objects.equals(pNum, other.pNum)
+			&& Objects.equals(subName, other.subName);
 }
 @Override
 public String toString() {
-	return "-------"+"\n강의명 :" + subName + "\n교수명 :" + pName ;
+	return  "-------"+ "\n교수번호 :"+ pNum + "\n교수명 :" + pName + "\n강의명 :" + subName ;
 }
 public void removeSubject() {
 	
