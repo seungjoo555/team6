@@ -2,10 +2,8 @@ package university.service;
 
 import java.util.List;
 
-import acountbook.Item;
-import university.School;
-import university.Student;
 import university.Professor;
+import university.Student;
 
 
 // 서비스 인터페이스
