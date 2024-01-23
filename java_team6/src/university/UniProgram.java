@@ -1,37 +1,41 @@
 package university;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import program.Program;
+import program.UniversityProgram;
+import university.service.PrintService;
 import university.service.PrintServiceImp;
-import university.service.UniServiceimp;
+import university.service.UniService;
+import university.service.UniServiceImp;
 
 // 실행 메서드
-public class UniProgram implements Program {
-	private final int EXIT = 7;
-	private final int SUBJECT_EXIT = 4;
+public class UniProgram implements UniversityProgram {
+	
+	private PrintService ps = new PrintServiceImp();
+	private UniService us = new UniServiceImp();
+	private School school = new School();
+	private List<Subject> sb = new ArrayList<Subject>();
 	
 	
 	private Scanner sc = new Scanner(System.in);
-	final PrintServiceImp psi = new PrintServiceImp();
-	final UniServiceimp usi = new UniServiceimp();
-	final List<Subject>sb = new ArrayList<Subject>();
-	final List<School> sh = new ArrayList<School>();
+	private final int EXIT = 7;
+	private final int PFMEXIT = 4;
+	private final int STDMEXIT = 7;
+	private final int DPMEXIT = 7;
+	private final int SJMEXIT = 7;
+	private final int SEARCHEXIT = 6;
+	
 	@Override
 	public void run() {
 		int menu = 0;
-		String fileName = "src/university/UniversityList.txt";
 		//불러오기
-		load(fileName);
+		System.out.println("불러오기 구현 예정");
 		do {
 			//메뉴 출력
-			printMenu();
+			ps.printMainMenu();
 			try {
 				//메뉴 선택
 				menu = sc.nextInt();
@@ -43,68 +47,84 @@ public class UniProgram implements Program {
 			}
 		}while(menu != EXIT);
 		//저장
-		save(fileName);
+		System.out.println("저장 구현 예정");
 	}
 		
-
-	@Override
-	public void printMenu() {
-		psi.printMainMenu();
-	}
 
 	@Override
 	public void runMenu(int menu) {
-		
-		switch (menu) {
-		
-		case 1: 
-			//강의정보 - 추가 수정 삭제 메서드 구현 정경호
-			subjectManager(menu);
-			
+		switch(menu) {
+		case 1:
+			//교수 관리
+			pfManager();
 			break;
-			
-		case 2: 
-			//학과정보
+		case 2:
+			//학생 관리
+			stdManager();
 			break;
-			
-		case 3: 
-			//교수정보
+		case 3:
+			//과 관리
+			dpmManager();
 			break;
-			
-		case 4: 
-			//학생정보
+		case 4:
+			//강의 관리
+			sjManager();
 			break;
-			
-		case 5: 
-			//수강관리
+		case 5:
+			//수강 관리 (강의관리 후에 추가)
+			System.out.println("수강관리 예정");
 			break;
-		case 6: 
-			//조회하기
-			checkManager(menu);
+		case 6:
+			//조회
+			searchManager();
 			break;
-			
-		case 7: 
-			System.out.println("프로그램을 종료합니다.");
+		case 7:
+			//프로그램 종료
+			System.out.println("프로그램을 종료 합니다.");
 			break;
-			
 		default:
-			System.out.println("잘못 입력 하셨습니다.");
+			throw new InputMismatchException();
 		}
-		
 	}
-	private void checkManager(int menu) {
-		
-		do {
-			
-			psi.printManager();
-			menu = sc.nextInt();
-			checkSubject();
-			
-		} while (menu !=6);
-		
-		
 
-		
+	private void searchManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printMenu();
+			// 메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			runSearch(menu);
+		}while(menu != SEARCHEXIT);
+	}
+
+
+	private void runSearch(int menu) {
+		switch(menu) {
+		case 1:
+			// 교수 조회
+			System.out.println(school.getPrf());
+			break;
+		case 2:
+			// 학생 조회
+			break;
+		case 3:
+			// 과 조회
+			break;
+		case 4:
+			// 강의 조회
+			checkSubject();
+			break;
+		case 5:
+			// 수강 조회
+			break;
+		case 6:
+			// 이전으로
+			break;
+		default:
+			throw new InputMismatchException();
+		}
 	}
 
 
@@ -118,67 +138,172 @@ public class UniProgram implements Program {
 			System.out.println(sb.get(i).toString());
 			
 		}
-		return true;
+		return true;		
 	}
-	//강의 정보 메서드 //정경호
-	private void subjectManager(int menu) {
-			do {
-				try {
-				psi.subjectPrintMenu();
-				menu=sc.nextInt();
-				
-				runSubjectManager(menu);	
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}while(menu != SUBJECT_EXIT);
+
+
+	/**
+	 * 교수 등록/수정/삭제
+	 */
+	private void pfManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printPFMMenu();
+			//메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			runPFMMenu(menu);
+		}while(menu != PFMEXIT);
 	}
-	//강의 정보 매니저 //정경호
-	private void runSubjectManager(int menu) {
-		switch(menu){
+
+	private void runPFMMenu(int menu) {
+		switch(menu) {
 		case 1:
+			//교수 등록
+			us.addProfessor(school.getPrf());
+			break;
+		case 2:
+			//교수 수정
+			us.updateProfessor(school.getPrf());
+			break;
+		case 3:
+			//교수 삭제
+			us.deleteProfessor(school.getPrf());
+			break;
+		case 4:
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+
+	/**
+	 * 학생 등록/수정/삭제
+	 */
+	private void stdManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printSTDMMenu();
+			//메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			runSTDMMenu(menu);
+		}while(menu != STDMEXIT);
+	}
+
+	private void runSTDMMenu(int menu) {
+		switch(menu) {
+		case 1:
+			//학생 등록
+			break;
+		case 2:
+			//학생 수정
+			break;
+		case 3:
+			//학생 삭제
+			break;
+		case 4:
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+
+	/**
+	 * 과 등록/수정/삭제
+	 */
+	private void dpmManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printDPMMenu();
+			//메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			runDPMMenu(menu);
+		}while(menu != DPMEXIT);
+	}
+
+	private void runDPMMenu(int menu) {
+		switch(menu) {
+		case 1:
+			//학과 등록
+			break;
+		case 2:
+			//학과 수정
+			break;
+		case 3:
+			//학과 삭제
+			break;
+		case 4:
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+
+	/**
+	 * 강의 등록/수정/삭제
+	 */
+	private void sjManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printSJMMenu();
+			//메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			runSJMMenu(menu);
+		}while(menu != SJMEXIT);
+	}
+
+
+	private void runSJMMenu(int menu) {
+		switch(menu) {
+		case 1:
+			//강의 등록
 			addSubject();
 			break;
 		case 2:
+			//강의 수정
 			updateSubject();
 			break;
 		case 3:
+			//강의 삭제
 			removeSubject();
 			break;
 		case 4:
-			System.out.println("이전으로");
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
 		default:
-			System.out.println("잘못된 입력");
-		 
+			throw new InputMismatchException();
 		}
-		
-		
 	}
 
-	//강의 삭제 : 정경호
+
 	private void removeSubject() {
-		usi.removeSubject(sb);	
+		us.removeSubject(sb);
 	}
-	//강의 수정 : 정경호
+
+
 	private void updateSubject() {
-		usi.updateSubject(sb);
+		us.updateSubject(sb);
 	}
-	//강의 추가 : 정경호
+
+
 	private void addSubject() {
-		usi.addSubject(sb);
+		us.addSubject(sb);
 	}
-	@Override
-	public void printExit() {	
-	}
-	@Override
-	public void save(String fileName) {		
-		}
-	@Override
-	public void load(String fileName) {
-
-		}
-
-	
-	
 }

@@ -1,56 +1,77 @@
 package university.service;
 
-import lombok.Data;
-
-@Data
 // 프린트 구현클래스
 public class PrintServiceImp implements PrintService {
 
 	@Override
 	public void printMainMenu() {
-		System.out.println("============");
-		System.out.println("1.강의정보");
-		System.out.println("2.학과정보");
-		System.out.println("3.교수정보");
-		System.out.println("4.학생정보");
-		System.out.println("5.수강관리");
-		System.out.println("6.조회하기");
-		System.out.println("7.프로그램종료");
-		System.out.println("============");
-		System.out.println("메뉴입력 : ");
+		System.out.println("------메인 메뉴------");
+		System.out.println("1. 교수 관리");
+		System.out.println("2. 학생 관리");
+		System.out.println("3. 과 관리");
+		System.out.println("4. 강의 관리");
+		System.out.println("5. 수강 관리");
+		System.out.println("6. 조회");
+		System.out.println("7. 프로그램 종료");
+		System.out.println("-------------------");
+		System.out.print("메뉴 선택 : ");
 	}
 
 	@Override
-	public void printPrintMenu() {
-		
+	public void printPFMMenu() {
+		System.out.println("-----교수 관리 메뉴-----");
+		System.out.println("1. 교수 등록");
+		System.out.println("2. 교수 수정");
+		System.out.println("3. 교수 삭제");
+		System.out.println("4. 이전으로");
+		System.out.println("--------------------");
+		System.out.print("메뉴 선택 : ");
 	}
 
 	@Override
-	public void subjectPrintMenu() {
-		System.out.println("============");
-		System.out.println("1.강의 추가");
-		System.out.println("2.강의 수정");
-		System.out.println("3.강의 삭제");
-		System.out.println("4.이전으로");
-		System.out.println("============");
-		System.out.println("메뉴입력 : ");
-		
+	public void printSTDMMenu() {
+		System.out.println("-----학생 관리 메뉴-----");
+		System.out.println("1. 학생 등록");
+		System.out.println("2. 학생 수정");
+		System.out.println("3. 학생 삭제");
+		System.out.println("4. 이전으로");
+		System.out.println("--------------------");
+		System.out.print("메뉴 선택 : ");
 	}
 
 	@Override
-	public void printManager() {
-		System.out.println("============");
-		System.out.println("1.강의조회");
-		System.out.println("2.교수조회");
-		System.out.println("3.학생조회");
-		System.out.println("4.수강조회");
-		System.out.println("5.전체조회");
-		System.out.println("6.뒤로가기");
-		System.out.println("============");
-		System.out.print("메뉴입력 : ");
-
+	public void printDPMMenu() {
+		System.out.println("-----학과 관리 메뉴-----");
+		System.out.println("1. 학과 등록");
+		System.out.println("2. 학과 수정");
+		System.out.println("3. 학과 삭제");
+		System.out.println("4. 이전으로");
+		System.out.println("--------------------");
+		System.out.print("메뉴 선택 : ");
 	}
 
-	
+	@Override
+	public void printSJMMenu() {
+		System.out.println("-----교수 관리 메뉴-----");
+		System.out.println("1. 강의 등록");
+		System.out.println("2. 강의 수정");
+		System.out.println("3. 강의 삭제");
+		System.out.println("4. 이전으로");
+		System.out.println("--------------------");
+		System.out.print("메뉴 선택 : ");
+	}
+
+	@Override
+	public void printMenu() {
+		System.out.println("-----조회 메뉴-----");
+		System.out.println("1. 교수 조회");
+		System.out.println("2. 학생 조회");
+		System.out.println("3. 과 조회");
+		System.out.println("4. 강의 조회");
+		System.out.println("5. 수강 조회");
+		System.out.println("6. 이전으로");
+		System.out.println("--------------------");
+		System.out.print("메뉴 선택 : ");
+	}
 
 }

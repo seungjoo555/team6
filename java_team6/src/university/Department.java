@@ -7,12 +7,12 @@ import java.util.Objects;
 // 학과 리스트
 public class Department implements Serializable {
 	private static final long serialVersionUID = 3597327171139648919L;
-/*과 클래스 // Department
-- 과 이름 (중복x)
-- 정원 제한 (선택사항)
-- 학과 교수 (리스트)
-- 학생 (리스트)
- */
+	/*과 클래스 // Department
+	- 과 이름 (중복x)
+	- 정원 제한 (선택사항)
+	- 학과 교수 (리스트)
+	- 학생 (리스트)
+	 */
 	private String dName; //학과명 -중복 X
 	private List<Professor> prf; // 학과교수 리스트
 	private List<Student> std; // 학생 리스트

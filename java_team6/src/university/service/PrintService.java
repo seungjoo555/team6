@@ -2,8 +2,17 @@ package university.service;
 
 //프린트 인터페이스
 public interface PrintService {
-	void printMainMenu(); // 메인 메뉴 출력
-	void printPrintMenu();
-	void subjectPrintMenu();// 강의 메뉴 출력
-	void printManager();
+
+	void printMainMenu();
+
+	void printPFMMenu();
+
+	void printSTDMMenu();
+
+	void printDPMMenu();
+
+	void printSJMMenu();
+
+	void printMenu();
+
 }

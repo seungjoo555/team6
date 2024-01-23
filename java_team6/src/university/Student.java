@@ -4,14 +4,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 // 학생 리스트
-public class Student implements Serializable{
-	
-	private static final long serialVersionUID = 6488461187607981292L;
-	//학생 이름
+public class Student implements Serializable {
+	private static final long serialVersionUID = -7837347182174632918L;
 	/*학생 클래스 // Student
-- 이름, 학년, 과, 등등..	(정보)
-- 학번 (중복x)
-*/
+	- 이름, 학년, 과, 등등..	(정보)
+	- 학번 (중복x)
+	*/
 	private String sName; //학생 이름 
 	private int sGrade; //학생 학년
 	private String sDep; //학생 학과
@@ -19,7 +17,7 @@ public class Student implements Serializable{
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(sDep, sGrade, sNum);
+		return Objects.hash(sNum);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -37,6 +35,7 @@ public class Student implements Serializable{
 		return "학생명 :" + sName + "\n학년 :" + sGrade + "\n학과 :" + sDep + "\n번호" + sNum;
 	}
 	public Student(String sName, int sGrade, String sDep, String sNum) {
+		super();
 		this.sName = sName;
 		this.sGrade = sGrade;
 		this.sDep = sDep;
