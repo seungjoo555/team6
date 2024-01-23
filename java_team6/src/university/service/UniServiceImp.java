@@ -31,7 +31,6 @@ public class UniServiceImp implements UniService {
 			return list;
 		}else {
 			list.add(std);
-			sort(list);
 			System.out.println("학생을 등록했습니다.");
 		}
 		return list;
@@ -63,7 +62,6 @@ public class UniServiceImp implements UniService {
 			list.remove(index);
 			
 			list.add(newStd);
-			sort(list);
 			System.out.println("학생을 수정했습니다.");
 		}else {
 			System.out.println("수정할 학생이 없습니다.");
@@ -86,7 +84,6 @@ public class UniServiceImp implements UniService {
 		
 		if(index != -1) {
 			list.remove(index);
-			sort(list);
 			System.out.println("학생을 삭제했습니다.");
 			return list;
 		} else {
@@ -94,14 +91,5 @@ public class UniServiceImp implements UniService {
 			return list;
 		}
 	}
-	//정렬 메서드
-	private void sort(List<Student> list) {
-		list.sort((s1, s2)->{
-			//학년이 다르면
-			if(s1.getSGrade() != s2.getSGrade()) {
-				return s1.getSGrade() - s2.getSGrade();
-			}
-			return 0;
-		});
-	}	
+	
 }
