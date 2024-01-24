@@ -313,7 +313,7 @@ public class UniServiceImp implements UniService {
 		}	
 	}
 
-	@Override //강의조회
+	@Override //강의 조회 : 정경호
 	public boolean checkSub(List<Subject> sb) {
 		if(sb == null || sb.isEmpty()) {
 			System.out.println("강의가 없습니다.");
