@@ -95,7 +95,6 @@ public class UniProgram implements UniversityProgram {
 		}while(menu != SEARCHEXIT);
 	}
 
-
 	private void runSearch(int menu) {
 		switch(menu) {
 		case 1:

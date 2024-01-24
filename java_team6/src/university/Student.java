@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class Student implements Serializable {
 	private static final long serialVersionUID = -7837347182174632918L;
+	//학생 이름
 	/*학생 클래스 // Student
 	- 이름, 학년, 과, 등등..	(정보)
 	- 학번 (중복x)
