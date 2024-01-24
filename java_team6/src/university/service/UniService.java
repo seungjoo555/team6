@@ -1,8 +1,10 @@
 package university.service;
 
 import java.util.List;
+
 import university.Professor;
 import university.Student;
+import university.Subject;
 
 // 서비스 인터페이스
 public interface UniService {
@@ -31,7 +33,7 @@ public interface UniService {
 	// 강의 삭제 : 정경호
 	boolean removeSubject(List<Subject> list);
 	// 강의 수정 : 정경호
-	boolean updateSubject(List<Subject> list);//=
+	boolean updateSubject(List<Subject> list);
 	// 강의 조회 : 정경호
 	boolean checkSub(List<Subject> sb);
 }

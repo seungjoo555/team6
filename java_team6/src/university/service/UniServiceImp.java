@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import university.Subject;
-import university.Student;
 import university.Professor;
+import university.Student;
+import university.Subject;
 
 // 서비스 구현클래스
 public class UniServiceImp implements UniService {
@@ -329,27 +329,4 @@ public class UniServiceImp implements UniService {
 		return list;
 	}
 	
-	@Override
-	// 원하는 리스트에서 원하는 값이 존재하는지, 존재하면 몇번째 index에 존재하는지 찾는 메서드 : 임병훈
-	public int location(List<Professor> list,String num) {
-		int index = -1;
-
-		// 리스트가 없을 때 
-		if(list.size() == 0) {
-			System.out.println("등록된 정보가 없습니다.");
-			return index;
-		}
-		
-		Professor pf = new Professor(num);
-		index = list.indexOf(pf);
-		System.out.println(index);
-		
-		// 찾는 번호가 없는 경우
-		if(index == -1) {
-			System.out.println("해당 교수번호가 없습니다.");
-			return index;
-		}
-		
-		return index;
-	}
 }
