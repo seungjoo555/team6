@@ -109,6 +109,7 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 4:
 			// 강의 조회
+			us.checkSub(school.getSub()) ;//정경호 
 			break;
 		case 5:
 			// 수강 조회
@@ -262,11 +263,14 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//강의 등록
+			us.addSubject(school.getSub()); //정경호
 			break;
 		case 2:
 			//강의 수정
+			us.updateSubject(school.getSub());//정경호
 			break;
 		case 3:
+			us.removeSubject(school.getSub());//정경호
 			//강의 삭제
 			break;
 		case 4:
