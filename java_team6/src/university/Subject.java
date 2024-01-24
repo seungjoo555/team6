@@ -1,7 +1,6 @@
 package university;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 // 강의 리스트
