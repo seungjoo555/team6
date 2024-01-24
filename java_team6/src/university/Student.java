@@ -3,9 +3,13 @@ package university;
 import java.io.Serializable;
 import java.util.Objects;
 
+import lombok.Data;
+
 // 학생 리스트
+@Data
 public class Student implements Serializable {
 	private static final long serialVersionUID = -7837347182174632918L;
+	//학생 이름
 	/*학생 클래스 // Student
 	- 이름, 학년, 과, 등등..	(정보)
 	- 학번 (중복x)
@@ -32,7 +36,7 @@ public class Student implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "학생명 :" + sName + "\n학년 :" + sGrade + "\n학과 :" + sDep + "\n번호" + sNum;
+		return "\n학생 이름 : " + sName + "\n학년 : " + sGrade + "\n학과 : " + sDep + "\n학번 : " + sNum;
 	}
 	public Student(String sName, int sGrade, String sDep, String sNum) {
 		super();
@@ -42,4 +46,9 @@ public class Student implements Serializable {
 		this.sNum = sNum;
 	}
 
+
+	//수정,삭제하기 위해 만든 메서드 
+	public Student(String sNum) {
+		this.sNum = sNum;
+	}
 }

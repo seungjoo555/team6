@@ -1,6 +1,8 @@
 package university;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import program.UniversityProgram;
 import university.service.PrintService;
@@ -14,14 +16,15 @@ public class UniProgram implements UniversityProgram {
 	private PrintService ps = new PrintServiceImp();
 	private UniService us = new UniServiceImp();
 	private School school = new School();
+	private List<Subject> sb = new ArrayList<Subject>();
 	
 	
 	private Scanner sc = new Scanner(System.in);
 	private final int EXIT = 7;
 	private final int PFMEXIT = 4;
-	private final int STDMEXIT = 7;
-	private final int DPMEXIT = 7;
-	private final int SJMEXIT = 7;
+	private final int STDMEXIT = 4;
+	private final int DPMEXIT = 4;
+	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
 	
 	@Override
@@ -72,6 +75,7 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 6:
 			//조회
+			searchManager()
 			break;
 		case 7:
 			//프로그램 종료
@@ -80,6 +84,49 @@ public class UniProgram implements UniversityProgram {
 		default:
 			throw new InputMismatchException();
 		}
+	}
+
+	private void searchManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printMenu();
+			// 메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			runSearch(menu);
+		}while(menu != SEARCHEXIT);
+	}
+
+	private void runSearch(int menu) {
+		switch(menu) {
+		case 1:
+			// 교수 조회
+			System.out.println(school.getPrf());
+			break;
+		case 2:
+			// 학생 조회
+			break;
+		case 3:
+			// 과 조회
+			break;
+		case 4:
+			// 강의 조회
+			checkSubject();
+			break;
+		case 5:
+			// 수강 조회
+			break;
+		case 6:
+			// 이전으로
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+	private void checkSubject() {
+		us.checkSub(sb);
 	}
 
 
@@ -141,12 +188,15 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학생 등록
+			us.addStudent(school.getStd());
 			break;
 		case 2:
 			//학생 수정
+			us.updateStudent(school.getStd());
 			break;
 		case 3:
 			//학생 삭제
+			us.deleteStudent(school.getStd());
 			break;
 		case 4:
 			//이전으로
@@ -214,12 +264,15 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//강의 등록
+			addSubject();
 			break;
 		case 2:
 			//강의 수정
+			updateSubject();
 			break;
 		case 3:
 			//강의 삭제
+			removeSubject();
 			break;
 		case 4:
 			//이전으로
@@ -228,5 +281,20 @@ public class UniProgram implements UniversityProgram {
 		default:
 			throw new InputMismatchException();
 		}
+	}
+
+
+	private void removeSubject() {
+		us.removeSubject(sb);
+	}
+
+
+	private void updateSubject() {
+		us.updateSubject(sb);
+	}
+
+
+	private void addSubject() {
+		us.addSubject(sb);
 	}
 }

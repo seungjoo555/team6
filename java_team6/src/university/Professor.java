@@ -38,5 +38,4 @@ public class Professor implements Serializable{
 	public Professor(String pNum) {
 		this.pNum = pNum;
 	}
-
 }
