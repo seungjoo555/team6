@@ -1,8 +1,6 @@
 package university;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import program.UniversityProgram;
 import university.service.PrintService;
@@ -16,7 +14,6 @@ public class UniProgram implements UniversityProgram {
 	private PrintService ps = new PrintServiceImp();
 	private UniService us = new UniServiceImp();
 	private School school = new School();
-	private List<Subject> sb = new ArrayList<Subject>();
 	
 	
 	private Scanner sc = new Scanner(System.in);
@@ -112,7 +109,6 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 4:
 			// 강의 조회
-			checkSubject();
 			break;
 		case 5:
 			// 수강 조회
@@ -123,11 +119,6 @@ public class UniProgram implements UniversityProgram {
 		default:
 			throw new InputMismatchException();
 		}
-	}
-
-
-	private void checkSubject() {
-		us.checkSub(sb);
 	}
 
 
@@ -265,15 +256,12 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//강의 등록
-			addSubject();
 			break;
 		case 2:
 			//강의 수정
-			updateSubject();
 			break;
 		case 3:
 			//강의 삭제
-			removeSubject();
 			break;
 		case 4:
 			//이전으로
@@ -282,20 +270,5 @@ public class UniProgram implements UniversityProgram {
 		default:
 			throw new InputMismatchException();
 		}
-	}
-
-
-	private void removeSubject() {
-		us.removeSubject(sb);
-	}
-
-
-	private void updateSubject() {
-		us.updateSubject(sb);
-	}
-
-
-	private void addSubject() {
-		us.addSubject(sb);
 	}
 }
