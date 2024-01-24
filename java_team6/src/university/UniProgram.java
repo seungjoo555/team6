@@ -72,50 +72,10 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 6:
 			//조회
-			searchManager();
 			break;
 		case 7:
 			//프로그램 종료
 			System.out.println("프로그램을 종료 합니다.");
-			break;
-		default:
-			throw new InputMismatchException();
-		}
-	}
-
-	private void searchManager() {
-		int menu;
-		do {
-			//메뉴 출력
-			ps.printMenu();
-			// 메뉴 선택
-			menu = sc.nextInt();
-			//메뉴 실행
-			runSearch(menu);
-		}while(menu != SEARCHEXIT);
-	}
-
-
-	private void runSearch(int menu) {
-		switch(menu) {
-		case 1:
-			// 교수 조회
-			System.out.println(school.getPrf());
-			break;
-		case 2:
-			// 학생 조회
-			break;
-		case 3:
-			// 과 조회
-			break;
-		case 4:
-			// 강의 조회
-			break;
-		case 5:
-			// 수강 조회
-			break;
-		case 6:
-			// 이전으로
 			break;
 		default:
 			throw new InputMismatchException();
