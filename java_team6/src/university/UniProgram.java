@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
 import program.UniversityProgram;
 import university.service.PrintService;
 import university.service.PrintServiceImp;
@@ -98,7 +97,6 @@ public class UniProgram implements UniversityProgram {
 			runSearch(menu);
 		}while(menu != SEARCHEXIT);
 	}
-
 
 	private void runSearch(int menu) {
 		switch(menu) {

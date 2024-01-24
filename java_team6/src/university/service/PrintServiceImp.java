@@ -60,7 +60,7 @@ public class PrintServiceImp implements PrintService {
 		System.out.println("--------------------");
 		System.out.print("메뉴 선택 : ");
 	}
-
+	
 	@Override
 	public void printMenu() {
 		System.out.println("-----조회 메뉴-----");

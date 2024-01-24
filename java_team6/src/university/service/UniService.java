@@ -1,13 +1,9 @@
 package university.service;
 
 import java.util.List;
-
-import acountbook.Item;
-import university.School;
 import university.Student;
 import university.Professor;
 import university.Subject;
-
 
 // 서비스 인터페이스
 public interface UniService {
@@ -40,5 +36,3 @@ public interface UniService {
 	// 강의 조회 : 정경호
 	boolean checkSub(List<Subject> sb);
 }
-}
-
