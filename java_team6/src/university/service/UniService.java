@@ -32,5 +32,7 @@ public interface UniService {
 	
 	//학과 등록 : 이승주
 	School addDepartment(School school);
+	
+	School deleteDepartment(School school);
 }
 

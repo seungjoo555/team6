@@ -64,8 +64,13 @@ public class Department {
 		if(s == null) {
 			return false;
 		}
+		int count = (int)s.stream().filter(std->std.getSDep().contains(this.name)).count();
+		if(count == 0) {
+			return false;
+		}
 		this.studentList = new ArrayList<Student>();
-		this.studentList.addAll(s);
+		s.stream().filter(std->std.getSDep().contains(this.name))
+		.forEach(std->this.studentList.add(std));
 		return true;
 	}
 	

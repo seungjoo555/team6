@@ -1,12 +1,13 @@
 package university.service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import university.Student;
+import university.Department;
 import university.Professor;
 import university.School;
+import university.Student;
 
 // 서비스 구현클래스
 public class UniServiceImp implements UniService {
@@ -206,20 +207,34 @@ public class UniServiceImp implements UniService {
 	//학과 등록
 	@Override
 	public School addDepartment(School school) {
-		List<Department> list = school.getDepartmentList();
+		List<Department> list = school.getDep();
+		List<Professor> pf = school.getPrf();
+		List<Student> std = school.getStd();
 		if(list == null) {
 			list = new ArrayList<Department>();
 		}
 		System.out.print("등록할 학과명 : ");
+		scan.nextLine();
 		String name = scan.nextLine();
 		Department tmp = new Department(name);
 		if(!list.contains(tmp)) {
 			list.add(tmp);
 			System.out.println("학과를 등록했습니다.");
+			if(!tmp.updatePf(pf)) {
+				System.out.println("학과에 등록할 교수가 없습니다.");
+			}
+			if(!tmp.updateStd(std)) {
+				System.out.println("학과에 등록할 학생이 없습니다.");
+			}
 		}else {
 			System.out.println("이미 등록된 학과입니다.");
 		}
-		school.setDepartmentList(list);
+		school.setDep(list);
+		return school;
+	}
+	@Override
+	public School deleteDepartment(School school) {
+		// TODO Auto-generated method stub
 		return school;
 	}
 }

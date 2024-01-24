@@ -108,6 +108,7 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 3:
 			// 과 조회
+			System.out.println(school.getDep());			
 			break;
 		case 4:
 			// 강의 조회
@@ -224,10 +225,46 @@ public class UniProgram implements UniversityProgram {
 			us.addDepartment(school);
 			break;
 		case 2:
-			//학과 수정
+			//학과 수정(교수, 학생 업데이트 포함)
+			updateDepartment();
 			break;
 		case 3:
 			//학과 삭제
+			us.deleteDepartment(school);
+			break;
+		case 4:
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+
+	private void updateDepartment() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printUpdateDPMMenu();
+			//메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			updateDPMMenu(menu);
+		}while(menu != DPMEXIT);
+	}
+
+
+	private void updateDPMMenu(int menu) {
+		switch(menu) {
+		case 1:
+			//학과 이름 변경
+			break;
+		case 2:
+			//교수 업데이트
+			break;
+		case 3:
+			//학생 업데이트
 			break;
 		case 4:
 			//이전으로
