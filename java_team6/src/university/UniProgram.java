@@ -257,14 +257,14 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//강의 등록
-			us.addSubject(school.getSub()); //정경호
+			us.addSubject(school.getSub(),school.getPrf()); //정경호
 			break;
 		case 2:
 			//강의 수정
-			us.updateSubject(school.getSub());//정경호
+			us.updateSubject(school.getSub(),school.getPrf());//정경호
 			break;
 		case 3:
-			us.removeSubject(school.getSub());//정경호
+			us.removeSubject(school.getSub(),school.getPrf());//정경호
 			//강의 삭제
 			break;
 		case 4:

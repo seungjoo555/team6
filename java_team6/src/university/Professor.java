@@ -3,8 +3,10 @@ package university;
 import java.io.Serializable;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 // 교수 리스트
+@Data
 @AllArgsConstructor
 public class Professor implements Serializable{
 	private static final long serialVersionUID = 8377957422955045309L;
