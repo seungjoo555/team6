@@ -103,6 +103,7 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 2:
 			// 학생 조회
+			System.out.println(school.getStd());
 			break;
 		case 3:
 			// 과 조회
@@ -121,12 +122,6 @@ public class UniProgram implements UniversityProgram {
 			throw new InputMismatchException();
 		}
 	}
-
-
-	private void checkSubject() {
-		us.checkSub(sb);
-	}
-
 
 
 	/**
@@ -226,9 +221,18 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학과 등록
+			us.addScore(school);
 			break;
 		case 2:
 			//학과 수정
+			Scanner scan = new Scanner(System.in);
+			System.out.print("점수를 추가할 학생 : ");
+			String sNum = scan.next();
+			
+			Student std = new Student(sNum);
+			int index = school.getStd().indexOf(std);
+			
+			System.out.println(school.getStd().get(index).getMap());
 			break;
 		case 3:
 			//학과 삭제

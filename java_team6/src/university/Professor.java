@@ -10,8 +10,8 @@ public class Professor implements Serializable{
 	private static final long serialVersionUID = 8377957422955045309L;
 	private String pName; 		// 교수 이름
 	private String pSubject; 	// 교수 강의 과목
-	private String pDep; 		//교수 학과
-	private String pNum; 		//교수 번호 - 중복 X
+	private String pDep; 		// 교수 학과
+	private String pNum; 		// 교수 번호 - 중복 X
 	
 	@Override
 	public int hashCode() {

@@ -3,6 +3,7 @@ package university.service;
 import java.util.List;
 
 import university.Professor;
+import university.School;
 import university.Student;
 import university.Subject;
 
@@ -36,4 +37,6 @@ public interface UniService {
 	boolean updateSubject(List<Subject> list);
 	// 강의 조회 : 정경호
 	boolean checkSub(List<Subject> sb);
+	
+	boolean addScore(School school);
 }

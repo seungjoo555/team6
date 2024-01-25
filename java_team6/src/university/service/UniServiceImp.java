@@ -1,10 +1,13 @@
 package university.service;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import university.Professor;
+import university.School;
 import university.Student;
 import university.Subject;
 
@@ -12,6 +15,7 @@ import university.Subject;
 public class UniServiceImp implements UniService {
 	private Scanner scan = new Scanner(System.in);
 
+	
 	@Override
 	// 교수 정보 추가하는 메서드 : 임병훈
 	public List<Professor> addProfessor(List<Professor> list) {
@@ -126,6 +130,7 @@ public class UniServiceImp implements UniService {
 	public boolean addSubject(List<Subject> addList) {
 			System.out.println("=====강의 추가=====");
 			System.out.print("추가할 교수번호 : ");
+			scan.nextLine();
 			String pNum = scan.nextLine();
 			System.out.print("추가할 강의명 :" );
 			String sub = scan.nextLine();
@@ -326,6 +331,33 @@ public class UniServiceImp implements UniService {
 			return true;
 		
 	}
+
+	@Override
+	public boolean addScore(School school) {
+		
+		List<Student> stuList = school.getStd();
+		List<Professor> Professor = school.getPrf();
+		List<Subject> Subject = school.getSub();
+		
+		System.out.print("점수를 추가할 학생 : ");
+		String sNum = scan.next();
+		System.out.print("점수를 추가할 과목 : ");
+		String subNum = scan.next();
+		System.out.print("해당 과목 점수 : ");
+		int score = scan.nextInt();
+		
+		Student std = new Student(sNum);
+		int index = stuList.indexOf(std);
+		
+		Map<Subject,Integer> map = new HashMap<Subject, Integer>(subNum,score);
+		if(index != -1) {
+			stuList.get(index).setMap(map);
+			System.out.println(stuList.get(index).getMap());
+			System.out.println("학생 점수를 추가했습니다.");
+			return true;
+		} else {
+			System.out.println("오류");
+			return false;
+		}
+	}
 }
-	
-	
