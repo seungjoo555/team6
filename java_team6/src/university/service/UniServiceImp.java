@@ -214,8 +214,7 @@ public class UniServiceImp implements UniService {
 			list = new ArrayList<Department>();
 		}
 		System.out.print("등록할 학과명 : ");
-		scan.nextLine();
-		String name = scan.nextLine();
+		String name = scan.next();
 		Department tmp = new Department(name);
 		if(!list.contains(tmp)) {
 			list.add(tmp);
@@ -233,8 +232,69 @@ public class UniServiceImp implements UniService {
 		return school;
 	}
 	@Override
+	public School updateDPM_Name(School school) {
+		List<Department> list = school.getDep();
+		if(list == null) {
+			System.out.println("학과를 먼저 등록해 주세요.");
+			return school;
+		}
+		System.out.print("학과명 : ");
+		String name = scan.next();
+		int index = dpmLocation(list, name);
+		
+		if(index == -1) {
+			return school;
+		}
+		
+		System.out.print("수정할 학과명 : ");
+		String updateName = scan.next();
+		
+		list.get(index).setName(name);
+		school.updatePfAll(name, updateName);
+		school.updateStdAll(name, updateName);
+		
+		List<Professor> pf = school.getPrf();
+		List<Student> std = school.getStd();
+		if(!list.get(index).updatePf(pf)) {
+			System.out.println("학과에 등록할 교수가 없습니다.");
+		}
+		if(!list.get(index).updateStd(std)) {
+			System.out.println("학과에 등록할 학생이 없습니다.");
+		}
+		school.setDep(list);
+		
+		return school;
+	}
+	
+	@Override
+	public School updateDPM_Pf(School school) {
+		// TODO Auto-generated method stub
+		return school;
+	}
+	@Override
+	public School updateDPM_Std(School school) {
+		// TODO Auto-generated method stub
+		return school;
+	}
+	@Override
 	public School deleteDepartment(School school) {
 		// TODO Auto-generated method stub
 		return school;
+	}
+	
+	//병훈님 코드 강탈
+	public int dpmLocation(List<Department> list, String name) {
+		int index = -1;
+		
+		Department dpm = new Department(name);
+		index = list.indexOf(dpm);
+		
+		// 찾는 번호가 없는 경우
+		if(index == -1) {
+			System.out.println("일치하는 학과가 없습니다.");
+			return index;
+		}
+		
+		return index;
 	}
 }

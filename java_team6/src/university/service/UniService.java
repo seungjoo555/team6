@@ -30,9 +30,11 @@ public interface UniService {
 	// 교수 위치 찾기 : 임병훈
 	int location(List<Professor> list, String num);
 	
-	//학과 등록 : 이승주
+	//학과 : 이승주
 	School addDepartment(School school);
-	
 	School deleteDepartment(School school);
+	School updateDPM_Name(School school);
+	School updateDPM_Pf(School school);
+	School updateDPM_Std(School school);
 }
 

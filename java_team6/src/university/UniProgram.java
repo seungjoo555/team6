@@ -259,12 +259,15 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학과 이름 변경
+			us.updateDPM_Name(school);
 			break;
 		case 2:
 			//교수 업데이트
+			us.updateDPM_Pf(school);
 			break;
 		case 3:
 			//학생 업데이트
+			us.updateDPM_Std(school);
 			break;
 		case 4:
 			//이전으로
