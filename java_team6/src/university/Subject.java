@@ -3,7 +3,10 @@ package university;
 import java.io.Serializable;
 import java.util.Objects;
 
+import lombok.Data;
+
 // 강의 리스트
+@Data
 public class Subject implements Serializable {
 	private static final long serialVersionUID = -8958668600735079489L;
 	/*강의 클래스 // Subject

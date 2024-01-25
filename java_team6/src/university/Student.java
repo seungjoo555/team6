@@ -39,7 +39,6 @@ public class Student implements Serializable {
 		return "\n학생 이름 : " + sName + "\n학년 : " + sGrade + "\n학과 : " + sDep + "\n학번 : " + sNum;
 	}
 	public Student(String sName, int sGrade, String sDep, String sNum) {
-		super();
 		this.sName = sName;
 		this.sGrade = sGrade;
 		this.sDep = sDep;
