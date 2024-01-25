@@ -273,7 +273,6 @@ public class UniServiceImp implements UniService {
 			return false;
 		}		
 	}
-
 	@Override //강의 수정 메서드 : 정경호
 	public boolean updateSubject(List<Subject> uplist) {
 		int index=0;
@@ -292,9 +291,7 @@ public class UniServiceImp implements UniService {
 		String oldPName = scan.nextLine();
 		Subject oldSj = new Subject(oldSub, oldPName, oldPnum);
 		 index = uplist.indexOf(oldSj);
-		
 		}
-		
 		if(index != -1) {
 			System.out.println("---------------");
 			System.out.print("새로운 교수번호 :");
@@ -316,17 +313,19 @@ public class UniServiceImp implements UniService {
 		}	
 	}
 
-	@Override
+	@Override //강의 조회 : 정경호
 	public boolean checkSub(List<Subject> sb) {
 		if(sb == null || sb.isEmpty()) {
 			System.out.println("강의가 없습니다.");
 		return false;
 		}
-		for(int i=0;i<sb.size();i++) {
-			sb.get(i);
-			System.out.println(sb.get(i).toString());
-		}
-		return true;		
+			for(int i=0;i < sb.size();i++) {
+				sb.get(i);
+				System.out.println(sb.get(i).toString());
+			}
+			return true;
+		
 	}
-	
 }
+	
+	
