@@ -80,7 +80,7 @@ public class UniServiceImp implements UniService {
 	public List<Professor> deleteProfessor(List<Professor> list) {
 		
 		System.out.println("삭제 전" + list);
-		System.out.print("수정할 교수 번호 : ");
+		System.out.print("삭제할 교수 번호 : ");
 		String pNum = scan.next();
 
 		// location함수로 원하는 교수의 index값 찾기
@@ -322,11 +322,11 @@ public class UniServiceImp implements UniService {
 			System.out.println("강의가 없습니다.");
 		return false;
 		}
-		
-		list.remove(index);
-		System.out.println("삭제 완료");
-		
-		return list;
+		for(int i=0;i<sb.size();i++) {
+			sb.get(i);
+			System.out.println(sb.get(i).toString());
+		}
+		return true;		
 	}
 	
 }
