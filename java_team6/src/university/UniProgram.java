@@ -102,7 +102,8 @@ public class UniProgram implements UniversityProgram {
 			System.out.println(school.getPrf());
 			break;
 		case 2:
-			// 학생 조회
+			// 학생 조회 : 이철범
+			System.out.println(school.getStd());
 			break;
 		case 3:
 			// 과 조회

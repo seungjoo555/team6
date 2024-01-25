@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 // 리스트 총괄 관리
 @Data

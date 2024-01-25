@@ -15,6 +15,8 @@ public interface UniService {
 	List<Student> updateStudent(List<Student> list);
 	//학생 삭제 : 이철범
 	List<Student> deleteStudent(List<Student> list);
+	//학생 조회 : 이철범
+	void printStudent(List<Student> list);
 	
 	// 교수 등록 : 임병훈
 	List<Professor> addProfessor(List<Professor> list);
@@ -36,4 +38,5 @@ public interface UniService {
 	boolean updateSubject(List<Subject> list);
 	// 강의 조회 : 정경호
 	boolean checkSub(List<Subject> sb);
+	
 }
