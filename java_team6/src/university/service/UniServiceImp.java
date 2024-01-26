@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import lombok.Data;
 import university.Professor;
+import university.School;
 import university.Student;
 import university.Subject;
 
@@ -17,6 +18,7 @@ public class UniServiceImp implements UniService {
 	@Override
 	// 교수 정보 추가하는 메서드 : 임병훈
 	public List<Professor> addProfessor(List<Professor> list) {
+
 		
 		System.out.print("교수 번호 : ");
 		String pNum = scan.next();
@@ -99,6 +101,7 @@ public class UniServiceImp implements UniService {
 		return list;
 	}
 	
+	
 	@Override
 	// 원하는 리스트에서 원하는 값이 존재하는지, 존재하면 몇번째 index에 존재하는지 찾는 메서드 : 임병훈
 	public int location(List<Professor> list,String num) {
@@ -124,31 +127,6 @@ public class UniServiceImp implements UniService {
 	}
 
 	
-<<<<<<< Updated upstream
-=======
-	@Override //강의 추가 메서드 : 정경호
-	public boolean addSubject(List<Subject> addList) {
-			System.out.println("=====강의 추가=====");
-			System.out.print("추가할 교수번호 : ");
-			String pNum = scan.nextLine();
-			
-			System.out.print("추가할 강의명 :" );
-			String sub = scan.nextLine();
-			System.out.print("강의할 교수명 :");
-			String pName = scan.nextLine();
-			Subject sj = new Subject(sub, pName, pNum);
-			int index = addList.indexOf(sj);
-			if(index == -1) {
-				addList.add(sj);
-				System.out.println("강의가 추가 되었습니다.");
-				return true;
-			}else {
-				System.out.println("중복된 강의 입니다.");
-			return false;
-			}
-	}
-	
->>>>>>> Stashed changes
 	
 	//학생 추가 메서드 : 이철범
 	@Override
@@ -253,35 +231,21 @@ public class UniServiceImp implements UniService {
 	@Override //강의 삭제 메서드 : 정경호
 	public boolean removeSubject(List<Subject> removelist,List<Professor>pfList) {
 		System.out.println("=====강의 삭제=====");
-<<<<<<< Updated upstream
+		
+		// 등록한 강의 리스트 출력
+		checkSub(removelist);
+		// 삭제할 강의 리스트 선택 받는 코드 입력
+		
+		// 강의 리스트 index 번호랑 입력 받은 번호가 일치하면
+		
+		// remove() 이용해서 삭제
+		
+		// 아니면 일치하는 강의 없다고 반환
+		
 		System.out.print("삭제할 교수번호 :");
-		String pNum = scan.nextLine();
-		int index = -1;
-		for(int i= 0;i<pfList.size();i++) {
-			if(pfList.get(i).getPNum().equals(pNum)) {
-				index=i;
-			}
-		}
-		if(index < 0 || index >= pfList.size()){
-			System.out.println("삭제할 강의가 없습니다.");
-			return false;
-		}
-		System.out.println("삭제할 강의명 : ");
-		String sName = scan.nextLine();
-		System.out.println("삭제할 교수명 :" +pfList.get(index).getPName());
-		Subject sj = new Subject(sName, pfList.get(index).getPName(), pNum);
-=======
-		if(removelist == null || removelist.isEmpty()) {
-			System.out.println("삭제할 강의가 없습니다.");
-			return false;
-		System.out.print("삭제할 교수번호");
-		String pNum = scan.nextLine();
-		System.out.print("삭제할 강의명: ");
-		String sub =scan.nextLine();
-		System.out.print("삭제할 교수명 :");
-		String pName = scan.next();
-		Subject sj = new Subject(sub, pName, pNum);
->>>>>>> Stashed changes
+		System.out.print("삭제할 강의명 : ");
+		System.out.println("삭제할 교수명 :");
+		Subject sj = new Subject(null, null, null);
 		sj.removeSubject();
 		
 		if(removelist.contains(sj)) {
@@ -295,54 +259,68 @@ public class UniServiceImp implements UniService {
 	}
 	@Override //강의 추가 메서드 : 정경호
 	public boolean addSubject(List<Subject> addList,List<Professor>pfList) {
+		
+		/*
 			
+		System.out.print("교수 번호 : ");
+		String pNum = scan.next();
+		System.out.print("교수 학과 : ");
+		String pDep = scan.next();
+		System.out.print("강의 이름 : ");
+		String pSub = scan.next();
+		System.out.print("교수 이름 : ");
+		String pName = scan.next();
+		
+		// 입력된 정보로 객체 생성
+		Professor pf = new Professor(pName, pSub, pDep, pNum);
+		
+		// 리스트에 해당 객체와 동일한 객체가 있으면 오류 출력 및 메서드 종료
+		int index = list.indexOf(pf);
+		
+		if(index != -1) {
+			System.out.println("이미 등록된 교수 번호입니다.");
+			return list;
+		}
+		
+		// 리스트에 객체 추가
+		list.add(pf);
+		
+		return list;
+		*/
+		
 			System.out.println("=====강의 추가=====");
+			System.out.println(pfList);
 			System.out.print("추가할 교수번호 :");
 			String pNum = scan.nextLine();
-			int index = -1;
-			for(int i= 0;i<pfList.size();i++) {
-				if(pfList.get(i).getPNum().equals(pNum)) {
-					index=i;
-				}
-			}
-			if(index < 0 || index >= pfList.size()) {
-				System.out.println("등록되지 않은 교수 번호입니다.");
-				return false;
-			}
-			System.out.println("추가할 강의명 :" +pfList.get(index).getPSubject() );
-			System.out.println("강의할 교수명 :" +pfList.get(index).getPName());
-			Subject sj = new Subject(pfList.get(index).getPSubject(),pfList.get(index).getPName(), pNum);
-			   index = addList.indexOf(sj);
-			if(index == -1) {
-				addList.add(sj);
-				System.out.println("강의가 추가 되었습니다.");
-				return true;
-			}else {
-				System.out.println("중복된 강의 입니다.");
-			return false;
-			}
+			System.out.println("교수 학과 : ");
+			String pDep = scan.next();
+			System.out.println("교수 이름 : ");
+			String pName = scan.next();
+			System.out.println("강의 이름 : ");
+			String sName = scan.next();
+			
+			Subject sb = new Subject(sName, pName, pNum, pDep);
+			
+			addList.add(sb);
+			
+			return true;
 	}
 	@Override //강의 수정 메서드 : 정경호
 	public boolean updateSubject(List<Subject> upList,List<Professor>pfList) {
 		int index=-1;
+		
 		System.out.println("=====강의 수정=====");
+		
+
 		
 		System.out.print("수정할 교수번호 : ");
 		String oldPnum = scan.nextLine();
-		for(int i= 0;i<pfList.size();i++) {
-			if(pfList.get(i).getPNum().equals(oldPnum)) {
-				index=i;
-			}
-		}
-		if(index<0 || index>=pfList.size()) {
-			System.out.println("수정할 강의가 없습니다.");
-			return false;
-		}
-		System.out.println("수정할 강의명 :" + pfList.get(index).getPSubject() );
-		System.out.println("수정할 교수명 :" + pfList.get(index).getPName());
+	
+		System.out.println("수정할 강의명 :" );
+		String old
+		System.out.println("수정할 교수명 :" );
 		
-		Subject oldSj = new Subject(pfList.get(index)
-				.getPSubject(),pfList.get(index).getPName(), oldPnum);
+		Subject oldSj = new Subject();
 		
 		 index = upList.indexOf(oldSj);
 		
@@ -361,8 +339,6 @@ public class UniServiceImp implements UniService {
 			System.out.print("새로운 강의명 :");
 			String newSub = scan.nextLine();
 			System.out.println("새로운 교수명 :"+pfList.get(index).getPName());
-			String newPName = scan.nextLine();
-			
 			Subject newSj = new Subject(newSub,pfList.get(index).getPName(), newPnum);
 			upList.remove(index);
 			upList.add(newSj);
