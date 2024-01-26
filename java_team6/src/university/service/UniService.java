@@ -34,7 +34,6 @@ public interface UniService {
 	School addDepartment(School school);
 	School deleteDepartment(School school);
 	School updateDPM_Name(School school);
-	School updateDPM_Pf(School school);
-	School updateDPM_Std(School school);
+	School updateDPM_PfStd(School school);
 }
 

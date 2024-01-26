@@ -262,23 +262,57 @@ public class UniServiceImp implements UniService {
 			System.out.println("학과에 등록할 학생이 없습니다.");
 		}
 		school.setDep(list);
-		
+		System.out.println(name + "를 " + updateName + "로 수정 완료");
 		return school;
 	}
 	
 	@Override
-	public School updateDPM_Pf(School school) {
-		// TODO Auto-generated method stub
+	public School updateDPM_PfStd(School school) {
+		List<Department> list = school.getDep();
+		List<Professor> pf = school.getPrf();
+		List<Student> std = school.getStd();
+		if(list == null) {
+			System.out.println("학과를 먼저 등록해 주세요.");
+			return school;
+		}
+		System.out.print("학과명 : ");
+		String name = scan.next();
+		int index = dpmLocation(list, name);
+		
+		if(index == -1) {
+			return school;
+		}
+		
+		if(!list.get(index).updatePf(pf)) {
+			System.out.println("학과에 등록할 교수가 없습니다.");
+		}
+		if(!list.get(index).updateStd(std)) {
+			System.out.println("학과에 등록할 학생이 없습니다.");
+		}
+		school.setDep(list);
+		System.out.println(name + "의 " + "교수, 학생 정보 업데이트 완료");
 		return school;
 	}
-	@Override
-	public School updateDPM_Std(School school) {
-		// TODO Auto-generated method stub
-		return school;
-	}
+	
 	@Override
 	public School deleteDepartment(School school) {
-		// TODO Auto-generated method stub
+		List<Department> list = school.getDep();
+		if(list == null) {
+			System.out.println("학과를 먼저 등록해 주세요.");
+			return school;
+		}
+		System.out.print("학과명 : ");
+		String name = scan.next();
+		int index = dpmLocation(list, name);
+		
+		if(index == -1) {
+			return school;
+		}
+		list.remove(index);
+		school.updatePfAll(name, "무소속");
+		school.updateStdAll(name, "무소속");
+		school.setDep(list);
+		System.out.println(name + "를 삭제했습니다. 남겨진 교수와 학생의 소속을 변경해주세요.");
 		return school;
 	}
 	
