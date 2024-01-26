@@ -124,6 +124,31 @@ public class UniServiceImp implements UniService {
 	}
 
 	
+<<<<<<< Updated upstream
+=======
+	@Override //강의 추가 메서드 : 정경호
+	public boolean addSubject(List<Subject> addList) {
+			System.out.println("=====강의 추가=====");
+			System.out.print("추가할 교수번호 : ");
+			String pNum = scan.nextLine();
+			
+			System.out.print("추가할 강의명 :" );
+			String sub = scan.nextLine();
+			System.out.print("강의할 교수명 :");
+			String pName = scan.nextLine();
+			Subject sj = new Subject(sub, pName, pNum);
+			int index = addList.indexOf(sj);
+			if(index == -1) {
+				addList.add(sj);
+				System.out.println("강의가 추가 되었습니다.");
+				return true;
+			}else {
+				System.out.println("중복된 강의 입니다.");
+			return false;
+			}
+	}
+	
+>>>>>>> Stashed changes
 	
 	//학생 추가 메서드 : 이철범
 	@Override
@@ -228,6 +253,7 @@ public class UniServiceImp implements UniService {
 	@Override //강의 삭제 메서드 : 정경호
 	public boolean removeSubject(List<Subject> removelist,List<Professor>pfList) {
 		System.out.println("=====강의 삭제=====");
+<<<<<<< Updated upstream
 		System.out.print("삭제할 교수번호 :");
 		String pNum = scan.nextLine();
 		int index = -1;
@@ -244,6 +270,18 @@ public class UniServiceImp implements UniService {
 		String sName = scan.nextLine();
 		System.out.println("삭제할 교수명 :" +pfList.get(index).getPName());
 		Subject sj = new Subject(sName, pfList.get(index).getPName(), pNum);
+=======
+		if(removelist == null || removelist.isEmpty()) {
+			System.out.println("삭제할 강의가 없습니다.");
+			return false;
+		System.out.print("삭제할 교수번호");
+		String pNum = scan.nextLine();
+		System.out.print("삭제할 강의명: ");
+		String sub =scan.nextLine();
+		System.out.print("삭제할 교수명 :");
+		String pName = scan.next();
+		Subject sj = new Subject(sub, pName, pNum);
+>>>>>>> Stashed changes
 		sj.removeSubject();
 		
 		if(removelist.contains(sj)) {
