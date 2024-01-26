@@ -21,6 +21,7 @@ public class UniProgram implements UniversityProgram {
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 4;
 	private final int DPMEXIT = 4;
+	private final int SUBDPMEXIT = 4;
 	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
 	
@@ -251,7 +252,7 @@ public class UniProgram implements UniversityProgram {
 			menu = sc.nextInt();
 			//메뉴 실행
 			updateDPMMenu(menu);
-		}while(menu != DPMEXIT);
+		}while(menu != SUBDPMEXIT);
 	}
 
 
@@ -262,14 +263,10 @@ public class UniProgram implements UniversityProgram {
 			us.updateDPM_Name(school);
 			break;
 		case 2:
-			//교수 업데이트
-			us.updateDPM_Pf(school);
+			//교수,학생 업데이트
+			us.updateDPM_PfStd(school);
 			break;
 		case 3:
-			//학생 업데이트
-			us.updateDPM_Std(school);
-			break;
-		case 4:
 			//이전으로
 			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
