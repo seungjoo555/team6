@@ -1,5 +1,6 @@
 package university;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +9,8 @@ import lombok.Data;
 
 // 학과 리스트
 @Data
-public class Department {
+public class Department implements Serializable{
+	private static final long serialVersionUID = 5463624712997848924L;
 	/*과 클래스 // Department
 	- 과 이름 (중복 x)
 	- 정원 제한 (선택사항)
@@ -79,4 +81,24 @@ public class Department {
 	public Department(String name) {
 		this.name = name;
 	}
+	
+	@Override
+	public String toString() {
+		//교수 정보를 담은 한줄 문자열 만들기
+		String infoPf;
+		for(Professor pf : professorList) {
+		}
+		
+		
+		//학생 정보를 담은 한줄 문자열 만들기
+		String infoStd;
+		
+		
+		
+		return "학과명: " + name + "\n학과 교수\n" + "이름: " + professorList + ", studentList=" + studentList + "]";
+	}
+	
+	
+	
+	
 }

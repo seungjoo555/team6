@@ -249,7 +249,7 @@ public class UniServiceImp implements UniService {
 		System.out.print("수정할 학과명 : ");
 		String updateName = scan.next();
 		
-		list.get(index).setName(name);
+		list.get(index).setName(updateName);
 		school.updatePfAll(name, updateName);
 		school.updateStdAll(name, updateName);
 		
