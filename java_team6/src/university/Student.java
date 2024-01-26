@@ -21,8 +21,7 @@ public class Student implements Serializable {
 	private String sDep; 	// 학생 학과
 	private String sNum; 	// 학생 번호 - 중복 X
 	
-	private String pNum;	// 강의 고유번호
-	private Map<Subject,Integer> map = new HashMap<Subject,Integer>();
+	private Map<String,Integer> map = new HashMap<String,Integer>();
 	
 	@Override
 	public int hashCode() {

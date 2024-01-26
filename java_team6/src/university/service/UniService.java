@@ -38,5 +38,5 @@ public interface UniService {
 	// 강의 조회 : 정경호
 	boolean checkSub(List<Subject> sb);
 	
-	boolean addScore(School school);
+	List<Student> addScore(List<Student> list);
 }

@@ -333,11 +333,7 @@ public class UniServiceImp implements UniService {
 	}
 
 	@Override
-	public boolean addScore(School school) {
-		
-		List<Student> stuList = school.getStd();
-		List<Professor> Professor = school.getPrf();
-		List<Subject> Subject = school.getSub();
+	public List<Student> addScore(List<Student> list) {
 		
 		System.out.print("점수를 추가할 학생 : ");
 		String sNum = scan.next();
@@ -347,17 +343,20 @@ public class UniServiceImp implements UniService {
 		int score = scan.nextInt();
 		
 		Student std = new Student(sNum);
-		int index = stuList.indexOf(std);
+		int index = list.indexOf(std);
 		
-		Map<Subject,Integer> map = new HashMap<Subject, Integer>(subNum,score);
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map = list.get(index).getMap();
+		
 		if(index != -1) {
-			stuList.get(index).setMap(map);
-			System.out.println(stuList.get(index).getMap());
+			map.put(subNum, score);
+			System.out.println(list.get(index).getMap());
 			System.out.println("학생 점수를 추가했습니다.");
-			return true;
+			return list;
+			
 		} else {
 			System.out.println("오류");
-			return false;
+			return list; 
 		}
 	}
 }

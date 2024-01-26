@@ -221,7 +221,7 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학과 등록
-			us.addScore(school);
+			us.addScore(school.getStd());
 			break;
 		case 2:
 			//학과 수정
