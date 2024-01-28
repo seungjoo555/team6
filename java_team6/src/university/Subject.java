@@ -3,10 +3,8 @@ package university;
 import java.io.Serializable;
 import java.util.Objects;
 
-import lombok.Data;
 
 // 강의 리스트
-@Data
 public class Subject implements Serializable {
 	private static final long serialVersionUID = -8958668600735079489L;
 	/*강의 클래스 // Subject
@@ -24,10 +22,7 @@ public class Subject implements Serializable {
 	 private String subName; //강의 이름
 	 private String pName; //강의 교수명 
 	 private String pDep; //교수 학과
-	 
 
-	 
-	
 	public Subject(String subName, String pName,String pNum,String pDep) {
 		this.pDep = pDep;
 		this.pNum = pNum;
@@ -36,7 +31,6 @@ public class Subject implements Serializable {
 	}
 	@Override
 	public int hashCode() {
-
 		return Objects.hash(pDep, pNum, subName);
 	}
 	@Override
@@ -53,14 +47,7 @@ public class Subject implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return  "-------"+ "\n교수번호 :"+ pNum + "\n교수명 :" + pName + "\n교수학과 : " + pDep +"\n강의명 :" + subName ;
-	}
-	public void removeSubject() {
-		
-		
-	}
-	public void addSubject(String sub, String pName) {
-		
+		return  "-------"+  "\n교수번호 :"+ pNum + "\n교수명 :" + pName + "\n교수학과 : " + pDep +"\n강의명 :" + subName ;
 	}
 
 }

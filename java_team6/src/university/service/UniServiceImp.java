@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import lombok.Data;
 import university.Professor;
-import university.School;
 import university.Student;
 import university.Subject;
 import university.UniProgram;
@@ -18,7 +17,6 @@ public class UniServiceImp implements UniService {
 	@Override
 	// 교수 정보 추가하는 메서드 : 임병훈
 	public List<Professor> addProfessor(List<Professor> list) {
-
 		
 		System.out.print("교수 번호 : ");
 		String pNum = scan.next();
@@ -100,7 +98,6 @@ public class UniServiceImp implements UniService {
 		
 		return list;
 	}
-	
 	
 	@Override
 	// 원하는 리스트에서 원하는 값이 존재하는지, 존재하면 몇번째 index에 존재하는지 찾는 메서드 : 임병훈
@@ -249,7 +246,6 @@ public class UniServiceImp implements UniService {
 		String sName = UniProgram.scan.nextLine();
 		System.out.println("삭제할 교수명 :" +pfList.get(pfIndex).getPName());
 		Subject sj = new Subject(sName, pfList.get(pfIndex).getPName(), pNum,pfList.get(pfIndex).getPDep());
-		sj.removeSubject();
 		
 		if(removelist.contains(sj)) {
 			removelist.remove(sj);
@@ -259,7 +255,6 @@ public class UniServiceImp implements UniService {
 		}
 		return removelist;		
 	}
-	
 	@Override //강의 추가 메서드 : 정경호
 	public List<Subject> addSubject(List<Subject> addList,List<Professor>pfList) {
 			System.out.println(pfList.toString());
@@ -292,12 +287,12 @@ public class UniServiceImp implements UniService {
 	}
 	@Override //강의 수정 메서드 : 정경호
 	public List<Subject> updateSubject(List<Subject> upList,List<Professor>pfList) {
-		System.out.println(pfList.toString());
+		System.out.println(upList.toString());
 		System.out.print("수정할 교수번호 : ");
 		UniProgram.scan.nextLine();
 		String oldPnum = UniProgram.scan.nextLine();
 		int pfIndex=-1;	
-		for(int i=0;i<pfList.size();i++) {
+		for(int i=0;i<upList.size();i++) {
 			if(pfList.get(i).getPNum().equals(oldPnum)) {
 				pfIndex = i;
 				break;
@@ -317,9 +312,13 @@ public class UniServiceImp implements UniService {
 		
 			System.out.println("---------------");
 			System.out.print("새로운 교수번호 :");
-			
 			String newPnum = UniProgram.scan.nextLine();
-			
+			for(int i = 0;i<upList.size();i++) {
+				if(pfList.get(i).getPNum().equals(newPnum));{
+					pfIndex = i;
+					return upList;
+				}
+			}
 			if(pfIndex<0 || pfIndex>=pfList.size()) {
 				System.out.println("교수번호가 존재하지 않습니다.");
 				return upList;
@@ -337,7 +336,7 @@ public class UniServiceImp implements UniService {
 			return upList;
 	
 	}
-	
+
 	@Override //강의 조회 : 정경호
 	public boolean checkSub(List<Subject> sb) {
 		if(sb == null || sb.isEmpty()) {
