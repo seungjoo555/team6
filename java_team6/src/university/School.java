@@ -12,7 +12,7 @@ import lombok.Setter;
 @Data
 public class School implements Serializable {
 	private static final long serialVersionUID = -3631361192718600576L;
-  
+   
 	private List<Professor> prf;// 교수 리스트
 	private List<Student> std; // 학생 리스트
 	private List<Subject> sub; // 강의 리스트

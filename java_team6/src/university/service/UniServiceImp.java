@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import lombok.Data;
 import university.Professor;
+import university.School;
 import university.Student;
 import university.Subject;
 import university.UniProgram;
@@ -17,6 +18,7 @@ public class UniServiceImp implements UniService {
 	@Override
 	// 교수 정보 추가하는 메서드 : 임병훈
 	public List<Professor> addProfessor(List<Professor> list) {
+
 		
 		System.out.print("교수 번호 : ");
 		String pNum = scan.next();
@@ -98,6 +100,7 @@ public class UniServiceImp implements UniService {
 		
 		return list;
 	}
+	
 	
 	@Override
 	// 원하는 리스트에서 원하는 값이 존재하는지, 존재하면 몇번째 index에 존재하는지 찾는 메서드 : 임병훈
@@ -256,6 +259,7 @@ public class UniServiceImp implements UniService {
 		}
 		return removelist;		
 	}
+	
 	@Override //강의 추가 메서드 : 정경호
 	public List<Subject> addSubject(List<Subject> addList,List<Professor>pfList) {
 			System.out.println(pfList.toString());
@@ -333,7 +337,7 @@ public class UniServiceImp implements UniService {
 			return upList;
 	
 	}
-
+	
 	@Override //강의 조회 : 정경호
 	public boolean checkSub(List<Subject> sb) {
 		if(sb == null || sb.isEmpty()) {
