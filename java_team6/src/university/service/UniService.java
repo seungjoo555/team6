@@ -31,12 +31,11 @@ public interface UniService {
 	int location(List<Professor> list, String num);
 	
 	// 강의 추가 : 정경호
-	boolean addSubject(List<Subject> list);
 	// 강의 삭제 : 정경호
-	boolean removeSubject(List<Subject> list);
+	boolean removeSubject(List<Subject> removeList,List<Professor>pfList);
 	// 강의 수정 : 정경호
-	boolean updateSubject(List<Subject> list);
+	boolean updateSubject(List<Subject> upList,List<Professor>pfList);
 	// 강의 조회 : 정경호
 	boolean checkSub(List<Subject> sb);
-	
+	boolean addSubject(List<Subject> addList,List<Professor>pfList);
 }

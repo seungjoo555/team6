@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import lombok.Data;
 import university.Professor;
 import university.Student;
 import university.Subject;
@@ -123,27 +124,6 @@ public class UniServiceImp implements UniService {
 	}
 
 	
-	@Override //강의 추가 메서드 : 정경호
-	public boolean addSubject(List<Subject> addList) {
-			System.out.println("=====강의 추가=====");
-			System.out.print("추가할 교수번호 : ");
-			String pNum = scan.nextLine();
-			System.out.print("추가할 강의명 :" );
-			String sub = scan.nextLine();
-			System.out.print("강의할 교수명 :");
-			String pName = scan.nextLine();
-			Subject sj = new Subject(sub, pName, pNum);
-			int index = addList.indexOf(sj);
-			if(index == -1) {
-				addList.add(sj);
-				System.out.println("강의가 추가 되었습니다.");
-				return true;
-			}else {
-				System.out.println("중복된 강의 입니다.");
-			return false;
-			}
-	}
-	
 	
 	//학생 추가 메서드 : 이철범
 	@Override
@@ -251,23 +231,24 @@ public class UniServiceImp implements UniService {
 	}
 	
 	@Override //강의 삭제 메서드 : 정경호
-	public boolean removeSubject(List<Subject> removelist) {
+	public boolean removeSubject(List<Subject> removelist,List<Professor>pfList) {
 		System.out.println("=====강의 삭제=====");
-		try {	
-		if(removelist == null || removelist.isEmpty()) {
+		System.out.print("삭제할 교수번호 :");
+		String pNum = scan.nextLine();
+		int index = -1;
+		for(int i= 0;i<pfList.size();i++) {
+			if(pfList.get(i).getPNum().equals(pNum)) {
+				index=i;
+			}
+		}
+		if(index < 0 || index >= pfList.size()){
 			System.out.println("삭제할 강의가 없습니다.");
 			return false;
 		}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.print("삭제할 교수번호");
-		String pNum = scan.nextLine();
-		System.out.print("삭제할 강의명: ");
-		String sub =scan.nextLine();
-		System.out.print("삭제할 교수명 :");
-		String pName = scan.next();
-		Subject sj = new Subject(sub, pName, pNum);
+		System.out.println("삭제할 강의명 : ");
+		String sName = scan.nextLine();
+		System.out.println("삭제할 교수명 :" +pfList.get(index).getPName());
+		Subject sj = new Subject(sName, pfList.get(index).getPName(), pNum);
 		sj.removeSubject();
 		
 		if(removelist.contains(sj)) {
@@ -279,44 +260,83 @@ public class UniServiceImp implements UniService {
 			return false;
 		}		
 	}
+	@Override //강의 추가 메서드 : 정경호
+	public boolean addSubject(List<Subject> addList,List<Professor>pfList) {
+			
+			System.out.println("=====강의 추가=====");
+			System.out.print("추가할 교수번호 :");
+			String pNum = scan.nextLine();
+			int index = -1;
+			for(int i= 0;i<pfList.size();i++) {
+				if(pfList.get(i).getPNum().equals(pNum)) {
+					index=i;
+				}
+			}
+			if(index < 0 || index >= pfList.size()) {
+				System.out.println("등록되지 않은 교수 번호입니다.");
+				return false;
+			}
+			System.out.println("추가할 강의명 :" +pfList.get(index).getPSubject() );
+			System.out.println("강의할 교수명 :" +pfList.get(index).getPName());
+			Subject sj = new Subject(pfList.get(index).getPSubject(),pfList.get(index).getPName(), pNum);
+			   index = addList.indexOf(sj);
+			if(index == -1) {
+				addList.add(sj);
+				System.out.println("강의가 추가 되었습니다.");
+				return true;
+			}else {
+				System.out.println("중복된 강의 입니다.");
+			return false;
+			}
+	}
 	@Override //강의 수정 메서드 : 정경호
-	public boolean updateSubject(List<Subject> uplist) {
-		int index=0;
+	public boolean updateSubject(List<Subject> upList,List<Professor>pfList) {
+		int index=-1;
 		System.out.println("=====강의 수정=====");
-		if(uplist == null || uplist.isEmpty()) {
+		
+		System.out.print("수정할 교수번호 : ");
+		String oldPnum = scan.nextLine();
+		for(int i= 0;i<pfList.size();i++) {
+			if(pfList.get(i).getPNum().equals(oldPnum)) {
+				index=i;
+			}
+		}
+		if(index<0 || index>=pfList.size()) {
 			System.out.println("수정할 강의가 없습니다.");
 			return false;
 		}
+		System.out.println("수정할 강의명 :" + pfList.get(index).getPSubject() );
+		System.out.println("수정할 교수명 :" + pfList.get(index).getPName());
 		
-		if(index !=-1) {
-		System.out.print("수정할 교수번호 : ");
-		String oldPnum = scan.nextLine();
-		System.out.print("수정할 강의명 :" );
-		String oldSub = scan.nextLine();
-		System.out.print("수정할 교수명 :");
-		String oldPName = scan.nextLine();
-		Subject oldSj = new Subject(oldSub, oldPName, oldPnum);
-		 index = uplist.indexOf(oldSj);
-		}
-		if(index != -1) {
+		Subject oldSj = new Subject(pfList.get(index)
+				.getPSubject(),pfList.get(index).getPName(), oldPnum);
+		
+		 index = upList.indexOf(oldSj);
+		
 			System.out.println("---------------");
 			System.out.print("새로운 교수번호 :");
 			String newPnum = scan.nextLine();
+			for(int i= 0;i<pfList.size();i++) {
+				if(pfList.get(i).getPNum().equals(newPnum)) {
+					index=i;
+				}
+			}
+			if(index<0 || index>=pfList.size()) {
+				System.out.println("교수번호가 존재하지 않습니다.");
+				return false;
+			}
 			System.out.print("새로운 강의명 :");
 			String newSub = scan.nextLine();
-			System.out.print("새로운 교수명 :");
+			System.out.println("새로운 교수명 :"+pfList.get(index).getPName());
 			String newPName = scan.nextLine();
 			
-			Subject newSj = new Subject(newSub, newPName, newPnum);
-			uplist.remove(index);
-			uplist.add(newSj);
-			newSj.toString();
+			Subject newSj = new Subject(newSub,pfList.get(index).getPName(), newPnum);
+			upList.remove(index);
+			upList.add(newSj);
+			System.out.println(newSj.toString());
 			System.out.println("수정이 완료 되었습니다.");
 			return true;
-		}else {
-			System.out.println("수정을 실패했습니다.");
-			return false;
-		}	
+	
 	}
 
 	@Override //강의 조회 : 정경호
