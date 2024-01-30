@@ -85,17 +85,26 @@ public class Department implements Serializable{
 	@Override
 	public String toString() {
 		//교수 정보를 담은 한줄 문자열 만들기
-		String infoPf;
-		for(Professor pf : professorList) {
+		String infoPf = "";
+		if(!(professorList == null)) {
+			for(Professor pf : professorList) {
+				infoPf += "교수 이름 : " + pf.getPName() + "\t담당 강의 : " + pf.getPSubject() + "\n";
+			}
+		}else {
+			infoPf = "교수진이 없거나 업데이트가 필요합니다.\n";
 		}
 		
-		
 		//학생 정보를 담은 한줄 문자열 만들기
-		String infoStd;
+		String infoStd = "";
+		if(!(studentList == null)) {
+			for(Student std : studentList) {
+				infoPf += "학생 이름 : " + std.getSName() + "\t학년 : " + std.getSGrade() + "\t학번 : " + std.getSNum() + "\n";
+			}
+		}else {
+			infoStd = "학생이 없거나 업데이트가 필요합니다.\n";
+		}
 		
-		
-		
-		return "학과명: " + name + "\n학과 교수\n" + "이름: " + professorList + ", studentList=" + studentList + "]";
+		return "학과명 : " + name + "\n교수진\n" + infoPf + "학생 명단\n" + infoStd;
 	}
 	
 	

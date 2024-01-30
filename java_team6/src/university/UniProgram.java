@@ -1,8 +1,12 @@
 package university;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+
 import program.UniversityProgram;
+import university.service.FileService;
+import university.service.FileServiceImp;
 import university.service.PrintService;
 import university.service.PrintServiceImp;
 import university.service.UniService;
@@ -14,6 +18,7 @@ public class UniProgram implements UniversityProgram {
 	private PrintService ps = new PrintServiceImp();
 	private UniService us = new UniServiceImp();
 	private School school = new School();
+	private FileService fileService = new FileServiceImp();
 	
 	
 	private Scanner sc = new Scanner(System.in);
@@ -21,14 +26,16 @@ public class UniProgram implements UniversityProgram {
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 4;
 	private final int DPMEXIT = 4;
-	private final int SUBDPMEXIT = 4;
+	private final int SUBDPMEXIT = 3;
 	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
 	
 	@Override
 	public void run() {
 		int menu = 0;
+		String fileName = "src/university/ABList.txt";
 		//불러오기
+		school = fileService.load(fileName);
 		System.out.println("불러오기 구현 예정");
 		do {
 			//메뉴 출력
@@ -44,7 +51,11 @@ public class UniProgram implements UniversityProgram {
 			}
 		}while(menu != EXIT);
 		//저장
-		System.out.println("저장 구현 예정");
+		if(fileService.save(fileName, school)){
+			System.out.println("저장이 완료됐습니다.");
+		}else {
+			System.out.println("저장에 실패했습니다.");
+		}
 	}
 		
 
@@ -109,7 +120,9 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 3:
 			// 과 조회
-			System.out.println(school.getDep());			
+			for(Department dep: school.getDep()) {
+				System.out.println(dep);
+			}
 			break;
 		case 4:
 			// 강의 조회
