@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import lombok.Data;
 import university.Professor;
 import university.Student;
 import university.Subject;
