@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
 import university.Professor;
-import university.School;
 import university.Student;
 import university.Subject;
 
@@ -15,7 +13,6 @@ import university.Subject;
 public class UniServiceImp implements UniService {
 	private Scanner scan = new Scanner(System.in);
 
-	
 	@Override
 	// 교수 정보 추가하는 메서드 : 임병훈
 	public List<Professor> addProfessor(List<Professor> list) {
@@ -348,6 +345,11 @@ public class UniServiceImp implements UniService {
 		Map<String,Integer> map = new HashMap<String, Integer>();
 		map = list.get(index).getMap();
 		
+		if(map.containsKey(subNum)) {
+			System.out.println("이미 점수가 등록된 과목입니다.");
+			return list;
+		}
+		
 		if(index != -1) {
 			map.put(subNum, score);
 			System.out.println(list.get(index).getMap());
@@ -358,5 +360,55 @@ public class UniServiceImp implements UniService {
 			System.out.println("오류");
 			return list; 
 		}
+	}
+	
+	@Override
+	public List<Student> updateScore(List<Student> list) {
+		
+		System.out.print("점수를 수정할 학생 : ");
+		String sNum = scan.next();
+		System.out.print("점수를 수정할 과목 : ");
+		String subNum = scan.next();
+		
+		Student std = new Student(sNum);
+		int index = list.indexOf(std);
+		
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map = list.get(index).getMap();
+		
+		if(map.containsKey(subNum)) {
+			System.out.print("수정할 점수 : ");
+			int score = scan.nextInt();
+			
+			
+			System.out.println("수정 성공!");
+			return list;
+		}
+		System.out.println("수정 실패");
+		
+		return list;
+	}
+
+	@Override
+	public List<Student> removeScore(List<Student> list) {
+		
+		System.out.print("점수를 삭제할 학생 : ");
+		String sNum = scan.next();
+		System.out.print("점수를 삭제할 과목 : ");
+		String subNum = scan.next();
+		
+		Student std = new Student(sNum);
+		int index = list.indexOf(std);
+		
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map = list.get(index).getMap();
+		
+		if(map.containsKey(subNum)) {
+			map.remove(subNum);
+			System.out.println("삭제 성공!");
+			return list;
+		}
+		System.out.println("삭제 실패");
+		return list;
 	}
 }
