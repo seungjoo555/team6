@@ -14,4 +14,7 @@ public interface PrintService {
 	void printSJMMenu();
 
 	void printMenu();
+  
+	void printUpdateDPMMenu();
+
 }

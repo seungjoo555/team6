@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import lombok.Data;
 import program.UniversityProgram;
+import university.service.FileService;
+import university.service.FileServiceImp;
 import university.service.PrintService;
 import university.service.PrintServiceImp;
 import university.service.UniService;
@@ -18,6 +20,7 @@ public class UniProgram implements UniversityProgram {
 	private PrintService ps = new PrintServiceImp();
 	private UniService us = new UniServiceImp();
 	private School school = new School();
+	private FileService fileService = new FileServiceImp();
 	
 	
 	public static Scanner scan = new Scanner(System.in);
@@ -25,14 +28,16 @@ public class UniProgram implements UniversityProgram {
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 4;
 	private final int DPMEXIT = 4;
+	private final int SUBDPMEXIT = 3;
 	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
 	
 	@Override
 	public void run() {
 		int menu = 0;
+		String fileName = "src/university/university.txt";
 		//불러오기
-		System.out.println("불러오기 구현 예정");
+		school = fileService.load(fileName);
 		do {
 			//메뉴 출력
 			ps.printMainMenu();
@@ -47,7 +52,11 @@ public class UniProgram implements UniversityProgram {
 			}
 		}while(menu != EXIT);
 		//저장
-		System.out.println("저장 구현 예정");
+		if(fileService.save(fileName, school)){
+			System.out.println("저장이 완료됐습니다.");
+		}else {
+			System.out.println("저장에 실패했습니다.");
+		}
 	}
 		
 
@@ -107,9 +116,13 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 2:
 			// 학생 조회
+			System.out.println(school.getStd());
 			break;
 		case 3:
 			// 과 조회
+			for(Department dep: school.getDep()) {
+				System.out.println(dep);
+			}
 			break;
 		case 4:
 			// 강의 조회
@@ -224,14 +237,50 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학과 등록
+			us.addDepartment(school);
 			break;
 		case 2:
-			//학과 수정
+			//학과 수정(교수, 학생 업데이트 포함)
+			updateDepartment();
 			break;
 		case 3:
 			//학과 삭제
+			us.deleteDepartment(school);
 			break;
 		case 4:
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+
+	private void updateDepartment() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printUpdateDPMMenu();
+			//메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			updateDPMMenu(menu);
+		}while(menu != SUBDPMEXIT);
+	}
+
+
+	private void updateDPMMenu(int menu) {
+		switch(menu) {
+		case 1:
+			//학과 이름 변경
+			us.updateDPM_Name(school);
+			break;
+		case 2:
+			//교수,학생 업데이트
+			us.updateDPM_PfStd(school);
+			break;
+		case 3:
 			//이전으로
 			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
