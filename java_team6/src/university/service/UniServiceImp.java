@@ -5,11 +5,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import lombok.Data;
+import university.Department;
 import university.Professor;
 import university.School;
 import university.Student;
 import university.Subject;
 import university.UniProgram;
+
 
 // 서비스 구현클래스
 public class UniServiceImp implements UniService {
@@ -124,6 +127,138 @@ public class UniServiceImp implements UniService {
 		
 		return index;
 	}
+
+	
+	//학과 등록
+	@Override
+	public School addDepartment(School school) {
+		List<Department> list = school.getDep();
+		List<Professor> pf = school.getPrf();
+		List<Student> std = school.getStd();
+		if(list == null) {
+			list = new ArrayList<Department>();
+		}
+		System.out.print("등록할 학과명 : ");
+		String name = scan.next();
+		Department tmp = new Department(name);
+		if(!list.contains(tmp)) {
+			list.add(tmp);
+			System.out.println("학과를 등록했습니다.");
+			if(!tmp.updatePf(pf)) {
+				System.out.println("학과에 등록할 교수가 없습니다.");
+			}
+			if(!tmp.updateStd(std)) {
+				System.out.println("학과에 등록할 학생이 없습니다.");
+			}
+		}else {
+			System.out.println("이미 등록된 학과입니다.");
+		}
+		school.setDep(list);
+		return school;
+	}
+  //학과 이름 수정
+	@Override
+	public School updateDPM_Name(School school) {
+		List<Department> list = school.getDep();
+		if(list == null) {
+			System.out.println("학과를 먼저 등록해 주세요.");
+			return school;
+		}
+		System.out.print("학과명 : ");
+		String name = scan.next();
+		int index = dpmLocation(list, name);
+		
+		if(index == -1) {
+			return school;
+		}
+		
+		System.out.print("수정할 학과명 : ");
+		String updateName = scan.next();
+		
+		list.get(index).setName(updateName);
+		school.updatePfAll(name, updateName);
+		school.updateStdAll(name, updateName);
+		
+		List<Professor> pf = school.getPrf();
+		List<Student> std = school.getStd();
+		if(!list.get(index).updatePf(pf)) {
+			System.out.println("학과에 등록할 교수가 없습니다.");
+		}
+		if(!list.get(index).updateStd(std)) {
+			System.out.println("학과에 등록할 학생이 없습니다.");
+		}
+		school.setDep(list);
+		System.out.println(name + "를 " + updateName + "로 수정 완료");
+		return school;
+	}
+	//학과 업데이트
+	@Override
+	public School updateDPM_PfStd(School school) {
+		List<Department> list = school.getDep();
+		List<Professor> pf = school.getPrf();
+		List<Student> std = school.getStd();
+		if(list == null) {
+			System.out.println("학과를 먼저 등록해 주세요.");
+			return school;
+		}
+		System.out.print("학과명 : ");
+		String name = scan.next();
+		int index = dpmLocation(list, name);
+		
+		if(index == -1) {
+			return school;
+		}
+		
+		if(!list.get(index).updatePf(pf)) {
+			System.out.println("학과에 등록할 교수가 없습니다.");
+		}
+		if(!list.get(index).updateStd(std)) {
+			System.out.println("학과에 등록할 학생이 없습니다.");
+		}
+		school.setDep(list);
+		System.out.println(name + "의 " + "교수, 학생 정보 업데이트 완료");
+		return school;
+	}
+	//학과 삭제
+	@Override
+	public School deleteDepartment(School school) {
+		List<Department> list = school.getDep();
+		if(list == null) {
+			System.out.println("학과를 먼저 등록해 주세요.");
+			return school;
+		}
+		System.out.print("학과명 : ");
+		String name = scan.next();
+		int index = dpmLocation(list, name);
+		
+		if(index == -1) {
+			return school;
+		}
+		list.remove(index);
+		school.updatePfAll(name, "무소속");
+		school.updateStdAll(name, "무소속");
+		school.setDep(list);
+		System.out.println(name + "를 삭제했습니다. 남겨진 교수와 학생의 소속을 변경해주세요.");
+		return school;
+	}
+	
+	//병훈님 코드 강탈
+	public int dpmLocation(List<Department> list, String name) {
+		int index = -1;
+		
+		Department dpm = new Department(name);
+		index = list.indexOf(dpm);
+		
+		// 찾는 번호가 없는 경우
+		if(index == -1) {
+			System.out.println("일치하는 학과가 없습니다.");
+			return index;
+		}
+		
+		return index;
+	}
+}
+
 
 	
 	
@@ -359,3 +494,4 @@ public class UniServiceImp implements UniService {
 }
 	
 	
+
