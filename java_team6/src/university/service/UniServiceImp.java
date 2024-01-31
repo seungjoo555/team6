@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import lombok.Data;
 import university.Department;
 import university.Professor;
 import university.School;
@@ -257,10 +256,6 @@ public class UniServiceImp implements UniService {
 		
 		return index;
 	}
-}
-
-
-	
 	
 	//학생 추가 메서드 : 이철범
 	@Override
@@ -491,6 +486,15 @@ public class UniServiceImp implements UniService {
 		
 	}
 
+	@Override
+	public List<Student> addlist(List<Student> std, List<Subject> sub) {
+		System.out.println(sub);
+		System.out.println("신청할 수강 : ");
+		String num = scan.next();
+		return null;
+	}
+	
+	
 }
 	
 	

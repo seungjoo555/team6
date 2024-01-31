@@ -3,6 +3,7 @@ package university.service;
 import java.util.List;
 
 import university.Professor;
+import university.School;
 import university.Student;
 import university.Subject;
 
@@ -44,5 +45,8 @@ public interface UniService {
 	List<Subject> updateSubject(List<Subject>upList,List<Professor>pfList);
 	// 강의 추가 : 정경호
 	List<Subject> addSubject(List<Subject>addList,List<Professor>pfList);
-
+	
+	//수강신청
+    List<Student> addlist(List<Student> std, List<Subject> sub);
+	
 }
