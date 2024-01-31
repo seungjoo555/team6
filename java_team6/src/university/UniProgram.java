@@ -1,7 +1,6 @@
 package university;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 import program.UniversityProgram;
@@ -33,10 +32,9 @@ public class UniProgram implements UniversityProgram {
 	@Override
 	public void run() {
 		int menu = 0;
-		String fileName = "src/university/ABList.txt";
+		String fileName = "src/university/university.txt";
 		//불러오기
 		school = fileService.load(fileName);
-		System.out.println("불러오기 구현 예정");
 		do {
 			//메뉴 출력
 			ps.printMainMenu();

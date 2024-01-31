@@ -98,7 +98,7 @@ public class Department implements Serializable{
 		String infoStd = "";
 		if(!(studentList == null)) {
 			for(Student std : studentList) {
-				infoPf += "학생 이름 : " + std.getSName() + "\t학년 : " + std.getSGrade() + "\t학번 : " + std.getSNum() + "\n";
+				infoStd += "학생 이름 : " + std.getSName() + "\t학년 : " + std.getSGrade() + "\t학번 : " + std.getSNum() + "\n";
 			}
 		}else {
 			infoStd = "학생이 없거나 업데이트가 필요합니다.\n";
