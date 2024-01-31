@@ -128,26 +128,6 @@ public class UniServiceImp implements UniService {
 		
 		return index;
 	}
-	
-	@Override //강의 추가 메서드 : 정경호
-	public boolean addSubject(List<Subject> addList) {
-			System.out.println("=====강의 추가=====");
-			System.out.print("추가할 교수번호 : ");
-			scan.nextLine();
-			String pNum = scan.nextLine();
-			System.out.print("추가할 강의명 :" );
-			String sub = scan.nextLine();
-			System.out.print("강의할 교수명 :");
-			String pName = scan.nextLine();
-			Subject sj = new Subject(sub, pName, pNum);
-			int index = addList.indexOf(sj);
-			if(index == -1) {
-				addList.add(sj);
-				System.out.println("강의가 추가 되었습니다.");
-				return true;
-			}else {
-				System.out.println("중복된 강의 입니다.");
-			return false;
 
 	//학과 등록
 	@Override
@@ -435,7 +415,7 @@ public class UniServiceImp implements UniService {
 			System.out.println(" 학과명 : "+pfList.get(pfIndex).getPDep());
 			System.out.println(" 강의명 :" +pfList.get(pfIndex).getPSubject() );
 			Subject sj = new Subject(pfList.get(pfIndex).getPSubject(),pfList.get(pfIndex).getPName(), pNum,pfList.get(pfIndex).getPDep());
-			  int addIndex = addList.indexOf(sj);
+			int addIndex = addList.indexOf(sj);
 			if(addIndex == -1) {
 				addList.add(sj);
 				System.out.println("강의가 추가 되었습니다.");
@@ -518,29 +498,22 @@ public class UniServiceImp implements UniService {
 		int score = scan.nextInt();
 		
 		Map<String,Integer> map = new HashMap<String, Integer>();
-		System.out.println(list);
 		int index = -1;
 		
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getSNum() == sNum) {
+			if(list.get(i).getSNum().equals(sNum)) {
 				index = i;
+				break;
 			}else {
 				System.out.println("등록된 학생이 아닙니다.");
 				return list;
 			}
 		}
 		
-		map = list.get(index).getMap();
-			
-		if(map.containsKey(subNum)) {
-			if(map.containsValue(score)) {
-				System.out.println("점수가 등록된 과목입니다.");
-				return list;
-			}
-		}
+		// map = list.get(index).getMap();
 			
 		map.put(subNum, score);
-		System.out.println(list.get(index).getMap());
+		System.out.println(map);
 		System.out.println("학생 점수를 추가했습니다.");
 		return list;
 	}

@@ -268,7 +268,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printUpdateDPMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			updateDPMMenu(menu);
 		}while(menu != SUBDPMEXIT);
@@ -345,7 +345,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printScoreMenu();
 			// 메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runScoreMenu(menu);
 		}while(menu != SCOREEXIT);
