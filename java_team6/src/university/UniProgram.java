@@ -1,26 +1,34 @@
 package university;
 
 import java.util.InputMismatchException;
+
 import java.util.Scanner;
+
+import lombok.Data;
 import program.UniversityProgram;
+import university.service.FileService;
+import university.service.FileServiceImp;
 import university.service.PrintService;
 import university.service.PrintServiceImp;
 import university.service.UniService;
 import university.service.UniServiceImp;
 
+@Data
 // 실행 메서드
 public class UniProgram implements UniversityProgram {
 	
 	private PrintService ps = new PrintServiceImp();
 	private UniService us = new UniServiceImp();
 	private School school = new School();
+	private FileService fileService = new FileServiceImp();
 	
 	
-	private Scanner sc = new Scanner(System.in);
+	public static Scanner scan = new Scanner(System.in);
 	private final int EXIT = 7;
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 4;
 	private final int DPMEXIT = 4;
+	private final int SUBDPMEXIT = 3;
 	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
 	private final int SCOREEXIT = 4;
@@ -28,23 +36,28 @@ public class UniProgram implements UniversityProgram {
 	@Override
 	public void run() {
 		int menu = 0;
+		String fileName = "src/university/university.txt";
 		//불러오기
-		System.out.println("불러오기 구현 예정");
+		school = fileService.load(fileName);
 		do {
 			//메뉴 출력
 			ps.printMainMenu();
 			try {
 				//메뉴 선택
-				menu = sc.nextInt();
+				menu = scan.nextInt();
 				//메뉴 실행
 				runMenu(menu);
 			} catch (InputMismatchException e) {
 				System.out.println("메뉴를 잘못 선택했습니다.");
-				sc.nextLine();
+				scan.nextLine();
 			}
 		}while(menu != EXIT);
 		//저장
-		System.out.println("저장 구현 예정");
+		if(fileService.save(fileName, school)){
+			System.out.println("저장이 완료됐습니다.");
+		}else {
+			System.out.println("저장에 실패했습니다.");
+		}
 	}
 		
 
@@ -94,7 +107,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printMenu();
 			// 메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runSearch(menu);
 		}while(menu != SEARCHEXIT);
@@ -112,6 +125,9 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 3:
 			// 과 조회
+			for(Department dep: school.getDep()) {
+				System.out.println(dep);
+			}
 			break;
 		case 4:
 			// 강의 조회
@@ -138,7 +154,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printPFMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runPFMMenu(menu);
 		}while(menu != PFMEXIT);
@@ -177,7 +193,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printSTDMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runSTDMMenu(menu);
 		}while(menu != STDMEXIT);
@@ -216,7 +232,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printDPMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runDPMMenu(menu);
 		}while(menu != DPMEXIT);
@@ -226,23 +242,50 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//학과 등록
-			us.addScore(school.getStd());
+			us.addDepartment(school);
 			break;
 		case 2:
-			//학과 수정
-			Scanner scan = new Scanner(System.in);
-			System.out.print("점수를 추가할 학생 : ");
-			String sNum = scan.next();
-			
-			Student std = new Student(sNum);
-			int index = school.getStd().indexOf(std);
-			
-			System.out.println(school.getStd().get(index).getMap());
+			//학과 수정(교수, 학생 업데이트 포함)
+			updateDepartment();
 			break;
 		case 3:
 			//학과 삭제
+			us.deleteDepartment(school);
 			break;
 		case 4:
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+
+	private void updateDepartment() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printUpdateDPMMenu();
+			//메뉴 선택
+			menu = sc.nextInt();
+			//메뉴 실행
+			updateDPMMenu(menu);
+		}while(menu != SUBDPMEXIT);
+	}
+
+
+	private void updateDPMMenu(int menu) {
+		switch(menu) {
+		case 1:
+			//학과 이름 변경
+			us.updateDPM_Name(school);
+			break;
+		case 2:
+			//교수,학생 업데이트
+			us.updateDPM_PfStd(school);
+			break;
+		case 3:
 			//이전으로
 			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
@@ -261,9 +304,11 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printSJMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
+			
 			runSJMMenu(menu);
+			
 		}while(menu != SJMEXIT);
 	}
 
@@ -272,15 +317,15 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//강의 등록
-			us.addSubject(school.getSub()); //정경호
+			us.addSubject(school.getSub(),school.getPrf()); //정경호
 			break;
 		case 2:
 			//강의 수정
-			us.updateSubject(school.getSub());//정경호
+			us.updateSubject(school.getSub(),school.getPrf());//정경호
 			break;
 		case 3:
-			//강의 삭제
-			us.removeSubject(school.getSub());//정경호
+			us.removeSubject(school.getSub(),school.getPrf());//정경호
+
 			break;
 		case 4:
 			//이전으로

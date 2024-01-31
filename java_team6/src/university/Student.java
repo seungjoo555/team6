@@ -45,7 +45,6 @@ public class Student implements Serializable {
 	}
 	
 	public Student(String sName, int sGrade, String sDep, String sNum) {
-		super();
 		this.sName = sName;
 		this.sGrade = sGrade;
 		this.sDep = sDep;
