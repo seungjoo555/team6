@@ -52,7 +52,7 @@ public class PrintServiceImp implements PrintService {
 
 	@Override
 	public void printSJMMenu() {
-		System.out.println("-----교수 관리 메뉴-----");
+		System.out.println("-----강의 관리 메뉴-----");
 		System.out.println("1. 강의 등록");
 		System.out.println("2. 강의 수정");
 		System.out.println("3. 강의 삭제");
@@ -60,7 +60,7 @@ public class PrintServiceImp implements PrintService {
 		System.out.println("--------------------");
 		System.out.print("메뉴 선택 : ");
 	}
-
+	
 	@Override
 	public void printMenu() {
 		System.out.println("-----조회 메뉴-----");

@@ -3,9 +3,6 @@ package university;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.Data;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +11,7 @@ import lombok.Setter;
 @Data
 public class School implements Serializable {
 	private static final long serialVersionUID = -3631361192718600576L;
-  
+   
 	private List<Professor> prf;// 교수 리스트
 	private List<Student> std; // 학생 리스트
 	private List<Subject> sub; // 강의 리스트
@@ -27,7 +24,7 @@ public class School implements Serializable {
 		this.dep = new ArrayList<Department>();
 	}
 	
-	//school에 있는 교수 학과 업데이트
+	//school에 있는 교수 학과 업데이트 : 이승주
 	public void updatePfAll(String name, String updateName){
 		if(prf == null) {
 			return;
@@ -40,7 +37,7 @@ public class School implements Serializable {
 		.forEach(p->p.setPDep(updateName));
 		return;
 	}
-	//school에 있는 학생 학과 업데이트
+	//school에 있는 학생 학과 업데이트 : 
 	public void updateStdAll(String name, String updateName){
 		if(std == null) {
 			return;
@@ -53,5 +50,5 @@ public class School implements Serializable {
 		.forEach(s->s.setSDep(updateName));
 		return;
 	}
-	
+
 }

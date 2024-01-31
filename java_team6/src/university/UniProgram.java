@@ -1,8 +1,10 @@
 package university;
 
 import java.util.InputMismatchException;
+
 import java.util.Scanner;
 
+import lombok.Data;
 import program.UniversityProgram;
 import university.service.FileService;
 import university.service.FileServiceImp;
@@ -11,6 +13,7 @@ import university.service.PrintServiceImp;
 import university.service.UniService;
 import university.service.UniServiceImp;
 
+@Data
 // 실행 메서드
 public class UniProgram implements UniversityProgram {
 	
@@ -20,7 +23,7 @@ public class UniProgram implements UniversityProgram {
 	private FileService fileService = new FileServiceImp();
 	
 	
-	private Scanner sc = new Scanner(System.in);
+	public static Scanner scan = new Scanner(System.in);
 	private final int EXIT = 7;
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 4;
@@ -40,12 +43,12 @@ public class UniProgram implements UniversityProgram {
 			ps.printMainMenu();
 			try {
 				//메뉴 선택
-				menu = sc.nextInt();
+				menu = scan.nextInt();
 				//메뉴 실행
 				runMenu(menu);
 			} catch (InputMismatchException e) {
 				System.out.println("메뉴를 잘못 선택했습니다.");
-				sc.nextLine();
+				scan.nextLine();
 			}
 		}while(menu != EXIT);
 		//저장
@@ -99,12 +102,11 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printMenu();
 			// 메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runSearch(menu);
 		}while(menu != SEARCHEXIT);
 	}
-
 
 	private void runSearch(int menu) {
 		switch(menu) {
@@ -124,6 +126,7 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 4:
 			// 강의 조회
+			us.checkSub(school.getSub()) ;//정경호 
 			break;
 		case 5:
 			// 수강 조회
@@ -146,7 +149,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printPFMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runPFMMenu(menu);
 		}while(menu != PFMEXIT);
@@ -185,7 +188,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printSTDMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runSTDMMenu(menu);
 		}while(menu != STDMEXIT);
@@ -224,7 +227,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printDPMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			runDPMMenu(menu);
 		}while(menu != DPMEXIT);
@@ -296,9 +299,11 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printSJMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
+			
 			runSJMMenu(menu);
+			
 		}while(menu != SJMEXIT);
 	}
 
@@ -307,11 +312,14 @@ public class UniProgram implements UniversityProgram {
 		switch(menu) {
 		case 1:
 			//강의 등록
+			us.addSubject(school.getSub(),school.getPrf()); //정경호
 			break;
 		case 2:
 			//강의 수정
+			us.updateSubject(school.getSub(),school.getPrf());//정경호
 			break;
 		case 3:
+			us.removeSubject(school.getSub(),school.getPrf());//정경호
 			//강의 삭제
 			break;
 		case 4:
