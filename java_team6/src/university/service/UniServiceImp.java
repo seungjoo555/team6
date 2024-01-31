@@ -332,34 +332,39 @@ public class UniServiceImp implements UniService {
 	@Override
 	public List<Student> addScore(List<Student> list) {
 		
-		System.out.print("점수를 추가할 학생 : ");
+		System.out.print("점수를 추가할 학번 : ");
 		String sNum = scan.next();
 		System.out.print("점수를 추가할 과목 : ");
 		String subNum = scan.next();
 		System.out.print("해당 과목 점수 : ");
 		int score = scan.nextInt();
 		
-		Student std = new Student(sNum);
-		int index = list.indexOf(std);
-		
 		Map<String,Integer> map = new HashMap<String, Integer>();
+		System.out.println(list);
+		int index = -1;
+		
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getSNum() == sNum) {
+				index = i;
+			}else {
+				System.out.println("등록된 학생이 아닙니다.");
+				return list;
+			}
+		}
+		
 		map = list.get(index).getMap();
-		
-		if(map.containsKey(subNum)) {
-			System.out.println("이미 점수가 등록된 과목입니다.");
-			return list;
-		}
-		
-		if(index != -1) {
-			map.put(subNum, score);
-			System.out.println(list.get(index).getMap());
-			System.out.println("학생 점수를 추가했습니다.");
-			return list;
 			
-		} else {
-			System.out.println("오류");
-			return list; 
+		if(map.containsKey(subNum)) {
+			if(map.containsValue(score)) {
+				System.out.println("점수가 등록된 과목입니다.");
+				return list;
+			}
 		}
+			
+		map.put(subNum, score);
+		System.out.println(list.get(index).getMap());
+		System.out.println("학생 점수를 추가했습니다.");
+		return list;
 	}
 	
 	@Override
@@ -379,7 +384,7 @@ public class UniServiceImp implements UniService {
 		if(map.containsKey(subNum)) {
 			System.out.print("수정할 점수 : ");
 			int score = scan.nextInt();
-			
+			map.put(subNum, score);
 			
 			System.out.println("수정 성공!");
 			return list;
