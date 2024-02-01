@@ -487,10 +487,19 @@ public class UniServiceImp implements UniService {
 	}
 
 	@Override
-	public List<Student> addlist(List<Student> std, List<Subject> sub) {
-		System.out.println(sub);
-		System.out.println("신청할 수강 : ");
-		String num = scan.next();
+	public List<Student> addlecture(List<Student> list, List<Subject> sublist) {
+		System.out.println(list);
+		System.out.println("신청할 학생 학번 : ");
+		String sNum = scan.next();
+		
+		Student std = new Student(sNum);
+		
+		System.out.println(sublist);
+		System.out.println("신청할 강의명: ");
+		String subName = scan.next();
+		
+		
+		
 		return null;
 	}
 	

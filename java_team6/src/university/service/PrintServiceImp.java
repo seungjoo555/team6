@@ -84,4 +84,14 @@ public class PrintServiceImp implements PrintService {
 		System.out.print("메뉴 선택 : ");
 	}
 
+	@Override
+	public void printLetMenu() {
+		System.out.println("-----수강 관리 메뉴-----");
+		System.out.println("1. 수강 신청");
+		System.out.println("2. 이전으로");
+		System.out.println("--------------------");
+		System.out.print("메뉴 선택 : ");
+		
+	}
+
 }

@@ -47,6 +47,6 @@ public interface UniService {
 	List<Subject> addSubject(List<Subject>addList,List<Professor>pfList);
 	
 	//수강신청
-    List<Student> addlist(List<Student> std, List<Subject> sub);
+    List<Student> addlecture(List<Student> std, List<Subject> sub);
 	
 }
