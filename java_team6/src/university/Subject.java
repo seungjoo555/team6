@@ -25,8 +25,6 @@ public class Subject implements Serializable {
 	 private String pName; //강의 교수명 
 	 private String pDep; //교수 학과
 	 
-
-	 
 	
 	public Subject(String subName, String pName,String pNum,String pDep) {
 		this.pDep = pDep;

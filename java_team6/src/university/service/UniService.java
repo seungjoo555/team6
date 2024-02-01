@@ -39,6 +39,16 @@ public interface UniService {
 
 	// 강의 조회 : 정경호
 	boolean checkSub(List<Subject> sb);
+	
+	// 점수 추가 : 임병훈
+	List<Student> addScore(List<Student> list);
+	
+	// 점수 수정 : 임병훈
+	List<Student> updateScore(List<Student> list);
+	
+	// 점수 삭제 : 임병훈
+	List<Student> removeScore(List<Student> list);
+
 	// 강의 삭제 : 정경호
 	List<Subject> removeSubject(List<Subject>reList,List<Professor>pfList);
 	// 강의 수정 : 정경호

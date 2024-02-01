@@ -24,7 +24,7 @@ public class UniProgram implements UniversityProgram {
 	
 	
 	public static Scanner scan = new Scanner(System.in);
-	private final int EXIT = 7;
+	private final int EXIT = 8;
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 4;
 	private final int DPMEXIT = 4;
@@ -32,6 +32,7 @@ public class UniProgram implements UniversityProgram {
 	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
 	private final int LETEXIT = 2;
+	private final int SCOREEXIT = 4;
 	
 	@Override
 	public void run() {
@@ -89,6 +90,10 @@ public class UniProgram implements UniversityProgram {
 			searchManager();
 			break;
 		case 7:
+			//점수 추가
+			scoreManager();
+			break;
+		case 8:
 			//프로그램 종료
 			System.out.println("프로그램을 종료 합니다.");
 			break;
@@ -332,9 +337,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 선택
 			menu = scan.nextInt();
 			//메뉴 실행
-			
 			runSJMMenu(menu);
-			
 		}while(menu != SJMEXIT);
 	}
 
@@ -351,7 +354,45 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 3:
 			us.removeSubject(school.getSub(),school.getPrf());//정경호
-			//강의 삭제
+			break;
+		case 4:
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+	
+	/**
+	 * 점수 등록/수정/삭제
+	 */
+	private void scoreManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printScoreMenu();
+			// 메뉴 선택
+			menu = scan.nextInt();
+			//메뉴 실행
+			runScoreMenu(menu);
+		}while(menu != SCOREEXIT);
+	}
+
+
+	private void runScoreMenu(int menu) {
+		switch(menu) {
+		case 1:
+			//점수 등록
+			us.addScore(school.getStd());
+			break;
+		case 2:
+			//점수 수정
+			us.updateScore(school.getStd());
+			break;
+		case 3:
+			//점수 삭제
+			us.removeScore(school.getStd());
 			break;
 		case 4:
 			//이전으로
