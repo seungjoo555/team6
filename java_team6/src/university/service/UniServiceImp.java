@@ -508,7 +508,6 @@ public class UniServiceImp implements UniService {
 	}
 	
 	
-}
 	
 	public List<Student> addScore(List<Student> list) {
 		
