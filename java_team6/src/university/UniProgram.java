@@ -24,7 +24,7 @@ public class UniProgram implements UniversityProgram {
 	
 	
 	public static Scanner scan = new Scanner(System.in);
-	private final int EXIT = 7;
+	private final int EXIT = 8;
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 4;
 	private final int DPMEXIT = 4;
@@ -306,9 +306,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 선택
 			menu = scan.nextInt();
 			//메뉴 실행
-			
 			runSJMMenu(menu);
-			
 		}while(menu != SJMEXIT);
 	}
 
@@ -325,7 +323,6 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 3:
 			us.removeSubject(school.getSub(),school.getPrf());//정경호
-
 			break;
 		case 4:
 			//이전으로

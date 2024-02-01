@@ -517,8 +517,6 @@ public class UniServiceImp implements UniService {
 		map.put(subNum, score);
 		list.get(index).setMap(map);
 				
-		System.out.println(list.get(index).getMap());
-		System.out.println(map);
 		System.out.println("학생 점수를 추가했습니다.");
 		return list;
 	}
@@ -556,8 +554,6 @@ public class UniServiceImp implements UniService {
 			map.put(subNum, score);
 			list.get(index).setMap(map);
 			
-			System.out.println(list.get(index).getMap());
-			System.out.println(map);
 			System.out.println("수정 성공!");
 			return list;
 		}
