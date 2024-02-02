@@ -523,19 +523,11 @@ public class UniServiceImp implements UniService {
 			System.out.println("등록되지 않은 강의명입니다.");
 			return list;
 		}
-			
-		Student std = new Student(
-				subList.get(subIndex).getSubName(),
-				list.get(stdIndex).getSName(),
-				list.get(stdIndex).getSGrade(),
-				list.get(stdIndex).getSDep(),
-				list.get(stdIndex).getSNum()
-		);
-		
-		int index = list.indexOf(std);
-		if(index != -1) {
-			list.set(stdIndex, std);
+		String index = list.get(stdIndex).getSubName();
+		if(index.contains(subName)) {
+			list.get(stdIndex).setSubName(subName);
 			System.out.println("강의를 신청했습니다.");
+			return list;
 		}else {
 			System.out.println("이미 신청한 강의입니다.");
 		}

@@ -32,6 +32,9 @@ public class Subject implements Serializable {
 		this.subName = subName;
 		this.pName = pName;
 	}
+	public Subject(String subName) {
+		this.subName = subName;
+	}
 	@Override
 	public int hashCode() {
 
