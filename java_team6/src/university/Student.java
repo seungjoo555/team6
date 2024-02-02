@@ -41,9 +41,10 @@ public class Student implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "\n학생 이름 : " + sName + "\n학년 : " + sGrade + "\n학과 : " + sDep + "\n학번 : " + sNum + "\n성적=" + map + "\n강의명 : " + subName;
+		return "\n학생 이름 : " + sName + "\n학년 : " + sGrade + "\n학과 : " + sDep + "\n학번 : " + sNum + "\n성적=" + map + "\n수강중인 강의 : " + subName;
 	}
-		
+
+	
 	public Student(String sName, int sGrade, String sDep, String sNum) {
 		this.sName = sName;
 		this.sGrade = sGrade;
@@ -63,4 +64,5 @@ public class Student implements Serializable {
 		this.sDep = sDep;
 		this.sNum = sNum;
 	}
+
 }
