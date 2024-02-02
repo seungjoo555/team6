@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import university.Department;
 import university.Professor;
 import university.School;
@@ -489,25 +490,57 @@ public class UniServiceImp implements UniService {
 			}
 			return true;
 	}
-
+	
+	//수강 신청
 	@Override
-	public List<Student> addlecture(List<Student> list, List<Subject> sublist) {
+	public List<Student> addlecture(List<Student> list, List<Subject> subList) {
 		System.out.println(list);
-		System.out.println("신청할 학생 학번 : ");
+		System.out.print("신청할 학생 학번 : ");
 		String sNum = scan.next();
+		int stdIndex = -1;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getSNum().equals(sNum)) {
+				stdIndex = i;
+				break;
+			}
+		}
+		if(stdIndex == -1) {
+			System.out.println("등록되지 않은 학생 번호입니다.");
+			return list;
+		}
 		
-		Student std = new Student(sNum);
-		
-		System.out.println(sublist);
-		System.out.println("신청할 강의명: ");
+		System.out.println(subList);
+		System.out.print("신청할 강의명: ");
 		String subName = scan.next();
+		int subIndex = -1;
+		for(int i=0;i<subList.size();i++) {
+			if(subList.get(i).getSubName().equals(subName)) {
+				subIndex = i;
+				break;
+			}
+		}
+		if(subIndex == -1) {
+			System.out.println("등록되지 않은 강의명입니다.");
+			return list;
+		}
 		
+		Student std = new Student(
+				subList.get(subIndex).getSubName(),
+				list.get(stdIndex).getSName(),
+				list.get(stdIndex).getSGrade(),
+				list.get(stdIndex).getSDep(),
+				list.get(stdIndex).getSNum()
+		);
 		
-		
-		return null;
+		int index = list.indexOf(stdIndex);
+		if(index == -1) {
+			list.set(stdIndex, std);
+			System.out.println("강의를 신청했습니다.");
+		}else {
+			System.out.println("이미 신청한 강의입니다.");
+		}
+		return list;
 	}
-	
-	
 	
 	public List<Student> addScore(List<Student> list) {
 		

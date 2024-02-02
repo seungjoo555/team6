@@ -56,7 +56,7 @@ public interface UniService {
 	// 강의 추가 : 정경호
 	List<Subject> addSubject(List<Subject>addList,List<Professor>pfList);
 	
-	//수강신청
-    List<Student> addlecture(List<Student> std, List<Subject> sub);
+	//수강 신청 : 이철범
+    List<Student> addlecture(List<Student> list, List<Subject> subList);
 	
 }
