@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 import university.Department;
 import university.Professor;
 import university.School;
@@ -86,7 +87,7 @@ public class UniServiceImp implements UniService {
 	public List<Professor> deleteProfessor(List<Professor> list) {
 		
 		System.out.println("삭제 전" + list);
-		System.out.print("수정할 교수 번호 : ");
+		System.out.print("삭제할 교수 번호 : ");
 		String pNum = scan.next();
 
 		// location함수로 원하는 교수의 index값 찾기
@@ -282,7 +283,6 @@ public class UniServiceImp implements UniService {
 			return list;
 		}else {
 			list.add(std);
-			sort(list);
 			System.out.println("학생을 등록했습니다.");
 		}
 		return list;
@@ -315,7 +315,6 @@ public class UniServiceImp implements UniService {
 			list.remove(index);
 			
 			list.add(newStd);
-			sort(list);
 			System.out.println("학생을 수정했습니다.");
 		}else {
 			System.out.println("수정할 학생이 없습니다.");
@@ -339,13 +338,19 @@ public class UniServiceImp implements UniService {
 		
 		if(index != -1) {
 			list.remove(index);
-			sort(list);
 			System.out.println("학생을 삭제했습니다.");
 			return list;
 		} else {
 			System.out.println("삭제할 학생이 없습니다.");
 			return list;
 		}
+	}
+	//학생 조회 메서드 : 이철범
+	public void printStudent(List<Student> list) {
+		List<Student> std = new ArrayList<Student>();
+		std.addAll(list);
+		sort(std);
+		System.out.println(std);
 	}
 	
 	//학생 정렬 메서드 : 이철범
@@ -485,8 +490,50 @@ public class UniServiceImp implements UniService {
 			}
 			return true;
 	}
-
+	
+	//수강 신청
 	@Override
+	public List<Student> addlecture(List<Student> list, List<Subject> subList) {
+		System.out.println(list);
+		System.out.print("신청할 학생 학번 : ");
+		String sNum = scan.next();
+		int stdIndex = -1;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getSNum().equals(sNum)) {
+				stdIndex = i;
+				break;
+			}
+		}
+		if(stdIndex == -1) {
+			System.out.println("등록되지 않은 학생 번호입니다.");
+			return list;
+		}
+		
+		System.out.println(subList);
+		System.out.print("신청할 강의명: ");
+		String subName = scan.next();
+		int subIndex = -1;
+		for(int i=0;i<subList.size();i++) {
+			if(subList.get(i).getSubName().equals(subName)) {
+				subIndex = i;
+				break;
+			}
+		}
+		if(subIndex == -1) {
+			System.out.println("등록되지 않은 강의명입니다.");
+			return list;
+		}
+		String index = list.get(stdIndex).getSubName();
+		if(index.contains(subName)) {
+			list.get(stdIndex).setSubName(subName);
+			System.out.println("강의를 신청했습니다.");
+			return list;
+		}else {
+			System.out.println("이미 신청한 강의입니다.");
+		}
+		return list;
+	}
+	
 	public List<Student> addScore(List<Student> list) {
 		
 		System.out.print("점수를 추가할 학번 : ");

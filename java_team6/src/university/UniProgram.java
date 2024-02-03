@@ -31,6 +31,7 @@ public class UniProgram implements UniversityProgram {
 	private final int SUBDPMEXIT = 3;
 	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
+	private final int LETEXIT = 2;
 	private final int SCOREEXIT = 4;
 	
 	@Override
@@ -82,7 +83,7 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 5:
 			//수강 관리 (강의관리 후에 추가)
-			System.out.println("수강관리 예정");
+			letManager();
 			break;
 		case 6:
 			//조회
@@ -100,6 +101,36 @@ public class UniProgram implements UniversityProgram {
 			throw new InputMismatchException();
 		}
 	}
+
+	private void letManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printLetMenu();
+			//메뉴 선택
+			menu = scan.nextInt();
+			//메뉴 실행
+			runLetMenu(menu);
+		}while(menu != LETEXIT);
+	}
+
+
+	private void runLetMenu(int menu) {
+		switch(menu) {
+		case 1:
+			// 수강 신청
+			us.addlecture(school.getStd(), school.getSub());
+			break;
+		case 2:
+			// 이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+		
+	}
+
 
 	private void searchManager() {
 		int menu;

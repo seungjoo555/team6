@@ -16,6 +16,8 @@ public interface UniService {
 	List<Student> updateStudent(List<Student> list);
 	//학생 삭제 : 이철범
 	List<Student> deleteStudent(List<Student> list);
+	//학생 조회 : 이철범
+	void printStudent(List<Student> list);
 	
 	// 교수 등록 : 임병훈
 	List<Professor> addProfessor(List<Professor> list);
@@ -53,5 +55,8 @@ public interface UniService {
 	List<Subject> updateSubject(List<Subject>upList,List<Professor>pfList);
 	// 강의 추가 : 정경호
 	List<Subject> addSubject(List<Subject>addList,List<Professor>pfList);
-
+	
+	//수강 신청 : 이철범
+    List<Student> addlecture(List<Student> list, List<Subject> subList);
+	
 }
