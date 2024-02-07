@@ -3,6 +3,7 @@ package university.service;
 import java.util.List;
 
 import university.Professor;
+import university.School;
 import university.Student;
 import university.Subject;
 
@@ -15,6 +16,8 @@ public interface UniService {
 	List<Student> updateStudent(List<Student> list);
 	//학생 삭제 : 이철범
 	List<Student> deleteStudent(List<Student> list);
+	//학생 조회 : 이철범
+	void printStudent(List<Student> list);
 	
 	// 교수 등록 : 임병훈
 	List<Professor> addProfessor(List<Professor> list);
@@ -36,11 +39,24 @@ public interface UniService {
 
 	// 강의 조회 : 정경호
 	boolean checkSub(List<Subject> sb);
+	
+	// 점수 추가 : 임병훈
+	List<Student> addScore(List<Student> list);
+	
+	// 점수 수정 : 임병훈
+	List<Student> updateScore(List<Student> list);
+	
+	// 점수 삭제 : 임병훈
+	List<Student> removeScore(List<Student> list);
+
 	// 강의 삭제 : 정경호
 	List<Subject> removeSubject(List<Subject>reList,List<Professor>pfList);
 	// 강의 수정 : 정경호
 	List<Subject> updateSubject(List<Subject>upList,List<Professor>pfList);
 	// 강의 추가 : 정경호
 	List<Subject> addSubject(List<Subject>addList,List<Professor>pfList);
-
+	
+	//수강 신청 : 이철범
+    List<Student> addlecture(List<Student> list, List<Subject> subList);
+	
 }

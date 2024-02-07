@@ -2,10 +2,11 @@ package university.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
-import lombok.Data;
 import university.Department;
 import university.Professor;
 import university.Student;
@@ -15,11 +16,13 @@ import university.UniProgram;
 
 // 서비스 구현클래스
 public class UniServiceImp implements UniService {
+	
 	private Scanner scan = new Scanner(System.in);
+	
 	@Override
 	// 교수 정보 추가하는 메서드 : 임병훈
 	public List<Professor> addProfessor(List<Professor> list) {
-		
+
 		System.out.print("교수 번호 : ");
 		String pNum = scan.next();
 		System.out.print("교수 학과 : ");
@@ -84,7 +87,7 @@ public class UniServiceImp implements UniService {
 	public List<Professor> deleteProfessor(List<Professor> list) {
 		
 		System.out.println("삭제 전" + list);
-		System.out.print("수정할 교수 번호 : ");
+		System.out.print("삭제할 교수 번호 : ");
 		String pNum = scan.next();
 
 		// location함수로 원하는 교수의 index값 찾기
@@ -125,7 +128,6 @@ public class UniServiceImp implements UniService {
 		return index;
 	}
 
-	
 	//학과 등록
 	@Override
 	public School addDepartment(School school) {
@@ -153,7 +155,8 @@ public class UniServiceImp implements UniService {
 		school.setDep(list);
 		return school;
 	}
-  //학과 이름 수정
+
+    //학과 이름 수정
 	@Override
 	public School updateDPM_Name(School school) {
 		List<Department> list = school.getDep();
@@ -188,6 +191,7 @@ public class UniServiceImp implements UniService {
 		System.out.println(name + "를 " + updateName + "로 수정 완료");
 		return school;
 	}
+
 	//학과 업데이트
 	@Override
 	public School updateDPM_PfStd(School school) {
@@ -216,6 +220,7 @@ public class UniServiceImp implements UniService {
 		System.out.println(name + "의 " + "교수, 학생 정보 업데이트 완료");
 		return school;
 	}
+
 	//학과 삭제
 	@Override
 	public School deleteDepartment(School school) {
@@ -254,11 +259,8 @@ public class UniServiceImp implements UniService {
 		
 		return index;
 	}
-}
 
 
-	
-	
 	//학생 추가 메서드 : 이철범
 	@Override
 	public List<Student> addStudent(List<Student> list) {
@@ -280,7 +282,6 @@ public class UniServiceImp implements UniService {
 			return list;
 		}else {
 			list.add(std);
-			sort(list);
 			System.out.println("학생을 등록했습니다.");
 		}
 		return list;
@@ -313,13 +314,13 @@ public class UniServiceImp implements UniService {
 			list.remove(index);
 			
 			list.add(newStd);
-			sort(list);
 			System.out.println("학생을 수정했습니다.");
 		}else {
 			System.out.println("수정할 학생이 없습니다.");
 		}
 		return list;
 	}
+	
 	//학생 삭제 메서드 : 이철범
 	@Override
 	public List<Student> deleteStudent(List<Student> list) {
@@ -336,7 +337,6 @@ public class UniServiceImp implements UniService {
 		
 		if(index != -1) {
 			list.remove(index);
-			sort(list);
 			System.out.println("학생을 삭제했습니다.");
 			return list;
 		} else {
@@ -344,6 +344,14 @@ public class UniServiceImp implements UniService {
 			return list;
 		}
 	}
+	//학생 조회 메서드 : 이철범
+	public void printStudent(List<Student> list) {
+		List<Student> std = new ArrayList<Student>();
+		std.addAll(list);
+		sort(std);
+		System.out.println(std);
+	}
+	
 	//학생 정렬 메서드 : 이철범
 	private void sort(List<Student> list) {
 		//학년
@@ -410,7 +418,7 @@ public class UniServiceImp implements UniService {
 			System.out.println(" 학과명 : "+pfList.get(pfIndex).getPDep());
 			System.out.println(" 강의명 :" +pfList.get(pfIndex).getPSubject() );
 			Subject sj = new Subject(pfList.get(pfIndex).getPSubject(),pfList.get(pfIndex).getPName(), pNum,pfList.get(pfIndex).getPDep());
-			  int addIndex = addList.indexOf(sj);
+			int addIndex = addList.indexOf(sj);
 			if(addIndex == -1) {
 				addList.add(sj);
 				System.out.println("강의가 추가 되었습니다.");
@@ -419,6 +427,7 @@ public class UniServiceImp implements UniService {
 			}
 			return addList;
 	}
+	
 	@Override //강의 수정 메서드 : 정경호
 	public List<Subject> updateSubject(List<Subject> upList,List<Professor>pfList) {
 		System.out.println(upList.toString());
@@ -442,7 +451,7 @@ public class UniServiceImp implements UniService {
 		Subject oldSj = new Subject(pfList.get(pfIndex)
 				.getPSubject(),pfList.get(pfIndex).getPName(), oldPnum,pfList.get(pfIndex).getPDep());
 		
-		 pfIndex = upList.indexOf(oldSj);
+		 		pfIndex = upList.indexOf(oldSj);
 		
 			System.out.println("---------------");
 			System.out.print("새로운 교수번호 :");
@@ -468,7 +477,6 @@ public class UniServiceImp implements UniService {
 			System.out.println(newSj.toString());
 			System.out.println("수정이 완료 되었습니다.");
 			return upList;
-	
 	}
 
 	@Override //강의 조회 : 정경호
@@ -482,10 +490,157 @@ public class UniServiceImp implements UniService {
 				System.out.println(sb.get(i).toString());
 			}
 			return true;
+	}
+	
+	//수강 신청
+	@Override
+	public List<Student> addlecture(List<Student> list, List<Subject> subList) {
+		System.out.println(list);
+		System.out.print("신청할 학생 학번 : ");
+		String sNum = scan.next();
+		int stdIndex = -1;
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getSNum().equals(sNum)) {
+				stdIndex = i;
+				break;
+			}
+		}
+		if(stdIndex == -1) {
+			System.out.println("등록되지 않은 학생 번호입니다.");
+			return list;
+		}
 		
+		System.out.println(subList);
+		System.out.print("신청할 강의명: ");
+		String subName = scan.next();
+		int subIndex = -1;
+		for(int i=0;i<subList.size();i++) {
+			if(subList.get(i).getSubName().equals(subName)) {
+				subIndex = i;
+				break;
+			}
+		}
+		if(subIndex == -1) {
+			System.out.println("등록되지 않은 강의명입니다.");
+			return list;
+		}
+		String index = list.get(stdIndex).getSubName();
+		if(index.contains(subName)) {
+			list.get(stdIndex).setSubName(subName);
+			System.out.println("강의를 신청했습니다.");
+			return list;
+		}else {
+			System.out.println("이미 신청한 강의입니다.");
+		}
+		return list;
+	}
+	
+	public List<Student> addScore(List<Student> list) {
+		
+		System.out.print("점수를 추가할 학번 : ");
+		String sNum = scan.next();
+		System.out.print("점수를 추가할 과목 : ");
+		String subNum = scan.next();
+		System.out.print("해당 과목 점수 : ");
+		int score = scan.nextInt();
+		
+		int index = -1;
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getSNum().equals(sNum)) {
+				index = i;
+				break;
+			}
+		}
+		
+		if(index == -1) {
+			System.out.println("등록된 학생이 아닙니다.");
+			return list;
+		}
+		
+		Map<String, Integer> map = list.get(index).getMap();
+	    if (map == null) {
+	        map = new HashMap<>();
+	    }
+	    
+		map.put(subNum, score);
+		list.get(index).setMap(map);
+				
+		System.out.println("학생 점수를 추가했습니다.");
+		return list;
+	}
+	
+	@Override
+	public List<Student> updateScore(List<Student> list) {
+		
+		System.out.print("점수를 수정할 학번 : ");
+		String sNum = scan.next();
+		System.out.print("점수를 추가할 과목 : ");
+		String subNum = scan.next();
+		
+		int index = -1;
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getSNum().equals(sNum)) {
+				index = i;
+				break;
+			}
+		}
+		
+		if(index == -1) {
+			System.out.println("등록된 학생이 아닙니다.");
+			return list;
+		}
+		
+		Map<String, Integer> map = list.get(index).getMap();
+		if (map == null) {
+			map = new HashMap<>();
+		}
+		
+		if(map.containsKey(subNum)) {
+			System.out.print("수정할 점수 : ");
+			int score = scan.nextInt();
+			
+			map.put(subNum, score);
+			list.get(index).setMap(map);
+			
+			System.out.println("수정 성공!");
+			return list;
+		}
+		System.out.println("수정 실패");
+		return list;
 	}
 
+	@Override
+	public List<Student> removeScore(List<Student> list) {
+		
+		System.out.print("점수를 삭제할 학생 : ");
+		String sNum = scan.next();
+		System.out.print("점수를 삭제할 과목 : ");
+		String subNum = scan.next();
+		
+		int index = -1;
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getSNum().equals(sNum)) {
+				index = i;
+				break;
+			}
+		}
+		
+		if(index == -1) {
+			System.out.println("등록된 학생이 아닙니다.");
+			return list;
+		}
+		
+		Map<String, Integer> map = list.get(index).getMap();
+		if (map == null) {
+			map = new HashMap<>();
+		}
+		
+		if(map.containsKey(subNum)) {
+			map.remove(subNum);
+			System.out.println("삭제 성공!");
+			return list;
+		}
+		System.out.println("삭제 실패");
+		return list;
+	}
 }
-	
-	
-

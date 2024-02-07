@@ -24,13 +24,15 @@ public class UniProgram implements UniversityProgram {
 	
 	
 	public static Scanner scan = new Scanner(System.in);
-	private final int EXIT = 7;
+	private final int EXIT = 8;
 	private final int PFMEXIT = 4;
 	private final int STDMEXIT = 4;
 	private final int DPMEXIT = 4;
 	private final int SUBDPMEXIT = 3;
 	private final int SJMEXIT = 4;
 	private final int SEARCHEXIT = 6;
+	private final int LETEXIT = 2;
+	private final int SCOREEXIT = 4;
 	
 	@Override
 	public void run() {
@@ -81,13 +83,17 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 5:
 			//수강 관리 (강의관리 후에 추가)
-			System.out.println("수강관리 예정");
+			letManager();
 			break;
 		case 6:
 			//조회
 			searchManager();
 			break;
 		case 7:
+			//점수 추가
+			scoreManager();
+			break;
+		case 8:
 			//프로그램 종료
 			System.out.println("프로그램을 종료 합니다.");
 			break;
@@ -95,6 +101,36 @@ public class UniProgram implements UniversityProgram {
 			throw new InputMismatchException();
 		}
 	}
+
+	private void letManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printLetMenu();
+			//메뉴 선택
+			menu = scan.nextInt();
+			//메뉴 실행
+			runLetMenu(menu);
+		}while(menu != LETEXIT);
+	}
+
+
+	private void runLetMenu(int menu) {
+		switch(menu) {
+		case 1:
+			// 수강 신청
+			us.addlecture(school.getStd(), school.getSub());
+			break;
+		case 2:
+			// 이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+		
+	}
+
 
 	private void searchManager() {
 		int menu;
@@ -263,7 +299,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 출력
 			ps.printUpdateDPMMenu();
 			//메뉴 선택
-			menu = sc.nextInt();
+			menu = scan.nextInt();
 			//메뉴 실행
 			updateDPMMenu(menu);
 		}while(menu != SUBDPMEXIT);
@@ -301,9 +337,7 @@ public class UniProgram implements UniversityProgram {
 			//메뉴 선택
 			menu = scan.nextInt();
 			//메뉴 실행
-			
 			runSJMMenu(menu);
-			
 		}while(menu != SJMEXIT);
 	}
 
@@ -320,7 +354,45 @@ public class UniProgram implements UniversityProgram {
 			break;
 		case 3:
 			us.removeSubject(school.getSub(),school.getPrf());//정경호
-			//강의 삭제
+			break;
+		case 4:
+			//이전으로
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+	
+	/**
+	 * 점수 등록/수정/삭제
+	 */
+	private void scoreManager() {
+		int menu;
+		do {
+			//메뉴 출력
+			ps.printScoreMenu();
+			// 메뉴 선택
+			menu = scan.nextInt();
+			//메뉴 실행
+			runScoreMenu(menu);
+		}while(menu != SCOREEXIT);
+	}
+
+
+	private void runScoreMenu(int menu) {
+		switch(menu) {
+		case 1:
+			//점수 등록
+			us.addScore(school.getStd());
+			break;
+		case 2:
+			//점수 수정
+			us.updateScore(school.getStd());
+			break;
+		case 3:
+			//점수 삭제
+			us.removeScore(school.getStd());
 			break;
 		case 4:
 			//이전으로
