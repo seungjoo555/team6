@@ -1,16 +1,17 @@
 package community.model.vo;
 
-import java.util.Date;
 
 public class CommunityVO {
-	private String id;
-	private String pw;
-	private String email;
-	private Date reg_Date;
 	
-	public CommunityVO(String id, String pw, String email) {
+	private String id, pw, name;
+	private String email, addr, phone;
+	
+	public CommunityVO(String id, String pw, String name, String email, String addr, String phone) {
 		this.id = id;
 		this.pw = pw;
+		this.name = name;
 		this.email = email;
+		this.addr = addr;
+		this.phone = phone;
 	}
 }
