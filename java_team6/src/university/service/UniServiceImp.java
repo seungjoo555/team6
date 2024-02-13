@@ -410,7 +410,7 @@ public class UniServiceImp implements UniService {
 					break;
 				}
 			}
-			if(pfIndex == -1) {
+			if(!pfList.contains(new Professor(pNum))) {
 				System.out.println("등록되지 않은 교수 번호입니다.");
 				return addList;
 			}
@@ -441,7 +441,7 @@ public class UniServiceImp implements UniService {
 				break;
 			}
 		}
-		if(pfIndex == -1) {
+		if(!pfList.contains(new Professor(oldPnum))) {
 			System.out.println("수정할 강의가 없습니다.");
 			return upList;
 		}
@@ -462,12 +462,11 @@ public class UniServiceImp implements UniService {
 					return upList;
 				}
 			}
-			if(pfIndex<0 || pfIndex>=pfList.size()) {
+			if(!pfList.contains(new Professor(newPnum))) {
 				System.out.println("교수번호가 존재하지 않습니다.");
 				return upList;
 			}
-			System.out.print("새로운 강의명 :");
-			String newSub = UniProgram.scan.nextLine();
+			System.out.print("새로운 강의명 :" +pfList.get(pfIndex).getPSubject());
 			System.out.println("새로운 교수명 :"+pfList.get(pfIndex).getPName());
 			System.out.println("새로운 교수 학과 : "+pfList.get(pfIndex).getPDep());
 			
