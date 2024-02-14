@@ -29,7 +29,7 @@ CREATE TABLE `post` (
 	`po_title`	varchar(20)	NOT NULL,
 	`po_content`	text	NOT NULL,
     `po_view` int NOT NULL DEFAULT 0,
-	`po_me_id`	varchar(15)	NOT NULL,
+	`po_me_id`	varchar(30)	NOT NULL,
 	`po_bo_num`	int	NOT NULL
 );
 
@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
 	`co_num`	int	primary key auto_increment,
 	`co_content`	text	NOT NULL,
-	`co_me_id`	varchar(15)	NOT NULL,
+	`co_me_id`	varchar(30)	NOT NULL,
 	`co_po_num`	int	NOT NULL
 );
 
