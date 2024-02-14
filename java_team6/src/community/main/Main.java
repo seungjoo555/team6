@@ -26,7 +26,7 @@ public class Main {
 			CommunityController.boardRun();
 			break;
 		case 2:
-			CommunityController.memberRun();
+			
 			break;
 		case 3:
 			System.out.println("프로그램 종료");
@@ -38,8 +38,7 @@ public class Main {
 
 	private static void printMenu() {
 		System.out.println("메뉴");
-		System.out.println("1. 회원 관리");
-		System.out.println("2. 게시판 관리");
+		System.out.println("1. 게시판 관리");
 		System.out.println("3. 프로그램 종료");
 		System.out.print("메뉴 선택 : ");
 	}
