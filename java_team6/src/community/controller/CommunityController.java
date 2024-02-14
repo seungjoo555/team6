@@ -27,7 +27,17 @@ public class CommunityController {
 			runMenu(menu);
 		}while(menu != 5);
 	}
-
+	
+	private void printMenu() {
+		System.out.println("메뉴");
+		System.out.println("1. 회원 관리");
+		System.out.println("2. 게시판 관리");
+		System.out.println("3. 게시글 관리");
+		System.out.println("4. 댓글 관리");
+		System.out.println("5. 이전으로");
+		System.out.print("메뉴 선택 : ");
+	}
+	
 	private void runMenu(int menu) {
 		switch(menu) {
 		case 1:
@@ -50,17 +60,18 @@ public class CommunityController {
 		}
 		
 	}
-
+	
+	//댓글
 	private void commentMenu() {
 		int menu;
 		do {
-			CommentMenu();
+			printCommentMenu();
 			menu = scan.nextInt();
 			runCommentMenu(menu);
 		}while(menu != 4);
 	}
 
-	private void CommentMenu() {
+	private void printCommentMenu() {
 		System.out.println("메뉴");
 		System.out.println("1. 댓글 등록");
 		System.out.println("2. 게시글 수정");
@@ -102,7 +113,8 @@ public class CommunityController {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	//게시글
 	private void postMenu() {
 		int menu;
 		do {
@@ -154,7 +166,8 @@ public class CommunityController {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	//게시판
 	private void boardMenu() {
 		int menu;
 		do {
@@ -162,6 +175,15 @@ public class CommunityController {
 			menu = scan.nextInt();
 			runBoardMenu(menu);
 		}while(menu != 4);
+	}
+	
+	private void printBoardMenu() {
+		System.out.println("메뉴");
+		System.out.println("1. 게시판 등록");
+		System.out.println("2. 게시판 수정");
+		System.out.println("3. 게시판 삭제");
+		System.out.println("4. 이전으로");
+		System.out.print("메뉴 선택 : ");	
 	}
 
 	private void runBoardMenu(int menu) {
@@ -197,16 +219,8 @@ public class CommunityController {
 		// TODO Auto-generated method stub
 		
 	}
-
-	private void printBoardMenu() {
-		System.out.println("메뉴");
-		System.out.println("1. 게시판 등록");
-		System.out.println("2. 게시판 수정");
-		System.out.println("3. 게시판 삭제");
-		System.out.println("4. 이전으로");
-		System.out.print("메뉴 선택 : ");	
-	}
-
+	
+	//회원
 	private void memberMenu() {
 		int menu;
 		do {
@@ -215,7 +229,16 @@ public class CommunityController {
 			runMemeberMenu(menu);
 		}while(menu != 4);
 	}
-
+	
+	private void printMemberMenu() {
+		System.out.println("메뉴");
+		System.out.println("1. 회원 가입");
+		System.out.println("2. 로그인");
+		System.out.println("3. 회원 탈퇴");
+		System.out.println("4. 이전으로");
+		System.out.print("메뉴 선택 : ");
+	}
+	
 	private void runMemeberMenu(int menu) {
 		switch(menu) {
 		case 1:
@@ -248,25 +271,6 @@ public class CommunityController {
 	private void deleteMember() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	private void printMemberMenu() {
-		System.out.println("메뉴");
-		System.out.println("1. 회원 가입");
-		System.out.println("2. 로그인");
-		System.out.println("3. 회원 탈퇴");
-		System.out.println("4. 이전으로");
-		System.out.print("메뉴 선택 : ");
-	}
-
-	private void printMenu() {
-		System.out.println("메뉴");
-		System.out.println("1. 회원 관리");
-		System.out.println("2. 게시판 관리");
-		System.out.println("3. 게시글 관리");
-		System.out.println("4. 댓글 관리");
-		System.out.println("5. 이전으로");
-		System.out.print("메뉴 선택 : ");
 	}
 
 }
