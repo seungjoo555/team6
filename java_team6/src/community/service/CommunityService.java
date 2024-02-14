@@ -1,4 +1,4 @@
-package db.community.mybatis.service;
+package community.service;
 
 
 public interface CommunityService {

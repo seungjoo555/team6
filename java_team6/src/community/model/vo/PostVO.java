@@ -1,4 +1,4 @@
-package db.community.mybatis.model.vo;
+package community.model.vo;
 
 import java.util.Objects;
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper namespace=".community.dao.BoardDAO">
+
+	<!-- 게시판Mapper -->
+	
+	<!-- 게시판 등록 -->
+	<insert id="insertBoard">
+		insert into board(bo_num , bo_name)
+		values(#{board.bo_num},#{board.bo_name})
+	</insert>
+	
+	<!-- 게시판 수정 -->
+	<update id="updateBoard">
+		update board set bo_name = #{board.bo_name} 
+		where bo_num = #{board.bo_num}
+	</update>
+	
+	<!-- 게시판 삭제 -->
+	<delete id="deleteBoard">
+		delete from board where bo_num = #{bo_num}	
+	</delete>
+
+
+	<!-- 게시판 조회 -->
+	<select id="selectBoardList"
+		resultType="community.model.vo.BoardVO">
+		select * from board
+	</select>
+
+
+
+
+
+</mapper>

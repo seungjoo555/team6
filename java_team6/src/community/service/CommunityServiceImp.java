@@ -1,10 +1,10 @@
-package db.community.mybatis.service;
+package community.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import db.community.mybatis.controller.CommunityController;
-import db.community.mybatis.model.vo.CommunityVO;
+import community.controller.CommunityController;
+import community.model.vo.CommunityVO;
 
 // 커뮤니티 관리 클래스
 public class CommunityServiceImp implements CommunityService {

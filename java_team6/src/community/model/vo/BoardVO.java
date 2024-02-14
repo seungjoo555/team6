@@ -1,4 +1,4 @@
-package db.community.mybatis.model.vo;
+package community.model.vo;
 
 import java.util.Objects;
 
@@ -12,6 +12,12 @@ public class BoardVO {
 	public BoardVO(int bo_num, String bo_name) {
 		this.bo_num = bo_num;
 		this.bo_name = bo_name;
+	}
+
+
+
+	public BoardVO(int bo_num) {
+		this.bo_num = bo_num;
 	}
 
 

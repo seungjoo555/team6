@@ -2,8 +2,9 @@ package community.controller;
 
 import java.util.Scanner;
 
-import db.community.mybatis.service.CommunityService;
-import db.community.mybatis.service.CommunityServiceImp;
+import community.service.CommunityService;
+import community.service.CommunityServiceImp;
+
 
 public class CommunityController  {
 	
