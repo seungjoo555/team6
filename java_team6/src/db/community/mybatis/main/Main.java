@@ -1,4 +1,4 @@
-package community.main;
+package db.community.mybatis.main;
 
 public class Main {
 	public static void main(String[] args) {

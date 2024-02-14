@@ -1,4 +1,4 @@
-package community.service;
+package db.community.mybatis.service;
 
 public class CommunityPrintServiceImp implements CommunityPrintService {
 

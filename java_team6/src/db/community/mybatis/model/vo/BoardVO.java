@@ -1,7 +1,8 @@
-package community.model.vo;
+package db.community.mybatis.model.vo;
 
 import java.util.Objects;
 
+// 커뮤니티 안에 게시판 넣기
 public class BoardVO {
 	private String BoardNum;
 	private String BoardName;

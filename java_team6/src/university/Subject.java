@@ -58,4 +58,9 @@ public class Subject implements Serializable {
 		return "-------" + "\n교수번호 :" + pNum + "\n교수명 :" + pName + "\n교수학과 : " + pDep + "\n강의명 :" + subName;
 	}
 
+	public Object getSubName() {
+		
+		return null;
+	}
+
 }
