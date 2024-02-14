@@ -10,6 +10,7 @@ CREATE TABLE `member` (
 	`me_name`	varchar(15)	NOT NULL,
 	`me_pw`	varchar(20)	NOT NULL,
 	`me_email`	varchar(30)	NOT NULL,
+    `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
 	`me_address`	varchar(30)	NOT NULL,
 	`me_phoneNum`	varchar(11)	NOT NULL
 );
@@ -27,6 +28,7 @@ CREATE TABLE `post` (
 	`po_num`	int	primary key auto_increment,
 	`po_title`	varchar(20)	NOT NULL,
 	`po_content`	text	NOT NULL,
+    `po_view` int NOT NULL DEFAULT 0,
 	`po_me_id`	varchar(30)	NOT NULL,
 	`po_bo_num`	int	NOT NULL
 );
