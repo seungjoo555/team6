@@ -1,5 +1,10 @@
 package community.model.vo;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class Comment {
 	// 댓글
 	private int co_num;

@@ -14,7 +14,7 @@ CREATE TABLE `member` (
 	`me_address`	varchar(30)	NOT NULL,
 	`me_phoneNum`	varchar(11)	NOT NULL
 );
-
+commentcommentmembermemberboardboard
 DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (

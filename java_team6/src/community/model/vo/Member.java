@@ -1,7 +1,10 @@
 package community.model.vo;
 
-import java.util.Date;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class Member {
 	// 사용자
 	private String me_id;

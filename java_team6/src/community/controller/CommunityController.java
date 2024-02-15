@@ -1,7 +1,11 @@
 package community.controller;
 
+import java.util.List;
 import java.util.Scanner;
 
+import acountbook.Item;
+import community.model.vo.Board;
+import community.model.vo.Post;
 import community.service.CommunityService;
 import community.service.CommunityServiceImp;
 
@@ -74,7 +78,7 @@ public class CommunityController {
 	private void printCommentMenu() {
 		System.out.println("메뉴");
 		System.out.println("1. 댓글 등록");
-		System.out.println("2. 게시글 수정");
+		System.out.println("2. 댓글 수정");
 		System.out.println("3. 댓글 삭제");
 		System.out.println("4. 댓글 조회");
 		System.out.println("5. 이전으로");
@@ -164,26 +168,102 @@ public class CommunityController {
 			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
-
+	//게시글 조회
 	private void printPost() {
 		// TODO Auto-generated method stub
 		
 	}
-
+	//게시글 등록
 	private void insertPost() {
-		// TODO Auto-generated method stub
-		
+		Post post = inputPost();
+		if(communityService.insertPost(post)) {
+			System.out.println("게시글을 등록했습니다.");
+		}else {
+			System.out.println("게시글 등록에 실패했습니다.");
+		}
 	}
-
+	//게시글 수정
 	private void updatePost() {
-		// TODO Auto-generated method stub
-		
+		//게시글 선택
+		List<Post> postList = communityService.getPostList();
+		if(postList == null || postList.size() == 0) {
+			System.out.println("수정할 게시글이 없습니다.");
+			return;
+		}
+		//수정할 게시글이 있으면 수정 가능한 게시글을 출력
+		for(Post post : postList) {
+			System.out.println(post);
+		}
+		System.out.print("게시글 번호를 선택하세요 : ");
+		int postNum = scan.nextInt();
+		//입력한 게시글 번호가 잘못된 값인지 확인
+		if(!postList.contains(new Post(postNum))) {
+			System.out.println("잘못된 게시글 번호입니다.");
+			return;
+		}
+		Post post = inputPost();
+		post.setPo_num(postNum);
+		if(communityService.updatePost(post)){
+			System.out.println("게시글 수정이 완료되었습니다.");
+		}else {
+			System.out.println("게시글을 수정하지 못했습니다.");
+		}
 	}
-
+	//게시글 삭제
 	private void deletePost() {
-		// TODO Auto-generated method stub
-		
+		List<Post> postList = communityService.getPostList();
+		if(postList == null || postList.size() == 0) {
+			System.out.println("삭제할 게시글이 없습니다.");
+			return;
+		}
+		//삭제할 게시글이 있으면 삭제 가능한 게시글을 출력
+		for(Post post : postList) {
+			System.out.println(post);
+		}
+		System.out.print("게시글 번호를 선택하세요 : ");
+		int postNum = scan.nextInt();
+		//입력한 내역 번호가 잘못된 값인지 확인
+		if(!postList.contains(new Post(postNum))) {
+			System.out.println("잘못된 게시글 번호입니다.");
+			return;
+		}
+		if(communityService.deleteItem(postNum)) {
+			System.out.println("게시글을 삭제했습니다.");
+		}else {
+			System.out.println("게시글을 삭제하지 못했습니다.");
+		}
 	}
+	
+	private Post inputPost() {	
+		// 게시판 선택
+		List<Board> boardList = communityService.getBoardList();
+		for(Board board : boardList) {
+			System.out.println(board);
+		}
+		if(boardList == null || boardList.size() == 0) {
+			System.out.println("게시글을 등록할 게시판이 없습니다.");
+			return null;
+		}
+		System.out.print("게시판 번호를 선택하세요 : ");
+		int boardNum = scan.nextInt();
+		//입력한 게시판 번호가 잘못된 값인지 확인
+		if(!boardList.contains(new Board(boardNum))) {
+			System.out.println("잘못된 게시판 번호입니다.");
+			return null;
+		}
+		
+		System.out.print("제목 : ");
+		String title = scan.next();
+		System.out.print("내용 : ");
+		String content = scan.next();
+		System.out.print("작성자 : ");
+		String id = scan.next();
+		System.out.print("조회수 : ");
+		int view = scan.nextInt();
+		
+		return new Post(boardNum, title, content, id, view);
+	}
+	
 	
 	//게시판
 	private void boardMenu() {
