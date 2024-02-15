@@ -7,7 +7,7 @@
 		select * from board
 	</select>
 	<insert id="insertPost">
-	insert into post(po_bo_num, po_title, po_content, po_me_id, po_view) 
+		insert into post(po_bo_num, po_title, po_content, po_me_id, po_view) 
 		values(#{post.po_bo_num}, #{post.po_title}, #{post.po_content}, #{post.po_me_id}, #{post.po_view})
 	</insert>
 	<select id="selectPostList" resultType="community.model.vo.Post">
@@ -27,4 +27,23 @@
 	<delete id="deletePost">
 		delete from post where po_num = #{po_num}
 	</delete>
+	<insert id="insertComment">
+		insert into comment(co_po_num, co_num, co_me_id, co_content)
+		values(#{com.co_po_num}, #{com.co_num}, #{com.co_me_id}, #{com.co_content});
+	</insert>
+	<update id="updateComment">
+		update comment set co_content = #{comment.co_content} where co_num = #{comment.co_num};
+	</update>
+	<delete id="deleteComment">
+		delete from comment where co_num = #{co_num};
+	</delete>
+	<select id="selectCommentList" resultType="community.model.vo.Comment">
+		select * from comment;
+	</select>
+	<select id="selectMineCommentList" resultType="community.model.vo.Comment">
+		select * from comment where co_me_id = #{id};
+	</select>
+	<select id="selectMemberList">
+		select * from member;
+	</select>
 </mapper>

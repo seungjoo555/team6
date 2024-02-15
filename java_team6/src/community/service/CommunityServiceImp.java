@@ -11,6 +11,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import community.dao.CommunityDAO;
 import community.model.vo.Board;
+import community.model.vo.Comment;
+import community.model.vo.Member;
 import community.model.vo.Post;
 
 public class CommunityServiceImp implements CommunityService {
@@ -72,6 +74,43 @@ public class CommunityServiceImp implements CommunityService {
 		return communityDao.deletePost(postNum);
 	}
 
-	
+	@Override
+	public boolean insertComment(Comment com) {
+		if(com == null 
+		   || com.getCo_content() == null
+		   || com.getCo_me_id() == null) {
+			return false;
+		}
+		boolean res = communityDao.insertComment(com);
+		if(res) {
+			session.commit();
+		}
+		return res;
+	}
+
+	@Override
+	public List<Comment> getCommentList() {
+		return communityDao.selectCommentList();
+	}
+
+	@Override
+	public List<Comment> getMineCommentList(String id) {
+		return communityDao.selectMineCommentList(id);
+	}
+
+	@Override
+	public boolean deleteComment(int co_num) {
+		return communityDao.deleteComment(co_num);
+	}
+
+	@Override
+	public boolean updateComment(Comment comment) {
+		return communityDao.updateComment(comment);
+	}
+
+	@Override
+	public List<Member> getMemberList() {
+		return communityDao.selectMemberList();
+	}
 
 }
