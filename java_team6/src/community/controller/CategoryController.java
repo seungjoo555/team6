@@ -146,10 +146,10 @@ public class CategoryController {
 		System.out.print("카테고리명 입력 : ");
 		String ca_title = sc.next();
 		CategoryVO cv = new CategoryVO(0, ca_title);
-		if(caService.insertCategory(cv)) {
-			System.out.println("카테고리 추가 성공!");
-		}else {
+		if(!caService.insertCategory(cv)) {
 			System.out.println("카테고리 추가 실패!");
+		}else {
+			System.out.println("카테고리 추가 성공!");
 		}
 		
 //

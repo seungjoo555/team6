@@ -18,7 +18,7 @@ public class Main {
 		
 		
 	} catch (InputMismatchException e) {
-		System.out.println("잘못 입력했습니다.");
+		System.out.println("잘못 입력했습니다.\n프로그램을 종료합니다.");
 		return;
 	}
 	
