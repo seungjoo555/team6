@@ -3,7 +3,6 @@ package community.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
-
 import community.model.vo.CommentVO;
 import community.model.vo.CommunityVO;
 import community.model.vo.MemberVO;

@@ -2,7 +2,13 @@ package community.model.vo;
 
 import java.util.Objects;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 // 카테고리
+
+@Data
+@NoArgsConstructor
 public class CategoryVO {
 	
 	private int ca_num;

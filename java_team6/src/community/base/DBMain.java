@@ -16,7 +16,7 @@ public class DBMain {
 
 	public static void main(String[] args) {
 		// DB명 test 바꾸기
-		String url = "jdbc:mysql://localhost:3306/communityTeam6";
+		String url = "jdbc:mysql://localhost:3306/community";
 		String id = "root";
 		String pw = "root";
 

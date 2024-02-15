@@ -1,18 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<mapper namespace=".community.dao.CategoryDAO">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="community.dao.CategoryDAO">
 
 	<!-- 카테고리 -->
 
 	<!-- 카테고리 추가 -->
 	<insert id="insertCategory">
-		insert into category(ca_num,ca_name)
-		values(#{category.ca_num},#{category.ca_name}))
+		insert into category(ca_num,ca_title)
+		values(#{category.ca_num},#{category.ca_title}))
 	</insert>
 	
 	<!-- 카테고리 수정 -->
 	<update id="updateCategory">
-		update category set ca_name = #{category.ca_name}
+		update category set ca_title = #{category.ca_title}
 		where ca_num = #{category.ca_num}
 	</update>
 
@@ -27,7 +29,9 @@
 		select * from category
 	</select>
 
-
+   <select id="selectCategory" resultType="community.model.vo.CategoryVO">
+   		select * from category where ca_num = #{ca_num}
+   </select>
 
 
 

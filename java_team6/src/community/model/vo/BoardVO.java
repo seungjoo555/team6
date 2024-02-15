@@ -2,7 +2,12 @@ package community.model.vo;
 
 import java.util.Objects;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 // 커뮤니티 안에 게시판 넣기
+@Data
+@NoArgsConstructor
 public class BoardVO {
 	private int bo_num;
 	private String bo_name;

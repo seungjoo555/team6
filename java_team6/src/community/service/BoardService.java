@@ -1,9 +1,15 @@
 package community.service;
 
-public interface BoardService {
-	void addboard(); // 게시판 추가
-	void setboard(); // 게시판 수정
-	void delboard(); // 게시판 삭제
-	void printboard();// 게시판 조회
+import java.util.ArrayList;
 
+import community.model.vo.BoardVO;
+
+public interface BoardService {
+	
+
+	boolean insertBoard(BoardVO board);
+	boolean updateBoard(BoardVO board);
+	boolean deleteBoard(BoardVO board);
+	ArrayList<BoardVO> selectBoardList();
+	
 }

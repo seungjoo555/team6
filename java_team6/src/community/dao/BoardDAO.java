@@ -8,9 +8,9 @@ import community.model.vo.BoardVO;
 
 public interface BoardDAO {
 	
-	boolean insertBoadrd(@Param("board")BoardVO board);
-	boolean updateBoadrd(@Param("board")BoardVO board);
-	boolean deleteBoadrd(@Param("board")BoardVO board);
+	boolean insertBoard(@Param("board")BoardVO board);
+	boolean updateBoard(@Param("board")BoardVO board);
+	boolean deleteBoard(@Param("board")BoardVO board);
 	ArrayList<BoardVO> selectBoardList();
 
 }

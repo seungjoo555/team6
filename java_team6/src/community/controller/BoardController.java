@@ -77,28 +77,11 @@ public class BoardController {
 		int bo_ca_num = sc.nextInt();
 		int cvIndex = cvList.indexOf(new CategoryVO(bo_ca_num));
 		// 카테고리가 있는지 확인
-		while (cvIndex == -1) {
-			System.out.println("잘못 입력했거나 없는 번호입니다.");
+	
 			// 없으면 다시 입력
-			System.out.println("카테고리 번호 : ");
-			bo_ca_num = sc.nextInt();
-			cvIndex = cvList.indexOf(new CategoryVO(bo_ca_num));
-			break;
-		}
 		
-		List<BoardVO>bvList = new ArrayList<BoardVO>();
-		// 있으면 게시판 번호 입력
-		System.out.println("게시판 번호 : ");
-		int bo_num = sc.nextInt();
-		int bvIndex = bvList.indexOf(new BoardVO(bo_num));
-		while (bvIndex == -1) {
-			System.out.println("잘못 입력했거나 없는 번호입니다.");
-			// 없으면 다시 입력
-			System.out.println("게시판 번호 : ");
-			bo_ca_num = sc.nextInt();
-			bvIndex = cvList.indexOf(new BoardVO(bo_num));
-			break;
-		}
+		
+
 		// 카테고리 안에 있는 게시판을 조회
 
 	}
