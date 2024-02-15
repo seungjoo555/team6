@@ -73,9 +73,8 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public boolean updateView(int postNum) {
-		return communityDao.updateView(postNum);
+	public boolean upView(int postNum) {
+		return communityDao.upView(postNum);
 		
 	}
-
 }

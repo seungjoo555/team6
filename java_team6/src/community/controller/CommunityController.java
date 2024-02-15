@@ -3,7 +3,6 @@ package community.controller;
 import java.util.List;
 import java.util.Scanner;
 
-import acountbook.Item;
 import community.model.vo.Board;
 import community.model.vo.Post;
 import community.service.CommunityService;
@@ -186,14 +185,12 @@ public class CommunityController {
 			System.out.println("잘못된 게시글 번호입니다.");
 			return;
 		}else {
-			communityService.updateView(postNum);
+			communityService.upView(postNum); //조회수 증가
 			System.out.println("게시글을 조회했습니다.");
 			return;
 		}
-
-		
-		
 	}
+
 	//게시글 등록
 	private void insertPost() {
 		Post post = inputPost();
