@@ -175,7 +175,7 @@ public class CommunityController {
 			System.out.println("조회할 게시글이 없습니다.");
 			return;
 		}
-		//조회할 게시글이 있으면 삭제 가능한 게시글을 출력
+		//조회할 게시글이 있으면 조회 가능한 게시글을 출력
 		for(Post post : postList) {
 			System.out.println(post);
 		}
@@ -185,8 +185,12 @@ public class CommunityController {
 		if(!postList.contains(new Post(postNum))) {
 			System.out.println("잘못된 게시글 번호입니다.");
 			return;
+		}else {
+			communityService.updateView(postNum);
+			System.out.println("게시글을 조회했습니다.");
+			return;
 		}
-		System.out.println(postList);
+
 		
 		
 	}
@@ -246,7 +250,7 @@ public class CommunityController {
 			return;
 		}
 		
-		if(communityService.deleteItem(postNum)) {
+		if(communityService.deletePost(postNum)) {
 			System.out.println("게시글을 삭제했습니다.");
 		}else {
 			System.out.println("게시글을 삭제하지 못했습니다.");

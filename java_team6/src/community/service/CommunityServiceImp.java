@@ -68,8 +68,14 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public boolean deleteItem(int postNum) {
+	public boolean deletePost(int postNum) {
 		return communityDao.deletePost(postNum);
+	}
+
+	@Override
+	public boolean updateView(int postNum) {
+		return communityDao.updateView(postNum);
+		
 	}
 
 }

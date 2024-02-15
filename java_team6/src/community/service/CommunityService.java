@@ -15,6 +15,8 @@ public interface CommunityService {
 
 	boolean updatePost(Post post);
 
-	boolean deleteItem(int postNum);
+	boolean deletePost(int postNum);
+
+	boolean updateView(int postNum);
 
 }

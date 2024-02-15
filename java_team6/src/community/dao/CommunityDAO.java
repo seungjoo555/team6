@@ -19,4 +19,6 @@ public interface CommunityDAO {
 
 	boolean deletePost(int postNum);
 
+	boolean updateView(int postNum);
+
 }
