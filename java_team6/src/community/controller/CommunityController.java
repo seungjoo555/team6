@@ -170,7 +170,24 @@ public class CommunityController {
 	}
 	//게시글 조회
 	private void printPost() {
-		// TODO Auto-generated method stub
+		List<Post> postList = communityService.getPostList();
+		if(postList == null || postList.size() == 0) {
+			System.out.println("조회할 게시글이 없습니다.");
+			return;
+		}
+		//조회할 게시글이 있으면 삭제 가능한 게시글을 출력
+		for(Post post : postList) {
+			System.out.println(post);
+		}
+		System.out.print("게시글 번호를 선택하세요 : ");
+		int postNum = scan.nextInt();
+		//입력한 게시글 번호가 잘못된 값인지 확인
+		if(!postList.contains(new Post(postNum))) {
+			System.out.println("잘못된 게시글 번호입니다.");
+			return;
+		}
+		System.out.println(postList);
+		
 		
 	}
 	//게시글 등록
@@ -201,6 +218,7 @@ public class CommunityController {
 			System.out.println("잘못된 게시글 번호입니다.");
 			return;
 		}
+		
 		Post post = inputPost();
 		post.setPo_num(postNum);
 		if(communityService.updatePost(post)){
@@ -222,11 +240,12 @@ public class CommunityController {
 		}
 		System.out.print("게시글 번호를 선택하세요 : ");
 		int postNum = scan.nextInt();
-		//입력한 내역 번호가 잘못된 값인지 확인
+		//입력한 게시글 번호가 잘못된 값인지 확인
 		if(!postList.contains(new Post(postNum))) {
 			System.out.println("잘못된 게시글 번호입니다.");
 			return;
 		}
+		
 		if(communityService.deleteItem(postNum)) {
 			System.out.println("게시글을 삭제했습니다.");
 		}else {
