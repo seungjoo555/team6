@@ -205,8 +205,7 @@ public class CommunityController {
 					System.out.println("잘못된 게시글 번호입니다.");
 				}else {
 					Post postContent = communityService.getPostContent(postNum);
-					Post post = postContent;
-					System.out.println(post.toString1());
+					System.out.println(postContent.toString1());
 					communityService.upView(postNum); //조회수 증가
 					System.out.println("게시글을 조회했습니다.");
 				} 
