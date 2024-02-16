@@ -19,7 +19,7 @@ public class CategoryVO {
 		this.ca_title = ca_title;
 	}
 
-	public CategoryVO(int bo_ca_num) {
+	public CategoryVO(String ca_title) {
 		
 	}
 

@@ -1,7 +1,5 @@
 package community.controller;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -83,20 +81,20 @@ public class CategoryController {
 
 	// 조회
 	private void selectCategory() {
-		List<CategoryVO> cvList = new ArrayList<CategoryVO>();
-		System.out.println(cvList.toString());
 
 	}
 
 	// 삭제
 	private void deleteCategory() {
-		System.out.print("카테고리 번호 입력 : ");
-		int ca_num = sc.nextInt();
-		if (caService.selectCategory(ca_num) == null) {
-			System.out.println("존재 하지 않습니다.");
+
+		System.out.print("삭제 할 카테고리명을 입력하세요 : ");
+		String ca_title = sc.next();
+		List<CategoryVO> cvList = caService.selectCategory(ca_title);
+		if (cvList == null || cvList.size() == 0) {
+			System.out.println("카테고리명이 존재하지 않습니다.");
 			return;
 		}
-		if (caService.deleteCategory(ca_num)) {
+		if (caService.deleteCategory(ca_title)) {
 			System.out.println("내역을 삭제 했습니다.");
 		} else {
 			System.out.println("내역 삭제에 실패 했습니다.");
@@ -107,68 +105,77 @@ public class CategoryController {
 
 	// 수정
 	private void updateCategory() {
-		System.out.print("카테고리 번호 입력 : ");
-		int ca_num = sc.nextInt();
-		List<CategoryVO> cvList = caService.selectCategory(ca_num);
+
+		System.out.print("수정 할 카테고리명을 입력하세요 : ");
+		String ca_title = sc.next();
+		List<CategoryVO> cvList = caService.selectCategory(ca_title);
 		if (cvList == null || cvList.size() == 0) {
-			System.out.println("수정할 내역이 없습니다.");
+			System.out.println("카테고리명이 존재하지 않습니다.");
 			return;
 		}
+		try {
+			System.out.print("새 카테고리명 입력 : ");
+			ca_title = sc.next();
+			if (cvList.equals(ca_title) && cvList != null) {
+				return;
+			}
+			CategoryVO category = inputCategoty();
+			category.setCa_title(ca_title);
+			if (!caService.updateCategory(category, ca_title)) {
+				System.out.println("카테고리 수정 실패!");
+				return;
+			} else {
+				System.out.println("카테고리 수정 성공!");
+			}
+		} catch (Exception e) {
+			System.out.println("중복된 카테고리 입니다.");
+		}
+		return;
+	}
+
+	private CategoryVO inputCategoty() {
+
+		// 카테고리 선택
+		List<CategoryVO> cvList = caService.selectCategory(null);
 		for (CategoryVO cv : cvList) {
 			System.out.println(cv);
 		}
-		System.out.print("카테고리 번호 입력 : ");
-		ca_num = sc.nextInt();
-		if (!cvList.contains(new CategoryVO(ca_num))) {
-			System.out.println("잘못된 번호 입니다.");
-			return;
+		if (cvList == null || cvList.size() == 0) {
+			System.out.println("카테고리가 없습니다.");
+			
 		}
-		CategoryVO cv = new CategoryVO();
-		cv.setCa_num(ca_num);
-		if (caService.updateCategory(cv)) {
-			System.out.println("수정 완료");
-		} else {
-			System.out.println("수정 실패");
-			return;
+		System.out.print("카테고리명을 입력 하세요. : ");
+		String ca_title = sc.next();
+		// 입력한 게시판 번호가 잘못된 값인지 확인
+		if (!cvList.contains(new CategoryVO(ca_title))) {
+			System.out.println("잘못된 게시판 번호입니다.");
+			return null;
 		}
+
+		System.out.print("새 카테고리명 : ");
+		ca_title = sc.next();
+
+		return new CategoryVO(ca_title);
 	}
 
 	// 추가
-	private void addCategory() {
-//		System.out.print("추가할 카테고리 번호 : ");
-//		int ca_num = sc.nextInt();
-//		List<CategoryVO> cvList = caService.selectCategory(ca_num);
-//		if(cvList != null) {
-//			System.out.println("이미 존재하는 번호 입니다.");
-//			return;
-//		}
-		
-		System.out.print("카테고리명 입력 : ");
-		String ca_title = sc.next();
-		CategoryVO cv = new CategoryVO(0, ca_title);
-		if(!caService.insertCategory(cv)) {
-			System.out.println("카테고리 추가 실패!");
-		}else {
-			System.out.println("카테고리 추가 성공!");
+	private CategoryVO addCategory() {
+		try {
+			System.out.print("추가 할 카테고리명을 입력하세요 : ");
+			String ca_title = sc.next();
+			List<CategoryVO> cvList = caService.selectCategory(ca_title);
+			if (cvList.equals(ca_title) && cvList != null) {
+				return (CategoryVO) cvList;
+			}
+			if (caService.insertCategory(ca_title)) {
+				System.out.println("카테고리 추가 성공!");
+			} else {
+				System.out.println("카테고리 추가 실패!");
+			}
+		} catch (Exception e) {
+			System.out.println("중복된 카테고리 입니다.");
 		}
-		
-//
-//		try {
-//			if (caService.selectCategory(ca_num) != null) {
-//				System.out.println("이미 존재하는 번호.");
-//				return;
-//			}
-//			CategoryVO cv = new CategoryVO(ca_num, ca_title);
-//			if (caService.insertCategory(cv)) {
-//				System.out.println("카테고리 추가 성공");
-//			} else {
-//				System.out.println("카테고리 추가 실패");
-//				return;
-//			}
-//		} catch (InputMismatchException e) {
-//			System.out.println("잘못 입력 하셨습니다.");
-//			return;
-//		}
+		return null;
 
 	}
 

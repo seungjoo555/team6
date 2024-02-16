@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS `category`;
  
 CREATE TABLE `category` (
     `ca_num` INT PRIMARY KEY AUTO_INCREMENT,
-    `ca_title` VARCHAR(10) NOT NULL
+    `ca_title` VARCHAR(10) NOT NULL unique
 );
 
 DROP TABLE IF EXISTS `member`;
