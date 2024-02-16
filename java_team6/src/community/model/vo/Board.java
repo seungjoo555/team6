@@ -11,6 +11,7 @@ public class Board {
 	// 게시판
 	private int bo_num;
 	private String bo_name;
+	private int bo_ca_num;
 	
 	public Board(int boardNum) {
 		bo_num = boardNum;
@@ -31,6 +32,11 @@ public class Board {
 	@Override
 	public int hashCode() {
 		return Objects.hash(bo_num);
+	}
+
+	@Override
+	public String toString() {
+		return "[" + bo_num + "] bo_name=" + bo_name;
 	}
 	
 	
