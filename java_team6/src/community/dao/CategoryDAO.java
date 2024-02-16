@@ -12,19 +12,21 @@ public interface CategoryDAO {
 	
 	// 카테고리
 	boolean insertCategory(@Param("ca_title")String ca_title);
-	boolean updateCategory(@Param("category")CategoryVO category);
+	boolean updateCategory(@Param("ca_title") String ca_title, @Param("new_ca_title") String new_ca_title );
 	boolean deleteCategory(@Param("ca_title")String ca_title);
 	List<CategoryVO> selectCategory(@Param("ca_title")String ca_title);
-	
+
 	ArrayList<CategoryVO> selectCategoryList();
+	
+	//----------------------------------------------------------
 	List<CategoryVO> selectCategoryList(String ca_title);
 	boolean deleteCategory(int ca_num);
 	// 게시판
 	boolean insertBoard(@Param("board")BoardVO board);
 	boolean updateBoard(@Param("board")BoardVO board);
 	boolean deleteBoard(@Param("board")BoardVO board);
-	ArrayList<BoardVO> selectBoardList();
 
+	ArrayList<BoardVO> selectBoardList();
 	
 
 }

@@ -10,9 +10,10 @@ public interface CategoryService {
 
 	//카테고리
 	boolean insertCategory(String ca_title);
-	boolean updateCategory(CategoryVO category,String ca_title);
+	boolean updateCategory(String ca_title,String new_ca_title );
 	boolean deleteCategory(String ca_title);
 	List<CategoryVO> selectCategory(String ca_title);
+	List<CategoryVO> selectCategoryList();
 
 	
 	//게시판

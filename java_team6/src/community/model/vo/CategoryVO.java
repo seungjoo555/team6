@@ -20,7 +20,7 @@ public class CategoryVO {
 	}
 
 	public CategoryVO(String ca_title) {
-		
+		this.ca_title = ca_title;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class CategoryVO {
 
 	@Override
 	public String toString() {
-		return "카테고리" + "\n카테고리 번호 : "+ca_num + "\n카테고리 명 : " + ca_title;
+		return "[카테고리 번호 : "+ca_num +"]"+ "\n[카테고리 명 : " + ca_title+"]\n";
 	}
 	
 	

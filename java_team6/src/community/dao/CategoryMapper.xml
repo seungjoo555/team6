@@ -14,8 +14,8 @@
 
 	<!-- 카테고리 수정 -->
 	<update id="updateCategory">
-		update category set ca_title = #{category.ca_title}
-		where ca_title = #{category.ca_title}
+		update category set ca_title = #{new_ca_title}
+		where ca_title = #{ca_title}
 	</update>
 
 	<!-- 카테고리 삭제 -->
@@ -59,6 +59,7 @@
 		resultType="community.model.vo.BoardVO">
 		select * from board
 	</select>
+
 
 
 

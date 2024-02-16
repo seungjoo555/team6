@@ -48,14 +48,14 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override // 카테고리 수정
-	public boolean updateCategory(CategoryVO category,String ca_title) {
-		if (category == null ) {
+	public boolean updateCategory(String ca_title,String new_ca_title ) {
+		if (ca_title == null ) {
 			return false;
 		}
-		if (!checkCategoryNum(ca_title)) {
+		if (checkCategoryNum(ca_title)) {
 			return false;
 		}
-		return caDao.updateCategory(category);
+		return caDao.updateCategory(ca_title,new_ca_title);
 	}
 
 	@Override // 카테고리 삭제
@@ -94,6 +94,12 @@ public class CategoryServiceImp implements CategoryService {
 	public ArrayList<BoardVO> selectBoardList() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override//카테고리 조회
+	public List<CategoryVO> selectCategoryList() {
+		
+		return caDao.selectCategoryList();
 	}
 
 }
