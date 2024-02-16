@@ -74,8 +74,17 @@ public class CategoryServiceImp implements CategoryService {
 	
 	@Override // 게시판 추가
 	public boolean insertBoard(BoardVO board) {
-		// TODO Auto-generated method stub
+		
+		
 		return false;
+	
+	}
+	@Override // 게시판 추가
+	public boolean insertBoard(int bo_ca_num, String bo_name) {
+		if (bo_ca_num == 0) {
+			return false;
+		}
+		return caDao.insertBoard(bo_ca_num,bo_name);
 	}
 
 	@Override // 게시판 수정
@@ -91,9 +100,9 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override // 게시판 조회
-	public ArrayList<BoardVO> selectBoardList() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<BoardVO> selectBoardList(int bo_ca_num) {
+		
+		return caDao.selectBoardList(bo_ca_num);
 	}
 
 	@Override//카테고리 조회
@@ -101,5 +110,12 @@ public class CategoryServiceImp implements CategoryService {
 		
 		return caDao.selectCategoryList();
 	}
+
+	@Override
+	public List<BoardVO> selectBoardList(BoardVO boardVO) {
+		
+		return caDao.selectBoardList(boardVO);
+	}
+
 
 }

@@ -1,7 +1,6 @@
 package community.model.vo;
 
 import java.util.Objects;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,10 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CategoryVO {
-	
+
 	private int ca_num;
 	private String ca_title;
-	
+	private int bo_ca_num;
+
 	public CategoryVO(int ca_num, String ca_title) {
 		this.ca_num = ca_num;
 		this.ca_title = ca_title;
@@ -21,6 +21,10 @@ public class CategoryVO {
 
 	public CategoryVO(String ca_title) {
 		this.ca_title = ca_title;
+	}
+	
+	public CategoryVO(int bo_ca_num) {
+		this.bo_ca_num = bo_ca_num;
 	}
 
 	@Override
@@ -42,9 +46,7 @@ public class CategoryVO {
 
 	@Override
 	public String toString() {
-		return "[카테고리 번호 : "+ca_num +"]"+ "\n[카테고리 명 : " + ca_title+"]\n";
+		return "[카테고리 번호 : " + ca_num + "]" + "\n[카테고리 명 : " + ca_title + "]\n";
 	}
-	
-	
 
 }

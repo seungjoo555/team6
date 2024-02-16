@@ -15,7 +15,8 @@
 	<!-- 카테고리 수정 -->
 	<update id="updateCategory">
 		update category set ca_title = #{new_ca_title}
-		where ca_title = #{ca_title}
+		where
+		ca_title = #{ca_title}
 	</update>
 
 	<!-- 카테고리 삭제 -->
@@ -38,14 +39,15 @@
 
 	<!-- 게시판 등록 -->
 	<insert id="insertBoard">
-		insert into board(bo_num , bo_name)
-		values(#{board.bo_num},#{board.bo_name})
+		insert into board(bo_ca_num,bo_name)
+		values(#{bo_ca_num},#{bo_name})
 	</insert>
 
 	<!-- 게시판 수정 -->
 	<update id="updateBoard">
 		update board set bo_name = #{board.bo_name}
-		where bo_num = #{board.bo_num}
+		where
+		bo_num = #{board.bo_num}
 	</update>
 
 	<!-- 게시판 삭제 -->
@@ -60,6 +62,7 @@
 		select * from board
 	</select>
 
+	
 
 
 

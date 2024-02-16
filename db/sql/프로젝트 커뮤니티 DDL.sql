@@ -26,7 +26,8 @@ DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (
 	`bo_num`	int	primary key auto_increment,
-	`bo_name`	varchar(10)	NOT NULL
+	`bo_name`	varchar(10)	NOT NULL,
+    `bo_ca_num` int not null
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -49,6 +50,12 @@ CREATE TABLE `comment` (
 	`co_po_num`	int	NOT NULL
 );
 
+ALTER TABLE `board` ADD CONSTRAINT `FK_category_TO_board_1` FOREIGN KEY (
+	`bo_ca_num`
+)
+REFERENCES `category` (
+	`ca_num`
+);
 
 
 ALTER TABLE `post` ADD CONSTRAINT `FK_member_TO_post_1` FOREIGN KEY (
