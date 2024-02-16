@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import community.dao.CommunityDAO;
 import community.model.vo.Board;
+import community.model.vo.Category;
 import community.model.vo.Comment;
 import community.model.vo.Member;
 import community.model.vo.Post;
@@ -94,8 +95,8 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public List<Comment> getMineCommentList(String id) {
-		return communityDao.selectMineCommentList(id);
+	public List<Comment> getMineCommentList(Comment com) {
+		return communityDao.selectMineCommentList(com);
 	}
 
 	@Override
@@ -107,10 +108,10 @@ public class CommunityServiceImp implements CommunityService {
 	public boolean updateComment(Comment comment) {
 		return communityDao.updateComment(comment);
 	}
-
+	
 	@Override
-	public List<Member> getMemberList() {
-		return communityDao.selectMemberList();
+	public List<Category> getCategoryList() {
+		return communityDao.selectCategoryList();
 	}
 
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Comment {
 	// 댓글
+	private int co_ca_num;
 	private int co_po_num;
 	private int co_num;
 	private String co_me_id;
@@ -30,12 +31,14 @@ public class Comment {
 		return Objects.hash(co_num);
 	}
 	
-	public Comment(int co_po_num, int co_num, String co_me_id, String co_content) {
+	public Comment(int co_ca_num, int co_po_num, int co_num, String co_me_id, String co_content) {
+		this.co_ca_num = co_ca_num;
 		this.co_po_num = co_po_num;
 		this.co_num = co_num;
 		this.co_me_id = co_me_id;
 		this.co_content = co_content;
 	}
+	
 	public Comment(int co_num) {
 		this.co_num = co_num;
 	}
@@ -44,7 +47,15 @@ public class Comment {
 		this.co_num = co_num;
 		this.co_content = co_content;
 	}
+	
 	public Comment(String co_me_id) {
+		this.co_me_id = co_me_id;
+	}
+	
+	public Comment(int co_ca_num, int co_po_num, int co_num, String co_me_id) {
+		this.co_ca_num = co_ca_num;
+		this.co_po_num = co_po_num;
+		this.co_num = co_num;
 		this.co_me_id = co_me_id;
 	}
 	

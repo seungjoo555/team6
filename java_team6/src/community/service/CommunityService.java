@@ -3,6 +3,7 @@ package community.service;
 import java.util.List;
 
 import community.model.vo.Board;
+import community.model.vo.Category;
 import community.model.vo.Comment;
 import community.model.vo.Member;
 import community.model.vo.Post;
@@ -19,16 +20,15 @@ public interface CommunityService {
 
 	boolean deleteItem(int postNum);
 
-	boolean insertComment(Comment com);
+	List<Category> getCategoryList();
 
 	List<Comment> getCommentList();
 
-	List<Comment> getMineCommentList(String id);
+	boolean insertComment(Comment comment);
 
-	boolean deleteComment(int co_num);
+	List<Comment> getMineCommentList(Comment comment);
 
 	boolean updateComment(Comment comment);
 
-	List<Member> getMemberList();
-
+	boolean deleteComment(int co_num);
 }

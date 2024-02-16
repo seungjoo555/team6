@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import community.model.vo.Board;
+import community.model.vo.Category;
 import community.model.vo.Comment;
-import community.model.vo.Member;
 import community.model.vo.Post;
 import community.service.CommunityService;
 import community.service.CommunityServiceImp;
@@ -111,16 +111,77 @@ public class CommunityController {
 
 	private void printComment() {
 		// 조회
+		
 	}
 
+	private int[] menuSelectAll() {
+		int a[] = new int[3];
+		
+		List<Category> categoryList = communityService.getCategoryList();
+		// categoryList 내역 출력
+		for(Category category : categoryList) {
+			System.out.println(category);
+		}
+		
+		System.out.print("카테고리 번호 : ");
+		a[0] = scan.nextInt();
+		
+		//입력한 게시판 번호가 잘못된 값인지 확인
+		if(a[0] > categoryList.size()) {
+			System.out.println("잘못된 카테고리 번호입니다.");
+			return null;
+		}
+		
+		List<Board> boardList = communityService.getBoardList();
+		// boardList 출력
+		for(Board board : boardList) {
+			System.out.println(board);
+		}
+		
+		System.out.print("게시판 번호 : ");
+		a[1] = scan.nextInt();
+		
+		//입력한 게시판 번호가 잘못된 값인지 확인
+		if(a[1] > categoryList.size()) {
+			System.out.println("잘못된 게시판 번호입니다.");
+			return null;
+		}
+		
+		List<Post> postList = communityService.getPostList();
+		// Post 내역 출력
+		for(Post post : postList) {
+			System.out.println(post);
+		}
+		
+		System.out.print("게시글 번호 : ");
+		a[2] = scan.nextInt();
+		
+		//입력한 게시글 번호가 잘못된 값인지 확인
+		if(a[2] > categoryList.size()) {
+			System.out.println("잘못된 게시글 번호입니다.");
+			return null;
+		}
+		return a;
+	}
+	
+	
 	private void insertComment() {
-		// 로그인 유무 체크
-		if(!isLogin()) {
+		// 로그인 유무 체크, boardList, postList 비었는지
+		if(!isLogin() && !isNull()) {
 			return;
 		}
 		
-		// 객체 생성
-		Comment com = inputComment();
+		int[] a = menuSelectAll();
+		if(a == null || a.length == 0) {
+			return;
+		}
+		
+		System.out.print("내용 : ");
+		scan.nextLine();
+		String co_content = scan.nextLine();
+		
+		// 입력받은 정보로 객체를 생성
+		Comment com = new Comment(a[0], a[1], a[2], id, co_content);
 		
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
 		if(communityService.insertComment(com)) {
@@ -135,8 +196,13 @@ public class CommunityController {
 		if(!isLogin()) {
 			return;
 		}
+		int[] a = menuSelectAll();
+		if(a == null) {
+			return;
+		}
 		
-		List<Comment> mineCommentList = communityService.getMineCommentList(id);
+		Comment com = new Comment(a[0], a[1], a[2], id);
+		List<Comment> mineCommentList = communityService.getMineCommentList(com);
 
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if(mineCommentList == null || mineCommentList.size() == 0) {
@@ -178,7 +244,13 @@ public class CommunityController {
 			return;
 		}
 		
-		List<Comment> mineCommentList = communityService.getMineCommentList(id);
+		int[] a = menuSelectAll();
+		if(a == null) {
+			return;
+		}
+		Comment com = new Comment(a[0], a[1], a[2], id);
+		
+		List<Comment> mineCommentList = communityService.getMineCommentList(com);
 		
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if(mineCommentList == null || mineCommentList.size() == 0) {
@@ -207,58 +279,19 @@ public class CommunityController {
 		}
 	}
 	
-	private Comment inputComment() {	
-		// 게시판 선택
-		List<Board> boardList = communityService.getBoardList();
-		List<Post> postList = communityService.getPostList();
-		
-		// boardList, postList 비었는지
-		if(!isNull()) {
-			return null;
-		}
-		
-		// boardList 출력
-		for(Board board : boardList) {
-			System.out.println(board);
-		}
-		System.out.print("게시판 번호 : ");
-		int co_po_num = scan.nextInt();
-
-		//입력한 게시판 번호가 잘못된 값인지 확인
-		if(co_po_num > boardList.size()) {
-			System.out.println("잘못된 게시판 번호입니다.");
-			return null;
-		}
-
-		// Post 내역 출력
-		for(Post post : postList) {
-			System.out.println(post);
-		}
-		System.out.print("게시글 번호 : ");
-		int co_num = scan.nextInt();
-
-		//입력한 게시판 번호가 잘못된 값인지 확인
-		if(co_num > postList.size()) {
-			System.out.println("잘못된 게시글 번호입니다.");
-			return null;
-		}
-
-		System.out.print("내용 : ");
-		scan.nextLine();
-		String co_content = scan.nextLine();
-		
-		// 입력받은 정보로 객체를 생성
-		Comment com = new Comment(co_po_num, co_num, id, co_content);
-		
-		return com;
-	}
-	
-	// 게시판, 게시글 비었는지 확인하는 메서드
+	// 카테고리, 게시판, 게시글 비었는지 확인하는 메서드
 	private boolean isNull() {
 		// 게시판 선택
+		List<Category> categoryList = communityService.getCategoryList();
 		List<Board> boardList = communityService.getBoardList();
 		List<Post> postList = communityService.getPostList();
 
+		// boardList가 비어있는지
+		if(boardList == null || boardList.size() == 0) {
+			System.out.println("카테고리가 없습니다.");
+			return false;
+		}
+		
 		// boardList가 비어있는지
 		if(boardList == null || boardList.size() == 0) {
 			System.out.println("게시판이 없습니다.");
@@ -275,28 +308,10 @@ public class CommunityController {
 	
 	// 로그인 상태 확인하는 메서드
 	private boolean isLogin() {
-		String state = "user";
-		if(id == null || id.equals(state)) {
-			return false;
-		}
-		return true;
-	}
-	
-	private boolean logIn() {
-		List<Member> memberList = communityService.getMemberList();
-		
-		System.out.print("아이디 : ");
-		String id = scan.next();
-		System.out.print("비번 : ");
-		String pw = scan.next();
-		
-		Member member = new Member(id, pw);
-		
-		if(!memberList.contains(member)) {
-			System.out.println("아이디와 비밀번호가 일치하지 않습니다.");
-			return false;
-		}
-		this.id = id;
+//		String state = "user";
+//		if(id == null || id.equals(state)) {
+//			return false;
+//		}
 		return true;
 	}
 	

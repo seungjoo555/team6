@@ -32,18 +32,37 @@
 		values(#{com.co_po_num}, #{com.co_num}, #{com.co_me_id}, #{com.co_content});
 	</insert>
 	<update id="updateComment">
-		update comment set co_content = #{comment.co_content} where co_num = #{comment.co_num};
+		UPDATE comment 
+		SET 
+		    co_content = #{com.co_content}
+		WHERE
+		    co_num = #{com.co_num};
 	</update>
 	<delete id="deleteComment">
-		delete from comment where co_num = #{co_num};
+		DELETE FROM comment 
+		WHERE
+		    co_num = #{co_num};
 	</delete>
 	<select id="selectCommentList" resultType="community.model.vo.Comment">
-		select * from comment;
+		SELECT 
+		    *
+		FROM
+		    comment
+		ORDER BY co_num ASC;
 	</select>
 	<select id="selectMineCommentList" resultType="community.model.vo.Comment">
-		select * from comment where co_me_id = #{id};
+		SELECT 
+		    *
+		FROM
+		    comment
+		WHERE
+		    co_ca_num = #{com.co_ca_num} 
+		   		AND co_bo_num = #{com.co_bo_num}
+		   		AND co_po_num = #{com.co_po_num}
+				AND co_num = #{com.co_num}
+			    AND co_me_id = #{com.co_me_id};
 	</select>
-	<select id="selectMemberList">
-		select * from member;
+	<select id="selectCategoryList" resultType="community.model.vo.Category">
+		select * from category;
 	</select>
 </mapper>

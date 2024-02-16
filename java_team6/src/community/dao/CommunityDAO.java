@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import community.model.vo.Board;
+import community.model.vo.Category;
 import community.model.vo.Comment;
 import community.model.vo.Member;
 import community.model.vo.Post;
@@ -23,14 +24,14 @@ public interface CommunityDAO {
 
 	List<Comment> selectCommentList();
 
-	List<Comment> selectMineCommentList(@Param("id") String id);
+	List<Comment> selectMineCommentList(@Param("com") Comment com);
 
 	boolean insertComment(@Param("com") Comment com);
 
 	boolean deleteComment(@Param("co_num") int co_num);
 
-	boolean updateComment(@Param("comment") Comment comment);
+	boolean updateComment(@Param("com") Comment com);
 
-	List<Member> selectMemberList();
+	List<Category> selectCategoryList();
 
 }
