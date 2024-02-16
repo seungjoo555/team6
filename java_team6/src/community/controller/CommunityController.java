@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import community.model.vo.Board;
 import community.model.vo.Post;
+import community.pagination.Criteria;
 import community.service.CommunityService;
 import community.service.CommunityServiceImp;
 
@@ -169,28 +170,51 @@ public class CommunityController {
 	}
 	//게시글 조회
 	private void printPost() {
-		List<Post> postList = communityService.getPostList();
-		if(postList == null || postList.size() == 0) {
-			System.out.println("조회할 게시글이 없습니다.");
-			return;
-		}
-		//조회할 게시글이 있으면 조회 가능한 게시글을 출력
-		for(Post post : postList) {
-			System.out.println(post);
-		}
-		System.out.print("게시글 번호를 선택하세요 : ");
-		int postNum = scan.nextInt();
-		//입력한 게시글 번호가 잘못된 값인지 확인
-		if(!postList.contains(new Post(postNum))) {
-			System.out.println("잘못된 게시글 번호입니다.");
-			return;
-		}else {
-			communityService.upView(postNum); //조회수 증가
-			System.out.println("게시글을 조회했습니다.");
-			return;
-		}
+		System.out.println("검색(제목/내용) : ");
+		String text = scan.next();
+		int page = 1;
+		int menu;
+		do {
+			Criteria cri = new Criteria(page, 10);
+			cri.setSearch(text);
+			List<Post> postList = communityService.getPostList(cri);
+			if(postList == null || postList.size() == 0) {
+				System.out.println("조회할 게시글이 없습니다.");
+				break;
+			}else {
+				//조회할 게시글이 있으면 조회 가능한 게시글을 출력
+				for(Post post : postList) {
+					System.out.println(post);
+				}
+			}
+			System.out.println("1. 이전 페이지");
+			System.out.println("2. 다음 페이지");
+			System.out.println("3. 게시글 조회");
+			System.out.print("메뉴 선택 : ");
+			menu = scan.nextInt();
+			switch(menu) {
+			case 1: page = page == 1 ? 1 : page - 1;	
+				break;
+			case 2: ++page; 
+				break;
+			case 3:	
+				System.out.print("게시글 번호를 선택하세요 : ");
+				int postNum = scan.nextInt();
+				//입력한 게시글 번호가 잘못된 값인지 확인
+				if(!postList.contains(new Post(postNum))) {
+					System.out.println("잘못된 게시글 번호입니다.");
+				}else {
+					Post postContent = communityService.getPostContent(postNum);
+					Post post = postContent;
+					System.out.println(post.toString1());
+					communityService.upView(postNum); //조회수 증가
+					System.out.println("게시글을 조회했습니다.");
+				} 
+				break;
+			default : System.out.println("잘못 선택");
+			}
+		}while(menu != 3);
 	}
-
 	//게시글 등록
 	private void insertPost() {
 		Post post = inputPost();
@@ -223,6 +247,7 @@ public class CommunityController {
 		Post post = inputPost();
 		post.setPo_num(postNum);
 		if(communityService.updatePost(post)){
+			communityService.updateView(postNum); //수정시 조회수 0으로 변경
 			System.out.println("게시글 수정이 완료되었습니다.");
 		}else {
 			System.out.println("게시글을 수정하지 못했습니다.");
@@ -278,10 +303,8 @@ public class CommunityController {
 		String content = scan.next();
 		System.out.print("작성자 : ");
 		String id = scan.next();
-		System.out.print("조회수 : ");
-		int view = scan.nextInt();
 		
-		return new Post(boardNum, title, content, id, view);
+		return new Post(boardNum, title, content, id);
 	}
 	
 	

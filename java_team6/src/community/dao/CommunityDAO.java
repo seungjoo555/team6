@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import community.model.vo.Board;
 import community.model.vo.Post;
+import community.pagination.Criteria;
 
 public interface CommunityDAO {
 
@@ -20,4 +21,10 @@ public interface CommunityDAO {
 	boolean deletePost(int postNum);
 
 	boolean upView(int postNum);
+
+	List<Post> selectPostListSearch(@Param("cri")Criteria cri);
+
+	Post selectPostContent(int postNum);
+
+	boolean updateView(int postNum);
 }

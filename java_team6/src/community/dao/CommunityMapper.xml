@@ -8,8 +8,8 @@
 		select * from board
 	</select>
 	<insert id="insertPost">
-	insert into post(po_bo_num, po_title, po_content, po_me_id, po_view) 
-		values(#{post.po_bo_num}, #{post.po_title}, #{post.po_content}, #{post.po_me_id}, #{post.po_view})
+	insert into post(po_bo_num, po_title, po_content, po_me_id) 
+		values(#{post.po_bo_num}, #{post.po_title}, #{post.po_content}, #{post.po_me_id})
 	</insert>
 	<select id="selectPostList" resultType="community.model.vo.Post">
 		select * from post
@@ -20,8 +20,7 @@
 			po_bo_num = #{post.po_bo_num}, 
 		    po_title = #{post.po_title}, 
 		    po_content = #{post.po_content}, 
-		    po_me_id = #{post.po_me_id},
-		    po_view = #{post.po_view}
+		    po_me_id = #{post.po_me_id}
 		where 
 			po_num = #{post.po_num};
 	</update>
@@ -31,6 +30,27 @@
 	<update id="upView">
 		update post set 
 		    po_view = po_view + 1
+		where 
+			po_num = #{post.po_num};
+	</update>
+	<select id="selectPostListSearch" resultType="community.model.vo.Post">
+		SELECT 
+		   *
+		FROM
+		    post
+		WHERE
+			po_title like concat(#{cri.search}, '%') or
+			po_content like concat(#{cri.search}, '%')
+		order by po_title desc
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="selectPostContent" resultType="community.model.vo.Post">
+		select po_content as po_content from post where po_num = #{post.po_num}
+	</select>
+	<update id="updateView">
+		update post 
+		set 
+		    po_view = '0'
 		where 
 			po_num = #{post.po_num};
 	</update>

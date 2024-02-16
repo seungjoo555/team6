@@ -12,6 +12,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import community.dao.CommunityDAO;
 import community.model.vo.Board;
 import community.model.vo.Post;
+import community.pagination.Criteria;
 
 public class CommunityServiceImp implements CommunityService {
 	
@@ -76,5 +77,23 @@ public class CommunityServiceImp implements CommunityService {
 	public boolean upView(int postNum) {
 		return communityDao.upView(postNum);
 		
+	}
+
+	@Override
+	public List<Post> getPostList(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return communityDao.selectPostListSearch(cri);
+	}
+
+	@Override
+	public Post getPostContent(int postNum) {
+		return communityDao.selectPostContent(postNum);
+	}
+
+	@Override
+	public boolean updateView(int postNum) {
+		return communityDao.updateView(postNum);
 	}
 }
