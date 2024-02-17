@@ -1,4 +1,4 @@
-package university.service;
++package university.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
