@@ -20,14 +20,12 @@ public interface CategoryDAO {
 	
 	//----------------------------------------------------------
 	List<CategoryVO> selectCategoryList(String ca_title);
-	boolean deleteCategory(int ca_num);
 	// 게시판
 	boolean insertBoard(@Param("bo_ca_num")int bo_ca_num,@Param("bo_name")String bo_name);
-	boolean updateBoard(@Param("board")BoardVO board);
-	boolean deleteBoard(@Param("board")BoardVO board);
+	boolean updateBoard(@Param("bo_name")String bo_name,@Param("new_bo_name")String new_bo_name);
+	boolean deleteBoard(@Param("bo_name")String bo_name);
 
-	ArrayList<BoardVO> selectBoardList(int bo_ca_num);
-	List<BoardVO> selectBoardList(BoardVO boardVO);
+	ArrayList<BoardVO> selectBoardList(int bo_ca_num,String bo_name);
 	
 
 }

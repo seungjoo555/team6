@@ -86,34 +86,33 @@ public class CategoryController {
 	// 게시판 추가
 	private void addBoard() {
 		try {
+			List<CategoryVO> cvList = caService.selectCategoryList();
+			for (CategoryVO cv : cvList) {
+				System.out.println(cv);
+			}
+			System.out.print("카테고리 번호를 선택하세요 : ");
 
-			// 카테고리를 선택
-			System.out.print("카테고리 번호를 선택하세요");
 			int bo_ca_num = sc.nextInt();
-			// 카테고리가 없으면 리턴
-			List<BoardVO> bvList = caService.selectBoardList(bo_ca_num);
-			if (bvList.isEmpty()) {
-				System.out.println("카테고리 안에 존재하는 게시판이 없습니다.");
-				return;
-			} else {
-				System.out.println("선택한 카테고리의 게시판 목록 : ");
-				for (BoardVO bv : bvList) {
-					System.out.println(bv);
+
+			List<BoardVO> bvList = caService.selectBoardList(bo_ca_num, null);
+			for (BoardVO bv : bvList) {
+				System.out.println(bv);
+				if (cvList.isEmpty()) {
+					System.out.println("존재하는 카테고리가 없습니다.");
 				}
 
 			}
-			// 카테고리가 있으면 게시판 추가 시작
-			// 게시판 이름 받기
+
 			System.out.println("추가할 게시판 : ");
 			String bo_name = sc.next();
-			List<BoardVO> bv = caService.selectBoardList(new BoardVO(bo_name));
-			if(bv.equals(bo_name)) {
-				System.out.println("존재하는 게시판 입니다.");
-				return;
-			}else {
-			// 카테고리에 게시판 저장
-			caService.insertBoard(bo_ca_num, bo_name);
+			bvList = caService.selectBoardList(bo_ca_num, bo_name);
+			for (BoardVO bv : bvList) {
+				if (bv.getBo_name().equals(bo_name)) {
+					System.out.println("이미 존재하는 게시판입니다.");
+					return;
+				}
 			}
+			caService.insertBoard(bo_ca_num, bo_name);
 			System.out.println("게시판 추가 완료");
 
 		} catch (Exception e) {
@@ -123,16 +122,118 @@ public class CategoryController {
 
 	// 게시판 수정
 	private void updateBoard() {
+		try {
+			List<CategoryVO> cvList = caService.selectCategoryList();
+			if (cvList.isEmpty()) {
+				System.out.println("존재하는 카테고리가 없습니다.\n카테고리를 추가후 다시 실행하세요.");
+				return;
+			}
+			for (CategoryVO cv : cvList) {
+				System.out.println(cv);
+			}
+			System.out.print("카테고리 번호를 선택하세요 : ");
+
+			int bo_ca_num = sc.nextInt();
+			
+			//여기수정하기********************************************************************************************
+			List<BoardVO> bvList = caService.selectBoardList(bo_ca_num, null);
+			for(CategoryVO cv : cvList) {
+				if(cv.getCa_num()== bo_ca_num) {
+					System.out.println(cv + "카테고리가 선택 되었습니다.");
+					break;
+				}else {
+					System.out.println("존재하지 않는 카테고리입니다.");
+					return;
+				}
+			}
+			//*******************************************************************************************************
+			if (bvList.isEmpty()) {
+				System.out.println("게시판이 존재하지 않습니다.\n게시판을 추가후 다시 실행하세요.");
+			}
+			for (BoardVO bv : bvList) {
+				System.out.println(bv);
+				System.out.print("수정 할 게시판 : ");
+				String bo_name = sc.next();
+				if(!bv.getBo_name().equals(bo_name)) {
+					System.out.println(bo_name + " 는(은) 존재하지 않는 게시판 입니다.");
+					return;
+				}
+				System.out.print("새로운 게시판 : ");
+				String new_bo_name = sc.next();
+				if (bo_name.equals(new_bo_name)) {
+					System.out.println("현재 게시판과 새로운 게시판 이름이 동일합니다.");
+					return;
+				}
+				for (BoardVO board : bvList) {
+					if (board.getBo_name().equals(new_bo_name)) {
+						System.out.println("이미 존재하는 게시판 이름입니다. 다른 이름을 입력하세요.");
+						return;
+					}
+
+				}
+				if (caService.updateBoard(bo_name, new_bo_name)) {
+					System.out.println("게시판 수정이 완료 되었습니다.");
+					break;
+				}
+				System.out.println("게시판 수정에 실패하였습니다.");
+				return;
+
+			}
+		} catch (Exception e) {
+			System.out.println("존재하는 카테고리가 없습니다." + e.getMessage());
+			return;
+		}
 
 	}
 
 	// 게시판 삭제
 	private void deleteBoard() {
+		try {
+			List<CategoryVO> cvList = caService.selectCategoryList();
+			for (CategoryVO cv : cvList) {
+				System.out.println(cv);
+			}
+			System.out.print("카테고리 번호를 선택하세요 : ");
 
+			int bo_ca_num = sc.nextInt();
+
+			List<BoardVO> bvList = caService.selectBoardList(bo_ca_num, null);
+			for (BoardVO bv : bvList) {
+				System.out.println(bv);
+				if (cvList.isEmpty()) {
+					System.out.println("존재하는 카테고리가 없습니다.");
+				}
+				// 게시판 삭제 코딩하기
+				System.out.print("삭제 할 게시판 : ");
+				String bo_name = sc.next();
+				bvList = caService.selectBoardList(bo_ca_num, bo_name);
+				if (bvList == null || bvList.size() == 0) {
+					System.out.println("게시판이 존재하지 않습니다.");
+					return;
+				}
+				if (caService.deleteBoard(bo_name)) {
+					System.out.println("게시판을 삭제 했습니다.");
+				} else {
+					System.out.println("게시판 삭제에 실패 했습니다.");
+					return;
+				}
+
+			}
+		} catch (Exception e) {
+			System.out.println("존재하는 카테고리가 없습니다." + e.getMessage());
+		}
 	}
 
 	// 게시판 조회
 	private void selectBoard() {
+		List<BoardVO> bvList = caService.selectBoardList(0, null);
+		if (!bvList.isEmpty()) {
+			for (BoardVO tmp : bvList) {
+				System.out.println(tmp);
+			}
+		} else {
+			System.out.println("조회 가능한 카테고리가 없습니다.");
+		}
 
 	}
 
@@ -212,39 +313,62 @@ public class CategoryController {
 
 	// 카테고리 개별 조회 메서드
 	private void eachCategory() {
-		System.out.println("개별 조회 구현중");
+		System.out.println("구현중");
+		List<CategoryVO> caList = caService.selectCategoryList();
+		System.out.println(caList);
+		System.out.println("카테고리 번호 입력 : ");
+		int ca_num = sc.nextInt();
+		for (CategoryVO cv : caList) {
+			System.out.println(cv);
+		}
+
 	}
 
 	// 카테고리 전체 조회 메서드
 	private void allCategory() {
 		List<CategoryVO> caList = caService.selectCategoryList();
-		for (CategoryVO tmp : caList) {
-			System.out.println(tmp);
+		if (!caList.isEmpty()) {
+			for (CategoryVO tmp : caList) {
+				System.out.println(tmp);
+			}
+		} else {
+			System.out.println("조회 가능한 카테고리가 없습니다.");
 		}
 	}
 
 	// 삭제
 	private void deleteCategory() {
-
-		System.out.print("삭제 할 카테고리 : ");
-		String ca_title = sc.next();
-		List<CategoryVO> cvList = caService.selectCategory(ca_title);
-		if (cvList == null || cvList.size() == 0) {
+		try {
+			List<CategoryVO> cvList = caService.selectCategoryList();
+			for (CategoryVO cv : cvList) {
+				System.out.println(cv);
+			}
+			System.out.print("삭제 할 카테고리 : ");
+			String ca_title = sc.next();
+			cvList = caService.selectCategory(ca_title);
+			if (cvList == null || cvList.size() == 0) {
+				return;
+			}
+			if (caService.deleteCategory(ca_title)) {
+				System.out.println("내역을 삭제 했습니다.");
+			} else {
+				System.out.println("내역 삭제에 실패 했습니다.");
+				return;
+			}
+		} catch (Exception e) {
 			System.out.println("카테고리가 존재하지 않습니다.");
-			return;
 		}
-		if (caService.deleteCategory(ca_title)) {
-			System.out.println("내역을 삭제 했습니다.");
-		} else {
-			System.out.println("내역 삭제에 실패 했습니다.");
-			return;
-		}
+		return;
 
 	}
 
 	// 수정
 	private void updateCategory() {
 		try {
+			List<CategoryVO> cvList = caService.selectCategoryList();
+			for (CategoryVO cv : cvList) {
+				System.out.println(cv);
+			}
 			System.out.print("수정 할 카테고리 : ");
 			String ca_title = sc.next();
 			System.out.print("새로운 카테고리 : ");

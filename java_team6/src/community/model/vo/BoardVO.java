@@ -31,7 +31,7 @@ public class BoardVO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bo_ca_num, bo_num);
+		return Objects.hash(bo_ca_num, bo_name, bo_num);
 	}
 
 
@@ -45,7 +45,7 @@ public class BoardVO {
 		if (getClass() != obj.getClass())
 			return false;
 		BoardVO other = (BoardVO) obj;
-		return bo_ca_num == other.bo_ca_num && bo_num == other.bo_num;
+		return bo_ca_num == other.bo_ca_num && Objects.equals(bo_name, other.bo_name) && bo_num == other.bo_num;
 	}
 
 

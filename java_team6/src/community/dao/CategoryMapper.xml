@@ -43,16 +43,17 @@
 		values(#{bo_ca_num},#{bo_name})
 	</insert>
 
+
 	<!-- 게시판 수정 -->
 	<update id="updateBoard">
-		update board set bo_name = #{board.bo_name}
+		update board set bo_name = #{new_bo_name}
 		where
-		bo_num = #{board.bo_num}
+		bo_name = #{bo_name}
 	</update>
 
 	<!-- 게시판 삭제 -->
 	<delete id="deleteBoard">
-		delete from board where bo_num = #{bo_num}
+		delete from board where bo_name = #{bo_name}
 	</delete>
 
 

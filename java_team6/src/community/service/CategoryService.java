@@ -18,9 +18,8 @@ public interface CategoryService {
 	
 	//게시판
 	boolean insertBoard(BoardVO board);
-	boolean updateBoard(BoardVO board);
-	boolean deleteBoard(BoardVO board);
-	ArrayList<BoardVO> selectBoardList(int bo_ca_num);
+	boolean updateBoard(String bo_name,String new_bo_name);
+	boolean deleteBoard(String bo_name);
+	ArrayList<BoardVO> selectBoardList(int bo_ca_num,String bo_name);
 	boolean insertBoard(int bo_ca_num, String bo_name);
-	List<BoardVO> selectBoardList(BoardVO boardVO);
 }

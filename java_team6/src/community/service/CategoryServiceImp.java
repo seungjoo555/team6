@@ -84,37 +84,42 @@ public class CategoryServiceImp implements CategoryService {
 		if (bo_ca_num == 0) {
 			return false;
 		}
+		
 		return caDao.insertBoard(bo_ca_num,bo_name);
 	}
 
 	@Override // 게시판 수정
-	public boolean updateBoard(BoardVO board) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateBoard(String bo_name,String new_bo_name) {
+		if (bo_name == null ) {
+			return false;
+		}
+		if (checkBoardNum(bo_name)) {
+			return false;
+		}
+		
+		return caDao.updateBoard(bo_name,new_bo_name);
+	}
+
+	private boolean checkBoardNum(String bo_name) {
+		List<BoardVO> bvList = caDao.selectBoardList(0, bo_name);
+		return bvList.contains(new BoardVO(bo_name));		
 	}
 
 	@Override // 게시판 삭제
-	public boolean deleteBoard(BoardVO board) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteBoard(String bo_name) {
+		return caDao.deleteBoard(bo_name);
 	}
 
 	@Override // 게시판 조회
-	public ArrayList<BoardVO> selectBoardList(int bo_ca_num) {
+	public ArrayList<BoardVO> selectBoardList(int bo_ca_num,String bo_name) {
 		
-		return caDao.selectBoardList(bo_ca_num);
+		return caDao.selectBoardList(bo_ca_num,bo_name);
 	}
 
 	@Override//카테고리 조회
 	public List<CategoryVO> selectCategoryList() {
 		
 		return caDao.selectCategoryList();
-	}
-
-	@Override
-	public List<BoardVO> selectBoardList(BoardVO boardVO) {
-		
-		return caDao.selectBoardList(boardVO);
 	}
 
 
