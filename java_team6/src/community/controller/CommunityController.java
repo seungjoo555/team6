@@ -10,6 +10,7 @@ import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 import community.service.CommunityService;
+import community.service.CommunityServiceImp;
 import community.service.UserService;
 import community.service.UserServiceImp;
 
@@ -26,8 +27,9 @@ public class CommunityController {
 		}
 		this.scan = scan;
 		userService = new UserServiceImp();
+		communityService = new CommunityServiceImp();
 	}
-
+	
 	public void rogIn() {
 		// 로그인체크
 		System.out.print("아이디 : ");
