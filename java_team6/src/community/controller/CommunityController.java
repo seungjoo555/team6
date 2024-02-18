@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import community.model.vo.BoardVO;
-import community.model.vo.CategoryVO;
+import community.model.vo.Board;
 import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
@@ -459,8 +458,8 @@ public class CommunityController {
 
 	private Post inputPost() {
 		// 게시판 선택
-		List<BoardVO> boardList = communityService.getBoardList();
-		for (BoardVO board : boardList) {
+		List<Board> boardList = communityService.getBoardList();
+		for (Board board : boardList) {
 			System.out.println(board);
 		}
 		if (boardList == null || boardList.size() == 0) {
@@ -470,7 +469,7 @@ public class CommunityController {
 		System.out.print("게시판 번호를 선택하세요 : ");
 		int boardNum = scan.nextInt();
 		// 입력한 게시판 번호가 잘못된 값인지 확인
-		if (!boardList.contains(new BoardVO(boardNum))) {
+		if (!boardList.contains(new Board(boardNum))) {
 			System.out.println("잘못된 게시판 번호입니다.");
 			return null;
 		}

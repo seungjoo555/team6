@@ -1,4 +1,4 @@
-package community.service;
+package community2.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,10 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import community.dao.CommunityDAO;
-import community.model.vo.Board;
-import community.model.vo.Post;
-import community.pagination.Criteria;
+import community2.dao.CommunityDAO;
+import community2.model.vo.Board;
+import community2.model.vo.Post;
+import community2.pagination.Criteria;
 
 public class CommunityServiceImp implements CommunityService {
 	
@@ -96,5 +96,4 @@ public class CommunityServiceImp implements CommunityService {
 	public boolean updateView(int postNum) {
 		return communityDao.updateView(postNum);
 	}
-
 }

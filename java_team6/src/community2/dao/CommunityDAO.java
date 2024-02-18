@@ -1,13 +1,12 @@
-package community.dao;
+package community2.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import community.model.vo.Board;
-import community.model.vo.Post;
-import community.pagination.Criteria;
-
+import community2.model.vo.Board;
+import community2.model.vo.Post;
+import community2.pagination.Criteria;
 
 public interface CommunityDAO {
 

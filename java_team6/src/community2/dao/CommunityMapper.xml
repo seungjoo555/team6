@@ -3,24 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace=".community.dao.CommunityDAO">
-	<!-- 게시판 선택 -->
+<mapper namespace="community.dao.CommunityDAO">
 	<select id="selectBoardList" resultType="community.model.vo.Board">
 		select * from board
 	</select>
-	
-	<!-- 게시글 등록 -->
 	<insert id="insertPost">
 	insert into post(po_bo_num, po_title, po_content, po_me_id) 
 		values(#{post.po_bo_num}, #{post.po_title}, #{post.po_content}, #{post.po_me_id})
 	</insert>
-	
-	<!-- 게시글 선택 -->
 	<select id="selectPostList" resultType="community.model.vo.Post">
 		select * from post
 	</select>
-	
-	<!-- 게시글 수정 -->
 	<update id="updatePost">
 		update post 
 		set 
@@ -31,21 +24,15 @@
 		where 
 			po_num = #{post.po_num};
 	</update>
-	
-	<!-- 게시글 삭제 -->
 	<delete id="deletePost">
 		delete from post where po_num = #{post.po_num}
 	</delete>
-	
-	<!-- 조회수 업 -->
 	<update id="upView">
 		update post set 
 		    po_view = po_view + 1
 		where 
 			po_num = #{post.po_num};
 	</update>
-	
-	<!-- 게시글 조회 -->
 	<select id="selectPostListSearch" resultType="community.model.vo.Post">
 		SELECT 
 		   *
@@ -57,13 +44,9 @@
 		order by po_title desc
 		LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
-	
-	<!-- 게시글 조회 시 내용 출력 -->
 	<select id="selectPostContent" resultType="community.model.vo.Post">
 		select po_content as po_content from post where po_num = #{post.po_num}
 	</select>
-	
-	<!-- 게시글 수정 시 조회수 0 -->
 	<update id="updateView">
 		update post 
 		set 
@@ -71,5 +54,4 @@
 		where 
 			po_num = #{post.po_num};
 	</update>
-	
 </mapper>
