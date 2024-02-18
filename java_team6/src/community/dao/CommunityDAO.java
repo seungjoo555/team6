@@ -1,30 +1,27 @@
 package community.dao;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
+import community.model.vo.CommentVO;
+import community.model.vo.CommunityVO;
+import community.model.vo.MemberVO;
+import community.model.vo.PostVO;
 
-import community.model.vo.Board;
-import community.model.vo.Post;
-import community.pagination.Criteria;
 
 public interface CommunityDAO {
 
-	List<Board> selectBoardList();
+	boolean insertCommunity(@Param("community")CommunityVO commuity);
+	ArrayList<CommunityVO> selectCommunityList();
+	
+	boolean insertMember(@Param("member")MemberVO member);
+	ArrayList<CommunityVO> selectMemberList();
 
-	boolean insertPost(@Param("post")Post post);
 
-	List<Post> selectPostList();
+	boolean insertPost(@Param("post")PostVO post);
+	ArrayList<PostVO> selectPostList();
+	
+	boolean insertComment(@Param("comment")CommentVO comment);
+	ArrayList<CommentVO> selectCommentList();
 
-	boolean updatePost(@Param("post")Post post);
-
-	boolean deletePost(int postNum);
-
-	boolean upView(int postNum);
-
-	List<Post> selectPostListSearch(@Param("cri")Criteria cri);
-
-	Post selectPostContent(int postNum);
-
-	boolean updateView(int postNum);
 }

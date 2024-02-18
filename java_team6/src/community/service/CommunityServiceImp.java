@@ -96,4 +96,12 @@ public class CommunityServiceImp implements CommunityService {
 	public boolean updateView(int postNum) {
 		return communityDao.updateView(postNum);
 	}
+
+// 커뮤니티 관리 클래스
+public class CommunityServiceImp implements CommunityService {
+
+
+
+
+
 }

@@ -7,6 +7,8 @@ import community.model.vo.Post;
 import community.pagination.Criteria;
 
 public interface CommunityService {
+	
+
 
 	List<Board> getBoardList();
 
