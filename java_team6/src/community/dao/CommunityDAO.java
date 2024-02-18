@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import community.model.vo.Board;
-import community.model.vo.Category;
-import community.model.vo.Comment;
+import community.model.vo.BoardVO;
 import community.model.vo.Post;
+import community.pagination.Criteria;
+
 
 public interface CommunityDAO {
 
-	List<Board> selectBoardList();
+	List<BoardVO> selectBoardList();
 
 	boolean insertPost(@Param("post")Post post);
 
@@ -21,14 +21,11 @@ public interface CommunityDAO {
 
 	boolean deletePost(int postNum);
 
-	List<Comment> selectCommentList(@Param("com") Comment com);
+	boolean upView(int postNum);
 
-	boolean insertComment(@Param("com") Comment com);
+	List<Post> selectPostListSearch(@Param("cri")Criteria cri);
 
-	boolean deleteComment(@Param("com") Comment com);
+	Post selectPostContent(int postNum);
 
-	boolean updateComment(@Param("com") Comment com);
-
-	List<Category> selectCategoryList();
-
+	boolean updateView(int postNum);
 }

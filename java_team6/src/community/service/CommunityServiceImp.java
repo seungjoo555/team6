@@ -10,11 +10,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import community.dao.CommunityDAO;
-import community.model.vo.Board;
-import community.model.vo.Category;
-import community.model.vo.Comment;
-import community.model.vo.Member;
+import community.model.vo.BoardVO;
 import community.model.vo.Post;
+import community.pagination.Criteria;
 
 public class CommunityServiceImp implements CommunityService {
 	
@@ -35,7 +33,7 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public List<Board> getBoardList() {
+	public List<BoardVO> getBoardList() {
 		return communityDao.selectBoardList();
 	}
 
@@ -71,42 +69,32 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public boolean deleteItem(int postNum) {
+	public boolean deletePost(int postNum) {
 		return communityDao.deletePost(postNum);
 	}
 
 	@Override
-	public boolean insertComment(Comment com) {
-		if(com == null 
-		   || com.getCo_content() == null
-		   || com.getCo_me_id() == null) {
-			return false;
+	public boolean upView(int postNum) {
+		return communityDao.upView(postNum);
+		
+	}
+
+	@Override
+	public List<Post> getPostList(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
 		}
-		boolean res = communityDao.insertComment(com);
-		if(res) {
-			session.commit();
-		}
-		return res;
+		return communityDao.selectPostListSearch(cri);
 	}
 
 	@Override
-	public boolean deleteComment(Comment com) {
-		return communityDao.deleteComment(com);
+	public Post getPostContent(int postNum) {
+		return communityDao.selectPostContent(postNum);
 	}
 
 	@Override
-	public boolean updateComment(Comment com) {
-		return communityDao.updateComment(com);
-	}
-	
-	@Override
-	public List<Category> getCategoryList() {
-		return communityDao.selectCategoryList();
-	}
-
-	@Override
-	public List<Comment> getCommentList(Comment com) {
-		return communityDao.selectCommentList(com);
+	public boolean updateView(int postNum) {
+		return communityDao.updateView(postNum);
 	}
 
 }

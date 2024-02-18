@@ -2,15 +2,13 @@ package community.service;
 
 import java.util.List;
 
-import community.model.vo.Board;
-import community.model.vo.Category;
-import community.model.vo.Comment;
-import community.model.vo.Member;
+import community.model.vo.BoardVO;
 import community.model.vo.Post;
+import community.pagination.Criteria;
 
 public interface CommunityService {
-
-	List<Board> getBoardList();
+	//게시글
+	List<BoardVO> getBoardList();
 
 	boolean insertPost(Post post);
 
@@ -18,15 +16,14 @@ public interface CommunityService {
 
 	boolean updatePost(Post post);
 
-	boolean deleteItem(int postNum);
+	boolean deletePost(int postNum);
 
-	List<Category> getCategoryList();
+	boolean upView(int postNum);
 
-	List<Comment> getCommentList(Comment comment);
+	List<Post> getPostList(Criteria cri);
 
-	boolean insertComment(Comment comment);
+	Post getPostContent(int postNum);
 
-	boolean updateComment(Comment comment);
-
-	boolean deleteComment(Comment comment);
+	boolean updateView(int postNum);
+	
 }

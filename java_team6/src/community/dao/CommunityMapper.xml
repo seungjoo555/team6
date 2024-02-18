@@ -2,63 +2,74 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="community.dao.CommunityDAO">
-	<select id="selectBoardList" resultType="community.model.vo.Board">
+  
+<mapper namespace=".community.dao.CommunityDAO">
+	<!-- 게시판 선택 -->
+	<select id="selectBoardList" resultType="community.model.vo.BoardVO">
 		select * from board
 	</select>
+	
+	<!-- 게시글 등록 -->
 	<insert id="insertPost">
-		insert into post(po_bo_num, po_title, po_content, po_me_id, po_view) 
-		values(#{post.po_bo_num}, #{post.po_title}, #{post.po_content}, #{post.po_me_id}, #{post.po_view})
+		insert into post(po_bo_num, po_title, po_content, po_me_id) 
+		values(#{post.po_bo_num}, #{post.po_title}, #{post.po_content}, #{post.po_me_id})
 	</insert>
+	
+	<!-- 게시글 선택 -->
 	<select id="selectPostList" resultType="community.model.vo.Post">
 		select * from post
 	</select>
+	
+	<!-- 게시글 수정 -->
 	<update id="updatePost">
 		update post 
 		set 
 			po_bo_num = #{post.po_bo_num}, 
 		    po_title = #{post.po_title}, 
 		    po_content = #{post.po_content}, 
-		    po_me_id = #{post.po_me_id},
-		    po_view = #{post.po_view}
+		    po_me_id = #{post.po_me_id}
 		where 
 			po_num = #{post.po_num};
 	</update>
+	
+	<!-- 게시글 삭제 -->
 	<delete id="deletePost">
-		delete from post where po_num = #{po_num}
+		delete from post where po_num = #{post.po_num}
 	</delete>
-	<insert id="insertComment">
-		insert into comment(co_ca_num, co_bo_num, co_po_num,  co_me_id, co_content)
-		values(#{com.co_ca_num}, #{com.co_bo_num}, #{com.co_po_num},
-		#{com.co_me_id}, #{com.co_content});
-	</insert>
-	<update id="updateComment">
-		UPDATE comment 
-		SET 
-		    co_content = #{com.co_content}
-		WHERE
-		    co_num = #{com.co_num};
+	
+	<!-- 조회수 업 -->
+	<update id="upView">
+		update post set 
+		    po_view = po_view + 1
+		where 
+			po_num = #{post.po_num};
 	</update>
-	<delete id="deleteComment">
-		DELETE FROM comment 
-		WHERE
-			co_ca_num = #{com.co_ca_num} AND
-		    co_bo_num = #{com.co_bo_num} AND
-		    co_po_num = #{com.co_po_num} AND
-		    co_num = #{com.co_num};
-	</delete>
-	<select id="selectCommentList" resultType="community.model.vo.Comment">
+	
+	<!-- 게시글 조회 -->
+	<select id="selectPostListSearch" resultType="community.model.vo.Post">
 		SELECT 
-		    *
+		   *
 		FROM
-		    comment
+		    post
 		WHERE
-		    co_ca_num = #{com.co_ca_num} AND
-		    co_bo_num = #{com.co_bo_num} AND
-		    co_po_num = #{com.co_po_num}
-		ORDER BY co_num ASC;
+			po_title like concat(#{cri.search}, '%') or
+			po_content like concat(#{cri.search}, '%')
+		order by po_title desc
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
-	<select id="selectCategoryList" resultType="community.model.vo.Category">
-		select * from category;
+	
+	<!-- 게시글 조회 시 내용 출력 -->
+	<select id="selectPostContent" resultType="community.model.vo.Post">
+		select po_content as po_content from post where po_num = #{post.po_num}
 	</select>
+	
+	<!-- 게시글 수정 시 조회수 0 -->
+	<update id="updateView">
+		update post 
+		set 
+		    po_view = '0'
+		where 
+			po_num = #{post.po_num};
+	</update>
+	
 </mapper>

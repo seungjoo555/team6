@@ -2,6 +2,13 @@ DROP DATABASE IF EXISTS `community`;
 CREATE 	DATABASE IF NOT EXISTS `community`;
 
 use `community`;
+DROP TABLE IF EXISTS `category`;
+
+ 
+CREATE TABLE `category` (
+    `ca_num` INT PRIMARY KEY AUTO_INCREMENT,
+    `ca_title` VARCHAR(10) NOT NULL unique
+);
 
 DROP TABLE IF EXISTS `member`;
 
@@ -12,14 +19,15 @@ CREATE TABLE `member` (
 	`me_email`	varchar(30)	NOT NULL,
     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
 	`me_address`	varchar(30)	NOT NULL,
-	`me_phoneNum`	varchar(11)	NOT NULL
+	`me_phoneNum`	varchar(13)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (
 	`bo_num`	int	primary key auto_increment,
-	`bo_name`	varchar(10)	NOT NULL
+	`bo_name`	varchar(10)	NOT NULL,
+    `bo_ca_num` int not null
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -41,6 +49,14 @@ CREATE TABLE `comment` (
 	`co_me_id`	varchar(15)	NOT NULL,
 	`co_po_num`	int	NOT NULL
 );
+
+ALTER TABLE `board` ADD CONSTRAINT `FK_category_TO_board_1` FOREIGN KEY (
+	`bo_ca_num`
+)
+REFERENCES `category` (
+	`ca_num`
+);
+
 
 ALTER TABLE `post` ADD CONSTRAINT `FK_member_TO_post_1` FOREIGN KEY (
 	`po_me_id`
@@ -69,4 +85,3 @@ ALTER TABLE `comment` ADD CONSTRAINT `FK_post_TO_comment_1` FOREIGN KEY (
 REFERENCES `post` (
 	`po_num`
 );
-
