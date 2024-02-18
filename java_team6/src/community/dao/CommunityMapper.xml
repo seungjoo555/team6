@@ -4,47 +4,72 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace=".community.dao.CommunityDAO">
+	<!-- 게시판 선택 -->
+	<select id="selectBoardList" resultType="community.model.vo.BoardVO">
+		select * from board
+	</select>
 	
-	<!-- 커뮤니티 -->
-	<insert id="insertCommunity">
-		insert into community values(#{community.cm_num},#{community.cm_name},now())
-  	</insert>
-  	<select id = "selectCommunityList" resultType="community.model.vo.CommunityVO">
-  		select * from community
-  	</select>
-  	
-  	<!-- 사용자 -->
-  	<insert id="insertMember">
-  		insert into member values(#{member.me_id},#{member.me_name},
-  		#{member.me_pw} ,#{member.email},#{member.adress},#{member.phoneNum} now())
-  	</insert>
-  	<select id="selectMemberList" resultType="community.model.vo.MemberVO">
-  		select * from member
-  	</select>
-  	
-  	<!-- 게시판 -->
-  	<insert id="insertBoard">
-		insert into board values(#{board.bo_num},#{board.bo_name},now())
-  	</insert>
-  	<select id = "selectBoardList" resultType="community.model.vo.BoardVO">
-  		select * from board
-  	</select>
-  	
-  	<!-- 게시글 -->
-  	<insert id="insertPost">
-		insert into post values(#{post.po_num},#{post.po_title},#{post.po_content},now())
-  	</insert>
-  	<select id = "selectPostList" resultType="community.model.vo.PostVO">
-  		select * from post
-  	</select>
-  	
-  	<!-- 댓글 -->
-  	<insert id="insertComment">
-		insert into comment values(#{comment.co_num},#{comment.co_content},now())
-  	</insert>
-  	<select id = "selectCommentList" resultType="community.model.vo.CommentVO">
-  		select * from comment
-  	</select>
-  	
+	<!-- 게시글 등록 -->
+	<insert id="insertPost">
+	insert into post(po_bo_num, po_title, po_content, po_me_id) 
+		values(#{post.po_bo_num}, #{post.po_title}, #{post.po_content}, #{post.po_me_id})
+	</insert>
+	
+	<!-- 게시글 선택 -->
+	<select id="selectPostList" resultType="community.model.vo.Post">
+		select * from post
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="updatePost">
+		update post 
+		set 
+			po_bo_num = #{post.po_bo_num}, 
+		    po_title = #{post.po_title}, 
+		    po_content = #{post.po_content}, 
+		    po_me_id = #{post.po_me_id}
+		where 
+			po_num = #{post.po_num};
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deletePost">
+		delete from post where po_num = #{post.po_num}
+	</delete>
+	
+	<!-- 조회수 업 -->
+	<update id="upView">
+		update post set 
+		    po_view = po_view + 1
+		where 
+			po_num = #{post.po_num};
+	</update>
+	
+	<!-- 게시글 조회 -->
+	<select id="selectPostListSearch" resultType="community.model.vo.Post">
+		SELECT 
+		   *
+		FROM
+		    post
+		WHERE
+			po_title like concat(#{cri.search}, '%') or
+			po_content like concat(#{cri.search}, '%')
+		order by po_title desc
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<!-- 게시글 조회 시 내용 출력 -->
+	<select id="selectPostContent" resultType="community.model.vo.Post">
+		select po_content as po_content from post where po_num = #{post.po_num}
+	</select>
+	
+	<!-- 게시글 수정 시 조회수 0 -->
+	<update id="updateView">
+		update post 
+		set 
+		    po_view = '0'
+		where 
+			po_num = #{post.po_num};
+	</update>
 	
 </mapper>

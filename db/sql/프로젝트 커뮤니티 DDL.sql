@@ -19,7 +19,7 @@ CREATE TABLE `member` (
 	`me_email`	varchar(30)	NOT NULL,
     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
 	`me_address`	varchar(30)	NOT NULL,
-	`me_phoneNum`	varchar(11)	NOT NULL
+	`me_phoneNum`	varchar(13)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `board`;

@@ -12,7 +12,7 @@ CREATE TABLE `member` (
     `me_pw` VARCHAR(20) NOT NULL,
     `me_email` VARCHAR(30) NOT NULL,
     `me_address` VARCHAR(30) NOT NULL,
-    `me_phoneNum` VARCHAR(11) NOT NULL
+    `me_phoneNum` VARCHAR(13) NOT NULL
 );
 
 DROP TABLE IF EXISTS `board`;
