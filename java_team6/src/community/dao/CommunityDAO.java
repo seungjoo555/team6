@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 import community.model.vo.Board;
 import community.model.vo.Category;
 import community.model.vo.Comment;
-import community.model.vo.Member;
 import community.model.vo.Post;
 
 public interface CommunityDAO {
@@ -22,13 +21,11 @@ public interface CommunityDAO {
 
 	boolean deletePost(int postNum);
 
-	List<Comment> selectCommentList();
-
-	List<Comment> selectMineCommentList(@Param("com") Comment com);
+	List<Comment> selectCommentList(@Param("com") Comment com);
 
 	boolean insertComment(@Param("com") Comment com);
 
-	boolean deleteComment(@Param("co_num") int co_num);
+	boolean deleteComment(@Param("com") Comment com);
 
 	boolean updateComment(@Param("com") Comment com);
 

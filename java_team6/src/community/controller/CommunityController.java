@@ -15,7 +15,7 @@ public class CommunityController {
 	
 	private Scanner scan;
 	private CommunityService communityService;
-	public String id = null;
+	public String id = "qwe123";
 	
 	public CommunityController(Scanner scan) {
 		if(scan == null) {
@@ -166,10 +166,6 @@ public class CommunityController {
 	
 	
 	private void insertComment() {
-		// 로그인 유무 체크, boardList, postList 비었는지
-		if(!isLogin() && !isNull()) {
-			return;
-		}
 		
 		int[] a = menuSelectAll();
 		if(a == null || a.length == 0) {
@@ -192,26 +188,22 @@ public class CommunityController {
 	}
 
 	private void updateComment() {	// 내용만 변경 가능
-		// 로그인 유무 체크
-		if(!isLogin()) {
-			return;
-		}
 		int[] a = menuSelectAll();
 		if(a == null) {
 			return;
 		}
 		
-		Comment com = new Comment(a[0], a[1], a[2], id);
-		List<Comment> mineCommentList = communityService.getMineCommentList(com);
+		Comment com = new Comment(a[0], a[1], a[2]);
+		List<Comment> CommentList = communityService.getCommentList(com);
 
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
-		if(mineCommentList == null || mineCommentList.size() == 0) {
-			System.out.println("본인 댓글이 없어 수정할 수 없습니다.");
+		if(CommentList == null || CommentList.size() == 0) {
+			System.out.println("댓글이 없어 수정할 수 없습니다.");
 			return;
 		}
 		
 		// 출력
-		for(Comment comment : mineCommentList) {
+		for(Comment comment : CommentList) {
 			System.out.println(comment);
 		}
 		
@@ -220,9 +212,14 @@ public class CommunityController {
 		int co_num = scan.nextInt();
 		
 		//입력한 댓글 번호가 잘못된 값인지 확인
-		if(!mineCommentList.contains(new Comment(co_num))) {
+		if(!CommentList.contains(new Comment(co_num))) {
 			System.out.println("잘못된 내역 번호입니다.");
 			return;
+		}
+		
+		// 본인이 작성한 댓글인지 확인
+		if(!CommentList.contains(new Comment(co_num, id))) {
+			System.out.println("본인의 댓글이 아닙니다.");
 		}
 		
 		// 수정할 정보를 입력받음
@@ -231,7 +228,7 @@ public class CommunityController {
 		String co_content = scan.nextLine();
 		
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(communityService.updateComment(new Comment(co_num, co_content))) {
+		if(communityService.updateComment(new Comment(co_num, id, co_content))) {
 			System.out.println("댓글 수정했습니다.");
 		}else {
 			System.out.println("댓글 수정에 실패했습니다.");
@@ -239,40 +236,42 @@ public class CommunityController {
 	}
 
 	private void deleteComment() {
-		// 로그인 유무 체크
-		if(!isLogin()) {
-			return;
-		}
-		
 		int[] a = menuSelectAll();
 		if(a == null) {
 			return;
 		}
-		Comment com = new Comment(a[0], a[1], a[2], id);
 		
-		List<Comment> mineCommentList = communityService.getMineCommentList(com);
+		Comment com = new Comment(a[0], a[1], a[2]);
+		List<Comment> CommentList = communityService.getCommentList(com);
 		
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
-		if(mineCommentList == null || mineCommentList.size() == 0) {
+		if(CommentList == null || CommentList.size() == 0) {
 			System.out.println("본인 댓글이 없어 수정할 수 없습니다.");
 			return;
 		}
+		
 		// 존재하면 출력
-		for(Comment comment : mineCommentList) {
+		for(Comment comment : CommentList) {
 			System.out.println(comment);
 		}
+		
 		// 삭제할 댓글의 번호를 선택
 		System.out.print("댓글 번호 : ");
 		int co_num = scan.nextInt();
 		
 		//입력한 댓글 번호가 잘못된 값인지 확인
-		if(!mineCommentList.contains(new Comment(co_num))) {
+		if(!CommentList.contains(new Comment(co_num))) {
 			System.out.println("잘못된 내역 번호입니다.");
 			return;
 		}
 		
+		// 본인이 작성한 댓글인지 확인
+		if(!CommentList.contains(new Comment(co_num, id))) {
+			System.out.println("본인의 댓글이 아닙니다.");
+		}
+		
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(communityService.deleteComment(co_num)) {
+		if(communityService.deleteComment(new Comment(a[0], a[1], a[2], co_num))) {
 			System.out.println("댓글 삭제했습니다.");
 		}else {
 			System.out.println("댓글 삭제에 실패했습니다.");
@@ -287,7 +286,7 @@ public class CommunityController {
 		List<Post> postList = communityService.getPostList();
 
 		// boardList가 비어있는지
-		if(boardList == null || boardList.size() == 0) {
+		if(boardList == null || categoryList.size() == 0) {
 			System.out.println("카테고리가 없습니다.");
 			return false;
 		}
@@ -303,15 +302,6 @@ public class CommunityController {
 			System.out.println("게시글이 없습니다.");
 			return false;
 		}
-		return true;
-	}
-	
-	// 로그인 상태 확인하는 메서드
-	private boolean isLogin() {
-//		String state = "user";
-//		if(id == null || id.equals(state)) {
-//			return false;
-//		}
 		return true;
 	}
 	

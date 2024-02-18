@@ -90,28 +90,23 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public List<Comment> getCommentList() {
-		return communityDao.selectCommentList();
+	public boolean deleteComment(Comment com) {
+		return communityDao.deleteComment(com);
 	}
 
 	@Override
-	public List<Comment> getMineCommentList(Comment com) {
-		return communityDao.selectMineCommentList(com);
-	}
-
-	@Override
-	public boolean deleteComment(int co_num) {
-		return communityDao.deleteComment(co_num);
-	}
-
-	@Override
-	public boolean updateComment(Comment comment) {
-		return communityDao.updateComment(comment);
+	public boolean updateComment(Comment com) {
+		return communityDao.updateComment(com);
 	}
 	
 	@Override
 	public List<Category> getCategoryList() {
 		return communityDao.selectCategoryList();
+	}
+
+	@Override
+	public List<Comment> getCommentList(Comment com) {
+		return communityDao.selectCommentList(com);
 	}
 
 }

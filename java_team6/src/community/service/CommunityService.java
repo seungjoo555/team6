@@ -22,13 +22,11 @@ public interface CommunityService {
 
 	List<Category> getCategoryList();
 
-	List<Comment> getCommentList();
+	List<Comment> getCommentList(Comment comment);
 
 	boolean insertComment(Comment comment);
 
-	List<Comment> getMineCommentList(Comment comment);
-
 	boolean updateComment(Comment comment);
 
-	boolean deleteComment(int co_num);
+	boolean deleteComment(Comment comment);
 }

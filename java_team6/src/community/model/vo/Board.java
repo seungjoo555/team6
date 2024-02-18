@@ -33,5 +33,4 @@ public class Board {
 		return Objects.hash(bo_num);
 	}
 	
-	
 }

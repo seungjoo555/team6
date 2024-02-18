@@ -28,8 +28,9 @@
 		delete from post where po_num = #{po_num}
 	</delete>
 	<insert id="insertComment">
-		insert into comment(co_po_num, co_num, co_me_id, co_content)
-		values(#{com.co_po_num}, #{com.co_num}, #{com.co_me_id}, #{com.co_content});
+		insert into comment(co_ca_num, co_bo_num, co_po_num,  co_me_id, co_content)
+		values(#{com.co_ca_num}, #{com.co_bo_num}, #{com.co_po_num},
+		#{com.co_me_id}, #{com.co_content});
 	</insert>
 	<update id="updateComment">
 		UPDATE comment 
@@ -41,26 +42,21 @@
 	<delete id="deleteComment">
 		DELETE FROM comment 
 		WHERE
-		    co_num = #{co_num};
+			co_ca_num = #{com.co_ca_num} AND
+		    co_bo_num = #{com.co_bo_num} AND
+		    co_po_num = #{com.co_po_num} AND
+		    co_num = #{com.co_num};
 	</delete>
 	<select id="selectCommentList" resultType="community.model.vo.Comment">
 		SELECT 
 		    *
 		FROM
 		    comment
-		ORDER BY co_num ASC;
-	</select>
-	<select id="selectMineCommentList" resultType="community.model.vo.Comment">
-		SELECT 
-		    *
-		FROM
-		    comment
 		WHERE
-		    co_ca_num = #{com.co_ca_num} 
-		   		AND co_bo_num = #{com.co_bo_num}
-		   		AND co_po_num = #{com.co_po_num}
-				AND co_num = #{com.co_num}
-			    AND co_me_id = #{com.co_me_id};
+		    co_ca_num = #{com.co_ca_num} AND
+		    co_bo_num = #{com.co_bo_num} AND
+		    co_po_num = #{com.co_po_num}
+		ORDER BY co_num ASC;
 	</select>
 	<select id="selectCategoryList" resultType="community.model.vo.Category">
 		select * from category;
