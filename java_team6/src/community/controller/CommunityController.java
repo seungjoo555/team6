@@ -1,5 +1,6 @@
 package community.controller;
 
+
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -252,6 +253,7 @@ public class CommunityController {
 			runUser(menu);
 		}while(menu != 3);
 	}
+
 
 	private void runUser(int menu) {
 		switch(menu) {

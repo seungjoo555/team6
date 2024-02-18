@@ -3,6 +3,7 @@ package community.main;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
 import community.controller.CommunityController;
 
 public class Main {
@@ -48,3 +49,4 @@ public class Main {
 	}
 
 }
+
