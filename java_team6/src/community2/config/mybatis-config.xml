@@ -15,6 +15,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="community/dao/CommunityMapper.xml"/>
+    <mapper resource="community2/dao/CommunityMapper.xml"/>
   </mappers>
 </configuration>

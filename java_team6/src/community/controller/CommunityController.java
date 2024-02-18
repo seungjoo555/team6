@@ -263,7 +263,7 @@ public class CommunityController {
 			break;
 		case 2:
 			System.out.println("미구현");
-			cafeManage(); // 게시글 관리
+			cafeManage(); // 카페이용
 			break;
 		case 3:
 			System.out.println(user.getMe_id() + "님 로그아웃 완료");

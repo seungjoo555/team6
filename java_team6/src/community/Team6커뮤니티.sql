@@ -46,6 +46,7 @@ CREATE TABLE `post` (
     `po_num` INT PRIMARY KEY AUTO_INCREMENT,
     `po_title` VARCHAR(20) NOT NULL,
     `po_content` TEXT NOT NULL,
+    `po_view` int NOT NULL DEFAULT 0,
     `po_me_id` VARCHAR(30) NOT NULL,
     `po_bo_num` INT NOT NULL
 );
