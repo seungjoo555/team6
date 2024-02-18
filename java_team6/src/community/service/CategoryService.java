@@ -20,6 +20,7 @@ public interface CategoryService {
 	boolean insertBoard(BoardVO board);
 	boolean updateBoard(String bo_name,String new_bo_name);
 	boolean deleteBoard(String bo_name);
-	ArrayList<BoardVO> selectBoardList(int bo_ca_num,String bo_name);
+//	ArrayList<BoardVO> selectBoardList(int bo_ca_num);
 	boolean insertBoard(int bo_ca_num, String bo_name);
+	ArrayList<BoardVO> selectBoardList(int bo_ca_num, String bo_name);
 }
