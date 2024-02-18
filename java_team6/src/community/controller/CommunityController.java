@@ -180,7 +180,6 @@ public class CommunityController {
 			List<Post> postList = communityService.getPostList(cri);
 			if(postList == null || postList.size() == 0) {
 				System.out.println("조회할 게시글이 없습니다.");
-				break;
 			}else {
 				//조회할 게시글이 있으면 조회 가능한 게시글을 출력
 				for(Post post : postList) {
