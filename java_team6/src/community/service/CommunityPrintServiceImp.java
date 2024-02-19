@@ -12,7 +12,7 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("5.회원 관리");
 		System.out.println("0.프로그램 종료");
 		System.out.println("--------------");
-		System.out.println("메뉴 입력 : ");
+		System.out.print("메뉴 입력 : ");
 	}
 
 	@Override	// 커뮤니티 출력
@@ -24,7 +24,7 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("4.커뮤니티 조회");
 		System.out.println("0.프로그램 종료");
 		System.out.println("--------------");
-		System.out.println("메뉴 입력 : ");
+		System.out.print("메뉴 입력 : ");
 	}
 	
 	@Override	// 게시판 출력
@@ -36,7 +36,7 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("4.게시판 조회");
 		System.out.println("0.뒤로 가기");
 		System.out.println("------------");
-		System.out.println("메뉴 입력 : ");
+		System.out.print("메뉴 입력 : ");
 	}
 
 	@Override	// 게시글 출력
@@ -48,7 +48,7 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("4.게시글 조회");
 		System.out.println("0.뒤로 가기");
 		System.out.println("------------");
-		System.out.println("메뉴 입력 : ");
+		System.out.print("메뉴 입력 : ");
 	}
 
 	@Override	// 댓글 출력
@@ -60,7 +60,7 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("4.댓글 조회");
 		System.out.println("0.뒤로 가기");
 		System.out.println("------------");
-		System.out.println("메뉴 입력 : ");
+		System.out.print("메뉴 입력 : ");
 	}
 
 	@Override //회원 출력
@@ -72,6 +72,6 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("4.회원 조회");
 		System.out.println("0.뒤로 가기");
 		System.out.println("------------");
-		System.out.println("메뉴 입력 : ");
+		System.out.print("메뉴 입력 : ");
 	}
 }

@@ -16,9 +16,13 @@ public interface CommentDAO {
 
 	boolean updateComment(@Param("com") Comment com);
 
-	List<Comment> selectCommentList(@Param("com") Comment com);
+	List<Comment> selectCommentList(@Param("co_po_num") int co_po_num);
 
 	List<CategoryVO> selectCategoryList();
 	
 	List<BoardVO> selectBoardList();
+
+	boolean deleteAdminComment(@Param("co_num") int co_num);
+
+	boolean resetComment();
 }
