@@ -96,4 +96,9 @@ public class PostServiceImp implements PostService {
 	public boolean updateView(int postNum) {
 		return postDao.updateView(postNum);
 	}
+
+	@Override
+	public List<Post> getPost() {
+		return postDao.selectPost();
+	}
 }

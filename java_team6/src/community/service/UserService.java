@@ -10,10 +10,18 @@ public interface UserService {
 
 	Member checkId(String id);
 
-	List<Member> getRequestMember(String string);
+	List<Member> getMemberList(String string);
+	
+	List<Member> getStopMemberList(String string1, String string2);
 
 	void okeydokeyAllRequest();
 
 	boolean okeydokeyRequest(String me_id);
+
+	boolean stopStateMember(String me_id);
+
+	boolean deleteMember(String me_id);
+
+	boolean updateMember(Member user);
 
 }

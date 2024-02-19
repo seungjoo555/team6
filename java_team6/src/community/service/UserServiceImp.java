@@ -47,8 +47,13 @@ private UserDAO userDao;
 	}
 
 	@Override
-	public List<Member> getRequestMember(String string) {
-		return userDao.selectRequestMemberList(string);
+	public List<Member> getMemberList(String string) {
+		return userDao.selectMemberList(string);
+	}
+	
+	@Override
+	public List<Member> getStopMemberList(String string1, String string2) {
+		return userDao.selectStopMemberList(string1, string2);
 	}
 
 	@Override
@@ -59,6 +64,21 @@ private UserDAO userDao;
 	@Override
 	public boolean okeydokeyRequest(String me_id) {
 		return userDao.updateRequestMember(me_id);
+	}
+
+	@Override
+	public boolean stopStateMember(String me_id) {
+		return userDao.updateStopMember(me_id);
+	}
+
+	@Override
+	public boolean deleteMember(String me_id) {
+		return userDao.deleteMember(me_id);
+	}
+
+	@Override
+	public boolean updateMember(Member user) {
+		return userDao.updateMy(user);
 	}
 
 }

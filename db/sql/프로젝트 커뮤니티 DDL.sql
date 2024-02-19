@@ -12,13 +12,14 @@ CREATE TABLE `category` (
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE IF NOT EXISTS`member` (
-   `me_id`   varchar(15)   primary key NOT NULL,
+	`me_id`   varchar(15)   primary key NOT NULL,
     `me_pw`   varchar(20)   NOT NULL,
-   `me_email`   varchar(30)   NOT NULL,
+	`me_email`   varchar(30)   NOT NULL,
     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
-   `me_address`   varchar(30)   NOT NULL,
-   `me_phoneNum`   varchar(11)   NOT NULL,
-    `me_name`   varchar(30)   NOT NULL
+	`me_address`   varchar(30)   NOT NULL,
+	`me_phoneNum`   varchar(11)   NOT NULL,
+    `me_name`   varchar(30)   NOT NULL,
+    `me_ms_state` VARCHAR(10) NOT NULL
 );
 
 DROP TABLE IF EXISTS `member`;
@@ -89,8 +90,6 @@ ALTER TABLE `comment` ADD CONSTRAINT `FK_post_TO_comment_1` FOREIGN KEY (
 REFERENCES `post` (
 	`po_num`
 );
-ALTER TABLE `member` 
-ADD COLUMN `me_ms_state` VARCHAR(10) NOT NULL AFTER `me_name`;
 
 DROP TABLE IF EXISTS `member_state`;
 
@@ -106,3 +105,6 @@ REFERENCES `member_state` (
 );
 
 insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
+
+# 관리자계정 만들어두기
+insert into `member` values('admin','admin','admin@admin.com','ADMIN','admin시 admin구 admin동','01099999999','어드민','관리자');
