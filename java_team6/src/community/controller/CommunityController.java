@@ -102,7 +102,7 @@ public class CommunityController {
 		do {
 			System.out.print("이름 : ");
 			name = scan.next();
-			if(name.length() < 2 && name.length() > 30) {
+			if(name.length() < 2 || name.length() > 30) {
 				System.out.println("이름은 2자이상 30자이하 입니다.");
 				continue;
 			}else {
