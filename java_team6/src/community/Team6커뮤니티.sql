@@ -110,3 +110,4 @@ ALTER TABLE `comment` ADD CONSTRAINT `FK_post_TO_comment_1` FOREIGN KEY (
 REFERENCES `post` (
 	`po_num`
 );
+
