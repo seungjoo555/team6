@@ -58,6 +58,10 @@ CREATE TABLE `category` (
     `ca_title` VARCHAR(10) NULL
 );
 
+insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
+
+insert into `member` values('admin','admin','admin@admin.com','ADMIN','admin시 admin구 admin동','01099999999','어드민','관리자');
+
 ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
    `me_ms_state`
 )
