@@ -29,6 +29,6 @@
 		delete from member where me_id = #{me_id}
 	</delete>
 	<update id="updateMy">
-		update member set me_name = #{user.me_name}, me_email = #{user.me_email}, me_phoneNum = #{user.me_phoneNum}, me_address = #{user.me_address} where me_id = #{user.me_id}
+		update member set me_pw = #{user.me_pw}, me_name = #{user.me_name}, me_email = #{user.me_email}, me_phoneNum = #{user.me_phoneNum}, me_address = #{user.me_address} where me_id = #{user.me_id}
 	</update>
 </mapper>
