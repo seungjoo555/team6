@@ -38,8 +38,8 @@ public class CommentServiceImp implements CommentService {
 	}
 
 	@Override
-	public List<Comment> getCommentList(Comment com) {
-		return commentDao.selectCommentList(com);
+	public List<Comment> getCommentList(int co_po_num) {
+		return commentDao.selectCommentList(co_po_num);
 	}
 
 	@Override
@@ -48,12 +48,12 @@ public class CommentServiceImp implements CommentService {
 				   || com.getCo_content() == null
 				   || com.getCo_me_id() == null) {
 					return false;
-				}
-				boolean res = commentDao.insertComment(com);
-				if(res) {
-					session.commit();
-				}
-				return res;
+		}
+		boolean res = commentDao.insertComment(com);
+		if(res) {
+			session.commit();
+		}
+		return res;
 	}
 
 	@Override
@@ -69,5 +69,15 @@ public class CommentServiceImp implements CommentService {
 	@Override
 	public List<BoardVO> getBoardList() {
 		return commentDao.selectBoardList();
+	}
+
+	@Override
+	public boolean deleteAdminComment(int co_num) {
+		return commentDao.deleteAdminComment(co_num);
+	}
+
+	@Override
+	public boolean resetNum() {
+		return commentDao.resetComment();
 	}
 }

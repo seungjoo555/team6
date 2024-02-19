@@ -8,14 +8,13 @@
 		select * from category
 	</select>
 
-
 	<select id="selectBoardList" resultType="community.model.vo.BoardVO">
 		select * from board
 	</select>
 
 	<!-- 댓글 추가 -->
 	<insert id="insertComment">
-		insert into comment(co_po_num,  co_me_id, co_content)
+		insert into comment(co_po_num, co_me_id, co_content)
 		values(#{com.co_po_num}, #{com.co_me_id}, #{com.co_content});
 	</insert>
 	
@@ -26,16 +25,22 @@
 		    co_content = #{com.co_content}
 		WHERE
 		    co_num = #{com.co_num} AND
-		    co_me_id = #{con.co_me_id};
+		    co_me_id = #{com.co_me_id};
 	</update>
 	
 	<!-- 댓글 삭제 -->
 	<delete id="deleteComment">
 		DELETE FROM comment 
 		WHERE
-		    co_po_num = #{com.co_po_num} AND
 		    co_num = #{com.co_num} AND
-		    co_me_id = #{con.co_me_id};
+		    co_me_id = #{com.co_me_id};
+	</delete>
+	
+	<!-- 관리자 댓글 삭제 -->
+	<delete id="deleteAdminComment">
+		DELETE FROM comment 
+		WHERE
+		    co_num = #{co_num};
 	</delete>
 	
 	<!-- 댓글 조회 -->
@@ -45,7 +50,12 @@
 		FROM
 		    comment
 		WHERE
-		    co_po_num = #{com.co_po_num}
+		    co_po_num = #{co_po_num}
 		ORDER BY co_num ASC;
 	</select>
+	
+	<update id="resetComment">
+		ALTER TABLE `community`.`comment` 
+		AUTO_INCREMENT = 1 ;
+	</update>
 </mapper>
