@@ -765,7 +765,6 @@ public class CommunityController {
 		for (Post post : postList1) {
 			System.out.println(post);
 		}
-		
 		System.out.println("1. 조회");
 		System.out.println("2. 검색");
 		System.out.println("0. 이전으로");
@@ -789,9 +788,13 @@ public class CommunityController {
 					return;
 				}
 				Post postContent = postService.getPostContent(postNum);
-				System.out.println(postContent.toString1());
-				postService.upView(postNum); // 조회수 증가
-				System.out.println("게시글을 조회했습니다.");
+				try {
+					System.out.println(postContent.toString1());
+					postService.upView(postNum); // 조회수 증가
+					System.out.println("게시글을 조회했습니다.");
+				}catch(Exception e) {
+					System.out.println("조회할 게시글이 없습니다.");
+				}
 				break;
 			case 2:
 				searchPost();
