@@ -76,13 +76,6 @@ REFERENCES `category` (
 	`ca_num`
 );
 
-ALTER TABLE `board` ADD CONSTRAINT `FK_community_TO_board_1` FOREIGN KEY (
-	`bo_ca_num`
-)
-REFERENCES `category` (
-	`ca_num`
-);
-
 ALTER TABLE `post` ADD CONSTRAINT `FK_member_TO_post_1` FOREIGN KEY (
    `po_me_id`
 )
