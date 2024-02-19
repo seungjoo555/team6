@@ -11,6 +11,7 @@ import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 import community.service.CommentService;
+import community.service.CommentServiceImp;
 import community.service.CommunityPrintService;
 import community.service.CommunityPrintServiceImp;
 import community.service.PostService;
@@ -34,6 +35,7 @@ public class CommunityController {
 		this.scan = scan;
 		userService = new UserServiceImp();
 		postService = new PostServiceImp();
+		commentService = new CommentServiceImp();
 		communityPrint = new CommunityPrintServiceImp();
 	}
 	
@@ -328,8 +330,7 @@ public class CommunityController {
 	private void runAdminCommentManage(int menu) {
 		switch (menu) {
 		case 1:
-			deleteComment();
-			System.out.println("댓글 삭제");
+			deleteAdminComment();
 			break;
 		case 2:
 			System.out.println("이전으로 돌아갑니다.");
@@ -340,11 +341,10 @@ public class CommunityController {
 	}
 
 	// 댓글 삭제
-	private void deleteComment() {
-		int a = menuSelectAll();
+	private void deleteAdminComment() {
+		int co_po_num = menuSelectAll();
 		
-		Comment com = new Comment(a);
-		List<Comment> CommentList = commentService.getCommentList(com);
+		List<Comment> CommentList = commentService.getCommentList(co_po_num);
 		
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if(CommentList == null || CommentList.size() == 0) {
@@ -368,7 +368,10 @@ public class CommunityController {
 		}
 
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(commentService.deleteComment(new Comment(co_num))) {
+		if(commentService.deleteAdminComment(co_num)) {
+			if(CommentList.size() == 0) {
+				commentService.resetNum();
+			}
 			System.out.println("댓글 삭제했습니다.");
 		}else {
 			System.out.println("댓글 삭제에 실패했습니다.");
@@ -636,12 +639,12 @@ public class CommunityController {
 			updateComment();
 			break;
 		case 3:
-			deleteAdminComment();			
+			deleteComment();			
 			break;
 		case 4:
 			printComment();
 			break;
-		case 5:
+		case 0:
 			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
 		default:
@@ -650,14 +653,14 @@ public class CommunityController {
 	}
 	
 	private void insertComment() {
-		int a = menuSelectAll();
+		int co_po_num = menuSelectAll();
 		
 		System.out.print("내용 : ");
 		scan.nextLine();
 		String co_content = scan.nextLine();
 		
 		// 입력받은 정보로 객체를 생성
-		Comment com = new Comment(a, user.getMe_id(), co_content);
+		Comment com = new Comment(user.getMe_id(), co_content, co_po_num);
 		
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
 		if(commentService.insertComment(com)) {
@@ -669,10 +672,9 @@ public class CommunityController {
 
 	// 유저가 댓글 수정(내용만 가능)
 	private void updateComment() {	
-		int a = menuSelectAll();
+		int co_po_num = menuSelectAll();
 		
-		Comment com = new Comment(a);
-		List<Comment> CommentList = commentService.getCommentList(com);
+		List<Comment> CommentList = commentService.getCommentList(co_po_num);
 
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if(CommentList == null || CommentList.size() == 0) {
@@ -714,11 +716,10 @@ public class CommunityController {
 	}
 	
 	// 댓글 삭제
-	private void deleteAdminComment() {
-		int a = menuSelectAll();
+	private void deleteComment() {
+		int co_po_num = menuSelectAll();
 		
-		Comment com = new Comment(a);
-		List<Comment> CommentList = commentService.getCommentList(com);
+		List<Comment> CommentList = commentService.getCommentList(co_po_num);
 		
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if(CommentList == null || CommentList.size() == 0) {
@@ -741,13 +742,14 @@ public class CommunityController {
 			return;
 		}
 		
-		// 본인이 작성한 댓글인지 확인
-		if(!CommentList.contains(new Comment(co_num, user.getMe_id()))) {
-			System.out.println("본인의 댓글이 아닙니다.");
-		}
-		
+		// 본인이 작성한 댓글인지 확인 후
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(commentService.deleteComment(new Comment(co_num))) {
+		if(commentService.deleteComment(new Comment(co_num, user.getMe_id()))) {
+			CommentList = commentService.getCommentList(co_po_num);
+			if(CommentList.size() == 0) {
+				if(commentService.resetNum()) {
+				}
+			}
 			System.out.println("댓글 삭제했습니다.");
 		}else {
 			System.out.println("댓글 삭제에 실패했습니다.");
@@ -756,10 +758,9 @@ public class CommunityController {
 
 	// 댓글 조회 
 	private void printComment() {
-		int a = menuSelectAll();
+		int co_po_num = menuSelectAll();
 		
-		Comment com = new Comment(a);
-		List<Comment> CommentList = commentService.getCommentList(com);
+		List<Comment> CommentList = commentService.getCommentList(co_po_num);
 
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if(CommentList == null || CommentList.size() == 0) {
@@ -782,13 +783,13 @@ public class CommunityController {
 			System.out.println(post);
 		}
 		System.out.print("게시글 번호 : ");
-		int num = scan.nextInt();
+		int po_num = scan.nextInt();
 		
 		//입력한 게시글 번호가 잘못된 값인지 확인
-		if(num > postList.size()) {
+		if(po_num > postList.size()) {
 			System.out.println("잘못된 게시글 번호입니다.");
 			return 0;
 		}
-		return num;
+		return po_num;
 	}
 }
