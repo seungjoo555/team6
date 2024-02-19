@@ -18,6 +18,7 @@ import community.service.PostService;
 import community.service.PostServiceImp;
 import community.service.UserService;
 import community.service.UserServiceImp;
+
 public class CommunityController {
 
 	private static Member user;
@@ -26,10 +27,9 @@ public class CommunityController {
 	private CommentService commentService;
 	private PostService postService;
 	private CommunityPrintService communityPrint;
-	
+
 	private CategoryController category = new CategoryController(scan);
-	
-	
+
 	public CommunityController(Scanner scan) {
 		if (scan == null) {
 			scan = new Scanner(System.in);
@@ -311,19 +311,19 @@ public class CommunityController {
 				System.out.print("메뉴선택 : ");
 				menu = scan.nextInt();
 				runAdminCommunityManager(menu);
-			}catch(InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println("없는 메뉴입니다.");
-				scan.nextLine();	//입력 버퍼 비우기
+				scan.nextLine(); // 입력 버퍼 비우기
 			}
 		} while (menu != 0);
 	}
 
 	private void runAdminCommunityManager(int menu) {
 		switch (menu) {
-		case 1:		// 카테고리 관리
+		case 1: // 카테고리 관리
 			category.categoryManager();
 			break;
-		case 2:		// 게시판 관리
+		case 2: // 게시판 관리
 			category.boardManager();
 			break;
 		case 3: // 게시글 관리
@@ -346,14 +346,14 @@ public class CommunityController {
 			try {
 				System.out.println("메뉴");
 				System.out.println("1. 게시글 삭제");
-        		System.out.println("2. 게시글 삭제");
+				System.out.println("2. 게시글 삭제");
 				System.out.println("0. 이전으로");
 				System.out.print("메뉴 선택 : ");
 				menu = scan.nextInt();
 				runAdminPostManage(menu);
-			}catch(InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println("없는 메뉴입니다.");
-				scan.nextLine();	//입력 버퍼 비우기
+				scan.nextLine(); // 입력 버퍼 비우기
 			}
 		} while (menu != 0);
 	}
@@ -412,9 +412,9 @@ public class CommunityController {
 				System.out.print("메뉴 선택 : ");
 				menu = scan.nextInt();
 				runAdminCommentManage(menu);
-			}catch(InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println("없는 메뉴입니다.");
-				scan.nextLine();	//입력 버퍼 비우기
+				scan.nextLine(); // 입력 버퍼 비우기
 			}
 		} while (menu != 0);
 	}
@@ -564,14 +564,14 @@ public class CommunityController {
 			System.out.print("메뉴 선택 : ");
 			menu = scan.nextInt();
 			runUpdateMy(menu);
-		}while(menu != 6 && user.getMe_id() != null);
+		} while (menu != 6 && user.getMe_id() != null);
 	}
 
 	private void runUpdateMy(int menu) {
 		String pwdRegex = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$";
 		String emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
-		switch(menu) {
-		case 1://비밀번호 수정
+		switch (menu) {
+		case 1:// 비밀번호 수정
 			do {
 				System.out.print("비밀번호(영문,숫자,특수문자포함 8~15자리) : ");
 				String pwd = scan.next();
@@ -591,7 +591,7 @@ public class CommunityController {
 				}
 			} while (true);
 			break;
-		case 2://이름 수정
+		case 2:// 이름 수정
 			do {
 				System.out.print("수정할 이름 : ");
 				String name = scan.next();
@@ -604,7 +604,7 @@ public class CommunityController {
 				}
 			} while (true);
 			break;
-		case 3://이메일 수정
+		case 3:// 이메일 수정
 			do {
 				System.out.print("이메일 : ");
 				String email = scan.next();
@@ -618,19 +618,19 @@ public class CommunityController {
 				}
 			} while (true);
 			break;
-		case 4://전화번호 수정
+		case 4:// 전화번호 수정
 			System.out.print("전화번호 : ");
 			String phone = scan.next();
 			user.setMe_phoneNum(phone);
 			break;
-		case 5://주소 수정
+		case 5:// 주소 수정
 			System.out.print("주소(oo시 oo구 oo동) : ");
 			scan.nextLine();
 			String addr = scan.nextLine();
 			user.setMe_address(addr);
 			break;
-		case 6://수정 끝내기
-			if(userService.updateMember(user)) {
+		case 6:// 수정 끝내기
+			if (userService.updateMember(user)) {
 				System.out.println("내정보 수정 완료");
 			} else {
 				System.out.println("수정에 실패했습니다.");
@@ -732,15 +732,84 @@ public class CommunityController {
 
 	// 게시글 조회
 	private void printPost() {
-		try {
-
-		} catch (Exception e) {
-
-		}
-		System.out.println("검색(제목/내용/작성자) : ");
-		String text = scan.next();
 		int page = 1;
 		int menu;
+		// 게시판 선택
+		List<BoardVO> boardList = postService.getBoardList();
+		for (BoardVO board : boardList) {
+			System.out.println(board);
+		}
+		if (boardList == null || boardList.size() == 0) {
+			System.out.println("게시글을 등록할 게시판이 없습니다.");
+			return;
+		}
+
+		System.out.print("게시판 번호를 선택하세요 : ");
+		int boardNum = scan.nextInt();
+
+		boolean ok = false;
+		// 입력 받은 게시판이 있으면 게시판 선택
+		for (BoardVO board : boardList) {
+			if (board.getBo_num() == boardNum) {
+				ok = true;
+				break;
+			}
+		}
+		if (!ok) {
+			System.out.println("조회할 게시판이 없습니다.");
+			return;
+		}
+
+		// 선택한 게시판 내 게시글 출력
+		List<Post> postList1 = postService.getPostList(boardNum);
+		for (Post post : postList1) {
+			System.out.println(post);
+		}
+		
+		System.out.println("1. 조회");
+		System.out.println("2. 검색");
+		System.out.println("0. 이전으로");
+		System.out.print("메뉴 선택 : ");
+		menu = scan.nextInt();
+		switch(menu) {
+			case 1:
+				Criteria cri = new Criteria(page, 10);
+				List<Post> postList = postService.getPostList(cri);
+				System.out.print("게시글 번호를 선택하세요 : ");
+				int postNum = scan.nextInt();
+				// 입력한 게시글 번호가 잘못된 값인지 확인
+				for (Post post : postList) {
+					if (post.getPo_num() == postNum) {
+						ok = true;
+						break;
+					}
+				}
+				if (!ok) {
+					System.out.println("조회할 게시글이 없습니다.");
+					return;
+				}
+				Post postContent = postService.getPostContent(postNum);
+				System.out.println(postContent.toString1());
+				postService.upView(postNum); // 조회수 증가
+				System.out.println("게시글을 조회했습니다.");
+				break;
+			case 2:
+				searchPost();
+				break;
+			case 0:
+				System.out.println("이전 메뉴로 돌아갑니다.");
+				break;
+			default:
+				System.out.println("잘못 선택");
+			}
+	}
+	
+	private void searchPost() {
+		int page = 1;
+		int menu;
+		System.out.println("검색(제목/내용/작성자) : ");
+		String text = scan.next();
+		
 		do {
 			Criteria cri = new Criteria(page, 10);
 			cri.setSearch(text);
@@ -756,6 +825,7 @@ public class CommunityController {
 			System.out.println("1. 이전 페이지");
 			System.out.println("2. 다음 페이지");
 			System.out.println("3. 게시글 조회");
+			System.out.println("0. 이전으로");
 			System.out.print("메뉴 선택 : ");
 			menu = scan.nextInt();
 			switch (menu) {
@@ -778,10 +848,14 @@ public class CommunityController {
 					System.out.println("게시글을 조회했습니다.");
 				}
 				break;
+			case 0:
+				System.out.println("이전 메뉴로 돌아갑니다.");
+				break;
 			default:
 				System.out.println("잘못 선택");
 			}
-		} while (menu != 3);
+		} while (menu != 0);
+		
 	}
 
 	// 게시글 등록
@@ -875,7 +949,7 @@ public class CommunityController {
 		int boardNum = scan.nextInt();
 
 		boolean ok = false;
-		// 입력 받은 게시판이 있으면 게시판 추가로 감
+		// 입력 받은 게시판이 있으면 게시글 추가
 		for (BoardVO board : boardList) {
 			if (board.getBo_num() == boardNum) {
 				ok = true;
@@ -902,9 +976,9 @@ public class CommunityController {
 				communityPrint.printComment();
 				menu = scan.nextInt();
 				runCommentManage(menu);
-			}catch(InputMismatchException e) {
+			} catch (InputMismatchException e) {
 				System.out.println("없는 메뉴입니다.");
-				scan.nextLine();	//입력 버퍼 비우기
+				scan.nextLine(); // 입력 버퍼 비우기
 			}
 		} while (menu != 0);
 	}
