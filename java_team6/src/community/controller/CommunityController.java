@@ -147,7 +147,7 @@ public class CommunityController {
 		do {
 			System.out.println("관리자메뉴");
 			System.out.println("1.사용자관리");
-			System.out.println("2.카페이용(추가,수정,삭제 가능) - 대기중");
+			System.out.println("2.카페이용(추가,수정,삭제 가능)");
 			System.out.println("3.로그아웃");
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
