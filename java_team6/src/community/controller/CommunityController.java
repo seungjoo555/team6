@@ -267,7 +267,6 @@ public class CommunityController {
 		}else {
 			System.out.println("요청을 승인하지 못했습니다.");
 		}
-		
 	}
 
 	private void deleteMember() {
@@ -296,7 +295,7 @@ public class CommunityController {
 			System.out.println("요청을 승인하지 못했습니다.");
 		}
 	}
-
+  
 	private void adminCommunityManageMenu() {
 		int menu;
 		do {
@@ -443,7 +442,8 @@ public class CommunityController {
 			System.out.println("본인의 댓글이 아닙니다.");
 		}
 
-		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
+		// 입력받은 댓글 번호를 서비스에 넘겨 댓글 삭제 후
+		// 댓글이 비었으면 댓글 번호를 1로 초기화
 		if(commentService.deleteAdminComment(co_num)) {
 			if(CommentList.size() == 0) {
 				commentService.resetNum();
@@ -961,7 +961,8 @@ public class CommunityController {
 		}
 		
 		// 본인이 작성한 댓글인지 확인 후
-		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
+		// 입력받은 댓글 번호를 서비스에 넘겨 댓글 삭제 후
+		// 댓글이 비었으면 댓글 번호를 1로 초기화
 		if(commentService.deleteComment(new Comment(co_num, user.getMe_id()))) {
 			CommentList = commentService.getCommentList(co_po_num);
 			if(CommentList.size() == 0) {
