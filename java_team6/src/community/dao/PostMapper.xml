@@ -73,6 +73,6 @@
 	</update>
 	
 	<select id="selectPost" resultType="community.model.vo.Post">
-		select po_me_id from post where po_num = #{post.po_num}
+		select post.* from post join member on po_me_id = me_id where me_id = #{me_id};
 	</select>
 </mapper>

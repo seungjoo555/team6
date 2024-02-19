@@ -55,9 +55,4 @@ public class Post {
 		po_num = postNum;
 	}
 
-	public Post(int postNum, String id) {
-		this.po_num = postNum;
-		this.po_me_id = id;
-	}
-
 }
