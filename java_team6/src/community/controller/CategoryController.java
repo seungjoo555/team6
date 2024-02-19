@@ -309,28 +309,6 @@ public class CategoryController {
 
 	// 조회
 	private void selectCategory() {
-		System.out.println("1.카테고리 전체 조회");
-		System.out.println("2.카테고리 상세 조회");
-		System.out.println("0.뒤로 가기");
-		System.out.println("---------------");
-		System.out.println("메뉴 입력 : ");
-		int menu = sc.nextInt();
-		switch (menu) {
-		case 0:
-			System.out.println(">>>>>>\n뒤로가기");
-			break;
-		case 1:
-			// 전체 조회
-			allCategory();
-			break;
-		case 2:
-			// 개별 조회 카테고리 조회시 안에 있는 게시판까지 보여주기
-			eachCategory();
-			break;
-		default:
-			System.out.println(">>>>>>\n잘못 입력 하셨습니다. 다시 입력하세요");
-			// 뒤로가기
-
 		List<CategoryVO> caList = caService.selectCategoryList();
 		if (!caList.isEmpty()) {
 			for (CategoryVO tmp : caList) {
