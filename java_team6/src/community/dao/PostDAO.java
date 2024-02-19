@@ -32,5 +32,4 @@ public interface PostDAO {
 
 	List<Post> selectPost(Member id);
 
-	boolean deleteComment(int postNum);
 }

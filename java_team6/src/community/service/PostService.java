@@ -31,5 +31,4 @@ public interface PostService {
 
 	List<Post> getPost(Member id);
 
-	boolean deleteComment(int postNum);
 }

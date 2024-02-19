@@ -707,15 +707,17 @@ public class CommunityController {
 
 	// 게시글 조회
 	private void printPost() {
-		try {
-
-		} catch (Exception e) {
-
-		}
-		System.out.println("검색(제목/내용/작성자) : ");
-		String text = scan.next();
 		int page = 1;
 		int menu;
+
+		List<Post> postList1 = postService.getPostList();
+		for(Post post : postList1) {
+			System.out.println(post);
+		}
+		
+		
+		System.out.println("검색(제목/내용/작성자) : ");
+		String text = scan.next();
 		do {
 			Criteria cri = new Criteria(page, 10);
 			cri.setSearch(text);
@@ -731,6 +733,7 @@ public class CommunityController {
 			System.out.println("1. 이전 페이지");
 			System.out.println("2. 다음 페이지");
 			System.out.println("3. 게시글 조회");
+			System.out.println("0. 이전으로");
 			System.out.print("메뉴 선택 : ");
 			menu = scan.nextInt();
 			switch (menu) {
@@ -753,10 +756,13 @@ public class CommunityController {
 					System.out.println("게시글을 조회했습니다.");
 				}
 				break;
+			case 0:
+				System.out.println("이전 메뉴로 돌아갑니다.");
+				break;
 			default:
 				System.out.println("잘못 선택");
 			}
-		} while (menu != 3);
+		} while (menu != 0);
 	}
 
 	// 게시글 등록

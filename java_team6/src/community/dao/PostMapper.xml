@@ -34,7 +34,7 @@
 	
 	<!-- 게시글 삭제 -->
 	<delete id="deletePost">
-		delete from comment where po_num = #{post.po_num}
+		delete from post where po_num = #{postNum}
 	</delete>
 	
 	<!-- 조회수 업 -->
@@ -78,8 +78,4 @@
 		select post.* from post join member on po_me_id = me_id where me_id = #{me_id};
 	</select>
 	
-	<!-- 게시글 삭제시 댓글 삭제 -->
-	<delete id="deleteComment">
-	delete from comment where cm_po_num = #{post.po_num}
-	</delete>
 </mapper>
