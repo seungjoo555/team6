@@ -7,17 +7,16 @@ use community;
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE IF NOT EXISTS`member` (
-   `me_id`   varchar(15)   primary key NOT NULL,
-    `me_pw`   varchar(20)   NOT NULL,
-   `me_email`   varchar(30)   NOT NULL,
-    `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
-   `me_address`   varchar(30)   NOT NULL,
-   `me_phoneNum`   varchar(13)   NOT NULL,
-    `me_name`   varchar(30)   NOT NULL
+	`me_id`   varchar(15)   primary key NOT NULL,
+	`me_pw`   varchar(20)   NOT NULL,
+	`me_email`   varchar(30)   NOT NULL,
+	`me_authority` varchar(5) NOT NULL DEFAULT 'USER',
+	`me_address`   varchar(30)   NOT NULL,
+	`me_phoneNum`   varchar(13)   NOT NULL,
+	`me_name`   varchar(30)   NOT NULL,
+	`me_ms_state` VARCHAR(10) NOT NULL
 );
 
-ALTER TABLE `member`
-ADD COLUMN `me_ms_state` VARCHAR(10) NOT NULL DEFAULT '가입요청' AFTER `me_name`;
 
 DROP TABLE IF EXISTS `member_state`;
 
@@ -114,13 +113,13 @@ REFERENCES `post` (
 ALTER TABLE `comment` ADD CONSTRAINT `FK_board_TO_comment_1` FOREIGN KEY (
 	`co_bo_num`
 )
-REFERENCES `post` (
+REFERENCES `board` (
 	`bo_num`
 );
 
 ALTER TABLE `comment` ADD CONSTRAINT `FK_category_TO_comment_1` FOREIGN KEY (
 	`co_ca_num`
 )
-REFERENCES `post` (
+REFERENCES `category` (
 	`ca_num`
 );

@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS`member` (
     `me_ms_state` VARCHAR(10) NOT NULL
 );
 
-DROP TABLE IF EXISTS `member`;
+-- DROP TABLE IF EXISTS `member`;
 
 -- CREATE TABLE `member` (
 -- 	`me_id`	varchar(15)	primary key,
