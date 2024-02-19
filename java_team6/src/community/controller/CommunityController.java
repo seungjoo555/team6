@@ -148,7 +148,7 @@ public class CommunityController {
 		do {
 			System.out.println("관리자메뉴");
 			System.out.println("1.사용자관리");
-			System.out.println("2.카페이용(추가,수정,삭제 가능) - 대기중");
+			System.out.println("2.카페이용(추가,수정,삭제 가능)");
 			System.out.println("3.로그아웃");
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
@@ -757,7 +757,11 @@ public class CommunityController {
 		}
 		
 		Post post = inputPost();
-		post.setPo_num(postNum);
+		try {
+			post.setPo_num(postNum);
+		}catch(Exception e) {
+			System.out.println("잘못된 게시판 번호입니다.");
+		}
 		if (postService.updatePost(post)) {
 			postService.updateView(postNum); // 수정시 조회수 0으로 변경
 			System.out.println("게시글 수정이 완료되었습니다.");
@@ -805,6 +809,7 @@ public class CommunityController {
 			System.out.println("게시글을 등록할 게시판이 없습니다.");
 			return null;
 		}
+
 		System.out.print("게시판 번호를 선택하세요 : ");
 		int boardNum = scan.nextInt();
 

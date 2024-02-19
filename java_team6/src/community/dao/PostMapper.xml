@@ -72,6 +72,7 @@
 			po_num = #{post.po_num};
 	</update>
 	
+	<!-- 로그인한 사용자 게시글만 출력 -->
 	<select id="selectPost" resultType="community.model.vo.Post">
 		select post.* from post join member on po_me_id = me_id where me_id = #{me_id};
 	</select>
