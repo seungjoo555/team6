@@ -1,7 +1,5 @@
 package university.service;
 
-import java.util.List;
-
 import university.School;
 
 public interface FileService {

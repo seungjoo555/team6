@@ -9,25 +9,38 @@ CREATE TABLE `category` (
     `ca_num` INT PRIMARY KEY AUTO_INCREMENT,
     `ca_title` VARCHAR(10) NOT NULL unique
 );
-
 DROP TABLE IF EXISTS `member`;
 
-CREATE TABLE `member` (
-	`me_id`	varchar(15)	primary key,
-	`me_name`	varchar(15)	NOT NULL,
-	`me_pw`	varchar(20)	NOT NULL,
-	`me_email`	varchar(30)	NOT NULL,
+CREATE TABLE IF NOT EXISTS`member` (
+	`me_id`   varchar(15)   primary key NOT NULL,
+    `me_pw`   varchar(20)   NOT NULL,
+	`me_email`   varchar(30)   NOT NULL,
     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
-	`me_address`	varchar(30)	NOT NULL,
-	`me_phoneNum`	varchar(13)	NOT NULL
+	`me_address`   varchar(30)   NOT NULL,
+	`me_phoneNum`   varchar(11)   NOT NULL,
+    `me_name`   varchar(30)   NOT NULL,
+    `me_ms_state` VARCHAR(10) NOT NULL
 );
+
+-- DROP TABLE IF EXISTS `member`;
+
+-- CREATE TABLE `member` (
+-- 	`me_id`	varchar(15)	primary key,
+-- 	`me_name`	varchar(15)	NOT NULL,
+-- 	`me_pw`	varchar(20)	NOT NULL,
+-- 	`me_email`	varchar(30)	NOT NULL,
+--     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
+-- 	`me_address`	varchar(30)	NOT NULL,
+-- 	`me_phoneNum`	varchar(11)	NOT NULL
+-- );
 
 DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (
+	`bo_ca_num` int not null,
 	`bo_num`	int	primary key auto_increment,
-	`bo_name`	varchar(10)	NOT NULL,
-    `bo_ca_num` int not null
+	`bo_name`	varchar(10)	NOT NULL
+   
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -57,7 +70,6 @@ REFERENCES `category` (
 	`ca_num`
 );
 
-
 ALTER TABLE `post` ADD CONSTRAINT `FK_member_TO_post_1` FOREIGN KEY (
 	`po_me_id`
 )
@@ -85,3 +97,29 @@ ALTER TABLE `comment` ADD CONSTRAINT `FK_post_TO_comment_1` FOREIGN KEY (
 REFERENCES `post` (
 	`po_num`
 );
+
+DROP TABLE IF EXISTS `member_state`;
+
+CREATE TABLE `member_state` (
+   `ms_state`   varchar(10)   primary key
+);
+
+ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
+   `me_ms_state`
+)
+REFERENCES `member_state` (
+   `ms_state`
+);
+
+insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
+
+# 관리자계정 만들어두기
+insert into `member` values('admin','admin','admin@admin.com','ADMIN','admin시 admin구 admin동','01099999999','어드민','관리자');
+
+#킹스맨  카페 카테고리
+insert into `category` values(1,'킹스맨');
+insert into `category` values(2,'키스맨');
+#킹스맨 카페 게시판
+insert into `board` values(1,'킹스맨공지게시판',1);
+insert into `board` values(2,'키스맨공지게시판',2);
+

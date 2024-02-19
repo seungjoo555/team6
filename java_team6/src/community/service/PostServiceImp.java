@@ -9,24 +9,25 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import community.dao.CommunityDAO;
+import community.dao.PostDAO;
 import community.model.vo.BoardVO;
+import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 
-public class CommunityServiceImp implements CommunityService {
+public class PostServiceImp implements PostService {
 	
-	private CommunityDAO communityDao;
+	private PostDAO postDao;
 	private InputStream inputStream;
 	private SqlSession session;
 	
-	public CommunityServiceImp() {
+	public PostServiceImp() {
 		String resource = "community/config/mybatis-config.xml";
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
 			SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 			session = sessionFactory.openSession(true);
-			communityDao = session.getMapper(CommunityDAO.class);
+			postDao = session.getMapper(PostDAO.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -34,7 +35,7 @@ public class CommunityServiceImp implements CommunityService {
 
 	@Override
 	public List<BoardVO> getBoardList() {
-		return communityDao.selectBoardList();
+		return postDao.selectBoardList();
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class CommunityServiceImp implements CommunityService {
 				|| post.getPo_me_id() == null) {
 			return false;
 		}
-		boolean res = communityDao.insertPost(post);
+		boolean res = postDao.insertPost(post);
 		if(res) {
 			session.commit();
 		}
@@ -54,7 +55,7 @@ public class CommunityServiceImp implements CommunityService {
 
 	@Override
 	public List<Post> getPostList() {
-		return communityDao.selectPostList();
+		return postDao.selectPostList();
 	}
 
 	@Override
@@ -65,17 +66,17 @@ public class CommunityServiceImp implements CommunityService {
 				|| post.getPo_me_id() == null) {
 			return false;
 		}
-		return communityDao.updatePost(post);
+		return postDao.updatePost(post);
 	}
 
 	@Override
 	public boolean deletePost(int postNum) {
-		return communityDao.deletePost(postNum);
+		return postDao.deletePost(postNum);
 	}
 
 	@Override
 	public boolean upView(int postNum) {
-		return communityDao.upView(postNum);
+		return postDao.upView(postNum);
 		
 	}
 
@@ -84,17 +85,21 @@ public class CommunityServiceImp implements CommunityService {
 		if(cri == null) {
 			cri = new Criteria();
 		}
-		return communityDao.selectPostListSearch(cri);
+		return postDao.selectPostListSearch(cri);
 	}
 
 	@Override
 	public Post getPostContent(int postNum) {
-		return communityDao.selectPostContent(postNum);
+		return postDao.selectPostContent(postNum);
 	}
 
 	@Override
 	public boolean updateView(int postNum) {
-		return communityDao.updateView(postNum);
+		return postDao.updateView(postNum);
 	}
 
+	@Override
+	public List<Post> getPost(Member id) {
+		return postDao.selectPost(id);
+	}
 }
