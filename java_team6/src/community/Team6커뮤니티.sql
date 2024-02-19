@@ -74,13 +74,6 @@ REFERENCES `category` (
 	`ca_num`
 );
 
-ALTER TABLE `board` ADD CONSTRAINT `FK_community_TO_board_1` FOREIGN KEY (
-	`bo_ca_num`
-)
-REFERENCES `category` (
-	`ca_num`
-);
-
 ALTER TABLE `post` ADD CONSTRAINT `FK_member_TO_post_1` FOREIGN KEY (
    `po_me_id`
 )
@@ -108,6 +101,30 @@ ALTER TABLE `comment` ADD CONSTRAINT `FK_post_TO_comment_1` FOREIGN KEY (
 REFERENCES `post` (
 	`po_num`
 );
+
+ALTER TABLE `community`.`board` 
+DROP FOREIGN KEY `FK_category_TO_board_1`;
+ALTER TABLE `community`.`board` 
+ADD CONSTRAINT `FK_category_TO_board_1`
+  FOREIGN KEY (`bo_ca_num`)
+  REFERENCES `community`.`category` (`ca_num`)
+  ON DELETE CASCADE;
+
+ALTER TABLE `community`.`comment` 
+DROP FOREIGN KEY `FK_post_TO_comment_1`;
+ALTER TABLE `community`.`comment` 
+ADD CONSTRAINT `FK_post_TO_comment_1`
+  FOREIGN KEY (`co_po_num`)
+  REFERENCES `community`.`post` (`po_num`)
+  ON DELETE CASCADE;
+
+ALTER TABLE `community`.`post` 
+DROP FOREIGN KEY `FK_board_TO_post_1`;
+ALTER TABLE `community`.`post` 
+ADD CONSTRAINT `FK_board_TO_post_1`
+  FOREIGN KEY (`po_bo_num`)
+  REFERENCES `community`.`board` (`bo_num`)
+  ON DELETE CASCADE;
 
 insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
 
