@@ -388,7 +388,7 @@ public class CommunityController {
 		int co_po_num = menuSelectAll();
 		
 		List<Comment> CommentList = commentService.getCommentList(co_po_num);
-		
+
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if (CommentList == null || CommentList.size() == 0) {
 			System.out.println("해당 게시글에 댓글이 없어 삭제할 수 없습니다.");
@@ -814,7 +814,7 @@ public class CommunityController {
 			updateComment();
 			break;
 		case 3:
-			deleteComment();			
+			deleteComment();	
 			break;
 		case 4:
 			printComment();
@@ -829,14 +829,13 @@ public class CommunityController {
 
 	private void insertComment() {
 		int co_po_num = menuSelectAll();
-		
 		System.out.print("내용 : ");
 		scan.nextLine();
 		String co_content = scan.nextLine();
 
 		// 입력받은 정보로 객체를 생성
 		Comment com = new Comment(user.getMe_id(), co_content, co_po_num);
-		
+
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
 		if (commentService.insertComment(com)) {
 			System.out.println("댓글 추가했습니다.");
