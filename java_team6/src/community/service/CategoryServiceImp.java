@@ -38,7 +38,6 @@ public class CategoryServiceImp implements CategoryService {
 		if (ca_title == null ) {
 			return false;
 		}
-	
 		return caDao.insertCategory(ca_title);
 	}
 
@@ -66,7 +65,6 @@ public class CategoryServiceImp implements CategoryService {
 	@Override // 카테고리 조회
 	public List<CategoryVO> selectCategory(String ca_title) {
 		return caDao.selectCategory(ca_title);
-
 	}
 
 	
@@ -84,7 +82,6 @@ public class CategoryServiceImp implements CategoryService {
 		if (bo_ca_num == 0) {
 			return false;
 		}
-		
 		return caDao.insertBoard(bo_ca_num,bo_name);
 	}
 
@@ -96,7 +93,6 @@ public class CategoryServiceImp implements CategoryService {
 		if (checkBoardNum(bo_name)) {
 			return false;
 		}
-		
 		return caDao.updateBoard(bo_name,new_bo_name);
 	}
 
@@ -112,15 +108,11 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override // 게시판 조회
 	public ArrayList<BoardVO> selectBoardList(int bo_ca_num,String bo_name) {
-		
 		return caDao.selectBoardList(bo_ca_num,bo_name);
 	}
 
 	@Override//카테고리 조회
 	public List<CategoryVO> selectCategoryList() {
-		
 		return caDao.selectCategoryList();
 	}
-
-
 }

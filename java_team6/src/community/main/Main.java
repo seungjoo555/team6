@@ -3,12 +3,12 @@ package community.main;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
 import community.controller.CommunityController;
 
 public class Main {
 
 	private static CommunityController communityController;
+	
 	public static void main(String[] args) {
 		int menu = 0;
 		Scanner scan = new Scanner(System.in);
@@ -20,11 +20,12 @@ public class Main {
 				runMenu(menu);
 			}catch(InputMismatchException e) {
 				System.out.println("없는 메뉴입니다.");
-				scan.nextLine();//입력 버퍼 비우기
+				scan.nextLine();	//입력 버퍼 비우기
 			}
 		}while(menu != 3);
 
 	}
+	
 	private static void printMenu() {
 		System.out.println("킹스맨 카페");
 		System.out.println("1. 로그인");
@@ -32,6 +33,7 @@ public class Main {
 		System.out.println("3. 종료");
 		System.out.print("메뉴 선택 : ");
 	}
+	
 	private static void runMenu(int menu) {
 		switch(menu) {
 		case 1:
@@ -49,4 +51,3 @@ public class Main {
 	}
 
 }
-
