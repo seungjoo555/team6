@@ -37,8 +37,10 @@ CREATE TABLE IF NOT EXISTS`member` (
 DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (
+	`bo_ca_num` int not null,
 	`bo_num`	int	primary key auto_increment,
 	`bo_name`	varchar(10)	NOT NULL
+   
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -61,7 +63,12 @@ CREATE TABLE `comment` (
 	`co_po_num`	int	NOT NULL
 );
 
-
+ALTER TABLE `board` ADD CONSTRAINT `FK_category_TO_board_1` FOREIGN KEY (
+	`bo_ca_num`
+)
+REFERENCES `category` (
+	`ca_num`
+);
 
 ALTER TABLE `post` ADD CONSTRAINT `FK_member_TO_post_1` FOREIGN KEY (
 	`po_me_id`
@@ -108,3 +115,11 @@ insert into member_state values('가입요청'), ('회원'), ('이용정지'),('
 
 # 관리자계정 만들어두기
 insert into `member` values('admin','admin','admin@admin.com','ADMIN','admin시 admin구 admin동','01099999999','어드민','관리자');
+
+#킹스맨  카페 카테고리
+insert into `category` values(1,'킹스맨');
+insert into `category` values(2,'키스맨');
+#킹스맨 카페 게시판
+insert into `board` values(1,'킹스맨공지게시판',1);
+insert into `board` values(2,'키스맨공지게시판',2);
+
