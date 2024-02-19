@@ -103,4 +103,9 @@ public class PostServiceImp implements PostService {
 		return postDao.selectPost(id);
 	}
 
+	@Override
+	public List<Post> getPostList(int boardNum) {
+		return postDao.selectPostBolist(boardNum);
+	}
+
 }

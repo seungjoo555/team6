@@ -31,4 +31,6 @@ public interface PostService {
 
 	List<Post> getPost(Member id);
 
+	List<Post> getPostList(int boardNum);
+
 }

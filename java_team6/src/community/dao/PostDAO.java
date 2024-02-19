@@ -32,4 +32,6 @@ public interface PostDAO {
 
 	List<Post> selectPost(Member id);
 
+	List<Post> selectPostBolist(int boardNum);
+
 }
