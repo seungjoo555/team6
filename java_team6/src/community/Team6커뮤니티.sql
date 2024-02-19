@@ -7,17 +7,15 @@ use community;
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE IF NOT EXISTS`member` (
-   `me_id`   varchar(15)   primary key NOT NULL,
+   	`me_id`   varchar(15)   primary key NOT NULL,
     `me_pw`   varchar(20)   NOT NULL,
-   `me_email`   varchar(30)   NOT NULL,
+   	`me_email`   varchar(30)   NOT NULL,
     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
-   `me_address`   varchar(30)   NOT NULL,
-   `me_phoneNum`   varchar(11)   NOT NULL,
-    `me_name`   varchar(30)   NOT NULL
+   	`me_address`   varchar(30)   NOT NULL,
+   	`me_phoneNum`   varchar(13)   NOT NULL,
+    `me_name`   varchar(30)   NOT NULL,
+    `me_ms_state` VARCHAR(10) NOT NULL
 );
-
-ALTER TABLE `member`
-ADD COLUMN `me_ms_state` VARCHAR(10) NOT NULL DEFAULT '가입요청' AFTER `me_name`;
 
 DROP TABLE IF EXISTS `member_state`;
 
@@ -50,8 +48,6 @@ CREATE TABLE `comment` (
     `co_num` INT PRIMARY KEY AUTO_INCREMENT,
     `co_content` VARCHAR(100) NOT NULL,
     `co_me_id` VARCHAR(15) NOT NULL,
-    `co_ca_num` INT NOT NULL,
-    `co_bo_num` INT NOT NULL,
     `co_po_num` INT NOT NULL
 );
 
@@ -61,6 +57,10 @@ CREATE TABLE `category` (
     `ca_num` INT PRIMARY KEY AUTO_INCREMENT,
     `ca_title` VARCHAR(10) NULL
 );
+
+insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
+
+insert into `member` values('admin','admin','admin@admin.com','ADMIN','admin시 admin구 admin동','01099999999','어드민','관리자');
 
 ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
    `me_ms_state`
@@ -111,20 +111,3 @@ REFERENCES `post` (
 	`po_num`
 );
 
-ALTER TABLE `comment` ADD CONSTRAINT `FK_board_TO_comment_1` FOREIGN KEY (
-	`co_bo_num`
-)
-REFERENCES `post` (
-	`bo_num`
-);
-
-ALTER TABLE `comment` ADD CONSTRAINT `FK_category_TO_comment_1` FOREIGN KEY (
-	`co_ca_num`
-)
-REFERENCES `post` (
-	`ca_num`
-);
-
-insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
-
-insert into `member` values('admin','admin','admin@admin.com','ADMIN','admin시 admin구 admin동','01099999999','어드민','관리자');
