@@ -6,7 +6,7 @@ import community.model.vo.BoardVO;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 
-public interface CommunityService {
+public interface PostService {
 	//게시글
 	List<BoardVO> getBoardList();
 

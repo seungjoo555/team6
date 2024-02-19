@@ -9,7 +9,7 @@ import community.model.vo.Post;
 import community.pagination.Criteria;
 
 
-public interface CommunityDAO {
+public interface PostDAO {
 
 	List<BoardVO> selectBoardList();
 
