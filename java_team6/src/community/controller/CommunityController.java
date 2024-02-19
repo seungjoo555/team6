@@ -341,7 +341,7 @@ public class CommunityController {
 	}
 
 	private void AdminPostManage() {
-		int menu;
+		int menu = 0;
 		do {
 			try {
 				System.out.println("메뉴");

@@ -7,15 +7,17 @@ use community;
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE IF NOT EXISTS`member` (
-   	`me_id`   varchar(15)   primary key NOT NULL,
+   `me_id`   varchar(15)   primary key NOT NULL,
     `me_pw`   varchar(20)   NOT NULL,
-   	`me_email`   varchar(30)   NOT NULL,
+   `me_email`   varchar(30)   NOT NULL,
     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
-   	`me_address`   varchar(30)   NOT NULL,
-   	`me_phoneNum`   varchar(13)   NOT NULL,
-    `me_name`   varchar(30)   NOT NULL,
-    `me_ms_state` VARCHAR(10) NOT NULL
+   `me_address`   varchar(30)   NOT NULL,
+   `me_phoneNum`   varchar(13)   NOT NULL,
+    `me_name`   varchar(30)   NOT NULL
 );
+
+ALTER TABLE `member`
+ADD COLUMN `me_ms_state` VARCHAR(10) NOT NULL DEFAULT '가입요청' AFTER `me_name`;
 
 DROP TABLE IF EXISTS `member_state`;
 
@@ -58,10 +60,6 @@ CREATE TABLE `category` (
     `ca_title` VARCHAR(10) NULL
 );
 
-insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
-
-insert into `member` values('admin','admin','admin@admin.com','ADMIN','admin시 admin구 admin동','01099999999','어드민','관리자');
-
 ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
    `me_ms_state`
 )
@@ -71,6 +69,13 @@ REFERENCES `member_state` (
 
 ALTER TABLE `board` ADD CONSTRAINT `FK_category_TO_board_1` FOREIGN KEY (
     `bo_ca_num`
+)
+REFERENCES `category` (
+	`ca_num`
+);
+
+ALTER TABLE `board` ADD CONSTRAINT `FK_community_TO_board_1` FOREIGN KEY (
+	`bo_ca_num`
 )
 REFERENCES `category` (
 	`ca_num`
@@ -104,3 +109,22 @@ REFERENCES `post` (
 	`po_num`
 );
 
+insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
+
+# 관리자계정 만들어두기
+insert into `member` values('admin','admin','admin@admin.com','ADMIN','admin시 admin구 admin동','01099999999','어드민','관리자');
+insert into `member` values('jkh123','!jkh1234','jkh123@admin.com','USER','서울시 강남구 역삼동','01099939999','정경호','회원');
+insert into `member` values('lbh123','!lbh1234','jkh123@admin.com','USER','서울시 강남구 역삼동','01099939299','임병훈','이용정지');
+insert into `member` values('lcb123','!lcb1234','jkh123@admin.com','USER','서울시 강남구 역삼동','01099939599','이철범','이용정지');
+#킹스맨  카페 카테고리
+insert into `category`(ca_title) values('킹스맨');
+insert into `category`(ca_title) values('키스맨');
+
+#킹스맨 카페 게시판
+insert into `board`(bo_name, bo_ca_num) values('킹스맨공지게시판',1);
+insert into `board`(bo_name, bo_ca_num) values('키스맨공지게시판',2);
+
+insert into `post`(po_title, po_content, po_me_id, po_bo_num) values('ㅋㅋㅋ','ㅋㅋㅋㅋㅋ','jkh123',1);
+
+insert into comment(co_content, co_me_id, co_po_num) values('좋습니다', 'jkh123', 1);
+insert into comment(co_content, co_me_id, co_po_num) values('좋아요', 'lbh123', 1);
