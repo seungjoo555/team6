@@ -766,7 +766,7 @@ public class CommunityController {
 			System.out.println(post);
 		}
 		System.out.println("1. 조회");
-		System.out.println("2. 검색");
+		System.out.println("2. 전체 검색");
 		System.out.println("0. 이전으로");
 		System.out.print("메뉴 선택 : ");
 		menu = scan.nextInt();
