@@ -346,7 +346,7 @@ public class CommunityController {
 			try {
 				System.out.println("메뉴");
 				System.out.println("1. 게시글 삭제");
-				System.out.println("2. 게시글 삭제");
+				System.out.println("2. 게시글 조회");
 				System.out.println("0. 이전으로");
 				System.out.print("메뉴 선택 : ");
 				menu = scan.nextInt();
