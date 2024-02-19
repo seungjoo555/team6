@@ -17,16 +17,18 @@ import community.service.PostService;
 import community.service.PostServiceImp;
 import community.service.UserService;
 import community.service.UserServiceImp;
-
 public class CommunityController {
 
 	private static Member user;
+	public static Scanner scan;
 	private UserService userService;
 	private CommentService commentService;
 	private PostService postService;
-	private Scanner scan;
 	private CommunityPrintService communityPrint;
-
+	
+	private CategoryController category = new CategoryController(scan);
+	
+	
 	public CommunityController(Scanner scan) {
 		if (scan == null) {
 			scan = new Scanner(System.in);
@@ -37,47 +39,7 @@ public class CommunityController {
 		communityPrint = new CommunityPrintServiceImp();
 	}
 	
-	public void boardRun() {
-		int menu;
-		do {
-			printCommunityMenu();
-			menu = scan.nextInt();
-			runCommunitymenu(menu);
-		}while(menu != 4);
-	}
 
-	private void printCommunityMenu() {
-		System.out.println("관리자메뉴");
-		System.out.println("1.게시판 관리");
-		System.out.println("2.게시글 관리");
-		System.out.println("3.댓글 관리");
-		System.out.println("4.이전으로");
-		System.out.print("메뉴선택 : ");
-	}
-
-	private void runCommunitymenu(int menu) {
-		switch(menu) {
-		case 1:
-			// 게시판 관리
-			break;
-		case 2:
-			// 게시글 관리
-			break;
-		case 3: 
-			// 댓글 관리
-			break;
-		case 4:
-			System.out.println("이전으로");
-		default:
-			System.out.println("잘못된 번호");
-			break;
-		}
-		this.scan = scan;
-		userService = new UserServiceImp();
-		postService = new PostServiceImp();
-		communityPrint = new CommunityPrintServiceImp();
-	}
-	
 	public void rogIn() {
 		// 로그인체크
 		System.out.print("아이디 : ");
@@ -186,7 +148,7 @@ public class CommunityController {
 		do {
 			System.out.println("관리자메뉴");
 			System.out.println("1.사용자관리");
-			System.out.println("2.카페이용(추가,수정,삭제 가능) - 대기중");
+			System.out.println("2.카페이용");
 			System.out.println("3.로그아웃");
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
@@ -308,11 +270,11 @@ public class CommunityController {
 
 	private void runAdminCommunityManager(int menu) {
 		switch (menu) {
-		case 1:		// 커뮤니티 관리
-			System.out.println("미구현");
+		case 1:		// 카테고리 관리
+			category.categoryManager();
 			break;
 		case 2:		// 게시판 관리
-			System.out.println("미구현");
+			category.boardManager();
 			break;
 		case 3:		// 게시글 관리
 			System.out.println("미구현");
