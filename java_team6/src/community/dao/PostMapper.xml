@@ -71,5 +71,4 @@
 		where 
 			po_num = #{post.po_num};
 	</update>
-	
 </mapper>

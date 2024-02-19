@@ -25,5 +25,4 @@ public interface PostService {
 	Post getPostContent(int postNum);
 
 	boolean updateView(int postNum);
-	
 }

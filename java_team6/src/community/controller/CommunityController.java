@@ -255,7 +255,7 @@ public class CommunityController {
 		do {
 			System.out.println("메뉴");
 			System.out.println("1.내정보관리");
-			System.out.println("2.카페이용(게시글, 댓글) - 대기중");
+			System.out.println("2.카페이용(게시글, 댓글)");
 			System.out.println("3.로그아웃");
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
@@ -486,7 +486,7 @@ public class CommunityController {
 		System.out.print("내용 : ");
 		String content = scan.next();
 		System.out.print("작성자 : ");
-		String id = scan.next();
+		String id = scan.next(); 
 
 		return new Post(boardNum, title, content, id);
 	}
