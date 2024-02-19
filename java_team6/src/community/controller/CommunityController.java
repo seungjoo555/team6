@@ -293,6 +293,8 @@ public class CommunityController {
 			System.out.println(me_id + " 의 정보를 삭제했습니다.");
 		}else {
 			System.out.println("요청을 승인하지 못했습니다.");
+		}
+	}
 
 	private void adminCommunityManageMenu() {
 		int menu;
