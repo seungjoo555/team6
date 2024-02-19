@@ -1,19 +1,35 @@
-drop database if exists communityteam6;
+drop database if exists community;
 
-create database if not exists communityTeam6;
+create database if not exists community;
 
-use communityTeam6;
+use community;
 
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE IF NOT EXISTS`member` (
    `me_id`   varchar(15)   primary key NOT NULL,
-   `me_pw`   varchar(20)   NOT NULL,
+    `me_pw`   varchar(20)   NOT NULL,
    `me_email`   varchar(30)   NOT NULL,
-   `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
+    `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
    `me_address`   varchar(30)   NOT NULL,
-   `me_phoneNum`   varchar(11)   NOT NULL,
-   `me_name`   varchar(30)   NOT NULL
+   `me_phoneNum`   varchar(13)   NOT NULL,
+    `me_name`   varchar(30)   NOT NULL
+);
+
+ALTER TABLE `member`
+ADD COLUMN `me_ms_state` VARCHAR(10) NOT NULL DEFAULT '가입요청' AFTER `me_name`;
+
+DROP TABLE IF EXISTS `member_state`;
+
+CREATE TABLE `member_state` (
+   `ms_state` varchar(10)   primary key
+);
+
+ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
+   `me_ms_state`
+)
+REFERENCES `member_state` (
+   `ms_state`
 );
 
 DROP TABLE IF EXISTS `board`;
@@ -21,7 +37,7 @@ DROP TABLE IF EXISTS `board`;
 CREATE TABLE `board` (
     `bo_num` INT PRIMARY KEY AUTO_INCREMENT,
     `bo_name` VARCHAR(10) NOT NULL,
-    `cm_num` INT NOT NULL
+    `bo_ca_num` INT NOT NULL
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -50,10 +66,17 @@ DROP TABLE IF EXISTS `category`;
 
 CREATE TABLE `category` (
     `ca_num` INT PRIMARY KEY AUTO_INCREMENT,
-    `ca_name` VARCHAR(10) NULL
+    `ca_title` VARCHAR(10) NULL
 );
 
 ALTER TABLE `board` ADD CONSTRAINT `FK_category_TO_board_1` FOREIGN KEY (
+    `bo_ca_num`
+)
+REFERENCES `category` (
+	`ca_num`
+);
+
+ALTER TABLE `board` ADD CONSTRAINT `FK_community_TO_board_1` FOREIGN KEY (
 	`bo_ca_num`
 )
 REFERENCES `category` (

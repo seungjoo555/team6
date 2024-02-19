@@ -311,68 +311,7 @@ public class CategoryController {
 
 	// 조회
 	private void selectCategory() {
-		System.out.println("1.카테고리 전체 조회");
-		System.out.println("2.카테고리 개별 조회");
-		System.out.println("0.뒤로 가기");
-		System.out.println("---------------");
-		System.out.println("메뉴 입력 : ");
-		int menu = sc.nextInt();
-		switch (menu) {
-		case 0:
-			// 뒤로가기
-			System.out.println(">>>>>>\n뒤로가기");
-			break;
-		case 1:
-			// 전체 조회
-			allCategory();
-			break;
-		case 2:
-			// 개별 조회 카테고리 조회시 안에 있는 게시판까지 보여주기
-			eachCategory();
-			break;
-		default:
-			System.out.println(">>>>>>\n잘못 입력 하셨습니다. 다시 입력하세요");
-		}
-	}
 
-	// 카테고리 개별 조회 메서드
-	private void eachCategory() {
-		System.out.println("구현중");
-//		List<CategoryVO> cvList = caService.selectCategoryList();
-//		if (cvList.isEmpty()) {
-//			System.out.println(">>>>>>\n존재하는 카테고리가 없습니다.\n카테고리를 추가후 다시 실행하세요.");
-//			return;
-//		}
-//		for (CategoryVO cv : cvList) {
-//			System.out.println(cv);
-//		}
-//		System.out.print("카테고리 번호를 선택하세요 : ");
-//		int bo_ca_num = sc.nextInt();
-//
-//		boolean ok = false;
-//		for (CategoryVO cv : cvList) {
-//			if (cv.getCa_num() == bo_ca_num) {
-//				ok = true;
-//				break;
-//			}
-//		}
-//		if (!ok) {
-//			System.out.println(">>>>>>\n존재하는 카테고리가 없습니다.");
-//			return;
-//		}
-//		List<BoardVO> bvList = caService.selectBoardList(bo_ca_num, null);
-//		if (bvList.isEmpty()) {
-//			System.out.println(">>>>>>\n---게시판 목록 비어있음---");
-//		} else {
-//			for (BoardVO bv : bvList) {
-//				System.out.println(bv);
-//			}
-//		}
-
-	}
-
-	// 카테고리 전체 조회 메서드
-	private void allCategory() {
 		List<CategoryVO> caList = caService.selectCategoryList();
 		if (!caList.isEmpty()) {
 			for (CategoryVO tmp : caList) {

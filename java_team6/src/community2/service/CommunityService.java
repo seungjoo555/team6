@@ -1,16 +1,14 @@
-package community.service;
+package community2.service;
 
 import java.util.List;
 
-import community.model.vo.BoardVO;
-import community.model.vo.CategoryVO;
-import community.model.vo.Comment;
-import community.model.vo.Post;
-import community.pagination.Criteria;
+import community2.model.vo.Board;
+import community2.model.vo.Post;
+import community2.pagination.Criteria;
 
 public interface CommunityService {
-	//게시글
-	List<BoardVO> getBoardList();
+
+	List<Board> getBoardList();
 
 	boolean insertPost(Post post);
 

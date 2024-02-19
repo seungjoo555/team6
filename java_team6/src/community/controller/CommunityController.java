@@ -6,13 +6,13 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import community.model.vo.BoardVO;
-import community.model.vo.CategoryVO;
-import community.model.vo.Comment;
 import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
-import community.service.CommentService;
-import community.service.CommunityService;
+import community.service.CommunityPrintService;
+import community.service.CommunityPrintServiceImp;
+import community.service.PostService;
+import community.service.PostServiceImp;
 import community.service.UserService;
 import community.service.UserServiceImp;
 
@@ -21,9 +21,9 @@ public class CommunityController {
 	private static Member user;
 	private Scanner scan;
 	private UserService userService;
-	private CommunityService communityService;
 	private CommentService commentService;
-	
+	private PostService postService;
+
 	public CommunityController(Scanner scan) {
 		if (scan == null) {
 			scan = new Scanner(System.in);
@@ -66,8 +66,10 @@ public class CommunityController {
 		}
 		this.scan = scan;
 		userService = new UserServiceImp();
+		postService = new PostServiceImp();
+		communityPrint = new CommunityPrintServiceImp();
 	}
-
+	
 	public void rogIn() {
 		// 로그인체크
 		System.out.print("아이디 : ");
@@ -409,7 +411,7 @@ public class CommunityController {
 			break;
 		case 2:
 			System.out.println("미구현");
-			cafeManage(); // 게시글 관리
+			cafeManage(); // 카페이용
 			break;
 		case 3:
 			System.out.println(user.getMe_id() + "님 로그아웃 완료");
@@ -452,16 +454,11 @@ public class CommunityController {
 	private void postManage() {
 		int menu;
 		do {
-			System.out.println("메뉴");
-			System.out.println("1. 게시글 등록");
-			System.out.println("2. 게시글 수정");
-			System.out.println("3. 게시글 삭제");
-			System.out.println("4. 게시글 조회");
-			System.out.println("5. 이전으로");
-			System.out.print("메뉴 선택 : ");
+			communityPrint.printPost();
 			menu = scan.nextInt();
 			runPostManage(menu);
-		} while (menu != 5);
+		} while (menu != 0);
+		
 	}
 
 	private void runPostManage(int menu) {
@@ -478,7 +475,7 @@ public class CommunityController {
 		case 4:
 			printPost();
 			break;
-		case 5:
+		case 0:
 			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
 		default:
@@ -495,7 +492,7 @@ public class CommunityController {
 		do {
 			Criteria cri = new Criteria(page, 10);
 			cri.setSearch(text);
-			List<Post> postList = communityService.getPostList(cri);
+			List<Post> postList = postService.getPostList(cri);
 			if (postList == null || postList.size() == 0) {
 				System.out.println("조회할 게시글이 없습니다.");
 			} else {
@@ -523,9 +520,9 @@ public class CommunityController {
 				if (!postList.contains(new Post(postNum))) {
 					System.out.println("잘못된 게시글 번호입니다.");
 				} else {
-					Post postContent = communityService.getPostContent(postNum);
+					Post postContent = postService.getPostContent(postNum);
 					System.out.println(postContent.toString1());
-					communityService.upView(postNum); // 조회수 증가
+					postService.upView(postNum); // 조회수 증가
 					System.out.println("게시글을 조회했습니다.");
 				}
 				break;
@@ -538,7 +535,7 @@ public class CommunityController {
 	// 게시글 등록
 	private void insertPost() {
 		Post post = inputPost();
-		if (communityService.insertPost(post)) {
+		if (postService.insertPost(post)) {
 			System.out.println("게시글을 등록했습니다.");
 		} else {
 			System.out.println("게시글 등록에 실패했습니다.");
@@ -548,7 +545,7 @@ public class CommunityController {
 	// 게시글 수정
 	private void updatePost() {
 		// 게시글 선택
-		List<Post> postList = communityService.getPostList();
+		List<Post> postList = postService.getPostList();
 		if (postList == null || postList.size() == 0) {
 			System.out.println("수정할 게시글이 없습니다.");
 			return;
@@ -567,8 +564,8 @@ public class CommunityController {
 
 		Post post = inputPost();
 		post.setPo_num(postNum);
-		if (communityService.updatePost(post)) {
-			communityService.updateView(postNum); // 수정시 조회수 0으로 변경
+		if (postService.updatePost(post)) {
+			postService.updateView(postNum); // 수정시 조회수 0으로 변경
 			System.out.println("게시글 수정이 완료되었습니다.");
 		} else {
 			System.out.println("게시글을 수정하지 못했습니다.");
@@ -577,7 +574,7 @@ public class CommunityController {
 
 	// 게시글 삭제
 	private void deletePost() {
-		List<Post> postList = communityService.getPostList();
+		List<Post> postList = postService.getPostList();
 		if (postList == null || postList.size() == 0) {
 			System.out.println("삭제할 게시글이 없습니다.");
 			return;
@@ -594,7 +591,7 @@ public class CommunityController {
 			return;
 		}
 
-		if (communityService.deletePost(postNum)) {
+		if (postService.deletePost(postNum)) {
 			System.out.println("게시글을 삭제했습니다.");
 		} else {
 			System.out.println("게시글을 삭제하지 못했습니다.");
@@ -603,7 +600,7 @@ public class CommunityController {
 
 	private Post inputPost() {
 		// 게시판 선택
-		List<BoardVO> boardList = communityService.getBoardList();
+		List<BoardVO> boardList = postService.getBoardList();
 		for (BoardVO board : boardList) {
 			System.out.println(board);
 		}
@@ -613,9 +610,17 @@ public class CommunityController {
 		}
 		System.out.print("게시판 번호를 선택하세요 : ");
 		int boardNum = scan.nextInt();
-		// 입력한 게시판 번호가 잘못된 값인지 확인
-		if (!boardList.contains(new BoardVO(boardNum))) {
-			System.out.println("잘못된 게시판 번호입니다.");
+		
+		boolean ok = false;
+		// 입력 받은 게시판이 있으면 게시판 추가로 감
+		for (BoardVO board : boardList) {
+			if (board.getBo_num() == boardNum) {
+				ok = true;
+				break;
+			}
+		}
+		if (!ok) {
+			System.out.println("게시글을 등록할 게시판이 없습니다.");
 			return null;
 		}
 

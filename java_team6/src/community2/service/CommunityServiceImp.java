@@ -1,4 +1,4 @@
-package community.service;
+package community2.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +25,7 @@ public class CommunityServiceImp implements CommunityService {
 	private SqlSession session;
 	
 	public CommunityServiceImp() {
-		String resource = "community/config/mybatis-config.xml";
+		String resource = "community2/config/mybatis-config.xml";
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
 			SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -37,7 +37,7 @@ public class CommunityServiceImp implements CommunityService {
 	}
 	
 	@Override
-	public List<BoardVO> getBoardList() {
+	public List<Board> getBoardList() {
 		return communityDao.selectBoardList();
 	}
 
