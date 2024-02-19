@@ -25,13 +25,6 @@ CREATE TABLE `member_state` (
    `ms_state` varchar(10)   primary key
 );
 
-ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
-   `me_ms_state`
-)
-REFERENCES `member_state` (
-   `ms_state`
-);
-
 DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (
@@ -55,7 +48,7 @@ DROP TABLE IF EXISTS `comment`;
 
 CREATE TABLE `comment` (
     `co_num` INT PRIMARY KEY AUTO_INCREMENT,
-    `co_content` TEXT NOT NULL,
+    `co_content` VARCHAR(100) NOT NULL,
     `co_me_id` VARCHAR(15) NOT NULL,
     `co_ca_num` INT NOT NULL,
     `co_bo_num` INT NOT NULL,
@@ -67,6 +60,13 @@ DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
     `ca_num` INT PRIMARY KEY AUTO_INCREMENT,
     `ca_title` VARCHAR(10) NULL
+);
+
+ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
+   `me_ms_state`
+)
+REFERENCES `member_state` (
+   `ms_state`
 );
 
 ALTER TABLE `board` ADD CONSTRAINT `FK_category_TO_board_1` FOREIGN KEY (
