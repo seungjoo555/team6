@@ -480,7 +480,7 @@ public class CommunityController {
 			System.out.println("게시글을 등록할 게시판이 없습니다.");
 			return null;
 		}
-
+		
 		System.out.print("제목 : ");
 		String title = scan.next();
 		System.out.print("내용 : ");
