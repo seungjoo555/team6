@@ -9,6 +9,17 @@ CREATE TABLE `category` (
     `ca_num` INT PRIMARY KEY AUTO_INCREMENT,
     `ca_title` VARCHAR(10) NOT NULL unique
 );
+DROP TABLE IF EXISTS `member`;
+
+CREATE TABLE IF NOT EXISTS`member` (
+   `me_id`   varchar(15)   primary key NOT NULL,
+    `me_pw`   varchar(20)   NOT NULL,
+   `me_email`   varchar(30)   NOT NULL,
+    `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
+   `me_address`   varchar(30)   NOT NULL,
+   `me_phoneNum`   varchar(11)   NOT NULL,
+    `me_name`   varchar(30)   NOT NULL
+);
 
 DROP TABLE IF EXISTS `member`;
 
@@ -19,15 +30,14 @@ CREATE TABLE `member` (
 	`me_email`	varchar(30)	NOT NULL,
     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
 	`me_address`	varchar(30)	NOT NULL,
-	`me_phoneNum`	varchar(13)	NOT NULL
+	`me_phoneNum`	varchar(11)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `board`;
 
 CREATE TABLE `board` (
 	`bo_num`	int	primary key auto_increment,
-	`bo_name`	varchar(10)	NOT NULL,
-    `bo_ca_num` int not null
+	`bo_name`	varchar(10)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -50,12 +60,6 @@ CREATE TABLE `comment` (
 	`co_po_num`	int	NOT NULL
 );
 
-ALTER TABLE `board` ADD CONSTRAINT `FK_category_TO_board_1` FOREIGN KEY (
-	`bo_ca_num`
-)
-REFERENCES `category` (
-	`ca_num`
-);
 
 
 ALTER TABLE `post` ADD CONSTRAINT `FK_member_TO_post_1` FOREIGN KEY (
@@ -85,3 +89,20 @@ ALTER TABLE `comment` ADD CONSTRAINT `FK_post_TO_comment_1` FOREIGN KEY (
 REFERENCES `post` (
 	`po_num`
 );
+ALTER TABLE `member` 
+ADD COLUMN `me_ms_state` VARCHAR(10) NOT NULL AFTER `me_name`;
+
+DROP TABLE IF EXISTS `member_state`;
+
+CREATE TABLE `member_state` (
+   `ms_state`   varchar(10)   primary key
+);
+
+ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
+   `me_ms_state`
+)
+REFERENCES `member_state` (
+   `ms_state`
+);
+
+insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
