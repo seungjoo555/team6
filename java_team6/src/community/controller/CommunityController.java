@@ -299,7 +299,7 @@ public class CommunityController {
 	}
 
 	private void adminCommunityManageMenu() {
-		int menu;
+		int menu = 0;
 		do {
 			try {
 				System.out.println("사용자 관리");
@@ -315,8 +315,6 @@ public class CommunityController {
 				System.out.println("없는 메뉴입니다.");
 				scan.nextLine();	//입력 버퍼 비우기
 			}
-			menu = scan.nextInt();
-			runAdminCommunityManager(menu);
 		} while (menu != 0);
 	}
 
@@ -348,7 +346,7 @@ public class CommunityController {
 			try {
 				System.out.println("메뉴");
 				System.out.println("1. 게시글 삭제");
-        System.out.println("2. 게시글 삭제");
+        		System.out.println("2. 게시글 삭제");
 				System.out.println("0. 이전으로");
 				System.out.print("메뉴 선택 : ");
 				menu = scan.nextInt();
@@ -404,15 +402,20 @@ public class CommunityController {
 	}
 
 	private void AdmincommentManage() {
-		int menu;
+		int menu = 0;
 		do {
-			System.out.println("메뉴");
-			System.out.println("1. 댓글 조회");
-			System.out.println("2. 댓글 삭제");
-			System.out.println("0. 이전으로");
-			System.out.print("메뉴 선택 : ");
-			menu = scan.nextInt();
-			runAdminCommentManage(menu);
+			try {
+				System.out.println("메뉴");
+				System.out.println("1. 댓글 조회");
+				System.out.println("2. 댓글 삭제");
+				System.out.println("0. 이전으로");
+				System.out.print("메뉴 선택 : ");
+				menu = scan.nextInt();
+				runAdminCommentManage(menu);
+			}catch(InputMismatchException e) {
+				System.out.println("없는 메뉴입니다.");
+				scan.nextLine();	//입력 버퍼 비우기
+			}
 		} while (menu != 0);
 	}
 
