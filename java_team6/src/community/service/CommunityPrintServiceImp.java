@@ -2,7 +2,7 @@ package community.service;
 
 public class CommunityPrintServiceImp implements CommunityPrintService {
 
-	@Override //메인메뉴 출력
+	@Override	// 메인메뉴 출력
 	public void printMainMenu() {
 		System.out.println("----메인메뉴----");
 		System.out.println("1.커뮤니티 관리");
@@ -13,10 +13,21 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("0.프로그램 종료");
 		System.out.println("--------------");
 		System.out.println("메뉴 입력 : ");
-		
 	}
 
-	@Override //게시판 출력
+	@Override	// 커뮤니티 출력
+	public void printCommunity() {
+		System.out.println("----커뮤니티----");
+		System.out.println("1.커뮤니티 추가");
+		System.out.println("2.커뮤니티 수정");
+		System.out.println("3.커뮤니티 삭제");
+		System.out.println("4.커뮤니티 조회");
+		System.out.println("0.프로그램 종료");
+		System.out.println("--------------");
+		System.out.println("메뉴 입력 : ");
+	}
+	
+	@Override	// 게시판 출력
 	public void printBoard() {
 		System.out.println("----게시판----");
 		System.out.println("1.게시판 추가");
@@ -26,10 +37,9 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("0.뒤로 가기");
 		System.out.println("------------");
 		System.out.println("메뉴 입력 : ");
-		
 	}
 
-	@Override //게시글 출력
+	@Override	// 게시글 출력
 	public void printPost() {
 		System.out.println("----게시글----");
 		System.out.println("1.게시글 추가");
@@ -39,11 +49,9 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("0.뒤로 가기");
 		System.out.println("------------");
 		System.out.println("메뉴 입력 : ");
-
-		
 	}
 
-	@Override //댓글 출력
+	@Override	// 댓글 출력
 	public void printComment() {
 		System.out.println("----댓 글----");
 		System.out.println("1.댓글 추가");
@@ -53,7 +61,6 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("0.뒤로 가기");
 		System.out.println("------------");
 		System.out.println("메뉴 입력 : ");
-		
 	}
 
 	@Override //회원 출력
@@ -66,20 +73,5 @@ public class CommunityPrintServiceImp implements CommunityPrintService {
 		System.out.println("0.뒤로 가기");
 		System.out.println("------------");
 		System.out.println("메뉴 입력 : ");
-		
 	}
-
-	@Override
-	public void printCommunity() {
-		System.out.println("----커뮤니티----");
-		System.out.println("1.커뮤니티 추가");
-		System.out.println("2.커뮤니티 수정");
-		System.out.println("3.커뮤니티 삭제");
-		System.out.println("4.커뮤니티 조회");
-		System.out.println("0.프로그램 종료");
-		System.out.println("--------------");
-		System.out.println("메뉴 입력 : ");
-		
-	}
-
 }
