@@ -1,6 +1,5 @@
 package community.controller;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,10 +8,13 @@ import community.model.vo.CategoryVO;
 import community.model.vo.Post;
 import community.service.CategoryService;
 import community.service.CategoryServiceImp;
+import community.service.PostService;
+import community.service.PostServiceImp;
 
 // 카테고리 관리 겸 게시판 관리 클래스
 public class CategoryController {
 
+	private PostService poService = new PostServiceImp();
 	private CategoryService caService;
 	private Scanner sc;
 
@@ -255,8 +257,8 @@ public class CategoryController {
 		}
 	}
 
-	// 게시판 조회
-	private void selectBoard() {
+	// 게시판 전체 조회
+	private void allBoard() {
 		List<BoardVO> bvList = caService.selectBoardList(0, null);
 		if (!bvList.isEmpty()) {
 			for (BoardVO tmp : bvList) {
@@ -266,6 +268,67 @@ public class CategoryController {
 			System.out.println(">>>>>>\n조회 가능한 게시판이 없습니다.");
 		}
 	}
+	private void selectBoard() {
+		int menu;
+		System.out.println("게시판 조회");
+		System.out.println("1.게시판 전체 조회");
+		System.out.println("2.게시판 상세 조회");
+		System.out.println("---------------");
+		System.out.print("메뉴 입력 : ");
+		menu = sc.nextInt();
+		switch (menu) {
+		case 1:
+			allBoard();
+			break;
+		case 2:
+			eachBoard();
+			break;
+		default:
+			System.out.println(">>>>>>\n잘못 입력 하셨습니다. 다시 입력하세요");
+
+		}
+	}
+	// 게시판 상세 조회
+	private void eachBoard() {
+		try {
+		List<BoardVO> boList = caService.selectBoardList(0,null);
+		if (!boList.isEmpty()) {
+			// 카테고리 리스트 출력
+			for (BoardVO tmp : boList) {
+				System.out.println(tmp);
+			}
+		} else {
+			System.out.println(">>>>>>\n조회 가능한 게시판이 없습니다.");
+			return;
+		}
+		// 카테고리 번호 입력
+		
+		System.out.print("게시판 번호를 입력하세요 : ");
+		int po_bo_num = sc.nextInt();
+		
+	
+		List<Post> poList = poService.selectEachPostList(po_bo_num);
+		// 없으면 리턴
+		if (poList.isEmpty()) {
+			System.out.println(">>>>>>\n조회 가능한 게시판이 없습니다.");
+			return;
+		} else {
+			System.out.println(">>>>>>\n선택한 게시판의 게시글 목록");
+			for (Post tmp : poList) {
+				System.out.println(tmp);
+
+			}
+
+		}
+	} catch (Exception e) {
+		System.out.println(">>>>>>\n게시판 안이 비어 있습니다.\n게시글을 추가하세요."+e.getMessage());
+	}
+	return;
+
+}
+		
+		
+	
 
 	// 게시판 메뉴 출력
 	private void printBoard() {
@@ -377,7 +440,7 @@ public class CategoryController {
 
 			}
 		} catch (Exception e) {
-			System.out.println(">>>>>>\n카테고리 안이 비어 있습니다.\n게시판을 추가하세요."+e.getMessage());
+			System.out.println(">>>>>>\n카테고리 안이 비어 있습니다.\n게시판을 추가하세요.");
 		}
 		return;
 
