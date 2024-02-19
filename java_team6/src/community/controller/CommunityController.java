@@ -555,21 +555,43 @@ public class CommunityController {
 		int menu;
 		do {
 			System.out.println("수정할 내용 선택");
-			System.out.println("1. 이름");
-			System.out.println("2. 이메일");
-			System.out.println("3. 전화번호");
-			System.out.println("4. 주소");
-			System.out.println("5. 수정 끝내기");
+			System.out.println("1. 비밀번호");
+			System.out.println("2. 이름");
+			System.out.println("3. 이메일");
+			System.out.println("4. 전화번호");
+			System.out.println("5. 주소");
+			System.out.println("6. 수정 끝내기");
 			System.out.print("메뉴 선택 : ");
 			menu = scan.nextInt();
 			runUpdateMy(menu);
-		} while (menu != 5 && user.getMe_id() != null);
+		}while(menu != 6 && user.getMe_id() != null);
 	}
 
 	private void runUpdateMy(int menu) {
+		String pwdRegex = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$";
 		String emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
-		switch (menu) {
-		case 1:// 이름 수정
+		switch(menu) {
+		case 1://비밀번호 수정
+			do {
+				System.out.print("비밀번호(영문,숫자,특수문자포함 8~15자리) : ");
+				String pwd = scan.next();
+				System.out.print("비밀번호 확인 : ");
+				String pwd2 = scan.next();
+				if (!pwd.equals(pwd2)) {
+					System.out.println("비밀번호와 확인부분이 다릅니다. 다시 입력 해주세요.");
+					continue;
+				}
+				if (Pattern.matches(pwdRegex, pwd)) {
+					System.out.println("비밀번호로 사용 가능합니다.");
+					user.setMe_pw(pwd);
+					break;
+				} else {
+					System.out.println("비밀번호 형식에 맞지 않습니다.");
+					continue;
+				}
+			} while (true);
+			break;
+		case 2://이름 수정
 			do {
 				System.out.print("수정할 이름 : ");
 				String name = scan.next();
@@ -582,7 +604,7 @@ public class CommunityController {
 				}
 			} while (true);
 			break;
-		case 2:// 이메일 수정
+		case 3://이메일 수정
 			do {
 				System.out.print("이메일 : ");
 				String email = scan.next();
@@ -596,19 +618,19 @@ public class CommunityController {
 				}
 			} while (true);
 			break;
-		case 3:// 전화번호 수정
+		case 4://전화번호 수정
 			System.out.print("전화번호 : ");
 			String phone = scan.next();
 			user.setMe_phoneNum(phone);
 			break;
-		case 4:// 주소 수정
+		case 5://주소 수정
 			System.out.print("주소(oo시 oo구 oo동) : ");
 			scan.nextLine();
 			String addr = scan.nextLine();
 			user.setMe_address(addr);
 			break;
-		case 5:// 수정 끝내기
-			if (userService.updateMember(user)) {
+		case 6://수정 끝내기
+			if(userService.updateMember(user)) {
 				System.out.println("내정보 수정 완료");
 			} else {
 				System.out.println("수정에 실패했습니다.");
