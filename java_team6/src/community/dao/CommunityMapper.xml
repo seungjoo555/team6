@@ -72,4 +72,9 @@
 			po_num = #{post.po_num};
 	</update>
 	
+<mapper namespace="community.dao.CommunityDAO">
+	<insert id="insertMember">
+		INSERT INTO member(me_id, me_pw, me_name, me_enail, me_addr, me_phoneNum)
+		VALUES(#{member.me_id},#{item.it_date},#{item.it_money},#{item.it_content})
+	</insert>
 </mapper>

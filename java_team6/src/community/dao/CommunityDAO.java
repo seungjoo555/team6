@@ -35,4 +35,12 @@ public interface CommunityDAO {
 	List<Comment> selectCommentList(@Param("com") Comment com);
 	
 	boolean deleteComment(@Param("com") Comment com);
+import org.apache.ibatis.annotations.Param;
+
+import community.model.vo.MemberVO;
+
+public interface CommunityDAO {
+
+	boolean insertMember(@Param("member") MemberVO member);
+
 }

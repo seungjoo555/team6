@@ -35,7 +35,7 @@ public class CommunityServiceImp implements CommunityService {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	public List<BoardVO> getBoardList() {
 		return communityDao.selectBoardList();

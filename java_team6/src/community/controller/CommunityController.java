@@ -27,6 +27,42 @@ public class CommunityController {
 	public CommunityController(Scanner scan) {
 		if (scan == null) {
 			scan = new Scanner(System.in);
+	private CommunityService communityService = new CommunityServiceImp();
+	Scanner scan;
+	
+	public CommunityController(Scanner scan) {
+		if(scan == null) {
+			scan = new Scanner(System.in);
+		}
+		this.scan = scan;
+		communityService = new CommunityServiceImp();
+	}
+	
+	public void boardRun() {
+		int menu;
+		do {
+			printCommunityMenu();
+			menu = scan.nextInt();
+			runCommunitymenu(menu);
+		}while(menu != 4);
+	}
+
+	private void runCommunitymenu(int menu) {
+		switch(menu) {
+		case 1:
+			// 게시판 관리
+			break;
+		case 2:
+			// 게시글 관리
+			break;
+		case 3: 
+			// 댓글 관리
+			break;
+		case 4:
+			System.out.println("이전으로");
+		default:
+			System.out.println("잘못된 번호");
+			break;
 		}
 		this.scan = scan;
 		userService = new UserServiceImp();
