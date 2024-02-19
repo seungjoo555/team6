@@ -676,7 +676,7 @@ public class CommunityController {
 
 	// 게시글 조회
 	private void printPost() {
-		System.out.println("검색(제목/내용) : ");
+		System.out.println("검색(제목/내용/작성자) : ");
 		String text = scan.next();
 		int page = 1;
 		int menu;

@@ -53,7 +53,8 @@
 		    post
 		WHERE
 			po_title like concat(#{cri.search}, '%') or
-			po_content like concat(#{cri.search}, '%')
+			po_content like concat(#{cri.search}, '%') or
+			po_me_id like concat(#{cri.search}, '%')
 		order by po_title desc
 		LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
