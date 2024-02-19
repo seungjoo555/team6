@@ -36,24 +36,6 @@ public class CommunityController {
 		postService = new PostServiceImp();
 		communityPrint = new CommunityPrintServiceImp();
 	}
-	
-	public void boardRun() {
-		int menu;
-		do {
-			printCommunityMenu();
-			menu = scan.nextInt();
-			runCommunitymenu(menu);
-		}while(menu != 4);
-	}
-
-	private void printCommunityMenu() {
-		System.out.println("관리자메뉴");
-		System.out.println("1.게시판 관리");
-		System.out.println("2.게시글 관리");
-		System.out.println("3.댓글 관리");
-		System.out.println("4.이전으로");
-		System.out.print("메뉴선택 : ");
-	}
 
 	private void runCommunitymenu(int menu) {
 		switch(menu) {
@@ -315,7 +297,7 @@ public class CommunityController {
 			System.out.println("미구현");
 			break;
 		case 3:		// 게시글 관리
-			System.out.println("미구현");
+			AdminPostManage();
 			break;
 		case 4:		// 댓글 관리
 			AdmincommentManage();
@@ -326,6 +308,32 @@ public class CommunityController {
 		default:
 			throw new InputMismatchException();
 		}
+	}
+
+	private void AdminPostManage() {
+		int menu;
+		do {
+			System.out.println("메뉴");
+			System.out.println("1. 게시글 삭제");
+			System.out.println("2. 이전으로");
+			System.out.print("메뉴 선택 : ");
+			menu = scan.nextInt();
+			runAdminPostManage(menu);
+		} while (menu != 2);
+	}
+
+	private void runAdminPostManage(int menu) {
+		switch (menu) {
+		case 1:
+			deletePost();
+			break;
+		case 2:
+			System.out.println("이전으로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+		
 	}
 
 	private void AdmincommentManage() {
