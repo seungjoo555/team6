@@ -14,6 +14,7 @@ public class Post {
 	private String po_content;
 	private int po_view;
 	private String po_me_id;
+	private int po_ca_num;
 	private int po_bo_num;
 	
 	@Override

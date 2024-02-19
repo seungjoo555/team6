@@ -9,14 +9,18 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import community2.dao.CommunityDAO;
-import community2.model.vo.Board;
-import community2.model.vo.Post;
-import community2.pagination.Criteria;
+import community.dao.CommentDAO;
+import community.dao.CommunityDAO;
+import community.model.vo.BoardVO;
+import community.model.vo.CategoryVO;
+import community.model.vo.Comment;
+import community.model.vo.Post;
+import community.pagination.Criteria;
 
 public class CommunityServiceImp implements CommunityService {
 	
 	private CommunityDAO communityDao;
+	private CommentDAO commentDao;
 	private InputStream inputStream;
 	private SqlSession session;
 	
@@ -31,7 +35,7 @@ public class CommunityServiceImp implements CommunityService {
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	public List<Board> getBoardList() {
 		return communityDao.selectBoardList();
