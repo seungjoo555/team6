@@ -1,4 +1,5 @@
 package community.controller;
+
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@버퍼 비우기@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 import java.util.List;
 import java.util.Scanner;
