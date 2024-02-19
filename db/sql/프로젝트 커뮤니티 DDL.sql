@@ -22,17 +22,17 @@ CREATE TABLE IF NOT EXISTS`member` (
     `me_ms_state` VARCHAR(10) NOT NULL
 );
 
-DROP TABLE IF EXISTS `member`;
+#DROP TABLE IF EXISTS `member`;
 
-CREATE TABLE `member` (
-	`me_id`	varchar(15)	primary key,
-	`me_name`	varchar(15)	NOT NULL,
-	`me_pw`	varchar(20)	NOT NULL,
-	`me_email`	varchar(30)	NOT NULL,
-    `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
-	`me_address`	varchar(30)	NOT NULL,
-	`me_phoneNum`	varchar(11)	NOT NULL
-);
+-- CREATE TABLE `member` (
+-- 	`me_id`	varchar(15)	primary key,
+-- 	`me_name`	varchar(15)	NOT NULL,
+-- 	`me_pw`	varchar(20)	NOT NULL,
+-- 	`me_email`	varchar(30)	NOT NULL,
+--     `me_authority` varchar(5) NOT NULL DEFAULT 'USER',
+-- 	`me_address`	varchar(30)	NOT NULL,
+-- 	`me_phoneNum`	varchar(11)	NOT NULL
+-- );
 
 DROP TABLE IF EXISTS `board`;
 
