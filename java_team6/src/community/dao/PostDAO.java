@@ -36,4 +36,6 @@ public interface PostDAO {
 	List<Comment> selectCommentList(@Param("com") Comment com);
 	
 	boolean deleteComment(@Param("com") Comment com);
+
+	List<Post> selectPost();
 }

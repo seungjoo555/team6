@@ -60,7 +60,7 @@
 	
 	<!-- 게시글 조회 시 내용 출력 -->
 	<select id="selectPostContent" resultType="community.model.vo.Post">
-		select po_content as po_content from post where po_num = #{post.po_num}
+		select po_content from post where po_num = #{post.po_num}
 	</select>
 	
 	<!-- 게시글 수정 시 조회수 0 -->
@@ -71,4 +71,8 @@
 		where 
 			po_num = #{post.po_num};
 	</update>
+	
+	<select id="selectPost" resultType="community.model.vo.Post">
+		select po_me_id from post where po_num = #{post.po_num}
+	</select>
 </mapper>
