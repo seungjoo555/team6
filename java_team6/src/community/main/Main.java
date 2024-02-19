@@ -4,17 +4,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import community.controller.CommunityController;
-import community.controller.MemberController;
 
 public class Main {
 
-	private static MemberController memberController;
 	private static CommunityController communityController;
 	
 	public static void main(String[] args) {
 		int menu = 0;
 		Scanner scan = new Scanner(System.in);
-		memberController = new MemberController(scan);
 		communityController = new CommunityController(scan);
 		
 		do {

@@ -6,9 +6,11 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import community.model.vo.BoardVO;
+import community.model.vo.Comment;
 import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
+import community.service.CommentService;
 import community.service.CommunityPrintService;
 import community.service.CommunityPrintServiceImp;
 import community.service.PostService;
@@ -19,23 +21,20 @@ import community.service.UserServiceImp;
 public class CommunityController {
 
 	private static Member user;
-	private Scanner scan;
 	private UserService userService;
 	private CommentService commentService;
 	private PostService postService;
+	private Scanner scan;
+	private CommunityPrintService communityPrint;
 
 	public CommunityController(Scanner scan) {
 		if (scan == null) {
 			scan = new Scanner(System.in);
-	private CommunityService communityService = new CommunityServiceImp();
-	Scanner scan;
-	
-	public CommunityController(Scanner scan) {
-		if(scan == null) {
-			scan = new Scanner(System.in);
 		}
 		this.scan = scan;
-		communityService = new CommunityServiceImp();
+		userService = new UserServiceImp();
+		postService = new PostServiceImp();
+		communityPrint = new CommunityPrintServiceImp();
 	}
 	
 	public void boardRun() {
@@ -45,6 +44,15 @@ public class CommunityController {
 			menu = scan.nextInt();
 			runCommunitymenu(menu);
 		}while(menu != 4);
+	}
+
+	private void printCommunityMenu() {
+		System.out.println("관리자메뉴");
+		System.out.println("1.게시판 관리");
+		System.out.println("2.게시글 관리");
+		System.out.println("3.댓글 관리");
+		System.out.println("4.이전으로");
+		System.out.print("메뉴선택 : ");
 	}
 
 	private void runCommunitymenu(int menu) {
@@ -348,17 +356,14 @@ public class CommunityController {
 
 	// 댓글 삭제
 	private void deleteComment() {
-		int[] a = menuSelectAll();
-		if(a == null) {
-			return;
-		}
+		int a = menuSelectAll();
 		
-		Comment com = new Comment(a[0], a[1], a[2]);
+		Comment com = new Comment(a);
 		List<Comment> CommentList = commentService.getCommentList(com);
 		
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if(CommentList == null || CommentList.size() == 0) {
-			System.out.println("본인 댓글이 없어 수정할 수 없습니다.");
+			System.out.println("해당 게시글에 댓글이 없어 삭제할 수 없습니다.");
 			return;
 		}
 		
@@ -383,7 +388,7 @@ public class CommunityController {
 		}
 		
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(commentService.deleteComment(new Comment(a[0], a[1], a[2], co_num))) {
+		if(commentService.deleteComment(new Comment(co_num))) {
 			System.out.println("댓글 삭제했습니다.");
 		}else {
 			System.out.println("댓글 삭제에 실패했습니다.");
@@ -672,17 +677,14 @@ public class CommunityController {
 	}
 	
 	private void insertComment() {
-		int[] a = menuSelectAll();
-		if(a == null || a.length == 0) {
-			return;
-		}
+		int a = menuSelectAll();
 		
 		System.out.print("내용 : ");
 		scan.nextLine();
 		String co_content = scan.nextLine();
 		
 		// 입력받은 정보로 객체를 생성
-		Comment com = new Comment(a[0], a[1], a[2], user.getMe_id(), co_content);
+		Comment com = new Comment(a, user.getMe_id(), co_content);
 		
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
 		if(commentService.insertComment(com)) {
@@ -694,12 +696,9 @@ public class CommunityController {
 
 	// 유저가 댓글 수정(내용만 가능)
 	private void updateComment() {	
-		int[] a = menuSelectAll();
-		if(a == null) {
-			return;
-		}
+		int a = menuSelectAll();
 		
-		Comment com = new Comment(a[0], a[1], a[2]);
+		Comment com = new Comment(a);
 		List<Comment> CommentList = commentService.getCommentList(com);
 
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
@@ -743,51 +742,40 @@ public class CommunityController {
 
 	// 댓글 조회 
 	private void printComment() {
+		int a = menuSelectAll();
 		
+		Comment com = new Comment(a);
+		List<Comment> CommentList = commentService.getCommentList(com);
+
+		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
+		if(CommentList == null || CommentList.size() == 0) {
+			System.out.println("댓글이 없어 조회할 수 없습니다.");
+			return;
+		}
+		
+		// 출력
+		for(Comment comment : CommentList) {
+			System.out.println(comment);
+		}
 	}
 
-	// 게시글 찾기 위해 입력받기
-	private int[] menuSelectAll() {
-		int a[] = new int[3];
+	// 게시글 번호 입력받기
+	private int menuSelectAll() {
+		List<Post> postList = postService.getPostList();
 		
-		List<CategoryVO> categoryList = commentService.getCategoryList();
-		// categoryList 내역 출력
-		for(CategoryVO category : categoryList) {
-			System.out.println(category);
-		}
-		System.out.print("카테고리 번호 : ");
-		a[0] = scan.nextInt();
-		//입력한 게시판 번호가 잘못된 값인지 확인
-		if(a[0] > categoryList.size()) {
-			System.out.println("잘못된 카테고리 번호입니다.");
-			return null;
-		}
-		
-		List<BoardVO> boardList = communityService.getBoardList();
-		// boardList 출력
-		for(BoardVO board : boardList) {
-			System.out.println(board);
-		}
-		System.out.print("게시판 번호 : ");
-		a[1] = scan.nextInt();
-		//입력한 게시판 번호가 잘못된 값인지 확인
-		if(a[1] > categoryList.size()) {
-			System.out.println("잘못된 게시판 번호입니다.");
-			return null;
-		}
-		
-		List<Post> postList = communityService.getPostList();
 		// Post 내역 출력
 		for(Post post : postList) {
 			System.out.println(post);
 		}
+		
 		System.out.print("게시글 번호 : ");
-		a[2] = scan.nextInt();
+		int num = scan.nextInt();
+		
 		//입력한 게시글 번호가 잘못된 값인지 확인
-		if(a[2] > categoryList.size()) {
+		if(num > postList.size()) {
 			System.out.println("잘못된 게시글 번호입니다.");
-			return null;
+			return 0;
 		}
-		return a;
+		return num;
 	}
 }
