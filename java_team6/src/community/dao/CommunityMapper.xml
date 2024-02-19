@@ -5,7 +5,7 @@
   
 <mapper namespace="community.dao.CommunityDAO">
 	<!-- 게시판 선택 -->
-	<select id="selectBoardList" resultType="community.model.vo.Board">
+	<select id="selectBoardList" resultType="community.model.vo.BoardVO">
 		select * from board
 	</select>
 	

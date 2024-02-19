@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import community.dao.CommunityDAO;
-import community.model.vo.Board;
+import community.model.vo.BoardVO;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 
@@ -33,7 +33,7 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public List<Board> getBoardList() {
+	public List<BoardVO> getBoardList() {
 		return communityDao.selectBoardList();
 	}
 

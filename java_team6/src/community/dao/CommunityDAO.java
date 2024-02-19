@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import community.model.vo.Board;
+import community.model.vo.BoardVO;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 
 
 public interface CommunityDAO {
 
-	List<Board> selectBoardList();
+	List<BoardVO> selectBoardList();
 
 	boolean insertPost(@Param("post")Post post);
 

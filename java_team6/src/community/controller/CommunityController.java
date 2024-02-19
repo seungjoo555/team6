@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import community.model.vo.Board;
+import community.model.vo.BoardVO;
 import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
+import community.service.CommunityPrintService;
+import community.service.CommunityPrintServiceImp;
 import community.service.CommunityService;
 import community.service.CommunityServiceImp;
 import community.service.UserService;
@@ -20,6 +22,7 @@ public class CommunityController {
 	private Scanner scan;
 	private UserService userService;
 	private CommunityService communityService;
+	private CommunityPrintService communityPrint;
 
 	public CommunityController(Scanner scan) {
 		if (scan == null) {
@@ -28,6 +31,7 @@ public class CommunityController {
 		this.scan = scan;
 		userService = new UserServiceImp();
 		communityService = new CommunityServiceImp();
+		communityPrint = new CommunityPrintServiceImp();
 	}
 	
 	public void rogIn() {
@@ -308,16 +312,10 @@ public class CommunityController {
 	private void postManage() {
 		int menu;
 		do {
-			System.out.println("메뉴");
-			System.out.println("1. 게시글 등록");
-			System.out.println("2. 게시글 수정");
-			System.out.println("3. 게시글 삭제");
-			System.out.println("4. 게시글 조회");
-			System.out.println("5. 이전으로");
-			System.out.print("메뉴 선택 : ");
+			communityPrint.printPost();
 			menu = scan.nextInt();
 			runPostManage(menu);
-		} while (menu != 5);
+		} while (menu != 0);
 		
 	}
 
@@ -335,7 +333,7 @@ public class CommunityController {
 		case 4:
 			printPost();
 			break;
-		case 5:
+		case 0:
 			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
 		default:
@@ -460,8 +458,8 @@ public class CommunityController {
 
 	private Post inputPost() {
 		// 게시판 선택
-		List<Board> boardList = communityService.getBoardList();
-		for (Board board : boardList) {
+		List<BoardVO> boardList = communityService.getBoardList();
+		for (BoardVO board : boardList) {
 			System.out.println(board);
 		}
 		if (boardList == null || boardList.size() == 0) {
@@ -470,9 +468,17 @@ public class CommunityController {
 		}
 		System.out.print("게시판 번호를 선택하세요 : ");
 		int boardNum = scan.nextInt();
-		// 입력한 게시판 번호가 잘못된 값인지 확인
-		if (!boardList.contains(new Board(boardNum))) {
-			System.out.println("잘못된 게시판 번호입니다.");
+		
+		boolean ok = false;
+		// 입력 받은 게시판이 있으면 게시판 추가로 감
+		for (BoardVO board : boardList) {
+			if (board.getBo_num() == boardNum) {
+				ok = true;
+				break;
+			}
+		}
+		if (!ok) {
+			System.out.println("게시글을 등록할 게시판이 없습니다.");
 			return null;
 		}
 
