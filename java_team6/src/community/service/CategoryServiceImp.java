@@ -115,4 +115,10 @@ public class CategoryServiceImp implements CategoryService {
 	public List<CategoryVO> selectCategoryList() {
 		return caDao.selectCategoryList();
 	}
+
+	@Override
+	public List<BoardVO> selectEachBoardList(int bo_ca_num) {
+		return caDao.selectEachBoardList(bo_ca_num);
+	}
+
 }

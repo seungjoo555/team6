@@ -33,4 +33,6 @@ public interface PostService {
 
 	List<Post> getPostList(int boardNum);
 
+	List<Post> selectEachPostList(int po_bo_num);
+
 }

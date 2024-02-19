@@ -34,4 +34,6 @@ public interface PostDAO {
 
 	List<Post> selectPostBolist(int boardNum);
 
+	List<Post> selectEachPostList(int po_bo_num);
+
 }
