@@ -274,7 +274,7 @@ public class CommunityController {
 			System.out.println("미구현");
 			break;
 		case 3:		// 게시글 관리
-			System.out.println("미구현");
+			AdminPostManage();
 			break;
 		case 4:		// 댓글 관리
 			AdmincommentManage();
@@ -285,6 +285,32 @@ public class CommunityController {
 		default:
 			throw new InputMismatchException();
 		}
+	}
+
+	private void AdminPostManage() {
+		int menu;
+		do {
+			System.out.println("메뉴");
+			System.out.println("1. 게시글 삭제");
+			System.out.println("2. 이전으로");
+			System.out.print("메뉴 선택 : ");
+			menu = scan.nextInt();
+			runAdminPostManage(menu);
+		} while (menu != 2);
+	}
+
+	private void runAdminPostManage(int menu) {
+		switch (menu) {
+		case 1:
+			deletePost();
+			break;
+		case 2:
+			System.out.println("이전으로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+		
 	}
 
 	private void AdmincommentManage() {
@@ -356,7 +382,7 @@ public class CommunityController {
 		do {
 			System.out.println("메뉴");
 			System.out.println("1.내정보관리");
-			System.out.println("2.카페이용(게시글, 댓글) - 대기중");
+			System.out.println("2.카페이용(게시글, 댓글)");
 			System.out.println("3.로그아웃");
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
@@ -369,7 +395,6 @@ public class CommunityController {
 		case 1:
 			break;
 		case 2:
-			System.out.println("미구현");
 			cafeManage(); // 카페이용
 			break;
 		case 3:
@@ -582,13 +607,13 @@ public class CommunityController {
 			System.out.println("게시글을 등록할 게시판이 없습니다.");
 			return null;
 		}
-
+		
 		System.out.print("제목 : ");
 		String title = scan.next();
 		System.out.print("내용 : ");
 		String content = scan.next();
 		System.out.print("작성자 : ");
-		String id = scan.next();
+		String id = scan.next(); 
 
 		return new Post(boardNum, title, content, id);
 	}
