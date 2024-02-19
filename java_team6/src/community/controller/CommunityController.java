@@ -39,7 +39,6 @@ public class CommunityController {
 		communityPrint = new CommunityPrintServiceImp();
 	}
 	
-
 	public void rogIn() {
 		// 로그인체크
 		System.out.print("아이디 : ");
@@ -277,7 +276,7 @@ public class CommunityController {
 			category.boardManager();
 			break;
 		case 3:		// 게시글 관리
-			System.out.println("미구현");
+			AdminPostManage();
 			break;
 		case 4:		// 댓글 관리
 			AdmincommentManage();
@@ -288,6 +287,32 @@ public class CommunityController {
 		default:
 			throw new InputMismatchException();
 		}
+	}
+
+	private void AdminPostManage() {
+		int menu;
+		do {
+			System.out.println("메뉴");
+			System.out.println("1. 게시글 삭제");
+			System.out.println("2. 이전으로");
+			System.out.print("메뉴 선택 : ");
+			menu = scan.nextInt();
+			runAdminPostManage(menu);
+		} while (menu != 2);
+	}
+
+	private void runAdminPostManage(int menu) {
+		switch (menu) {
+		case 1:
+			deletePost();
+			break;
+		case 2:
+			System.out.println("이전으로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+		
 	}
 
 	private void AdmincommentManage() {
@@ -343,12 +368,7 @@ public class CommunityController {
 			System.out.println("잘못된 내역 번호입니다.");
 			return;
 		}
-		
-		// 본인이 작성한 댓글인지 확인
-		if(!CommentList.contains(new Comment(co_num, user.getMe_id()))) {
-			System.out.println("본인의 댓글이 아닙니다.");
-		}
-		
+
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
 		if(commentService.deleteComment(new Comment(co_num))) {
 			System.out.println("댓글 삭제했습니다.");
@@ -364,7 +384,7 @@ public class CommunityController {
 		do {
 			System.out.println("메뉴");
 			System.out.println("1.내정보관리");
-			System.out.println("2.카페이용(게시글, 댓글) - 대기중");
+			System.out.println("2.카페이용(게시글, 댓글)");
 			System.out.println("3.로그아웃");
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
@@ -377,7 +397,6 @@ public class CommunityController {
 		case 1:
 			break;
 		case 2:
-			System.out.println("미구현");
 			cafeManage(); // 카페이용
 			break;
 		case 3:
@@ -590,13 +609,13 @@ public class CommunityController {
 			System.out.println("게시글을 등록할 게시판이 없습니다.");
 			return null;
 		}
-
+		
 		System.out.print("제목 : ");
 		String title = scan.next();
 		System.out.print("내용 : ");
 		String content = scan.next();
 		System.out.print("작성자 : ");
-		String id = scan.next();
+		String id = scan.next(); 
 
 		return new Post(boardNum, title, content, id);
 	}
@@ -604,16 +623,10 @@ public class CommunityController {
 	private void commentManage() {
 		int menu;
 		do {
-			System.out.println("메뉴");
-			System.out.println("1. 댓글 등록");
-			System.out.println("2. 댓글 수정");
-			System.out.println("3. 댓글 삭제");
-			System.out.println("4. 댓글 조회");
-			System.out.println("5. 이전으로");
-			System.out.print("메뉴 선택 : ");
+			communityPrint.printComment();
 			menu = scan.nextInt();
 			runCommentManage(menu);
-		} while (menu != 5);
+		} while (menu != 0);
 	}
 	
 	private void runCommentManage(int menu) {
@@ -625,7 +638,7 @@ public class CommunityController {
 			updateComment();
 			break;
 		case 3:
-			deleteComment();			
+			deleteAdminComment();			
 			break;
 		case 4:
 			printComment();
@@ -699,6 +712,47 @@ public class CommunityController {
 			System.out.println("댓글 수정했습니다.");
 		}else {
 			System.out.println("댓글 수정에 실패했습니다.");
+		}
+	}
+	
+	// 댓글 삭제
+	private void deleteAdminComment() {
+		int a = menuSelectAll();
+		
+		Comment com = new Comment(a);
+		List<Comment> CommentList = commentService.getCommentList(com);
+		
+		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
+		if(CommentList == null || CommentList.size() == 0) {
+			System.out.println("해당 게시글에 댓글이 없어 삭제할 수 없습니다.");
+			return;
+		}
+		
+		// 존재하면 출력
+		for(Comment comment : CommentList) {
+			System.out.println(comment);
+		}
+		
+		// 삭제할 댓글의 번호를 선택
+		System.out.print("댓글 번호 : ");
+		int co_num = scan.nextInt();
+		
+		//입력한 댓글 번호가 잘못된 값인지 확인
+		if(!CommentList.contains(new Comment(co_num))) {
+			System.out.println("잘못된 내역 번호입니다.");
+			return;
+		}
+		
+		// 본인이 작성한 댓글인지 확인
+		if(!CommentList.contains(new Comment(co_num, user.getMe_id()))) {
+			System.out.println("본인의 댓글이 아닙니다.");
+		}
+		
+		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
+		if(commentService.deleteComment(new Comment(co_num))) {
+			System.out.println("댓글 삭제했습니다.");
+		}else {
+			System.out.println("댓글 삭제에 실패했습니다.");
 		}
 	}
 

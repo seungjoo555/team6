@@ -96,5 +96,4 @@ public class PostServiceImp implements PostService {
 	public boolean updateView(int postNum) {
 		return postDao.updateView(postNum);
 	}
-
 }
