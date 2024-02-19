@@ -10,13 +10,25 @@
 	<select id="searchId" resultType="community.model.vo.Member">
 		select * from member where me_id = #{me_id}
 	</select>
-	<select id="selectRequestMemberList" resultType="community.model.vo.Member">
+	<select id="selectMemberList" resultType="community.model.vo.Member">
 		select * from member where me_ms_state = #{me_ms_state}
+	</select>
+	<select id="selectStopMemberList" resultType="community.model.vo.Member">
+		select * from member where me_ms_state in(#{me_ms_state1},#{me_ms_state2})
 	</select>
 	<update id="updateAllRequestMember">
 		update member set me_ms_state = "회원" where me_ms_state = "가입요청"
 	</update>
 	<update id="updateRequestMember">
 		update member set me_ms_state = "회원" where me_id = #{me_id}
+	</update>
+	<update id="updateStopMember">
+		update member set me_ms_state = if(me_ms_state = "회원", "이용정지", "회원") where me_id = #{me_id}
+	</update>
+	<delete id="deleteMember">
+		delete from member where me_id = #{me_id}
+	</delete>
+	<update id="updateMy">
+		update member set me_name = #{user.me_name}, me_email = #{user.me_email}, me_phoneNum = #{user.me_phoneNum}, me_address = #{user.me_address} where me_id = #{user.me_id}
 	</update>
 </mapper>
