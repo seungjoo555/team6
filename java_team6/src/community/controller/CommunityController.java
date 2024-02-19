@@ -781,7 +781,6 @@ public class CommunityController {
 		for(Post post : postList) {
 			System.out.println(post);
 		}
-		
 		System.out.print("게시글 번호 : ");
 		int num = scan.nextInt();
 		
