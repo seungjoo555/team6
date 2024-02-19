@@ -18,5 +18,6 @@
     <mapper resource="community/dao/CategoryMapper.xml" />
     <mapper resource="community/dao/PostMapper.xml"/>
     <mapper resource="community/dao/UserMapper.xml"/>
+    <mapper resource="community/dao/CommentMapper.xml"/>
   </mappers>
 </configuration>
