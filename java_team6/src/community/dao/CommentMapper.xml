@@ -7,37 +7,11 @@
 	<select id="selectBoardList" resultType="community.model.vo.BoardVO">
 		select * from board
 	</select>
-	
-	<insert id="insertPost">
-		insert into post(po_bo_num, po_title, po_content, po_me_id, po_view) 
-		values(#{post.po_bo_num}, #{post.po_title}, #{post.po_content}, #{post.po_me_id}, #{post.po_view})
-	</insert>
-	
-	<select id="selectPostList" resultType="community.model.vo.Post">
-		select * from post
-	</select>
-	
-	<update id="updatePost">
-		update post 
-		set 
-			po_bo_num = #{post.po_bo_num}, 
-		    po_title = #{post.po_title}, 
-		    po_content = #{post.po_content}, 
-		    po_me_id = #{post.po_me_id},
-		    po_view = #{post.po_view}
-		where 
-			po_num = #{post.po_num};
-	</update>
-	
-	<delete id="deletePost">
-		delete from post where po_num = #{po_num}
-	</delete>
-	
+
 	<!-- 댓글 추가 -->
 	<insert id="insertComment">
-		insert into comment(co_ca_num, co_bo_num, co_po_num,  co_me_id, co_content)
-		values(#{com.co_ca_num}, #{com.co_bo_num}, #{com.co_po_num},
-			   #{com.co_me_id}, #{com.co_content});
+		insert into comment(co_po_num,  co_me_id, co_content)
+		values(#{com.co_po_num}, #{com.co_me_id}, #{com.co_content});
 	</insert>
 	
 	<!-- 댓글 수정 -->
@@ -54,8 +28,6 @@
 	<delete id="deleteComment">
 		DELETE FROM comment 
 		WHERE
-			co_ca_num = #{com.co_ca_num} AND
-		    co_bo_num = #{com.co_bo_num} AND
 		    co_po_num = #{com.co_po_num} AND
 		    co_num = #{com.co_num} AND
 		    co_me_id = #{con.co_me_id};
@@ -68,8 +40,6 @@
 		FROM
 		    comment
 		WHERE
-		    co_ca_num = #{com.co_ca_num} AND
-		    co_bo_num = #{com.co_bo_num} AND
 		    co_po_num = #{com.co_po_num}
 		ORDER BY co_num ASC;
 	</select>
