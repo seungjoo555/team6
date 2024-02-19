@@ -54,4 +54,5 @@ public class Post {
 	public Post(int postNum) {
 		po_num = postNum;
 	}
+
 }

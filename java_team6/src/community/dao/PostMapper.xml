@@ -53,14 +53,15 @@
 		    post
 		WHERE
 			po_title like concat(#{cri.search}, '%') or
-			po_content like concat(#{cri.search}, '%')
+			po_content like concat(#{cri.search}, '%') or
+			po_me_id like concat(#{cri.search}, '%')
 		order by po_title desc
 		LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<!-- 게시글 조회 시 내용 출력 -->
 	<select id="selectPostContent" resultType="community.model.vo.Post">
-		select po_content as po_content from post where po_num = #{post.po_num}
+		select po_content from post where po_num = #{post.po_num}
 	</select>
 	
 	<!-- 게시글 수정 시 조회수 0 -->
@@ -71,4 +72,9 @@
 		where 
 			po_num = #{post.po_num};
 	</update>
+	
+	<!-- 로그인한 사용자 게시글만 출력 -->
+	<select id="selectPost" resultType="community.model.vo.Post">
+		select post.* from post join member on po_me_id = me_id where me_id = #{me_id};
+	</select>
 </mapper>

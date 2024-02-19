@@ -48,4 +48,13 @@ public class Member {
 		this.me_id = me_id;
 	}
 
+	@Override
+	public String toString() {
+		return "아이디 : " + me_id + "\n"
+				+ "이름 : " + me_name + "\n"
+				+ "이메일 : " + me_email + "\n"
+				+ "전화번호 : " + me_phoneNum + "\n"
+				+ "주소 : " + me_address;
+	}
+
 }

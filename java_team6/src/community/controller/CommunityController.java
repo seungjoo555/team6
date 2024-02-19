@@ -11,6 +11,7 @@ import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 import community.service.CommentService;
+import community.service.CommentServiceImp;
 import community.service.CommunityPrintService;
 import community.service.CommunityPrintServiceImp;
 import community.service.PostService;
@@ -36,9 +37,11 @@ public class CommunityController {
 		this.scan = scan;
 		userService = new UserServiceImp();
 		postService = new PostServiceImp();
+		commentService = new CommentServiceImp();
 		communityPrint = new CommunityPrintServiceImp();
+		commentService = new CommentServiceImp();
 	}
-	
+
 	public void rogIn() {
 		// 로그인체크
 		System.out.print("아이디 : ");
@@ -152,7 +155,7 @@ public class CommunityController {
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
 			runAdmin(menu);
-		} while (menu != 3);
+		} while (menu != 3 && user.getMe_id() != null);
 	}
 
 	private void runAdmin(int menu) {
@@ -177,13 +180,13 @@ public class CommunityController {
 		do {
 			System.out.println("사용자 관리");
 			System.out.println("1.가입요청 승인");
-			System.out.println("2.회원 이용정지");
+			System.out.println("2.회원 이용정지(복구)");
 			System.out.println("3.회원 탈퇴기능");
 			System.out.println("4.뒤로가기");
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
 			runAdminUserManager(menu);
-		} while (menu != 4);
+		}while(menu != 4 && user.getMe_id() != null);
 	}
 
 	private void runAdminUserManager(int menu) {
@@ -206,15 +209,16 @@ public class CommunityController {
 	}
 
 	private void memberRequest() {
-		// 가입요청중인 아이디 목록
-		List<Member> userList = userService.getRequestMember("가입요청");
-		if (userList == null || userList.size() == 0) {
+		//가입요청중인 아이디 목록
+		System.out.println("----가입요청 목록----");
+		List<Member> userList = userService.getMemberList("가입요청");
+		if(userList == null || userList.size() == 0) {
 			System.out.println("가입요청중인 회원이 없습니다.");
 			return;
 		}
-		// 가입요청중인 아이디가 있으면 목록으로 출력
-		for (Member member : userList) {
-			System.out.println(member.getMe_id() + " " + member.getMe_ms_state());
+		//가입요청중인 아이디가 있으면 목록으로 출력
+		for(Member member : userList) {
+			System.out.println("아이디: " + member.getMe_id() + " 상태: " + member.getMe_ms_state());
 		}
 		// 승인할 아이디 입력 all일경우 모두 승인
 		System.out.print("승인할 아이디 입력(모두 승인하려면 all) : ");
@@ -239,19 +243,61 @@ public class CommunityController {
 	}
 
 	private void stopMember() {
-		// 회원인 아이디 목록
-
-		// 정지시킬 아이디 입력
-
+		//회원인 아이디 목록
+		System.out.println("----회원 목록----");
+		List<Member> userList = userService.getStopMemberList("회원", "이용정지");
+		if(userList == null || userList.size() == 0) {
+			System.out.println("가입 또는 활동중인 회원이 없습니다.");
+			return;
+		}
+		//회원 목록 출력
+		for(Member member : userList) {
+			System.out.println("아이디: " + member.getMe_id() + " 상태: " + member.getMe_ms_state());
+		}
+		//정지시킬 아이디 입력
+		System.out.print("정지(복구)할 아이디 입력 : ");
+		String me_id = scan.next();
+		//목록에 아이디가 있는지 확인
+		if(!userList.contains(new Member(me_id))) {
+			System.out.println("아이디를 잘못 입력했습니다.");
+			return;
+		}
+		//회원이 이용정지면 회원으로 되돌리기		
+		//회원이 회원상태면 이용정지
+		if(userService.stopStateMember(me_id)) {
+			System.out.println(me_id + " 의 이용정지(복구) 완료");
+		}else {
+			System.out.println("요청을 승인하지 못했습니다.");
+		}
 	}
 
 	private void deleteMember() {
-		// 회원인 아이디 목록
-
-		// 탈퇴(삭제)시킬 아이디 입력
-
+		//가입요청중이 아닌 전체 유저 목록
+		System.out.println("----회원 목록----");
+		List<Member> userList = userService.getStopMemberList("회원", "이용정지");
+		if(userList == null || userList.size() == 0) {
+			System.out.println("가입 또는 활동중인 회원이 없습니다.");
+			return;
+		}
+		for(Member member : userList) {
+			System.out.println("아이디: " + member.getMe_id() + " 상태: " + member.getMe_ms_state());
+		}
+		//탈퇴(삭제)시킬 아이디 입력
+		System.out.print("강제탈퇴(삭제) 아이디 : ");
+		String me_id = scan.next();
+		//목록에 아이디가 있는지 확인
+		if(!userList.contains(new Member(me_id))) {
+			System.out.println("아이디를 잘못 입력했습니다.");
+			return;
+		}
+		//있다면 회원의 정보를 모두 삭제
+		if(userService.deleteMember(me_id)) {
+			System.out.println(me_id + " 의 정보를 삭제했습니다.");
+		}else {
+			System.out.println("요청을 승인하지 못했습니다.");
+		}
 	}
-	
+  
 	private void adminCommunityManageMenu() {
 		int menu;
 		do {
@@ -275,13 +321,13 @@ public class CommunityController {
 		case 2:		// 게시판 관리
 			category.boardManager();
 			break;
-		case 3:		// 게시글 관리
+		case 3: // 게시글 관리
 			AdminPostManage();
 			break;
-		case 4:		// 댓글 관리
+		case 4: // 댓글 관리
 			AdmincommentManage();
 			break;
-		case 5:		// 뒤로 가기
+		case 5: // 뒤로 가기
 			System.out.println("이전으로 돌아갑니다.");
 			break;
 		default:
@@ -294,23 +340,53 @@ public class CommunityController {
 		do {
 			System.out.println("메뉴");
 			System.out.println("1. 게시글 삭제");
-			System.out.println("2. 이전으로");
+			System.out.println("2. 게시글 조회");
+			System.out.println("0. 이전으로");
 			System.out.print("메뉴 선택 : ");
 			menu = scan.nextInt();
 			runAdminPostManage(menu);
-		} while (menu != 2);
+		} while (menu != 0);
 	}
 
 	private void runAdminPostManage(int menu) {
 		switch (menu) {
 		case 1:
-			deletePost();
+			deleteAdminPost();
 			break;
 		case 2:
+			printPost();
+			break;
+		case 0:
 			System.out.println("이전으로 돌아갑니다.");
 			break;
 		default:
 			throw new InputMismatchException();
+		}
+
+	}
+
+	private void deleteAdminPost() {
+		List<Post> postList = postService.getPostList();
+		if (postList == null || postList.size() == 0) {
+			System.out.println("삭제할 게시글이 없습니다.");
+			return;
+		}
+		// 삭제할 게시글이 있으면 삭제 가능한 게시글을 출력
+		for (Post post : postList) {
+			System.out.println(post);
+		}
+		System.out.print("게시글 번호를 선택하세요 : ");
+		int postNum = scan.nextInt();
+		// 입력한 게시글 번호가 잘못된 값인지 확인
+		if (!postList.contains(new Post(postNum))) {
+			System.out.println("잘못된 게시글 번호입니다.");
+			return;
+		}
+
+		if (postService.deletePost(postNum)) {
+			System.out.println("게시글을 삭제했습니다.");
+		} else {
+			System.out.println("게시글을 삭제하지 못했습니다.");
 		}
 		
 	}
@@ -330,8 +406,7 @@ public class CommunityController {
 	private void runAdminCommentManage(int menu) {
 		switch (menu) {
 		case 1:
-			deleteComment();
-			System.out.println("댓글 삭제");
+			deleteAdminComment();
 			break;
 		case 2:
 			System.out.println("이전으로 돌아갑니다.");
@@ -342,41 +417,49 @@ public class CommunityController {
 	}
 
 	// 댓글 삭제
-	private void deleteComment() {
-		int a = menuSelectAll();
+	private void deleteAdminComment() {
+		int co_po_num = menuSelectAll();
 		
-		Comment com = new Comment(a);
-		List<Comment> CommentList = commentService.getCommentList(com);
-		
+		List<Comment> CommentList = commentService.getCommentList(co_po_num);
+
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
-		if(CommentList == null || CommentList.size() == 0) {
+		if (CommentList == null || CommentList.size() == 0) {
 			System.out.println("해당 게시글에 댓글이 없어 삭제할 수 없습니다.");
 			return;
 		}
-		
+
 		// 존재하면 출력
-		for(Comment comment : CommentList) {
+		for (Comment comment : CommentList) {
 			System.out.println(comment);
 		}
-		
+
 		// 삭제할 댓글의 번호를 선택
 		System.out.print("댓글 번호 : ");
 		int co_num = scan.nextInt();
-		
-		//입력한 댓글 번호가 잘못된 값인지 확인
-		if(!CommentList.contains(new Comment(co_num))) {
+
+		// 입력한 댓글 번호가 잘못된 값인지 확인
+		if (!CommentList.contains(new Comment(co_num))) {
 			System.out.println("잘못된 내역 번호입니다.");
 			return;
 		}
 
-		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(commentService.deleteComment(new Comment(co_num))) {
+		// 본인이 작성한 댓글인지 확인
+		if (!CommentList.contains(new Comment(co_num, user.getMe_id()))) {
+			System.out.println("본인의 댓글이 아닙니다.");
+		}
+
+		// 입력받은 댓글 번호를 서비스에 넘겨 댓글 삭제 후
+		// 댓글이 비었으면 댓글 번호를 1로 초기화
+		if(commentService.deleteAdminComment(co_num)) {
+			if(CommentList.size() == 0) {
+				commentService.resetNum();
+			}
 			System.out.println("댓글 삭제했습니다.");
-		}else {
+		} else {
 			System.out.println("댓글 삭제에 실패했습니다.");
 		}
 	}
-	
+
 	public void userMenu() {
 		// 사용자메뉴 (내정보관리 - 수정, 탈퇴)
 		// 1.내정보관리, 2.카페이용(게시글, 댓글), 3.로그아웃
@@ -389,23 +472,151 @@ public class CommunityController {
 			System.out.print("메뉴선택 : ");
 			menu = scan.nextInt();
 			runUser(menu);
-		} while (menu != 3);
+		}while(menu != 3 && user.getMe_id() != null);
 	}
 
 	private void runUser(int menu) {
 		switch (menu) {
 		case 1:
+			//내정보관리 - 아이디에 맞는 데이터를 불러오고 수정할지 탈퇴(삭제)할지 선택
+			myManager();
 			break;
 		case 2:
 			cafeManage(); // 카페이용
 			break;
 		case 3:
 			System.out.println(user.getMe_id() + "님 로그아웃 완료");
-			user = new Member();
 			break;
 		default:
 			throw new InputMismatchException();
 		}
+	}
+
+	private void myManager() {
+		if(user.getMe_id() == null) {
+			return;
+		}
+		int menu;
+		do {
+			System.out.println("----------내정보----------");
+			System.out.println(user);
+			System.out.println("------------------------");
+			System.out.println("1.내정보 수정");
+			System.out.println("2.회원 탈퇴");
+			System.out.println("3.뒤로 가기");
+			System.out.print("메뉴 선택 : ");
+			menu = scan.nextInt();
+			runUserManager(menu);
+		}while(menu != 3 && user.getMe_id() != null);
+	}
+
+	private void runUserManager(int menu) {
+		switch(menu) {
+		case 1://내정보 수정
+			updateMy();
+			break;
+		case 2://회원탈퇴
+			deleteMy();
+			break;
+		case 3:
+			System.out.println("이전으로 돌아갑니다.");
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+	private void updateMy() {
+		System.out.println("회원정보를 수정하려면 비밀번호를 입력하세요.");
+		System.out.print("비밀번호 : ");
+		String pwd = scan.next();
+		if(!user.getMe_pw().equals(pwd)) {
+			System.out.println("비밀번호가 일치하지 않습니다.");
+			return;
+		}
+		int menu;
+		do {
+			System.out.println("수정할 내용 선택");
+			System.out.println("1. 이름");
+			System.out.println("2. 이메일");
+			System.out.println("3. 전화번호");
+			System.out.println("4. 주소");
+			System.out.println("5. 수정 끝내기");
+			System.out.print("메뉴 선택 : ");
+			menu = scan.nextInt();
+			runUpdateMy(menu);
+		}while(menu != 5 && user.getMe_id() != null);
+	}
+	
+	private void runUpdateMy(int menu) {
+		String emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
+		switch(menu) {
+		case 1://이름 수정
+			do {
+				System.out.print("수정할 이름 : ");
+				String name = scan.next();
+				if(name.length() < 2 || name.length() > 30) {
+					System.out.println("이름은 2자이상 30자이하 입니다.");
+					continue;
+				}else {
+					user.setMe_name(name);
+					break;
+				}
+			}while(true);
+			break;
+		case 2://이메일 수정
+			do {
+				System.out.print("이메일 : ");
+				String email = scan.next();
+				if(Pattern.matches(emailRegex, email)) {
+					System.out.println("이메일로 사용 가능합니다.");
+					user.setMe_email(email);
+					break;
+				}else {
+					System.out.println("이메일 형식에 맞지 않습니다.");
+					continue;
+				}
+			}while(true);
+			break;
+		case 3://전화번호 수정
+			System.out.print("전화번호 : ");
+			String phone = scan.next();
+			user.setMe_phoneNum(phone);
+			break;
+		case 4://주소 수정
+			System.out.print("주소(oo시 oo구 oo동) : ");
+			scan.nextLine();
+			String addr = scan.nextLine();
+			user.setMe_address(addr);
+			break;
+		case 5://수정 끝내기
+			if(userService.updateMember(user)) {
+				System.out.println("내정보 수정 완료");
+			}else {
+				System.out.println("수정에 실패했습니다.");
+			}
+			break;
+		default:
+			throw new InputMismatchException();
+		}
+	}
+
+	private void deleteMy() {
+		System.out.println("회원탈퇴를 하려면 비밀번호를 입력하세요.");
+		System.out.print("비밀번호 : ");
+		String pwd = scan.next();
+		if(!user.getMe_pw().equals(pwd)) {
+			System.out.println("비밀번호가 일치하지 않습니다.");
+			return;
+		}
+		//삭제
+		if(userService.deleteMember(user.getMe_id())) {
+			System.out.println("회원탈퇴가 완료되었습니다.");
+			user = new Member();
+		}else {
+			System.out.println("탈퇴 실패. 잠시후 다시 시도해주세요.");
+		}
+		
 	}
 
 	private void cafeManage() {
@@ -444,7 +655,7 @@ public class CommunityController {
 			menu = scan.nextInt();
 			runPostManage(menu);
 		} while (menu != 0);
-		
+
 	}
 
 	private void runPostManage(int menu) {
@@ -456,7 +667,7 @@ public class CommunityController {
 			updatePost();
 			break;
 		case 3:
-			deletePost();			
+			deletePost();
 			break;
 		case 4:
 			printPost();
@@ -471,7 +682,7 @@ public class CommunityController {
 
 	// 게시글 조회
 	private void printPost() {
-		System.out.println("검색(제목/내용) : ");
+		System.out.println("검색(제목/내용/작성자) : ");
 		String text = scan.next();
 		int page = 1;
 		int menu;
@@ -531,25 +742,32 @@ public class CommunityController {
 	// 게시글 수정
 	private void updatePost() {
 		// 게시글 선택
-		List<Post> postList = postService.getPostList();
-		if (postList == null || postList.size() == 0) {
+		Member id = new Member(user.getMe_id());
+		List<Post> postId = postService.getPost(id);
+		if (postId == null || postId.size() == 0) {
 			System.out.println("수정할 게시글이 없습니다.");
 			return;
 		}
+		
 		// 수정할 게시글이 있으면 수정 가능한 게시글을 출력
-		for (Post post : postList) {
+		for (Post post : postId) {
 			System.out.println(post);
 		}
 		System.out.print("게시글 번호를 선택하세요 : ");
 		int postNum = scan.nextInt();
+		
 		// 입력한 게시글 번호가 잘못된 값인지 확인
-		if (!postList.contains(new Post(postNum))) {
+		if (!postId.contains(new Post(postNum))) {
 			System.out.println("잘못된 게시글 번호입니다.");
 			return;
 		}
-
+		
 		Post post = inputPost();
-		post.setPo_num(postNum);
+		try {
+			post.setPo_num(postNum);
+		}catch(Exception e) {
+			System.out.println("잘못된 게시판 번호입니다.");
+		}
 		if (postService.updatePost(post)) {
 			postService.updateView(postNum); // 수정시 조회수 0으로 변경
 			System.out.println("게시글 수정이 완료되었습니다.");
@@ -560,19 +778,22 @@ public class CommunityController {
 
 	// 게시글 삭제
 	private void deletePost() {
-		List<Post> postList = postService.getPostList();
-		if (postList == null || postList.size() == 0) {
-			System.out.println("삭제할 게시글이 없습니다.");
+		Member id = new Member(user.getMe_id());
+		List<Post> postId = postService.getPost(id);
+		if (postId == null || postId.size() == 0) {
+			System.out.println("수정할 게시글이 없습니다.");
 			return;
 		}
+		
 		// 삭제할 게시글이 있으면 삭제 가능한 게시글을 출력
-		for (Post post : postList) {
+		for (Post post : postId) {
 			System.out.println(post);
 		}
 		System.out.print("게시글 번호를 선택하세요 : ");
 		int postNum = scan.nextInt();
+		
 		// 입력한 게시글 번호가 잘못된 값인지 확인
-		if (!postList.contains(new Post(postNum))) {
+		if (!postId.contains(new Post(postNum))) {
 			System.out.println("잘못된 게시글 번호입니다.");
 			return;
 		}
@@ -594,9 +815,10 @@ public class CommunityController {
 			System.out.println("게시글을 등록할 게시판이 없습니다.");
 			return null;
 		}
+
 		System.out.print("게시판 번호를 선택하세요 : ");
 		int boardNum = scan.nextInt();
-		
+
 		boolean ok = false;
 		// 입력 받은 게시판이 있으면 게시판 추가로 감
 		for (BoardVO board : boardList) {
@@ -609,26 +831,30 @@ public class CommunityController {
 			System.out.println("게시글을 등록할 게시판이 없습니다.");
 			return null;
 		}
-		
+
 		System.out.print("제목 : ");
 		String title = scan.next();
 		System.out.print("내용 : ");
 		String content = scan.next();
-		System.out.print("작성자 : ");
-		String id = scan.next(); 
 
-		return new Post(boardNum, title, content, id);
+		return new Post(boardNum, title, content, user.getMe_id());
 	}
-	
+
 	private void commentManage() {
 		int menu;
 		do {
-			communityPrint.printComment();
+			System.out.println("메뉴");
+			System.out.println("1. 댓글 등록");
+			System.out.println("2. 댓글 수정");
+			System.out.println("3. 댓글 삭제");
+			System.out.println("4. 댓글 조회");
+			System.out.println("5. 이전으로");
+			System.out.print("메뉴 선택 : ");
 			menu = scan.nextInt();
 			runCommentManage(menu);
-		} while (menu != 0);
+		} while (menu != 5);
 	}
-	
+
 	private void runCommentManage(int menu) {
 		switch (menu) {
 		case 1:
@@ -638,89 +864,86 @@ public class CommunityController {
 			updateComment();
 			break;
 		case 3:
-			deleteAdminComment();			
+			deleteComment();	
 			break;
 		case 4:
 			printComment();
 			break;
-		case 5:
+		case 0:
 			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
 		default:
 			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
-	
+
 	private void insertComment() {
-		int a = menuSelectAll();
-		
+		int co_po_num = menuSelectAll();
 		System.out.print("내용 : ");
 		scan.nextLine();
 		String co_content = scan.nextLine();
-		
+
 		// 입력받은 정보로 객체를 생성
-		Comment com = new Comment(a, user.getMe_id(), co_content);
-		
+		Comment com = new Comment(user.getMe_id(), co_content, co_po_num);
+
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(commentService.insertComment(com)) {
+		if (commentService.insertComment(com)) {
 			System.out.println("댓글 추가했습니다.");
-		}else {
+		} else {
 			System.out.println("댓글 추가에 실패했습니다.");
 		}
 	}
 
 	// 유저가 댓글 수정(내용만 가능)
 	private void updateComment() {	
-		int a = menuSelectAll();
+		int co_po_num = menuSelectAll();
 		
-		Comment com = new Comment(a);
-		List<Comment> CommentList = commentService.getCommentList(com);
+		List<Comment> CommentList = commentService.getCommentList(co_po_num);
 
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
-		if(CommentList == null || CommentList.size() == 0) {
+		if (CommentList == null || CommentList.size() == 0) {
 			System.out.println("댓글이 없어 수정할 수 없습니다.");
 			return;
 		}
-		
+
 		// 출력
-		for(Comment comment : CommentList) {
+		for (Comment comment : CommentList) {
 			System.out.println(comment);
 		}
-		
+
 		// 수정할 댓글 번호를 선택
 		System.out.print("댓글 번호 : ");
 		int co_num = scan.nextInt();
-		
-		//입력한 댓글 번호가 잘못된 값인지 확인
-		if(!CommentList.contains(new Comment(co_num))) {
+
+		// 입력한 댓글 번호가 잘못된 값인지 확인
+		if (!CommentList.contains(new Comment(co_num))) {
 			System.out.println("잘못된 내역 번호입니다.");
 			return;
 		}
-		
+
 		// 본인이 작성한 댓글인지 확인
-		if(!CommentList.contains(new Comment(co_num, user.getMe_id()))) {
+		if (!CommentList.contains(new Comment(co_num, user.getMe_id()))) {
 			System.out.println("본인의 댓글이 아닙니다.");
 		}
-		
+
 		// 수정할 정보를 입력받음
 		System.out.print("수정할 댓글 내용 : ");
 		scan.nextLine();
 		String co_content = scan.nextLine();
-		
+
 		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(commentService.updateComment(new Comment(co_num, user.getMe_id(), co_content))) {
+		if (commentService.updateComment(new Comment(co_num, user.getMe_id(), co_content))) {
 			System.out.println("댓글 수정했습니다.");
-		}else {
+		} else {
 			System.out.println("댓글 수정에 실패했습니다.");
 		}
 	}
 	
 	// 댓글 삭제
-	private void deleteAdminComment() {
-		int a = menuSelectAll();
+	private void deleteComment() {
+		int co_po_num = menuSelectAll();
 		
-		Comment com = new Comment(a);
-		List<Comment> CommentList = commentService.getCommentList(com);
+		List<Comment> CommentList = commentService.getCommentList(co_po_num);
 		
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if(CommentList == null || CommentList.size() == 0) {
@@ -743,34 +966,35 @@ public class CommunityController {
 			return;
 		}
 		
-		// 본인이 작성한 댓글인지 확인
-		if(!CommentList.contains(new Comment(co_num, user.getMe_id()))) {
-			System.out.println("본인의 댓글이 아닙니다.");
-		}
-		
-		// 생성한 객체를 boolean형 성공 유무 확인하는 메서드로 서비스에 넘김
-		if(commentService.deleteComment(new Comment(co_num))) {
+		// 본인이 작성한 댓글인지 확인 후
+		// 입력받은 댓글 번호를 서비스에 넘겨 댓글 삭제 후
+		// 댓글이 비었으면 댓글 번호를 1로 초기화
+		if(commentService.deleteComment(new Comment(co_num, user.getMe_id()))) {
+			CommentList = commentService.getCommentList(co_po_num);
+			if(CommentList.size() == 0) {
+				if(commentService.resetNum()) {
+				}
+			}
 			System.out.println("댓글 삭제했습니다.");
 		}else {
 			System.out.println("댓글 삭제에 실패했습니다.");
 		}
 	}
 
-	// 댓글 조회 
+	// 댓글 조회
 	private void printComment() {
-		int a = menuSelectAll();
+		int co_po_num = menuSelectAll();
 		
-		Comment com = new Comment(a);
-		List<Comment> CommentList = commentService.getCommentList(com);
+		List<Comment> CommentList = commentService.getCommentList(co_po_num);
 
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
-		if(CommentList == null || CommentList.size() == 0) {
+		if (CommentList == null || CommentList.size() == 0) {
 			System.out.println("댓글이 없어 조회할 수 없습니다.");
 			return;
 		}
-		
+
 		// 출력
-		for(Comment comment : CommentList) {
+		for (Comment comment : CommentList) {
 			System.out.println(comment);
 		}
 	}
@@ -778,20 +1002,20 @@ public class CommunityController {
 	// 게시글 번호 입력받기
 	private int menuSelectAll() {
 		List<Post> postList = postService.getPostList();
-		
+
 		// Post 내역 출력
-		for(Post post : postList) {
+		for (Post post : postList) {
 			System.out.println(post);
 		}
-		
+
 		System.out.print("게시글 번호 : ");
-		int num = scan.nextInt();
+		int po_num = scan.nextInt();
 		
 		//입력한 게시글 번호가 잘못된 값인지 확인
-		if(num > postList.size()) {
+		if(po_num > postList.size()) {
 			System.out.println("잘못된 게시글 번호입니다.");
 			return 0;
 		}
-		return num;
+		return po_num;
 	}
 }

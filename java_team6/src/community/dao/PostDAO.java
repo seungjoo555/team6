@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import community.model.vo.BoardVO;
 import community.model.vo.CategoryVO;
 import community.model.vo.Comment;
+import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 
@@ -31,9 +32,5 @@ public interface PostDAO {
 
 	boolean updateView(int postNum);
 
-	List<CategoryVO> selectCategoryList();
-	
-	List<Comment> selectCommentList(@Param("com") Comment com);
-	
-	boolean deleteComment(@Param("com") Comment com);
+	List<Post> selectPost(Member id);
 }

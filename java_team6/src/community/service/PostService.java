@@ -5,6 +5,7 @@ import java.util.List;
 import community.model.vo.BoardVO;
 import community.model.vo.CategoryVO;
 import community.model.vo.Comment;
+import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 
@@ -27,4 +28,6 @@ public interface PostService {
 	Post getPostContent(int postNum);
 
 	boolean updateView(int postNum);
+
+	List<Post> getPost(Member id);
 }

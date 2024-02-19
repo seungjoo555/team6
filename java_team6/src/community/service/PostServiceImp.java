@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import community.dao.PostDAO;
 import community.model.vo.BoardVO;
+import community.model.vo.Member;
 import community.model.vo.Post;
 import community.pagination.Criteria;
 
@@ -95,5 +96,10 @@ public class PostServiceImp implements PostService {
 	@Override
 	public boolean updateView(int postNum) {
 		return postDao.updateView(postNum);
+	}
+
+	@Override
+	public List<Post> getPost(Member id) {
+		return postDao.selectPost(id);
 	}
 }

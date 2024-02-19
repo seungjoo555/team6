@@ -41,10 +41,22 @@ public class Comment {
 		this.co_me_id = co_me_id;
 	}
 	
-	// 댓글 추가,수정할때 사용
+	// 댓글 추가할때 사용
+	public Comment(String co_me_id, String co_content, int co_po_num) {
+		this.co_po_num = co_po_num;
+		this.co_me_id = co_me_id;
+		this.co_content = co_content;
+	}
+	
+	// 댓글 수정할때 사용
 	public Comment(int co_num, String co_me_id, String co_content) {
 		this.co_num = co_num;
 		this.co_me_id = co_me_id;
 		this.co_content = co_content;
+	}
+	
+	@Override
+	public String toString() {
+		return "[" + co_num + "] 작성자 : " + co_me_id + "\n    내 용 : " + co_content;
 	}
 }
