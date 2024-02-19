@@ -57,7 +57,7 @@ DROP TABLE IF EXISTS `category`;
 
 CREATE TABLE `category` (
     `ca_num` INT PRIMARY KEY AUTO_INCREMENT,
-    `ca_title` VARCHAR(10) NULL
+    `ca_title` VARCHAR(10) NULL unique
 );
 
 ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
@@ -126,6 +126,15 @@ ADD CONSTRAINT `FK_board_TO_post_1`
   REFERENCES `community`.`board` (`bo_num`)
   ON DELETE CASCADE;
 
+ALTER TABLE `community`.`board` 
+DROP FOREIGN KEY `FK_category_TO_board_1`;
+ALTER TABLE `community`.`board` 
+ADD CONSTRAINT `FK_category_TO_board_1`
+  FOREIGN KEY (`bo_ca_num`)
+  REFERENCES `community`.`category` (`ca_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
 insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
 
 # 관리자계정 만들어두기
@@ -135,13 +144,14 @@ insert into `member` values('lbh123','!lbh1234','jkh123@admin.com','USER','서�
 insert into `member` values('lcb123','!lcb1234','jkh123@admin.com','USER','서울시 강남구 역삼동','01099939599','이철범','이용정지');
 #킹스맨  카페 카테고리
 insert into `category`(ca_title) values('킹스맨');
-insert into `category`(ca_title) values('키스맨');
+insert into `category`(ca_title) values('퀸스걸');
 
 #킹스맨 카페 게시판
 insert into `board`(bo_name, bo_ca_num) values('킹스맨공지게시판',1);
-insert into `board`(bo_name, bo_ca_num) values('키스맨공지게시판',2);
+insert into `board`(bo_name, bo_ca_num) values('퀸스걸공지게시판',2);
 
-insert into `post`(po_title, po_content, po_me_id, po_bo_num) values('ㅋㅋㅋ','ㅋㅋㅋㅋㅋ','jkh123',1);
+insert into `post`(po_title, po_content, po_me_id, po_bo_num) values('킹스맨굿즈','킹스맨 굿즈 팬티 판매합니다~','jkh123',1);
+insert into `post`(po_title, po_content, po_me_id, po_bo_num) values('중고차판매합니다','98년식 300마력 구아방 10만키로 팝니다','jkh123',2);
 
 insert into comment(co_content, co_me_id, co_po_num) values('좋습니다', 'jkh123', 1);
 insert into comment(co_content, co_me_id, co_po_num) values('좋아요', 'lbh123', 1);

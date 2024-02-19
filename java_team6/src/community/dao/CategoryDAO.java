@@ -26,6 +26,7 @@ public interface CategoryDAO {
 	boolean deleteBoard(@Param("bo_name")String bo_name);
 
 	ArrayList<BoardVO> selectBoardList(int bo_ca_num,String bo_name);
+	List<BoardVO> selectEachBoardList(int bo_ca_num);
 	
 
 }
