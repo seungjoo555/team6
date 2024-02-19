@@ -30,4 +30,6 @@ public interface PostService {
 	boolean updateView(int postNum);
 
 	List<Post> getPost(Member id);
+
+	boolean deleteComment(int postNum);
 }

@@ -102,4 +102,9 @@ public class PostServiceImp implements PostService {
 	public List<Post> getPost(Member id) {
 		return postDao.selectPost(id);
 	}
+
+	@Override
+	public boolean deleteComment(int postNum) {
+		return postDao.deleteComment(postNum);
+	}
 }
