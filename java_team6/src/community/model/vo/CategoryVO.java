@@ -5,7 +5,7 @@ import java.util.Objects;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// 카테고리
+// 카테고리  정경호
 
 @Data
 @NoArgsConstructor

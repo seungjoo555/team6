@@ -5,7 +5,7 @@ import java.util.Objects;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-// 커뮤니티 안에 게시판 넣기
+// 게시판 정경호
 @Data
 @NoArgsConstructor
 public class BoardVO {

@@ -19,7 +19,11 @@ public class CommunityController {
 	private static Member user;
 	private Scanner scan;
 	private UserService userService;
+
 	private CommunityService communityService;
+
+	private CategoryController categoryController = new CategoryController(scan);
+	
 
 	public CommunityController(Scanner scan) {
 		if (scan == null) {
@@ -151,7 +155,8 @@ public class CommunityController {
 			adminUserManagerMenu();
 			break;
 		case 2:
-			System.out.println("미구현");
+			System.out.println("미구현"); // 카페이용 
+			cafeManager(); //카페 카테고리, 게시판 매니저
 			break;
 		case 3:// 로그아웃
 			System.out.println(user.getMe_id() + "님 로그아웃 완료");
@@ -160,6 +165,17 @@ public class CommunityController {
 		default:
 			throw new InputMismatchException();
 		}
+	}
+
+	private void cafeManager() {
+		int menu;
+		do {
+			categoryController.run();
+			menu=scan.nextInt();
+			
+			
+		}while(menu != 0);
+		
 	}
 
 	private void adminUserManagerMenu() {

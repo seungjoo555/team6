@@ -307,7 +307,7 @@ public class CategoryController {
 	// 조회
 	private void selectCategory() {
 		System.out.println("1.카테고리 전체 조회");
-		System.out.println("2.카테고리 개별 조회");
+		System.out.println("2.카테고리 상세 조회");
 		System.out.println("0.뒤로 가기");
 		System.out.println("---------------");
 		System.out.println("메뉴 입력 : ");
