@@ -268,7 +268,6 @@ public class CommunityController {
 		case 1:
 			break;
 		case 2:
-			System.out.println("미구현");
 			cafeManage(); // 카페이용
 			break;
 		case 3:
