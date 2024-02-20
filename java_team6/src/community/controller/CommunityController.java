@@ -68,7 +68,7 @@ public class CommunityController {
 			// 유저이고 회원상태일때 실행할 메뉴메서드
 			userMenu();
 		} else {
-			System.out.println("가입요청중 혹은 이용정지된 회원입니다.");
+			System.out.println(user.getMe_ms_state() + "상태인 회원입니다.");
 		}
 
 	}
@@ -349,6 +349,7 @@ public class CommunityController {
 				System.out.println("2. 게시글 조회");
 				System.out.println("0. 이전으로");
 				System.out.print("메뉴 선택 : ");
+				scan.nextLine();
 				menu = scan.nextInt();
 				runAdminPostManage(menu);
 			} catch (InputMismatchException e) {
@@ -438,8 +439,11 @@ public class CommunityController {
 	private void deleteAdminComment() {
 		int co_po_num = menuSelectAll();
 
+		if(co_po_num == 0) {
+			return;
+		}
+		
 		List<Comment> CommentList = commentService.getCommentList(co_po_num);
-
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if (CommentList == null || CommentList.size() == 0) {
 			System.out.println("해당 게시글에 댓글이 없어 삭제할 수 없습니다.");
@@ -679,16 +683,16 @@ public class CommunityController {
 
 	private void runCafeManage(int menu) {
 		switch (menu) {
-		case 0:
-			System.out.println("이전 메뉴로 돌아갑니다.");
-			break;
 		case 1:
 			postManage();
 			break;
 		case 2:
 			commentManage();
 			break;
-		
+		case 0:
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
+
 		default:
 			System.out.println("잘못된 메뉴입니다.");
 		}
@@ -741,7 +745,7 @@ public class CommunityController {
 			System.out.println(board);
 		}
 		if (boardList == null || boardList.size() == 0) {
-			System.out.println("게시글을 등록할 게시판이 없습니다.");
+			System.out.println("게시글을 조회할 게시판이 없습니다.");
 			return;
 		}
 
@@ -765,6 +769,10 @@ public class CommunityController {
 		List<Post> postList1 = postService.getPostList(boardNum);
 		for (Post post : postList1) {
 			System.out.println(post);
+		}
+		if (postList1 == null || postList1.size() == 0) {
+			System.out.println("조회할 게시글이 없습니다.");
+			return;
 		}
 		System.out.println("1. 조회");
 		System.out.println("2. 전체 검색");
@@ -914,7 +922,7 @@ public class CommunityController {
 		Member id = new Member(user.getMe_id());
 		List<Post> postId = postService.getPost(id);
 		if (postId == null || postId.size() == 0) {
-			System.out.println("수정할 게시글이 없습니다.");
+			System.out.println("삭제할 게시글이 없습니다.");
 			return;
 		}
 
@@ -1011,6 +1019,10 @@ public class CommunityController {
 
 	private void insertComment() {
 		int co_po_num = menuSelectAll();
+		if(co_po_num == 0) {
+			return;
+		}
+		
 		System.out.print("내용 : ");
 		scan.nextLine();
 		String co_content = scan.nextLine();
@@ -1030,8 +1042,11 @@ public class CommunityController {
 	private void updateComment() {
 		int co_po_num = menuSelectAll();
 
+		if(co_po_num == 0) {
+			return;
+		}
+		
 		List<Comment> CommentList = commentService.getCommentList(co_po_num);
-
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if (CommentList == null || CommentList.size() == 0) {
 			System.out.println("댓글이 없어 수정할 수 없습니다.");
@@ -1074,9 +1089,12 @@ public class CommunityController {
 	// 댓글 삭제
 	private void deleteComment() {
 		int co_po_num = menuSelectAll();
-
+		
+		if(co_po_num == 0) {
+			return;
+		}
+		
 		List<Comment> CommentList = commentService.getCommentList(co_po_num);
-
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if (CommentList == null || CommentList.size() == 0) {
 			System.out.println("해당 게시글에 댓글이 없어 삭제할 수 없습니다.");
@@ -1117,8 +1135,11 @@ public class CommunityController {
 	private void printComment() {
 		int co_po_num = menuSelectAll();
 
+		if(co_po_num == 0) {
+			return;
+		}
+		
 		List<Comment> CommentList = commentService.getCommentList(co_po_num);
-
 		// 본인의 아이디와 동일한 댓글이 존재하는지 확인 존재하면 출력
 		if (CommentList == null || CommentList.size() == 0) {
 			System.out.println("댓글이 없어 조회할 수 없습니다.");
@@ -1134,7 +1155,11 @@ public class CommunityController {
 	// 게시글 번호 입력받기
 	private int menuSelectAll() {
 		List<Post> postList = postService.getPostList();
-
+		
+		if (postList == null || postList.size() == 0) {
+			System.out.println("댓글을 조회할 게시글이 없습니다.");
+			return 0;
+		}
 		// Post 내역 출력
 		for (Post post : postList) {
 			System.out.println(post);
