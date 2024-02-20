@@ -740,7 +740,7 @@ public class CommunityController {
 			System.out.println(board);
 		}
 		if (boardList == null || boardList.size() == 0) {
-			System.out.println("게시글을 등록할 게시판이 없습니다.");
+			System.out.println("게시글을 조회할 게시판이 없습니다.");
 			return;
 		}
 
