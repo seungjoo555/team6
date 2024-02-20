@@ -20,6 +20,7 @@ public class Main {
 				menu = scan.nextInt();
 				runMenu(menu);
 			}catch(InputMismatchException e) {
+				
 				System.out.println("없는 메뉴입니다.");
 				scan.nextLine();	//입력 버퍼 비우기
 			}
