@@ -125,6 +125,22 @@ ADD CONSTRAINT `FK_board_TO_post_1`
   FOREIGN KEY (`po_bo_num`)
   REFERENCES `community`.`board` (`bo_num`)
   ON DELETE CASCADE;
+  
+ALTER TABLE `community`.`comment` 
+DROP FOREIGN KEY `FK_member_TO_comment_1`;
+ALTER TABLE `community`.`comment` 
+ADD CONSTRAINT `FK_member_TO_comment_1`
+  FOREIGN KEY (`co_me_id`)
+  REFERENCES `community`.`member` (`me_id`)
+  ON DELETE CASCADE;
+  
+ALTER TABLE `community`.`post` 
+DROP FOREIGN KEY `FK_member_TO_post_1`;
+ALTER TABLE `community`.`post` 
+ADD CONSTRAINT `FK_member_TO_post_1`
+  FOREIGN KEY (`po_me_id`)
+  REFERENCES `community`.`member` (`me_id`)
+  ON DELETE CASCADE;
 
 insert into member_state values('가입요청'), ('회원'), ('이용정지'),('관리자');
 
@@ -145,3 +161,6 @@ insert into `post`(po_title, po_content, po_me_id, po_bo_num) values('ㅋㅋㅋ'
 
 insert into comment(co_content, co_me_id, co_po_num) values('좋습니다', 'jkh123', 1);
 insert into comment(co_content, co_me_id, co_po_num) values('좋아요', 'lbh123', 1);
+
+create user 'stajun'@'192.168.30.199' identified by 'abc';
+grant all privileges on community.* to 'stajun'@'192.168.30.199';
