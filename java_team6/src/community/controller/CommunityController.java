@@ -679,15 +679,16 @@ public class CommunityController {
 
 	private void runCafeManage(int menu) {
 		switch (menu) {
+		case 0:
+			System.out.println("이전 메뉴로 돌아갑니다.");
+			break;
 		case 1:
 			postManage();
 			break;
 		case 2:
 			commentManage();
 			break;
-		case 3:
-			System.out.println("이전 메뉴로 돌아갑니다.");
-			break;
+		
 		default:
 			System.out.println("잘못된 메뉴입니다.");
 		}
