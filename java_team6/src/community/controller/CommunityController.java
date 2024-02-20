@@ -1143,8 +1143,15 @@ public class CommunityController {
 		int po_num = scan.nextInt();
 
 		// 입력한 게시글 번호가 잘못된 값인지 확인
-		if (po_num > postList.size()) {
-			System.out.println("잘못된 게시글 번호입니다.");
+		boolean ok = false;
+		for (Post post : postList) {
+			if (post.getPo_num() == po_num) {
+				ok = true;
+				break;
+			}
+		}
+		if (!ok) {
+			System.out.println("댓글을 등록할 게시글이 없습니다.");
 			return 0;
 		}
 		return po_num;
