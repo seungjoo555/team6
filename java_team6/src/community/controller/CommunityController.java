@@ -765,6 +765,10 @@ public class CommunityController {
 		for (Post post : postList1) {
 			System.out.println(post);
 		}
+		if (postList1 == null || postList1.size() == 0) {
+			System.out.println("조회할 게시글이 없습니다.");
+			return;
+		}
 		System.out.println("1. 조회");
 		System.out.println("2. 전체 검색");
 		System.out.println("0. 이전으로");
