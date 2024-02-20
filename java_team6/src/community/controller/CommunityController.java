@@ -68,7 +68,7 @@ public class CommunityController {
 			// 유저이고 회원상태일때 실행할 메뉴메서드
 			userMenu();
 		} else {
-			System.out.println("가입요청중 혹은 이용정지된 회원입니다.");
+			System.out.println(user.getMe_ms_state() + "상태인 회원입니다.");
 		}
 
 	}
