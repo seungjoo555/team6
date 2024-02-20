@@ -30,4 +30,9 @@ public interface PostService {
 	boolean updateView(int postNum);
 
 	List<Post> getPost(Member id);
+
+	List<Post> getPostList(int boardNum);
+
+	List<Post> selectEachPostList(int po_bo_num);
+
 }

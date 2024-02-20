@@ -37,7 +37,7 @@ public class UniProgram implements UniversityProgram {
 		int menu = 0;
 		String fileName = "src/university/university.txt";
 		// 불러오기
-		school = fileService.load(fileName);
+//		school = fileService.load(fileName);
 		do {
 			// 메뉴 출력
 			ps.printMainMenu();
@@ -52,11 +52,11 @@ public class UniProgram implements UniversityProgram {
 			}
 		} while (menu != EXIT);
 		// 저장
-		if (fileService.save(fileName, school)) {
-			System.out.println("저장이 완료됐습니다.");
-		} else {
-			System.out.println("저장에 실패했습니다.");
-		}
+//		if (fileService.save(fileName, school)) {
+//			System.out.println("저장이 완료됐습니다.");
+//		} else {
+//			System.out.println("저장에 실패했습니다.");
+//		}
 	}
 
 	@Override

@@ -102,4 +102,15 @@ public class PostServiceImp implements PostService {
 	public List<Post> getPost(Member id) {
 		return postDao.selectPost(id);
 	}
+
+	@Override
+	public List<Post> getPostList(int boardNum) {
+		return postDao.selectPostBolist(boardNum);
+	}
+
+	@Override
+	public List<Post> selectEachPostList(int po_bo_num) {
+		return postDao.selectEachPostList(po_bo_num);
+	}
+
 }
