@@ -692,6 +692,7 @@ public class CommunityController {
 		case 0:
 			System.out.println("이전 메뉴로 돌아갑니다.");
 			break;
+
 		default:
 			System.out.println("잘못된 메뉴입니다.");
 		}
