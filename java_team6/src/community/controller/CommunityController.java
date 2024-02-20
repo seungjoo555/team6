@@ -913,7 +913,7 @@ public class CommunityController {
 		Member id = new Member(user.getMe_id());
 		List<Post> postId = postService.getPost(id);
 		if (postId == null || postId.size() == 0) {
-			System.out.println("수정할 게시글이 없습니다.");
+			System.out.println("삭제할 게시글이 없습니다.");
 			return;
 		}
 
